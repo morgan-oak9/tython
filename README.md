@@ -14,7 +14,7 @@ Tython not only happens to be the birthplace of the Je'Daii Order (a precursor t
 
 
 # Guiding Principles
-* Empower the community to share security best practices
+* Empower the community to collaborate, build and share security best practices
 * Strive for simplicity and extensibility
 * Focus on value to security and dev teams
 * Build resuable security reference architectures
