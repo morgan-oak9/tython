@@ -11,3 +11,15 @@ Tython not only happens to be the birthplace of the Je'Daii Order (a precursor t
 
 * oak9 SaC framework for the language of your choice
 * golang
+
+
+# Guiding Principles
+* Empower the community to share security best practices
+* Strive for simplicity and extensibility
+* Focus on value to security and dev teams
+* Build resuable security reference architectures
+* Create transparency in the security design
+* Enable collaboration, autonomy and shared responsiblity across Dev and Security
+* Consider the lifecycle management of security architectures
+* Enable scalable security reference architectures
+* Cloud and technology agnostic approach
