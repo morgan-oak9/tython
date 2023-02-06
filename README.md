@@ -1,5 +1,5 @@
 # tython
-oak9 security as code framework
+Security as code framework
 
 Tython is an open source security as code framework that lets you define security reference architectures as code in the language of your choice.
 
