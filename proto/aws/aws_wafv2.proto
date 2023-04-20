@@ -1,0 +1,477 @@
+syntax = "proto3";
+
+package oak9.tython.aws.wafv2;
+
+import "shared/shared.proto";
+
+message IPSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string name = 3;
+	string scope = 4;
+	string ip_address_version = 5;
+	repeated string addresses = 6;
+	map<string, string> tags = 7;
+}
+
+message WAFv2 {
+	repeated IPSet ip_set = 1;
+	repeated RegexPatternSet regex_pattern_set = 2;
+	repeated RuleGroup rule_group = 3;
+	WebACL web_a_c_l = 4;
+	repeated WebACLAssociation web_a_c_l_association = 5;
+}
+
+message RegexPatternSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string name = 3;
+	repeated string regular_expression_list = 4;
+	string scope = 5;
+	map<string, string> tags = 6;
+}
+
+message RuleGroupFieldToMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> single_header = 2;
+	map<string, string> single_query_argument = 3;
+	map<string, string> all_query_arguments = 4;
+	map<string, string> uri_path = 5;
+	map<string, string> query_string = 6;
+	map<string, string> body = 7;
+	map<string, string> method = 8;
+}
+
+message RuleGroupTextTransformation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 priority = 2;
+}
+
+message RuleGroupByteMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string search_string = 2;
+	string search_string_base64 = 3;
+	RuleGroupFieldToMatch field_to_match = 4;
+	repeated RuleGroupTextTransformation text_transformations = 5;
+	string positional_constraint = 6;
+}
+
+message RuleGroupSqliMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupFieldToMatch field_to_match = 2;
+	repeated RuleGroupTextTransformation text_transformations = 3;
+}
+
+message RuleGroupXssMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupFieldToMatch field_to_match = 2;
+	repeated RuleGroupTextTransformation text_transformations = 3;
+}
+
+message RuleGroupSizeConstraintStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupFieldToMatch field_to_match = 2;
+	string comparison_operator = 3;
+	int32 size = 4;
+	repeated RuleGroupTextTransformation text_transformations = 5;
+}
+
+message RuleGroupForwardedIPConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_name = 2;
+	string fallback_behavior = 3;
+}
+
+message RuleGroupGeoMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string country_codes = 2;
+	RuleGroupForwardedIPConfiguration forwarded_ip_config = 3;
+}
+
+message RuleGroupIPSetForwardedIPConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_name = 2;
+	string fallback_behavior = 3;
+	string position = 4;
+}
+
+message RuleGroupIPSetReferenceStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	RuleGroupIPSetForwardedIPConfiguration ip_set_forwarded_ip_config = 3;
+}
+
+message RuleGroupRegexPatternSetReferenceStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	RuleGroupFieldToMatch field_to_match = 3;
+	repeated RuleGroupTextTransformation text_transformations = 4;
+}
+
+message RuleGroupStatementThree {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupByteMatchStatement byte_match_statement = 2;
+	RuleGroupSqliMatchStatement sqli_match_statement = 3;
+	RuleGroupXssMatchStatement xss_match_statement = 4;
+	RuleGroupSizeConstraintStatement size_constraint_statement = 5;
+	RuleGroupGeoMatchStatement geo_match_statement = 6;
+	RuleGroupIPSetReferenceStatement ip_set_reference_statement = 7;
+	RuleGroupRegexPatternSetReferenceStatement regex_pattern_set_reference_statement = 8;
+}
+
+message RuleGroupRateBasedStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 limit = 2;
+	string aggregate_key_type = 3;
+	RuleGroupStatementThree scope_down_statement = 4;
+	RuleGroupForwardedIPConfiguration forwarded_ip_config = 5;
+}
+
+message RuleGroupAndStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RuleGroupStatementThree statements = 2;
+}
+
+message RuleGroupOrStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RuleGroupStatementThree statements = 2;
+}
+
+message RuleGroupNotStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupStatementThree statement = 2;
+}
+
+message RuleGroupStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupByteMatchStatement byte_match_statement = 2;
+	RuleGroupSqliMatchStatement sqli_match_statement = 3;
+	RuleGroupXssMatchStatement xss_match_statement = 4;
+	RuleGroupSizeConstraintStatement size_constraint_statement = 5;
+	RuleGroupGeoMatchStatement geo_match_statement = 6;
+	RuleGroupIPSetReferenceStatement ip_set_reference_statement = 7;
+	RuleGroupRegexPatternSetReferenceStatement regex_pattern_set_reference_statement = 8;
+	RuleGroupRateBasedStatementTwo rate_based_statement = 9;
+	RuleGroupAndStatementTwo and_statement = 10;
+	RuleGroupOrStatementTwo or_statement = 11;
+	RuleGroupNotStatementTwo not_statement = 12;
+}
+
+message RuleGroupRateBasedStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 limit = 2;
+	string aggregate_key_type = 3;
+	RuleGroupStatementTwo scope_down_statement = 4;
+	RuleGroupForwardedIPConfiguration forwarded_ip_config = 5;
+}
+
+message RuleGroupAndStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RuleGroupStatementTwo statements = 2;
+}
+
+message RuleGroupOrStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RuleGroupStatementTwo statements = 2;
+}
+
+message RuleGroupNotStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupStatementTwo statement = 2;
+}
+
+message RuleGroupStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RuleGroupByteMatchStatement byte_match_statement = 2;
+	RuleGroupSqliMatchStatement sqli_match_statement = 3;
+	RuleGroupXssMatchStatement xss_match_statement = 4;
+	RuleGroupSizeConstraintStatement size_constraint_statement = 5;
+	RuleGroupGeoMatchStatement geo_match_statement = 6;
+	RuleGroupIPSetReferenceStatement ip_set_reference_statement = 7;
+	RuleGroupRegexPatternSetReferenceStatement regex_pattern_set_reference_statement = 8;
+	RuleGroupRateBasedStatementOne rate_based_statement = 9;
+	RuleGroupAndStatementOne and_statement = 10;
+	RuleGroupOrStatementOne or_statement = 11;
+	RuleGroupNotStatementOne not_statement = 12;
+}
+
+message RuleGroupRuleAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> allow = 2;
+	map<string, string> block = 3;
+	map<string, string> count = 4;
+}
+
+message RuleGroupVisibilityConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool sampled_requests_enabled = 2;
+	bool cloud_watch_metrics_enabled = 3;
+	string metric_name = 4;
+}
+
+message RuleGroupRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 priority = 3;
+	RuleGroupStatementOne statement = 4;
+	RuleGroupRuleAction action = 5;
+	RuleGroupVisibilityConfig visibility_config = 6;
+}
+
+message RuleGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 capacity = 2;
+	string description = 3;
+	string name = 4;
+	string scope = 5;
+	repeated RuleGroupRule rules = 6;
+	RuleGroupVisibilityConfig visibility_config = 7;
+	map<string, string> tags = 8;
+}
+
+message WebACLDefaultAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> allow = 2;
+	map<string, string> block = 3;
+}
+
+message WebACLFieldToMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> single_header = 2;
+	map<string, string> single_query_argument = 3;
+	map<string, string> all_query_arguments = 4;
+	map<string, string> uri_path = 5;
+	map<string, string> query_string = 6;
+	map<string, string> body = 7;
+	map<string, string> method = 8;
+}
+
+message WebACLTextTransformation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 priority = 2;
+}
+
+message WebACLByteMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string search_string = 2;
+	string search_string_base64 = 3;
+	WebACLFieldToMatch field_to_match = 4;
+	repeated WebACLTextTransformation text_transformations = 5;
+	string positional_constraint = 6;
+}
+
+message WebACLSqliMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLFieldToMatch field_to_match = 2;
+	repeated WebACLTextTransformation text_transformations = 3;
+}
+
+message WebACLXssMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLFieldToMatch field_to_match = 2;
+	repeated WebACLTextTransformation text_transformations = 3;
+}
+
+message WebACLSizeConstraintStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLFieldToMatch field_to_match = 2;
+	string comparison_operator = 3;
+	int32 size = 4;
+	repeated WebACLTextTransformation text_transformations = 5;
+}
+
+message WebACLForwardedIPConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_name = 2;
+	string fallback_behavior = 3;
+}
+
+message WebACLGeoMatchStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string country_codes = 2;
+	WebACLForwardedIPConfiguration forwarded_ip_config = 3;
+}
+
+message WebACLExcludedRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message WebACLRuleGroupReferenceStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	repeated WebACLExcludedRule excluded_rules = 3;
+}
+
+message WebACLIPSetForwardedIPConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_name = 2;
+	string fallback_behavior = 3;
+	string position = 4;
+}
+
+message WebACLIPSetReferenceStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	WebACLIPSetForwardedIPConfiguration ip_set_forwarded_ip_config = 3;
+}
+
+message WebACLRegexPatternSetReferenceStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	WebACLFieldToMatch field_to_match = 3;
+	repeated WebACLTextTransformation text_transformations = 4;
+}
+
+message WebACLManagedRuleGroupStatement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string vendor_name = 3;
+	repeated WebACLExcludedRule excluded_rules = 4;
+}
+
+message WebACLStatementThree {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLByteMatchStatement byte_match_statement = 2;
+	WebACLSqliMatchStatement sqli_match_statement = 3;
+	WebACLXssMatchStatement xss_match_statement = 4;
+	WebACLSizeConstraintStatement size_constraint_statement = 5;
+	WebACLGeoMatchStatement geo_match_statement = 6;
+	WebACLRuleGroupReferenceStatement rule_group_reference_statement = 7;
+	WebACLIPSetReferenceStatement ip_set_reference_statement = 8;
+	WebACLRegexPatternSetReferenceStatement regex_pattern_set_reference_statement = 9;
+	WebACLManagedRuleGroupStatement managed_rule_group_statement = 10;
+}
+
+message WebACLRateBasedStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 limit = 2;
+	string aggregate_key_type = 3;
+	WebACLStatementThree scope_down_statement = 4;
+	WebACLForwardedIPConfiguration forwarded_ip_config = 5;
+}
+
+message WebACLAndStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated WebACLStatementThree statements = 2;
+}
+
+message WebACLOrStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated WebACLStatementThree statements = 2;
+}
+
+message WebACLNotStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLStatementThree statement = 2;
+}
+
+message WebACLStatementTwo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLByteMatchStatement byte_match_statement = 2;
+	WebACLSqliMatchStatement sqli_match_statement = 3;
+	WebACLXssMatchStatement xss_match_statement = 4;
+	WebACLSizeConstraintStatement size_constraint_statement = 5;
+	WebACLGeoMatchStatement geo_match_statement = 6;
+	WebACLRuleGroupReferenceStatement rule_group_reference_statement = 7;
+	WebACLIPSetReferenceStatement ip_set_reference_statement = 8;
+	WebACLRegexPatternSetReferenceStatement regex_pattern_set_reference_statement = 9;
+	WebACLManagedRuleGroupStatement managed_rule_group_statement = 10;
+	WebACLRateBasedStatementTwo rate_based_statement = 11;
+	WebACLAndStatementTwo and_statement = 12;
+	WebACLOrStatementTwo or_statement = 13;
+	WebACLNotStatementTwo not_statement = 14;
+}
+
+message WebACLRateBasedStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 limit = 2;
+	string aggregate_key_type = 3;
+	WebACLStatementTwo scope_down_statement = 4;
+	WebACLForwardedIPConfiguration forwarded_ip_config = 5;
+}
+
+message WebACLAndStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated WebACLStatementTwo statements = 2;
+}
+
+message WebACLOrStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated WebACLStatementTwo statements = 2;
+}
+
+message WebACLNotStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLStatementTwo statement = 2;
+}
+
+message WebACLStatementOne {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLByteMatchStatement byte_match_statement = 2;
+	WebACLSqliMatchStatement sqli_match_statement = 3;
+	WebACLXssMatchStatement xss_match_statement = 4;
+	WebACLSizeConstraintStatement size_constraint_statement = 5;
+	WebACLGeoMatchStatement geo_match_statement = 6;
+	WebACLRuleGroupReferenceStatement rule_group_reference_statement = 7;
+	WebACLIPSetReferenceStatement ip_set_reference_statement = 8;
+	WebACLRegexPatternSetReferenceStatement regex_pattern_set_reference_statement = 9;
+	WebACLManagedRuleGroupStatement managed_rule_group_statement = 10;
+	WebACLRateBasedStatementOne rate_based_statement = 11;
+	WebACLAndStatementOne and_statement = 12;
+	WebACLOrStatementOne or_statement = 13;
+	WebACLNotStatementOne not_statement = 14;
+}
+
+message WebACLRuleAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> allow = 2;
+	map<string, string> block = 3;
+	map<string, string> count = 4;
+}
+
+message WebACLOverrideAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> count = 2;
+	map<string, string> none = 3;
+}
+
+message WebACLVisibilityConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool sampled_requests_enabled = 2;
+	bool cloud_watch_metrics_enabled = 3;
+	string metric_name = 4;
+}
+
+message WebACLRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 priority = 3;
+	WebACLStatementOne statement = 4;
+	WebACLRuleAction action = 5;
+	WebACLOverrideAction override_action = 6;
+	WebACLVisibilityConfig visibility_config = 7;
+}
+
+message WebACL {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLDefaultAction default_action = 2;
+	string description = 3;
+	string name = 4;
+	string scope = 5;
+	repeated WebACLRule rules = 6;
+	WebACLVisibilityConfig visibility_config = 7;
+	map<string, string> tags = 8;
+	string arn = 9;
+	string capacity = 10;
+	string label_namespace = 11;
+	string managed_by_firewall_manager = 12;
+	string captcha_config = 13;
+}
+
+message WebACLAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string web_a_c_l_arn = 3;
+}
+

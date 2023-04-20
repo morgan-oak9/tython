@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_cloud_tasks_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_cloud.proto";
+
+message GoogleCloudTasks {
+	oak9.tython.gcp.cloud.CloudTasksQueue cloud_tasks_queue = 1;
+	repeated oak9.tython.gcp.cloud.CloudTasksQueueIamBinding cloud_tasks_queue_iam_binding = 2;
+	repeated oak9.tython.gcp.cloud.CloudTasksQueueIamMember cloud_tasks_queue_iam_member = 3;
+	repeated oak9.tython.gcp.cloud.CloudTasksQueueIamPolicy cloud_tasks_queue_iam_policy = 4;
+}
+

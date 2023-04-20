@@ -1,0 +1,1511 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network;
+
+import "shared/shared.proto";
+
+message Microsoft_Network {
+	repeated ApplicationGatewayWebApplicationFirewallPolicies application_gateway_web_application_firewall_policies = 1;
+	repeated ApplicationSecurityGroups application_security_groups = 2;
+	repeated AzureFirewalls azure_firewalls = 3;
+	repeated BastionHosts bastion_hosts = 4;
+	repeated Connections connections = 5;
+	repeated CustomIpPrefixes custom_ip_prefixes = 6;
+	repeated DdosCustomPolicies ddos_custom_policies = 7;
+	repeated DdosProtectionPlans ddos_protection_plans = 8;
+	repeated DscpConfigurations dscp_configurations = 9;
+	repeated ExpressRouteCircuits express_route_circuits = 10;
+	repeated ExpressRouteCrossConnections express_route_cross_connections = 11;
+	repeated ExpressRouteGateways express_route_gateways = 12;
+	repeated ExpressRoutePorts express_route_ports = 13;
+	repeated IpAllocations ip_allocations = 14;
+	repeated IpGroups ip_groups = 15;
+	repeated LocalNetworkGateways local_network_gateways = 16;
+	repeated NatGateways nat_gateways = 17;
+	repeated NetworkInterfaces network_interfaces = 18;
+	repeated NetworkProfiles network_profiles = 19;
+	repeated NetworkVirtualAppliances network_virtual_appliances = 20;
+	repeated NetworkWatchers network_watchers = 21;
+	repeated P2svpnGateways p2svpn_gateways = 22;
+	repeated PublicIPAddresses public_ip_addresses = 23;
+	repeated PublicIPPrefixes public_ip_prefixes = 24;
+	repeated RouteFilters route_filters = 25;
+	repeated RouteFiltersRouteFilterRules route_filters_route_filter_rules = 26;
+	repeated SecurityPartnerProviders security_partner_providers = 27;
+	repeated ServiceEndpointPolicies service_endpoint_policies = 28;
+	repeated ServiceEndpointPoliciesServiceEndpointPolicyDefinitions service_endpoint_policies_service_endpoint_policy_definitions = 29;
+	repeated VirtualHubs virtual_hubs = 30;
+	repeated VirtualNetworkGateways virtual_network_gateways = 31;
+	repeated VirtualNetworkTaps virtual_network_taps = 32;
+	repeated VirtualRouters virtual_routers = 33;
+	repeated VirtualWans virtual_wans = 34;
+	repeated VpnGateways vpn_gateways = 35;
+	repeated VpnGatewaysVpnConnections vpn_gateways_vpn_connections = 36;
+	repeated VpnServerConfigurations vpn_server_configurations = 37;
+	repeated VpnSites vpn_sites = 38;
+}
+
+message VpnSites {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string virtual_wan = 5;
+	DeviceProperties device_properties = 6;
+	string ip_address = 7;
+	string site_key = 8;
+	AddressSpace address_space = 9;
+	BgpSettings bgp_properties = 10;
+	bool is_security_site = 11;
+	repeated VpnSiteLink vpn_site_links = 12;
+	O365PolicyProperties o365_policy = 13;
+}
+
+message O365PolicyProperties {
+	O365BreakOutCategoryPolicies break_out_categories = 1;
+}
+
+message O365BreakOutCategoryPolicies {
+	bool allow = 1;
+	bool optimize = 2;
+	bool default = 3;
+}
+
+message VpnSiteLink {
+	VpnLinkProviderProperties link_properties = 1;
+	string ip_address = 2;
+	string fqdn = 3;
+	VpnLinkBgpSettings bgp_properties = 4;
+	string name = 5;
+}
+
+message VpnLinkBgpSettings {
+	int32 asn = 1;
+	string bgp_peering_address = 2;
+}
+
+message VpnLinkProviderProperties {
+	string link_provider_name = 1;
+	int32 link_speed_in_mbps = 2;
+}
+
+message DeviceProperties {
+	string device_vendor = 1;
+	string device_model = 2;
+	int32 link_speed_in_mbps = 3;
+}
+
+message VpnServerConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated string vpn_protocols = 5;
+	repeated string vpn_authentication_types = 6;
+	repeated VpnServerConfigVpnClientRootCertificate vpn_client_root_certificates = 7;
+	repeated VpnServerConfigVpnClientRevokedCertificate vpn_client_revoked_certificates = 8;
+	repeated VpnServerConfigRadiusServerRootCertificate radius_server_root_certificates = 9;
+	repeated VpnServerConfigRadiusClientRootCertificate radius_client_root_certificates = 10;
+	repeated IpsecPolicy vpn_client_ipsec_policies = 11;
+	string radius_server_address = 12;
+	string radius_server_secret = 13;
+	repeated RadiusServer radius_servers = 14;
+	AadAuthenticationParameters aad_authentication_parameters = 15;
+}
+
+message AadAuthenticationParameters {
+	string aad_tenant = 1;
+	string aad_audience = 2;
+	string aad_issuer = 3;
+}
+
+message VpnServerConfigRadiusClientRootCertificate {
+	string name = 1;
+	string thumbprint = 2;
+}
+
+message VpnServerConfigRadiusServerRootCertificate {
+	string name = 1;
+	string public_cert_data = 2;
+}
+
+message VpnServerConfigVpnClientRevokedCertificate {
+	string name = 1;
+	string thumbprint = 2;
+}
+
+message VpnServerConfigVpnClientRootCertificate {
+	string name = 1;
+	string public_cert_data = 2;
+}
+
+message VpnGatewaysVpnConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string remote_vpn_site = 3;
+	int32 routing_weight = 4;
+	int32 dpd_timeout_seconds = 5;
+	string connection_status = 6;
+	string vpn_connection_protocol_type = 7;
+	int32 connection_bandwidth = 8;
+	string shared_key = 9;
+	bool enable_bgp = 10;
+	bool use_policy_based_traffic_selectors = 11;
+	repeated IpsecPolicy ipsec_policies = 12;
+	repeated TrafficSelectorPolicy traffic_selector_policies = 13;
+	bool enable_rate_limiting = 14;
+	bool enable_internet_security = 15;
+	bool use_local_azure_ip_address = 16;
+	repeated VpnSiteLinkConnection vpn_link_connections = 17;
+	RoutingConfiguration routing_configuration = 18;
+}
+
+message VpnGatewaysNatRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string type = 3;
+	string mode = 4;
+	repeated VpnNatRuleMapping internal_mappings = 5;
+	repeated VpnNatRuleMapping external_mappings = 6;
+	string ip_configuration_id = 7;
+}
+
+message VpnGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string virtual_hub = 5;
+	repeated VpnConnection connections = 6;
+	BgpSettings bgp_settings = 7;
+	int32 vpn_gateway_scale_unit = 8;
+	bool is_routing_preference_internet = 9;
+	repeated VpnGatewayNatRule nat_rules = 10;
+	repeated VpnGatewaysNatRules vpn_gateways_nat_rules = 11;
+}
+
+message VpnGatewayNatRule {
+	string type = 1;
+	string mode = 2;
+	repeated VpnNatRuleMapping internal_mappings = 3;
+	repeated VpnNatRuleMapping external_mappings = 4;
+	string ip_configuration_id = 5;
+	string name = 6;
+}
+
+message VpnNatRuleMapping {
+	string address_space = 1;
+}
+
+message VpnConnection {
+	string remote_vpn_site = 1;
+	int32 routing_weight = 2;
+	int32 dpd_timeout_seconds = 3;
+	string connection_status = 4;
+	string vpn_connection_protocol_type = 5;
+	int32 connection_bandwidth = 6;
+	string shared_key = 7;
+	bool enable_bgp = 8;
+	bool use_policy_based_traffic_selectors = 9;
+	repeated IpsecPolicy ipsec_policies = 10;
+	repeated TrafficSelectorPolicy traffic_selector_policies = 11;
+	bool enable_rate_limiting = 12;
+	bool enable_internet_security = 13;
+	bool use_local_azure_ip_address = 14;
+	repeated VpnSiteLinkConnection vpn_link_connections = 15;
+	RoutingConfiguration routing_configuration = 16;
+	string name = 17;
+}
+
+message VpnSiteLinkConnection {
+	string vpn_site_link = 1;
+	int32 routing_weight = 2;
+	string vpn_link_connection_mode = 3;
+	string connection_status = 4;
+	string vpn_connection_protocol_type = 5;
+	int32 connection_bandwidth = 6;
+	string shared_key = 7;
+	bool enable_bgp = 8;
+	bool use_policy_based_traffic_selectors = 9;
+	repeated IpsecPolicy ipsec_policies = 10;
+	bool enable_rate_limiting = 11;
+	bool use_local_azure_ip_address = 12;
+	repeated string ingress_nat_rules = 13;
+	repeated string egress_nat_rules = 14;
+	string name = 15;
+}
+
+message VirtualWans {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	bool disable_vpn_encryption = 5;
+	bool allow_branch_to_branch_traffic = 6;
+	bool allow_vnet_to_vnet_traffic = 7;
+	string office365_local_breakout_category = 8;
+	string type = 9;
+}
+
+message VirtualRoutersPeerings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 peer_asn = 3;
+	string peer_ip = 4;
+}
+
+message VirtualRouters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	int32 virtual_router_asn = 5;
+	repeated string virtual_router_ips = 6;
+	string hosted_subnet = 7;
+	string hosted_gateway = 8;
+	repeated VirtualRoutersPeerings virtual_routers_peerings = 9;
+}
+
+message VirtualNetworkTaps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string destination_network_interface_ip_configuration = 5;
+	string destination_load_balancer_front_end_ip_configuration = 6;
+	int32 destination_port = 7;
+}
+
+message VirtualNetworkGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated VirtualNetworkGatewayIPConfiguration ip_configurations = 5;
+	string gateway_type = 6;
+	string vpn_type = 7;
+	string vpn_gateway_generation = 8;
+	bool enable_bgp = 9;
+	bool enable_private_ip_address = 10;
+	bool active_active = 11;
+	string gateway_default_site = 12;
+	VirtualNetworkGatewaySku sku = 13;
+	VpnClientConfiguration vpn_client_configuration = 14;
+	BgpSettings bgp_settings = 15;
+	AddressSpace custom_routes = 16;
+	bool enable_dns_forwarding = 17;
+	string v_net_extended_location_resource_id = 18;
+	ExtendedLocation virtual_network_extended_location = 19;
+}
+
+message VpnClientConfiguration {
+	AddressSpace vpn_client_address_pool = 1;
+	repeated VpnClientRootCertificate vpn_client_root_certificates = 2;
+	repeated VpnClientRevokedCertificate vpn_client_revoked_certificates = 3;
+	repeated string vpn_client_protocols = 4;
+	repeated string vpn_authentication_types = 5;
+	repeated IpsecPolicy vpn_client_ipsec_policies = 6;
+	string radius_server_address = 7;
+	string radius_server_secret = 8;
+	repeated RadiusServer radius_servers = 9;
+	string aad_tenant = 10;
+	string aad_audience = 11;
+	string aad_issuer = 12;
+}
+
+message RadiusServer {
+	string radius_server_address = 1;
+	int32 radius_server_score = 2;
+	string radius_server_secret = 3;
+}
+
+message VpnClientRevokedCertificate {
+	string thumbprint = 1;
+	string name = 2;
+}
+
+message VpnClientRootCertificate {
+	string public_cert_data = 1;
+	string name = 2;
+}
+
+message VirtualNetworkGatewaySku {
+	string name = 1;
+	string tier = 2;
+}
+
+message VirtualNetworkGatewayIPConfiguration {
+	string private_ip_allocation_method = 1;
+	string subnet = 2;
+	string public_ip_address = 3;
+	string name = 4;
+}
+
+message VirtualHubsRouteTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated VirtualHubRouteV2 routes = 3;
+	repeated string attached_connections = 4;
+}
+
+message VirtualHubsIpConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string private_ip_address = 3;
+	string private_ip_allocation_method = 4;
+	Subnet subnet = 5;
+	PublicIPAddress public_ip_address = 6;
+}
+
+message PublicIPAddress {
+	string location = 1;
+	map<string, string> tags = 2;
+	ExtendedLocation extended_location = 3;
+	PublicIPAddressSku sku = 4;
+	string public_ip_allocation_method = 5;
+	string public_ip_address_version = 6;
+	PublicIPAddressDnsSettings dns_settings = 7;
+	DdosSettings ddos_settings = 8;
+	repeated IpTag ip_tags = 9;
+	string ip_address = 10;
+	string public_ip_prefix = 11;
+	int32 idle_timeout_in_minutes = 12;
+	repeated string zones = 13;
+}
+
+message Subnet {
+	string address_prefix = 1;
+	repeated string address_prefixes = 2;
+	string network_security_group = 3;
+	string route_table = 4;
+	string nat_gateway = 5;
+	repeated ServiceEndpointPropertiesFormat service_endpoints = 6;
+	repeated string service_endpoint_policies = 7;
+	repeated string ip_allocations = 8;
+	repeated Delegation delegations = 9;
+	string private_endpoint_network_policies = 10;
+	string private_link_service_network_policies = 11;
+	string name = 12;
+}
+
+message Delegation {
+	string service_name = 1;
+	string name = 2;
+}
+
+message ServiceEndpointPropertiesFormat {
+	string service = 1;
+	repeated string locations = 2;
+}
+
+message VirtualHubsHubVirtualNetworkConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string remote_virtual_network = 3;
+	bool allow_hub_to_remote_vnet_transit = 4;
+	bool allow_remote_vnet_to_use_hub_vnet_gateways = 5;
+	bool enable_internet_security = 6;
+	RoutingConfiguration routing_configuration = 7;
+}
+
+message VirtualHubsHubRouteTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated HubRoute routes = 3;
+	repeated string labels = 4;
+}
+
+message HubRoute {
+	string name = 1;
+	string destination_type = 2;
+	repeated string destinations = 3;
+	string next_hop_type = 4;
+	string next_hop = 5;
+}
+
+message VirtualHubsBgpConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 peer_asn = 3;
+	string peer_ip = 4;
+}
+
+message VirtualHubs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string virtual_wan = 5;
+	string vpn_gateway = 6;
+	string p2_s_vpn_gateway = 7;
+	string express_route_gateway = 8;
+	string azure_firewall = 9;
+	string security_partner_provider = 10;
+	string address_prefix = 11;
+	VirtualHubRouteTable route_table = 12;
+	string security_provider_name = 13;
+	repeated VirtualHubRouteTableV2 virtual_hub_route_table_v2s = 14;
+	string sku = 15;
+	string routing_state = 16;
+	int32 virtual_router_asn = 17;
+	repeated string virtual_router_ips = 18;
+	bool allow_branch_to_branch_traffic = 19;
+	repeated VirtualHubsHubRouteTables virtual_hubs_hub_route_tables = 20;
+	repeated VirtualHubsIpConfigurations virtual_hubs_ip_configurations = 21;
+	repeated VirtualHubsBgpConnections virtual_hubs_bgp_connections = 22;
+	repeated VirtualHubsRouteTables virtual_hubs_route_tables = 23;
+	repeated VirtualHubsHubVirtualNetworkConnections virtual_hubs_hub_virtual_network_connections = 24;
+}
+
+message VirtualHubRouteTableV2 {
+	repeated VirtualHubRouteV2 routes = 1;
+	repeated string attached_connections = 2;
+	string name = 3;
+}
+
+message VirtualHubRouteV2 {
+	string destination_type = 1;
+	repeated string destinations = 2;
+	string next_hop_type = 3;
+	repeated string next_hops = 4;
+}
+
+message VirtualHubRouteTable {
+	repeated VirtualHubRoute routes = 1;
+}
+
+message VirtualHubRoute {
+	repeated string address_prefixes = 1;
+	string next_hop_ip_address = 2;
+}
+
+message ServiceEndpointPoliciesServiceEndpointPolicyDefinitions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string service = 4;
+	repeated string service_resources = 5;
+}
+
+message ServiceEndpointPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated ServiceEndpointPolicyDefinition service_endpoint_policy_definitions = 5;
+}
+
+message ServiceEndpointPolicyDefinition {
+	string description = 1;
+	string service = 2;
+	repeated string service_resources = 3;
+	string name = 4;
+}
+
+message SecurityPartnerProviders {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string security_provider_name = 5;
+	string virtual_hub = 6;
+}
+
+message RouteFiltersRouteFilterRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string access = 3;
+	string route_filter_rule_type = 4;
+	repeated string communities = 5;
+	string location = 6;
+}
+
+message RouteFilters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated RouteFilterRule rules = 5;
+}
+
+message RouteFilterRule {
+	string access = 1;
+	string route_filter_rule_type = 2;
+	repeated string communities = 3;
+	string name = 4;
+	string location = 5;
+}
+
+message PublicIPPrefixes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	PublicIPPrefixSku sku = 6;
+	string public_ip_address_version = 7;
+	repeated IpTag ip_tags = 8;
+	int32 prefix_length = 9;
+	string custom_ip_prefix = 10;
+	repeated string zones = 11;
+}
+
+message PublicIPPrefixSku {
+	string name = 1;
+	string tier = 2;
+}
+
+message PublicIPAddresses {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	PublicIPAddressSku sku = 6;
+	string public_ip_allocation_method = 7;
+	string public_ip_address_version = 8;
+	PublicIPAddressDnsSettings dns_settings = 9;
+	DdosSettings ddos_settings = 10;
+	repeated IpTag ip_tags = 11;
+	string ip_address = 12;
+	string public_ip_prefix = 13;
+	int32 idle_timeout_in_minutes = 14;
+	repeated string zones = 15;
+}
+
+message IpTag {
+	string ip_tag_type = 1;
+	string tag = 2;
+}
+
+message DdosSettings {
+	string ddos_custom_policy = 1;
+	string protection_coverage = 2;
+	bool protected_ip = 3;
+}
+
+message PublicIPAddressDnsSettings {
+	string domain_name_label = 1;
+	string fqdn = 2;
+	string reverse_fqdn = 3;
+}
+
+message PublicIPAddressSku {
+	string name = 1;
+	string tier = 2;
+}
+
+message P2svpnGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string virtual_hub = 5;
+	repeated P2SConnectionConfiguration p2_s_connection_configurations = 6;
+	int32 vpn_gateway_scale_unit = 7;
+	string vpn_server_configuration = 8;
+	repeated string custom_dns_servers = 9;
+	bool is_routing_preference_internet = 10;
+}
+
+message P2SConnectionConfiguration {
+	AddressSpace vpn_client_address_pool = 1;
+	RoutingConfiguration routing_configuration = 2;
+	bool enable_internet_security = 3;
+	string name = 4;
+}
+
+message NetworkWatchersPacketCaptures {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string target = 3;
+	int32 bytes_to_capture_per_packet = 4;
+	int32 total_bytes_per_session = 5;
+	int32 time_limit_in_seconds = 6;
+	PacketCaptureStorageLocation storage_location = 7;
+	repeated PacketCaptureFilter filters = 8;
+}
+
+message PacketCaptureFilter {
+	string protocol = 1;
+	string local_ip_address = 2;
+	string remote_ip_address = 3;
+	string local_port = 4;
+	string remote_port = 5;
+}
+
+message PacketCaptureStorageLocation {
+	string storage_id = 1;
+	string storage_path = 2;
+	string file_path = 3;
+}
+
+message NetworkWatchersFlowLogs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string target_resource_id = 5;
+	string storage_id = 6;
+	bool enabled = 7;
+	RetentionPolicyParameters retention_policy = 8;
+	FlowLogFormatParameters format = 9;
+	TrafficAnalyticsProperties flow_analytics_configuration = 10;
+}
+
+message TrafficAnalyticsProperties {
+	TrafficAnalyticsConfigurationProperties network_watcher_flow_analytics_configuration = 1;
+}
+
+message TrafficAnalyticsConfigurationProperties {
+	bool enabled = 1;
+	string workspace_id = 2;
+	string workspace_region = 3;
+	string workspace_resource_id = 4;
+	int32 traffic_analytics_interval = 5;
+}
+
+message FlowLogFormatParameters {
+	string type = 1;
+	int32 version = 2;
+}
+
+message RetentionPolicyParameters {
+	int32 days = 1;
+	bool enabled = 2;
+}
+
+message NetworkWatchersConnectionMonitors {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ConnectionMonitorSource source = 5;
+	ConnectionMonitorDestination destination = 6;
+	bool auto_start = 7;
+	int32 monitoring_interval_in_seconds = 8;
+	repeated ConnectionMonitorEndpoint endpoints = 9;
+	repeated ConnectionMonitorTestConfiguration test_configurations = 10;
+	repeated ConnectionMonitorTestGroup test_groups = 11;
+	repeated ConnectionMonitorOutput outputs = 12;
+	string notes = 13;
+}
+
+message ConnectionMonitorOutput {
+	string type = 1;
+	ConnectionMonitorWorkspaceSettings workspace_settings = 2;
+}
+
+message ConnectionMonitorWorkspaceSettings {
+	string workspace_resource_id = 1;
+}
+
+message ConnectionMonitorTestGroup {
+	string name = 1;
+	bool disable = 2;
+	repeated string test_configurations = 3;
+	repeated string sources = 4;
+	repeated string destinations = 5;
+}
+
+message ConnectionMonitorTestConfiguration {
+	string name = 1;
+	int32 test_frequency_sec = 2;
+	string protocol = 3;
+	string preferred_ip_version = 4;
+	ConnectionMonitorHttpConfiguration http_configuration = 5;
+	ConnectionMonitorTcpConfiguration tcp_configuration = 6;
+	ConnectionMonitorIcmpConfiguration icmp_configuration = 7;
+	ConnectionMonitorSuccessThreshold success_threshold = 8;
+}
+
+message ConnectionMonitorSuccessThreshold {
+	int32 checks_failed_percent = 1;
+	double round_trip_time_ms = 2;
+}
+
+message ConnectionMonitorIcmpConfiguration {
+	bool disable_trace_route = 1;
+}
+
+message ConnectionMonitorTcpConfiguration {
+	int32 port = 1;
+	bool disable_trace_route = 2;
+	string destination_port_behavior = 3;
+}
+
+message ConnectionMonitorHttpConfiguration {
+	int32 port = 1;
+	string method = 2;
+	string path = 3;
+	repeated HTTPHeader request_headers = 4;
+	repeated string valid_status_code_ranges = 5;
+	bool prefer_http_s = 6;
+}
+
+message HTTPHeader {
+	string name = 1;
+	string value = 2;
+}
+
+message ConnectionMonitorEndpoint {
+	string name = 1;
+	string type = 2;
+	string resource_id = 3;
+	string address = 4;
+	ConnectionMonitorEndpointFilter filter = 5;
+	ConnectionMonitorEndpointScope scope = 6;
+	string coverage_level = 7;
+}
+
+message ConnectionMonitorEndpointScope {
+	repeated ConnectionMonitorEndpointScopeItem include = 1;
+	repeated ConnectionMonitorEndpointScopeItem exclude = 2;
+}
+
+message ConnectionMonitorEndpointScopeItem {
+	string address = 1;
+}
+
+message ConnectionMonitorEndpointFilter {
+	string type = 1;
+	repeated ConnectionMonitorEndpointFilterItem items = 2;
+}
+
+message ConnectionMonitorEndpointFilterItem {
+	string type = 1;
+	string address = 2;
+}
+
+message ConnectionMonitorDestination {
+	string resource_id = 1;
+	string address = 2;
+	int32 port = 3;
+}
+
+message ConnectionMonitorSource {
+	string resource_id = 1;
+	int32 port = 2;
+}
+
+message NetworkWatchers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated NetworkWatchersFlowLogs network_watchers_flow_logs = 5;
+	repeated NetworkWatchersConnectionMonitors network_watchers_connection_monitors = 6;
+	repeated NetworkWatchersPacketCaptures network_watchers_packet_captures = 7;
+}
+
+message NetworkVirtualAppliancesVirtualApplianceSites {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string address_prefix = 3;
+	Office365PolicyProperties o365_policy = 4;
+}
+
+message Office365PolicyProperties {
+	BreakOutCategoryPolicies break_out_categories = 1;
+}
+
+message BreakOutCategoryPolicies {
+	bool allow = 1;
+	bool optimize = 2;
+	bool default = 3;
+}
+
+message NetworkVirtualAppliancesInboundSecurityRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated InboundSecurityRules rules = 3;
+}
+
+message InboundSecurityRules {
+	string protocol = 1;
+	string source_address_prefix = 2;
+	int32 destination_port_range = 3;
+}
+
+message NetworkVirtualAppliances {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	VirtualApplianceSkuProperties nva_sku = 5;
+	repeated string boot_strap_configuration_blobs = 6;
+	string virtual_hub = 7;
+	repeated string cloud_init_configuration_blobs = 8;
+	string cloud_init_configuration = 9;
+	int32 virtual_appliance_asn = 10;
+	ManagedServiceIdentity identity = 11;
+	repeated NetworkVirtualAppliancesInboundSecurityRules network_virtual_appliances_inbound_security_rules = 12;
+	repeated NetworkVirtualAppliancesVirtualApplianceSites network_virtual_appliances_virtual_appliance_sites = 13;
+}
+
+message VirtualApplianceSkuProperties {
+	string vendor = 1;
+	string bundled_scale_unit = 2;
+	string market_place_version = 3;
+}
+
+message NetworkProfiles {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated ContainerNetworkInterfaceConfiguration container_network_interface_configurations = 5;
+}
+
+message ContainerNetworkInterfaceConfiguration {
+	repeated IPConfigurationProfile ip_configurations = 1;
+	repeated string container_network_interfaces = 2;
+	string name = 3;
+}
+
+message IPConfigurationProfile {
+	string subnet = 1;
+	string name = 2;
+}
+
+message NetworkInterfacesTapConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string virtual_network_tap = 3;
+}
+
+message NetworkInterfaces {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	string network_security_group = 6;
+	repeated NetworkInterfaceIPConfiguration ip_configurations = 7;
+	NetworkInterfaceDnsSettings dns_settings = 8;
+	bool enable_accelerated_networking = 9;
+	bool enable_ip_forwarding = 10;
+	repeated NetworkInterfacesTapConfigurations network_interfaces_tap_configurations = 11;
+}
+
+message NetworkInterfaceDnsSettings {
+	repeated string dns_servers = 1;
+	string internal_dns_name_label = 2;
+}
+
+message NetworkInterfaceIPConfiguration {
+	repeated string virtual_network_taps = 1;
+	repeated string application_gateway_backend_address_pools = 2;
+	repeated string load_balancer_backend_address_pools = 3;
+	repeated string load_balancer_inbound_nat_rules = 4;
+	string private_ip_address = 5;
+	string private_ip_allocation_method = 6;
+	string private_ip_address_version = 7;
+	string subnet = 8;
+	bool primary = 9;
+	string public_ip_address = 10;
+	repeated string application_security_groups = 11;
+	string name = 12;
+}
+
+message NatGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	NatGatewaySku sku = 5;
+	int32 idle_timeout_in_minutes = 6;
+	repeated string public_ip_addresses = 7;
+	repeated string public_ip_prefixes = 8;
+	repeated string zones = 9;
+}
+
+message NatGatewaySku {
+	string name = 1;
+}
+
+message LocalNetworkGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	AddressSpace local_network_address_space = 5;
+	string gateway_ip_address = 6;
+	string fqdn = 7;
+	BgpSettings bgp_settings = 8;
+}
+
+message BgpSettings {
+	int32 asn = 1;
+	string bgp_peering_address = 2;
+	int32 peer_weight = 3;
+	repeated IPConfigurationBgpPeeringAddress bgp_peering_addresses = 4;
+}
+
+message IPConfigurationBgpPeeringAddress {
+	string ipconfiguration_id = 1;
+	repeated string custom_bgp_ip_addresses = 2;
+}
+
+message AddressSpace {
+	repeated string address_prefixes = 1;
+}
+
+message IpGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated string ip_addresses = 5;
+}
+
+message IpAllocations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string type = 5;
+	string prefix = 6;
+	int32 prefix_length = 7;
+	string prefix_type = 8;
+	string ipam_allocation_id = 9;
+	map<string, string> allocation_tags = 10;
+}
+
+message ExpressRoutePorts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string peering_location = 5;
+	int32 bandwidth_in_gbps = 6;
+	string encapsulation = 7;
+	repeated ExpressRouteLink links = 8;
+	ManagedServiceIdentity identity = 9;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ExpressRouteLink {
+	string admin_state = 1;
+	ExpressRouteLinkMacSecConfig mac_sec_config = 2;
+	string name = 3;
+}
+
+message ExpressRouteLinkMacSecConfig {
+	string ckn_secret_identifier = 1;
+	string cak_secret_identifier = 2;
+	string cipher = 3;
+	string sci_state = 4;
+}
+
+message ExpressRouteGatewaysExpressRouteConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string express_route_circuit_peering = 3;
+	string authorization_key = 4;
+	int32 routing_weight = 5;
+	bool enable_internet_security = 6;
+	bool express_route_gateway_bypass = 7;
+	RoutingConfiguration routing_configuration = 8;
+}
+
+message RoutingConfiguration {
+	string associated_route_table = 1;
+	PropagatedRouteTable propagated_route_tables = 2;
+	VnetRoute vnet_routes = 3;
+}
+
+message VnetRoute {
+	repeated StaticRoute static_routes = 1;
+}
+
+message StaticRoute {
+	string name = 1;
+	repeated string address_prefixes = 2;
+	string next_hop_ip_address = 3;
+}
+
+message PropagatedRouteTable {
+	repeated string labels = 1;
+	repeated string ids = 2;
+}
+
+message ExpressRouteGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExpressRouteGatewayPropertiesAutoScaleConfiguration auto_scale_configuration = 5;
+	string virtual_hub = 6;
+	repeated ExpressRouteGatewaysExpressRouteConnections express_route_gateways_express_route_connections = 7;
+}
+
+message ExpressRouteGatewayPropertiesAutoScaleConfiguration {
+	ExpressRouteGatewayPropertiesAutoScaleConfigurationBounds bounds = 1;
+}
+
+message ExpressRouteGatewayPropertiesAutoScaleConfigurationBounds {
+	int32 min = 1;
+	int32 max = 2;
+}
+
+message ExpressRouteCrossConnectionsPeerings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string peering_type = 3;
+	string state = 4;
+	int32 peer_asn = 5;
+	string primary_peer_address_prefix = 6;
+	string secondary_peer_address_prefix = 7;
+	string shared_key = 8;
+	int32 vlan_id = 9;
+	ExpressRouteCircuitPeeringConfig microsoft_peering_config = 10;
+	string gateway_manager_etag = 11;
+	Ipv6ExpressRouteCircuitPeeringConfig ipv6_peering_config = 12;
+}
+
+message ExpressRouteCrossConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string express_route_circuit = 5;
+	string service_provider_provisioning_state = 6;
+	string service_provider_notes = 7;
+	repeated ExpressRouteCrossConnectionPeering peerings = 8;
+	repeated ExpressRouteCrossConnectionsPeerings express_route_cross_connections_peerings = 9;
+}
+
+message ExpressRouteCrossConnectionPeering {
+	string peering_type = 1;
+	string state = 2;
+	int32 peer_asn = 3;
+	string primary_peer_address_prefix = 4;
+	string secondary_peer_address_prefix = 5;
+	string shared_key = 6;
+	int32 vlan_id = 7;
+	ExpressRouteCircuitPeeringConfig microsoft_peering_config = 8;
+	string gateway_manager_etag = 9;
+	Ipv6ExpressRouteCircuitPeeringConfig ipv6_peering_config = 10;
+	string name = 11;
+}
+
+message ExpressRouteCircuitsPeeringsConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string express_route_circuit_peering = 3;
+	string peer_express_route_circuit_peering = 4;
+	string address_prefix = 5;
+	string authorization_key = 6;
+	Ipv6CircuitConnectionConfig ipv6_circuit_connection_config = 7;
+}
+
+message Ipv6CircuitConnectionConfig {
+	string address_prefix = 1;
+}
+
+message ExpressRouteCircuitsPeerings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string peering_type = 3;
+	string state = 4;
+	int32 peer_asn = 5;
+	string primary_peer_address_prefix = 6;
+	string secondary_peer_address_prefix = 7;
+	string shared_key = 8;
+	int32 vlan_id = 9;
+	ExpressRouteCircuitPeeringConfig microsoft_peering_config = 10;
+	ExpressRouteCircuitStats stats = 11;
+	string gateway_manager_etag = 12;
+	string route_filter = 13;
+	Ipv6ExpressRouteCircuitPeeringConfig ipv6_peering_config = 14;
+	string express_route_connection = 15;
+	repeated ExpressRouteCircuitsPeeringsConnections express_route_circuits_peerings_connections = 16;
+}
+
+message ExpressRouteCircuitsAuthorizations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ExpressRouteCircuits {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExpressRouteCircuitSku sku = 5;
+	bool allow_classic_operations = 6;
+	repeated ExpressRouteCircuitAuthorization authorizations = 7;
+	repeated ExpressRouteCircuitPeering peerings = 8;
+	string service_provider_notes = 9;
+	ExpressRouteCircuitServiceProviderProperties service_provider_properties = 10;
+	string express_route_port = 11;
+	double bandwidth_in_gbps = 12;
+	string gateway_manager_etag = 13;
+	repeated ExpressRouteCircuitsPeerings express_route_circuits_peerings = 14;
+	repeated ExpressRouteCircuitsAuthorizations express_route_circuits_authorizations = 15;
+}
+
+message ExpressRouteCircuitServiceProviderProperties {
+	string service_provider_name = 1;
+	string peering_location = 2;
+	int32 bandwidth_in_mbps = 3;
+}
+
+message ExpressRouteCircuitPeering {
+	string peering_type = 1;
+	string state = 2;
+	int32 peer_asn = 3;
+	string primary_peer_address_prefix = 4;
+	string secondary_peer_address_prefix = 5;
+	string shared_key = 6;
+	int32 vlan_id = 7;
+	ExpressRouteCircuitPeeringConfig microsoft_peering_config = 8;
+	ExpressRouteCircuitStats stats = 9;
+	string gateway_manager_etag = 10;
+	string route_filter = 11;
+	Ipv6ExpressRouteCircuitPeeringConfig ipv6_peering_config = 12;
+	string express_route_connection = 13;
+	string name = 14;
+}
+
+message Ipv6ExpressRouteCircuitPeeringConfig {
+	string primary_peer_address_prefix = 1;
+	string secondary_peer_address_prefix = 2;
+	ExpressRouteCircuitPeeringConfig microsoft_peering_config = 3;
+	string route_filter = 4;
+	string state = 5;
+}
+
+message ExpressRouteCircuitStats {
+	int32 primarybytes_in = 1;
+	int32 primarybytes_out = 2;
+	int32 secondarybytes_in = 3;
+	int32 secondarybytes_out = 4;
+}
+
+message ExpressRouteCircuitPeeringConfig {
+	repeated string advertised_public_prefixes = 1;
+	repeated string advertised_communities = 2;
+	int32 legacy_mode = 3;
+	int32 customer_asn = 4;
+	string routing_registry_name = 5;
+}
+
+message ExpressRouteCircuitAuthorization {
+	string name = 1;
+}
+
+message ExpressRouteCircuitSku {
+	string name = 1;
+	string tier = 2;
+	string family = 3;
+}
+
+message DscpConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated int32 markings = 5;
+	repeated QosIpRange source_ip_ranges = 6;
+	repeated QosIpRange destination_ip_ranges = 7;
+	repeated QosPortRange source_port_ranges = 8;
+	repeated QosPortRange destination_port_ranges = 9;
+	string protocol = 10;
+}
+
+message QosPortRange {
+	int32 start = 1;
+	int32 end = 2;
+}
+
+message QosIpRange {
+	string start_ip = 1;
+	string end_ip = 2;
+}
+
+message DdosProtectionPlans {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+}
+
+message DdosCustomPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated ProtocolCustomSettingsFormat protocol_custom_settings = 5;
+}
+
+message ProtocolCustomSettingsFormat {
+	string protocol = 1;
+	string trigger_rate_override = 2;
+	string source_rate_override = 3;
+	string trigger_sensitivity_override = 4;
+}
+
+message CustomIpPrefixes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	string cidr = 6;
+	string commissioned_state = 7;
+	repeated string zones = 8;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+
+message Connections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string authorization_key = 5;
+	string virtual_network_gateway1 = 6;
+	string virtual_network_gateway2 = 7;
+	string local_network_gateway2 = 8;
+	string connection_type = 9;
+	string connection_protocol = 10;
+	int32 routing_weight = 11;
+	int32 dpd_timeout_seconds = 12;
+	string connection_mode = 13;
+	string shared_key = 14;
+	string peer = 15;
+	bool enable_bgp = 16;
+	bool use_local_azure_ip_address = 17;
+	bool use_policy_based_traffic_selectors = 18;
+	repeated IpsecPolicy ipsec_policies = 19;
+	repeated TrafficSelectorPolicy traffic_selector_policies = 20;
+	bool express_route_gateway_bypass = 21;
+}
+
+message TrafficSelectorPolicy {
+	repeated string local_address_ranges = 1;
+	repeated string remote_address_ranges = 2;
+}
+
+message IpsecPolicy {
+	int32 sa_life_time_seconds = 1;
+	int32 sa_data_size_kilobytes = 2;
+	string ipsec_encryption = 3;
+	string ipsec_integrity = 4;
+	string ike_encryption = 5;
+	string ike_integrity = 6;
+	string dh_group = 7;
+	string pfs_group = 8;
+}
+
+message BastionHosts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated BastionHostIPConfiguration ip_configurations = 5;
+	string dns_name = 6;
+}
+
+message BastionHostIPConfiguration {
+	string subnet = 1;
+	string public_ip_address = 2;
+	string private_ip_allocation_method = 3;
+	string name = 4;
+}
+
+message AzureFirewalls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated AzureFirewallApplicationRuleCollection application_rule_collections = 5;
+	repeated AzureFirewallNatRuleCollection nat_rule_collections = 6;
+	repeated AzureFirewallNetworkRuleCollection network_rule_collections = 7;
+	repeated AzureFirewallIPConfiguration ip_configurations = 8;
+	AzureFirewallIPConfiguration management_ip_configuration = 9;
+	string threat_intel_mode = 10;
+	string virtual_hub = 11;
+	string firewall_policy = 12;
+	HubIPAddresses hub_ip_addresses = 13;
+	AzureFirewallSku sku = 14;
+	map<string, string> additional_properties = 15;
+	repeated string zones = 16;
+}
+
+message AzureFirewallSku {
+	string name = 1;
+	string tier = 2;
+}
+
+message HubIPAddresses {
+	HubPublicIPAddresses public_ips = 1;
+	string private_ip_address = 2;
+}
+
+message HubPublicIPAddresses {
+	repeated AzureFirewallPublicIPAddress addresses = 1;
+	int32 count = 2;
+}
+
+message AzureFirewallPublicIPAddress {
+	string address = 1;
+}
+
+message AzureFirewallIPConfiguration {
+	string subnet = 1;
+	string public_ip_address = 2;
+	string name = 3;
+}
+
+message AzureFirewallNetworkRuleCollection {
+	int32 priority = 1;
+	AzureFirewallRCAction action = 2;
+	repeated AzureFirewallNetworkRule rules = 3;
+	string name = 4;
+}
+
+message AzureFirewallNetworkRule {
+	string name = 1;
+	string description = 2;
+	repeated string protocols = 3;
+	repeated string source_addresses = 4;
+	repeated string destination_addresses = 5;
+	repeated string destination_ports = 6;
+	repeated string destination_fqdns = 7;
+	repeated string source_ip_groups = 8;
+	repeated string destination_ip_groups = 9;
+}
+
+message AzureFirewallNatRuleCollection {
+	int32 priority = 1;
+	AzureFirewallNatRCAction action = 2;
+	repeated AzureFirewallNatRule rules = 3;
+	string name = 4;
+}
+
+message AzureFirewallNatRule {
+	string name = 1;
+	string description = 2;
+	repeated string source_addresses = 3;
+	repeated string destination_addresses = 4;
+	repeated string destination_ports = 5;
+	repeated string protocols = 6;
+	string translated_address = 7;
+	string translated_port = 8;
+	string translated_fqdn = 9;
+	repeated string source_ip_groups = 10;
+}
+
+message AzureFirewallNatRCAction {
+	string type = 1;
+}
+
+message AzureFirewallApplicationRuleCollection {
+	int32 priority = 1;
+	AzureFirewallRCAction action = 2;
+	repeated AzureFirewallApplicationRule rules = 3;
+	string name = 4;
+}
+
+message AzureFirewallApplicationRule {
+	string name = 1;
+	string description = 2;
+	repeated string source_addresses = 3;
+	repeated AzureFirewallApplicationRuleProtocol protocols = 4;
+	repeated string target_fqdns = 5;
+	repeated string fqdn_tags = 6;
+	repeated string source_ip_groups = 7;
+}
+
+message AzureFirewallApplicationRuleProtocol {
+	string protocol_type = 1;
+	int32 port = 2;
+}
+
+message AzureFirewallRCAction {
+	string type = 1;
+}
+
+message ApplicationSecurityGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+}
+
+message ApplicationGatewayWebApplicationFirewallPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	PolicySettings policy_settings = 5;
+	repeated WebApplicationFirewallCustomRule custom_rules = 6;
+	ManagedRulesDefinition managed_rules = 7;
+}
+
+message ManagedRulesDefinition {
+	repeated OwaspCrsExclusionEntry exclusions = 1;
+	repeated ManagedRuleSet managed_rule_sets = 2;
+}
+
+message ManagedRuleSet {
+	string rule_set_type = 1;
+	string rule_set_version = 2;
+	repeated ManagedRuleGroupOverride rule_group_overrides = 3;
+}
+
+message ManagedRuleGroupOverride {
+	string rule_group_name = 1;
+	repeated ManagedRuleOverride rules = 2;
+}
+
+message ManagedRuleOverride {
+	string rule_id = 1;
+	string state = 2;
+}
+
+message OwaspCrsExclusionEntry {
+	string match_variable = 1;
+	string selector_match_operator = 2;
+	string selector = 3;
+}
+
+message WebApplicationFirewallCustomRule {
+	string name = 1;
+	int32 priority = 2;
+	string rule_type = 3;
+	repeated MatchCondition match_conditions = 4;
+	string action = 5;
+}
+
+message MatchCondition {
+	repeated MatchVariable match_variables = 1;
+	string operator = 2;
+	bool negation_conditon = 3;
+	repeated string match_values = 4;
+	repeated string transforms = 5;
+}
+
+message MatchVariable {
+	string variable_name = 1;
+	string selector = 2;
+}
+
+message PolicySettings {
+	string state = 1;
+	string mode = 2;
+	bool request_body_check = 3;
+	int32 max_request_body_size_in_kb = 4;
+	int32 file_upload_limit_in_mb = 5;
+}
+

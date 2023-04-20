@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.certificate;
+
+import "shared/shared.proto";
+
+message CertificateManagerCertificateXManaged {
+	repeated string dns_authorizations = 1;
+	repeated string domains = 2;
+	string state = 3;
+}
+
+message CertificateManagerCertificateXSelfManaged {
+	string certificate_pem = 1;
+	string private_key_pem = 2;
+}
+
+message CertificateManagerCertificateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CertificateManagerCertificate {
+	string description = 1;
+	string id = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string project = 5;
+	string scope = 6;
+	CertificateManagerCertificateXManaged managed = 7;
+	CertificateManagerCertificateXSelfManaged self_managed = 8;
+	CertificateManagerCertificateXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message CertificateManagerCertificateMapXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CertificateManagerCertificateMap {
+	string create_time = 1;
+	string description = 2;
+	map<string, string> gclb_targets = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	string project = 7;
+	string update_time = 8;
+	CertificateManagerCertificateMapXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message CertificateManagerCertificateMapEntryXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CertificateManagerCertificateMapEntry {
+	repeated string certificates = 1;
+	string create_time = 2;
+	string description = 3;
+	string hostname = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	string map = 7;
+	string matcher = 8;
+	string name = 9;
+	string project = 10;
+	string state = 11;
+	string update_time = 12;
+	CertificateManagerCertificateMapEntryXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message CertificateManagerDnsAuthorizationXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CertificateManagerDnsAuthorization {
+	string description = 1;
+	map<string, string> dns_resource_record = 2;
+	string domain = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	string project = 7;
+	CertificateManagerDnsAuthorizationXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codegurureviewer;
+
+import "shared/shared.proto";
+
+message RepositoryAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string type = 3;
+	string owner = 4;
+	string connection_arn = 5;
+}
+
+message CodeGuruReviewer {
+	repeated RepositoryAssociation repository_association = 1;
+}
+

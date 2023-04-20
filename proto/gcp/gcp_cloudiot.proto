@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.cloudiot;
+
+import "shared/shared.proto";
+
+message CloudiotDeviceXCredentialsXPublicKey {
+	string format = 1;
+	string key = 2;
+}
+
+message CloudiotDeviceXCredentials {
+	string expiration_time = 1;
+	CloudiotDeviceXCredentialsXPublicKey public_key = 2;
+}
+
+message CloudiotDeviceXGatewayConfig {
+	string gateway_auth_method = 1;
+	string gateway_type = 2;
+	string last_accessed_gateway_id = 3;
+	string last_accessed_gateway_time = 4;
+}
+
+message CloudiotDeviceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudiotDevice {
+	bool blocked = 1;
+	map<string, string> config = 2;
+	string id = 3;
+	string last_config_ack_time = 4;
+	string last_config_send_time = 5;
+	map<string, string> last_error_status = 6;
+	string last_error_time = 7;
+	string last_event_time = 8;
+	string last_heartbeat_time = 9;
+	string last_state_time = 10;
+	string log_level = 11;
+	map<string, string> metadata = 12;
+	string name = 13;
+	string num_id = 14;
+	string registry = 15;
+	map<string, string> state = 16;
+	repeated CloudiotDeviceXCredentials credentials = 17;
+	CloudiotDeviceXGatewayConfig gateway_config = 18;
+	CloudiotDeviceXTimeouts timeouts = 19;
+	oak9.tython.shared.ResourceInfo resource_info = 20;
+}
+
+message CloudiotRegistryXCredentials {
+	map<string, string> public_key_certificate = 1;
+}
+
+message CloudiotRegistryXEventNotificationConfigs {
+	string pubsub_topic_name = 1;
+	string subfolder_matches = 2;
+}
+
+message CloudiotRegistryXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudiotRegistry {
+	map<string, string> http_config = 1;
+	string id = 2;
+	string log_level = 3;
+	map<string, string> mqtt_config = 4;
+	string name = 5;
+	string project = 6;
+	string region = 7;
+	map<string, string> state_notification_config = 8;
+	repeated CloudiotRegistryXCredentials credentials = 9;
+	repeated CloudiotRegistryXEventNotificationConfigs event_notification_configs = 10;
+	CloudiotRegistryXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message CloudiotRegistryIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudiotRegistryIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	CloudiotRegistryIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudiotRegistryIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudiotRegistryIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	CloudiotRegistryIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudiotRegistryIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string name = 3;
+	string policy_data = 4;
+	string project = 5;
+	string region = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package oak9.tython.aws.cloudtrail;
+
+import "shared/shared.proto";
+
+message TrailDataResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string values = 2;
+}
+
+message TrailEventSelector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated TrailDataResource data_resources = 2;
+	bool include_management_events = 3;
+	string read_write_type = 4;
+}
+
+message Trail {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cloud_watch_logs_log_group_arn = 2;
+	string cloud_watch_logs_role_arn = 3;
+	bool enable_log_file_validation = 4;
+	repeated TrailEventSelector event_selectors = 5;
+	bool include_global_service_events = 6;
+	bool is_logging = 7;
+	bool is_multi_region_trail = 8;
+	string kms_key_id = 9;
+	string s3_bucket_name = 10;
+	string s3_key_prefix = 11;
+	string sns_topic_name = 12;
+	map<string, string> tags = 13;
+	string trail_name = 14;
+}
+
+message CloudTrail {
+	Trail trail = 1;
+}
+

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_redis_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_redis.proto";
+
+message GoogleRedis {
+	oak9.tython.gcp.redis.RedisInstance redis_instance = 1;
+}
+

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package oak9.tython.aws.transfer;
+
+import "shared/shared.proto";
+
+message ServerProtocol {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ServerIdentityProviderDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string invocation_role = 2;
+	string url = 3;
+}
+
+message ServerEndpointDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string address_allocation_ids = 2;
+	string vpc_id = 3;
+	string vpc_endpoint_id = 4;
+	repeated string subnet_ids = 5;
+}
+
+message Server {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string logging_role = 2;
+	repeated ServerProtocol protocols = 3;
+	ServerIdentityProviderDetails identity_provider_details = 4;
+	string endpoint_type = 5;
+	string security_policy_name = 6;
+	ServerEndpointDetails endpoint_details = 7;
+	string identity_provider_type = 8;
+	map<string, string> tags = 9;
+	string certificate = 10;
+}
+
+message Transfer {
+	repeated Server server = 1;
+	repeated User user = 2;
+}
+
+message UserHomeDirectoryMapEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string entry = 2;
+	string target = 3;
+}
+
+message UserSshPublicKey {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message User {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string policy = 2;
+	string role = 3;
+	string home_directory = 4;
+	string home_directory_type = 5;
+	string server_id = 6;
+	string user_name = 7;
+	repeated UserHomeDirectoryMapEntry home_directory_mappings = 8;
+	repeated UserSshPublicKey ssh_public_keys = 9;
+	map<string, string> tags = 10;
+}
+

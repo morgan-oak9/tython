@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package oak9.tython.aws.sdb;
+
+import "shared/shared.proto";
+
+message Domain {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+}
+
+message SDB {
+	repeated Domain domain = 1;
+}
+

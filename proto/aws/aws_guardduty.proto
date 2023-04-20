@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package oak9.tython.aws.guardduty;
+
+import "shared/shared.proto";
+
+message DetectorCFNS3LogsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enable = 2;
+}
+
+message DetectorCFNDataSourceConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DetectorCFNS3LogsConfiguration s3_logs = 2;
+}
+
+message Detector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string finding_publishing_frequency = 2;
+	DetectorCFNDataSourceConfigurations data_sources = 3;
+	bool enable = 4;
+}
+
+message GuardDuty {
+	repeated Detector detector = 1;
+	repeated Filter filter = 2;
+	repeated IPSet ip_set = 3;
+	repeated Master master = 4;
+	repeated Member member = 5;
+	repeated ThreatIntelSet threat_intel_set = 6;
+}
+
+message FilterCondition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 lt = 2;
+	int32 gte = 3;
+	repeated string neq = 4;
+	repeated string eq = 5;
+	int32 lte = 6;
+}
+
+message FilterFindingCriteria {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> criterion = 2;
+	FilterCondition item_type = 3;
+}
+
+message Filter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string action = 2;
+	string description = 3;
+	string detector_id = 4;
+	FilterFindingCriteria finding_criteria = 5;
+	int32 rank = 6;
+	string name = 7;
+}
+
+message IPSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string format = 2;
+	bool activate = 3;
+	string detector_id = 4;
+	string name = 5;
+	string location = 6;
+}
+
+message Master {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string detector_id = 2;
+	string master_id = 3;
+	string invitation_id = 4;
+}
+
+message Member {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+	string member_id = 3;
+	string email = 4;
+	string message = 5;
+	bool disable_email_notification = 6;
+	string detector_id = 7;
+}
+
+message ThreatIntelSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string format = 2;
+	bool activate = 3;
+	string detector_id = 4;
+	string name = 5;
+	string location = 6;
+}
+

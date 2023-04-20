@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_memcache_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_memcache.proto";
+
+message GoogleMemcache {
+	oak9.tython.gcp.memcache.MemcacheInstance memcache_instance = 1;
+}
+

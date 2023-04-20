@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codestar;
+
+import "shared/shared.proto";
+
+message GitHubRepositoryS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object_version = 2;
+	string bucket = 3;
+	string key = 4;
+}
+
+message GitHubRepositoryCode {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GitHubRepositoryS3 s3 = 2;
+}
+
+message GitHubRepository {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enable_issues = 2;
+	string repository_name = 3;
+	string repository_access_token = 4;
+	string repository_owner = 5;
+	bool is_private = 6;
+	GitHubRepositoryCode code = 7;
+	string repository_description = 8;
+}
+
+message CodeStar {
+	repeated GitHubRepository git_hub_repository = 1;
+}
+

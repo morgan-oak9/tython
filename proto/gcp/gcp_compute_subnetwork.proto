@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_subnetwork;
+
+import "shared/shared.proto";
+
+message ComputeSubnetworkXLogConfig {
+	string aggregation_interval = 1;
+	string filter_expr = 2;
+	double flow_sampling = 3;
+	string metadata = 4;
+	repeated string metadata_fields = 5;
+}
+
+message ComputeSubnetworkXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeSubnetwork {
+	string creation_timestamp = 1;
+	string description = 2;
+	string external_ipv6_prefix = 3;
+	string fingerprint = 4;
+	string gateway_address = 5;
+	string id = 6;
+	string ip_cidr_range = 7;
+	string ipv6_access_type = 8;
+	string ipv6_cidr_range = 9;
+	string name = 10;
+	string network = 11;
+	bool private_ip_google_access = 12;
+	string private_ipv6_google_access = 13;
+	string project = 14;
+	string purpose = 15;
+	string region = 16;
+	string role = 17;
+	map<string, string> secondary_ip_range = 18;
+	string self_link = 19;
+	string stack_type = 20;
+	ComputeSubnetworkXLogConfig log_config = 21;
+	ComputeSubnetworkXTimeouts timeouts = 22;
+	oak9.tython.shared.ResourceInfo resource_info = 23;
+}
+
+message ComputeSubnetworkIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeSubnetworkIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string region = 5;
+	string role = 6;
+	string subnetwork = 7;
+	ComputeSubnetworkIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeSubnetworkIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeSubnetworkIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string region = 5;
+	string role = 6;
+	string subnetwork = 7;
+	ComputeSubnetworkIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeSubnetworkIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	string region = 5;
+	string subnetwork = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

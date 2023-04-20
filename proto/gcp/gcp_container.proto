@@ -1,0 +1,892 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.container;
+
+import "shared/shared.proto";
+
+message ContainerAnalysisNoteXAttestationAuthorityXHint {
+	string human_readable_name = 1;
+}
+
+message ContainerAnalysisNoteXAttestationAuthority {
+	ContainerAnalysisNoteXAttestationAuthorityXHint hint = 1;
+}
+
+message ContainerAnalysisNoteXRelatedUrl {
+	string label = 1;
+	string url = 2;
+}
+
+message ContainerAnalysisNoteXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerAnalysisNote {
+	string create_time = 1;
+	string expiration_time = 2;
+	string id = 3;
+	string kind = 4;
+	string long_description = 5;
+	string name = 6;
+	string project = 7;
+	repeated string related_note_names = 8;
+	string short_description = 9;
+	string update_time = 10;
+	ContainerAnalysisNoteXAttestationAuthority attestation_authority = 11;
+	repeated ContainerAnalysisNoteXRelatedUrl related_url = 12;
+	ContainerAnalysisNoteXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message ContainerAnalysisOccurrenceXAttestationXSignatures {
+	string public_key_id = 1;
+	string signature = 2;
+}
+
+message ContainerAnalysisOccurrenceXAttestation {
+	string serialized_payload = 1;
+	repeated ContainerAnalysisOccurrenceXAttestationXSignatures signatures = 2;
+}
+
+message ContainerAnalysisOccurrenceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerAnalysisOccurrence {
+	string create_time = 1;
+	string id = 2;
+	string kind = 3;
+	string name = 4;
+	string note_name = 5;
+	string project = 6;
+	string remediation = 7;
+	string resource_uri = 8;
+	string update_time = 9;
+	ContainerAnalysisOccurrenceXAttestation attestation = 10;
+	ContainerAnalysisOccurrenceXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ContainerAwsClusterXAuthorizationXAdminUsers {
+	string username = 1;
+}
+
+message ContainerAwsClusterXAuthorization {
+	repeated ContainerAwsClusterXAuthorizationXAdminUsers admin_users = 1;
+}
+
+message ContainerAwsClusterXControlPlaneXAwsServicesAuthentication {
+	string role_arn = 1;
+	string role_session_name = 2;
+}
+
+message ContainerAwsClusterXControlPlaneXConfigEncryption {
+	string kms_key_arn = 1;
+}
+
+message ContainerAwsClusterXControlPlaneXDatabaseEncryption {
+	string kms_key_arn = 1;
+}
+
+message ContainerAwsClusterXControlPlaneXMainVolume {
+	double iops = 1;
+	string kms_key_arn = 2;
+	double size_gib = 3;
+	string volume_type = 4;
+}
+
+message ContainerAwsClusterXControlPlaneXProxyConfig {
+	string secret_arn = 1;
+	string secret_version = 2;
+}
+
+message ContainerAwsClusterXControlPlaneXRootVolume {
+	double iops = 1;
+	string kms_key_arn = 2;
+	double size_gib = 3;
+	string volume_type = 4;
+}
+
+message ContainerAwsClusterXControlPlaneXSshConfig {
+	string ec2_key_pair = 1;
+}
+
+message ContainerAwsClusterXControlPlane {
+	string iam_instance_profile = 1;
+	string instance_type = 2;
+	repeated string security_group_ids = 3;
+	repeated string subnet_ids = 4;
+	map<string, string> tags = 5;
+	string version = 6;
+	ContainerAwsClusterXControlPlaneXAwsServicesAuthentication aws_services_authentication = 7;
+	ContainerAwsClusterXControlPlaneXConfigEncryption config_encryption = 8;
+	ContainerAwsClusterXControlPlaneXDatabaseEncryption database_encryption = 9;
+	ContainerAwsClusterXControlPlaneXMainVolume main_volume = 10;
+	ContainerAwsClusterXControlPlaneXProxyConfig proxy_config = 11;
+	ContainerAwsClusterXControlPlaneXRootVolume root_volume = 12;
+	ContainerAwsClusterXControlPlaneXSshConfig ssh_config = 13;
+}
+
+message ContainerAwsClusterXFleet {
+	string membership = 1;
+	string project = 2;
+}
+
+message ContainerAwsClusterXNetworking {
+	repeated string pod_address_cidr_blocks = 1;
+	repeated string service_address_cidr_blocks = 2;
+	string vpc_id = 3;
+}
+
+message ContainerAwsClusterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerAwsCluster {
+	map<string, string> annotations = 1;
+	string aws_region = 2;
+	string create_time = 3;
+	string description = 4;
+	string endpoint = 5;
+	string etag = 6;
+	string id = 7;
+	string location = 8;
+	string name = 9;
+	string project = 10;
+	bool reconciling = 11;
+	string state = 12;
+	string uid = 13;
+	string update_time = 14;
+	map<string, string> workload_identity_config = 15;
+	ContainerAwsClusterXAuthorization authorization = 16;
+	ContainerAwsClusterXControlPlane control_plane = 17;
+	ContainerAwsClusterXFleet fleet = 18;
+	ContainerAwsClusterXNetworking networking = 19;
+	ContainerAwsClusterXTimeouts timeouts = 20;
+	oak9.tython.shared.ResourceInfo resource_info = 21;
+}
+
+message ContainerAwsNodePoolXAutoscaling {
+	double max_node_count = 1;
+	double min_node_count = 2;
+}
+
+message ContainerAwsNodePoolXConfigXConfigEncryption {
+	string kms_key_arn = 1;
+}
+
+message ContainerAwsNodePoolXConfigXProxyConfig {
+	string secret_arn = 1;
+	string secret_version = 2;
+}
+
+message ContainerAwsNodePoolXConfigXRootVolume {
+	double iops = 1;
+	string kms_key_arn = 2;
+	double size_gib = 3;
+	string volume_type = 4;
+}
+
+message ContainerAwsNodePoolXConfigXSshConfig {
+	string ec2_key_pair = 1;
+}
+
+message ContainerAwsNodePoolXConfigXTaints {
+	string effect = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message ContainerAwsNodePoolXConfig {
+	string iam_instance_profile = 1;
+	string instance_type = 2;
+	map<string, string> labels = 3;
+	repeated string security_group_ids = 4;
+	map<string, string> tags = 5;
+	ContainerAwsNodePoolXConfigXConfigEncryption config_encryption = 6;
+	ContainerAwsNodePoolXConfigXProxyConfig proxy_config = 7;
+	ContainerAwsNodePoolXConfigXRootVolume root_volume = 8;
+	ContainerAwsNodePoolXConfigXSshConfig ssh_config = 9;
+	repeated ContainerAwsNodePoolXConfigXTaints taints = 10;
+}
+
+message ContainerAwsNodePoolXMaxPodsConstraint {
+	double max_pods_per_node = 1;
+}
+
+message ContainerAwsNodePoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerAwsNodePool {
+	map<string, string> annotations = 1;
+	string cluster = 2;
+	string create_time = 3;
+	string etag = 4;
+	string id = 5;
+	string location = 6;
+	string name = 7;
+	string project = 8;
+	bool reconciling = 9;
+	string state = 10;
+	string subnet_id = 11;
+	string uid = 12;
+	string update_time = 13;
+	string version = 14;
+	ContainerAwsNodePoolXAutoscaling autoscaling = 15;
+	ContainerAwsNodePoolXConfig config = 16;
+	ContainerAwsNodePoolXMaxPodsConstraint max_pods_constraint = 17;
+	ContainerAwsNodePoolXTimeouts timeouts = 18;
+	oak9.tython.shared.ResourceInfo resource_info = 19;
+}
+
+message ContainerAzureClientXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ContainerAzureClient {
+	string application_id = 1;
+	string certificate = 2;
+	string create_time = 3;
+	string id = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	string tenant_id = 8;
+	string uid = 9;
+	ContainerAzureClientXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ContainerAzureClusterXAuthorizationXAdminUsers {
+	string username = 1;
+}
+
+message ContainerAzureClusterXAuthorization {
+	repeated ContainerAzureClusterXAuthorizationXAdminUsers admin_users = 1;
+}
+
+message ContainerAzureClusterXControlPlaneXDatabaseEncryption {
+	string key_id = 1;
+}
+
+message ContainerAzureClusterXControlPlaneXMainVolume {
+	double size_gib = 1;
+}
+
+message ContainerAzureClusterXControlPlaneXProxyConfig {
+	string resource_group_id = 1;
+	string secret_id = 2;
+}
+
+message ContainerAzureClusterXControlPlaneXReplicaPlacements {
+	string azure_availability_zone = 1;
+	string subnet_id = 2;
+}
+
+message ContainerAzureClusterXControlPlaneXRootVolume {
+	double size_gib = 1;
+}
+
+message ContainerAzureClusterXControlPlaneXSshConfig {
+	string authorized_key = 1;
+}
+
+message ContainerAzureClusterXControlPlane {
+	string subnet_id = 1;
+	map<string, string> tags = 2;
+	string version = 3;
+	string vm_size = 4;
+	ContainerAzureClusterXControlPlaneXDatabaseEncryption database_encryption = 5;
+	ContainerAzureClusterXControlPlaneXMainVolume main_volume = 6;
+	ContainerAzureClusterXControlPlaneXProxyConfig proxy_config = 7;
+	repeated ContainerAzureClusterXControlPlaneXReplicaPlacements replica_placements = 8;
+	ContainerAzureClusterXControlPlaneXRootVolume root_volume = 9;
+	ContainerAzureClusterXControlPlaneXSshConfig ssh_config = 10;
+}
+
+message ContainerAzureClusterXFleet {
+	string membership = 1;
+	string project = 2;
+}
+
+message ContainerAzureClusterXNetworking {
+	repeated string pod_address_cidr_blocks = 1;
+	repeated string service_address_cidr_blocks = 2;
+	string virtual_network_id = 3;
+}
+
+message ContainerAzureClusterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerAzureCluster {
+	map<string, string> annotations = 1;
+	string azure_region = 2;
+	string client = 3;
+	string create_time = 4;
+	string description = 5;
+	string endpoint = 6;
+	string etag = 7;
+	string id = 8;
+	string location = 9;
+	string name = 10;
+	string project = 11;
+	bool reconciling = 12;
+	string resource_group_id = 13;
+	string state = 14;
+	string uid = 15;
+	string update_time = 16;
+	map<string, string> workload_identity_config = 17;
+	ContainerAzureClusterXAuthorization authorization = 18;
+	ContainerAzureClusterXControlPlane control_plane = 19;
+	ContainerAzureClusterXFleet fleet = 20;
+	ContainerAzureClusterXNetworking networking = 21;
+	ContainerAzureClusterXTimeouts timeouts = 22;
+	oak9.tython.shared.ResourceInfo resource_info = 23;
+}
+
+message ContainerAzureNodePoolXAutoscaling {
+	double max_node_count = 1;
+	double min_node_count = 2;
+}
+
+message ContainerAzureNodePoolXConfigXProxyConfig {
+	string resource_group_id = 1;
+	string secret_id = 2;
+}
+
+message ContainerAzureNodePoolXConfigXRootVolume {
+	double size_gib = 1;
+}
+
+message ContainerAzureNodePoolXConfigXSshConfig {
+	string authorized_key = 1;
+}
+
+message ContainerAzureNodePoolXConfig {
+	map<string, string> tags = 1;
+	string vm_size = 2;
+	ContainerAzureNodePoolXConfigXProxyConfig proxy_config = 3;
+	ContainerAzureNodePoolXConfigXRootVolume root_volume = 4;
+	ContainerAzureNodePoolXConfigXSshConfig ssh_config = 5;
+}
+
+message ContainerAzureNodePoolXMaxPodsConstraint {
+	double max_pods_per_node = 1;
+}
+
+message ContainerAzureNodePoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerAzureNodePool {
+	map<string, string> annotations = 1;
+	string azure_availability_zone = 2;
+	string cluster = 3;
+	string create_time = 4;
+	string etag = 5;
+	string id = 6;
+	string location = 7;
+	string name = 8;
+	string project = 9;
+	bool reconciling = 10;
+	string state = 11;
+	string subnet_id = 12;
+	string uid = 13;
+	string update_time = 14;
+	string version = 15;
+	ContainerAzureNodePoolXAutoscaling autoscaling = 16;
+	ContainerAzureNodePoolXConfig config = 17;
+	ContainerAzureNodePoolXMaxPodsConstraint max_pods_constraint = 18;
+	ContainerAzureNodePoolXTimeouts timeouts = 19;
+	oak9.tython.shared.ResourceInfo resource_info = 20;
+}
+
+message ContainerClusterXAddonsConfigXCloudrunConfig {
+	bool disabled = 1;
+	string load_balancer_type = 2;
+}
+
+message ContainerClusterXAddonsConfigXDnsCacheConfig {
+	bool enabled = 1;
+}
+
+message ContainerClusterXAddonsConfigXGcePersistentDiskCsiDriverConfig {
+	bool enabled = 1;
+}
+
+message ContainerClusterXAddonsConfigXGcpFilestoreCsiDriverConfig {
+	bool enabled = 1;
+}
+
+message ContainerClusterXAddonsConfigXHorizontalPodAutoscaling {
+	bool disabled = 1;
+}
+
+message ContainerClusterXAddonsConfigXHttpLoadBalancing {
+	bool disabled = 1;
+}
+
+message ContainerClusterXAddonsConfigXNetworkPolicyConfig {
+	bool disabled = 1;
+}
+
+message ContainerClusterXAddonsConfig {
+	ContainerClusterXAddonsConfigXCloudrunConfig cloudrun_config = 1;
+	ContainerClusterXAddonsConfigXDnsCacheConfig dns_cache_config = 2;
+	ContainerClusterXAddonsConfigXGcePersistentDiskCsiDriverConfig gce_persistent_disk_csi_driver_config = 3;
+	ContainerClusterXAddonsConfigXGcpFilestoreCsiDriverConfig gcp_filestore_csi_driver_config = 4;
+	ContainerClusterXAddonsConfigXHorizontalPodAutoscaling horizontal_pod_autoscaling = 5;
+	ContainerClusterXAddonsConfigXHttpLoadBalancing http_load_balancing = 6;
+	ContainerClusterXAddonsConfigXNetworkPolicyConfig network_policy_config = 7;
+}
+
+message ContainerClusterXAuthenticatorGroupsConfig {
+	string security_group = 1;
+}
+
+message ContainerClusterXBinaryAuthorization {
+	bool enabled = 1;
+	string evaluation_mode = 2;
+}
+
+message ContainerClusterXClusterAutoscalingXAutoProvisioningDefaults {
+	string boot_disk_kms_key = 1;
+	string image_type = 2;
+	repeated string oauth_scopes = 3;
+	string service_account = 4;
+}
+
+message ContainerClusterXClusterAutoscalingXResourceLimits {
+	double maximum = 1;
+	double minimum = 2;
+	string resource_type = 3;
+}
+
+message ContainerClusterXClusterAutoscaling {
+	bool enabled = 1;
+	ContainerClusterXClusterAutoscalingXAutoProvisioningDefaults auto_provisioning_defaults = 2;
+	repeated ContainerClusterXClusterAutoscalingXResourceLimits resource_limits = 3;
+}
+
+message ContainerClusterXConfidentialNodes {
+	bool enabled = 1;
+}
+
+message ContainerClusterXDatabaseEncryption {
+	string key_name = 1;
+	string state = 2;
+}
+
+message ContainerClusterXDefaultSnatStatus {
+	bool disabled = 1;
+}
+
+message ContainerClusterXDnsConfig {
+	string cluster_dns = 1;
+	string cluster_dns_domain = 2;
+	string cluster_dns_scope = 3;
+}
+
+message ContainerClusterXIpAllocationPolicy {
+	string cluster_ipv4_cidr_block = 1;
+	string cluster_secondary_range_name = 2;
+	string services_ipv4_cidr_block = 3;
+	string services_secondary_range_name = 4;
+}
+
+message ContainerClusterXLoggingConfig {
+	repeated string enable_components = 1;
+}
+
+message ContainerClusterXMaintenancePolicyXDailyMaintenanceWindow {
+	string duration = 1;
+	string start_time = 2;
+}
+
+message ContainerClusterXMaintenancePolicyXMaintenanceExclusionXExclusionOptions {
+	string scope = 1;
+}
+
+message ContainerClusterXMaintenancePolicyXMaintenanceExclusion {
+	string end_time = 1;
+	string exclusion_name = 2;
+	string start_time = 3;
+	ContainerClusterXMaintenancePolicyXMaintenanceExclusionXExclusionOptions exclusion_options = 4;
+}
+
+message ContainerClusterXMaintenancePolicyXRecurringWindow {
+	string end_time = 1;
+	string recurrence = 2;
+	string start_time = 3;
+}
+
+message ContainerClusterXMaintenancePolicy {
+	ContainerClusterXMaintenancePolicyXDailyMaintenanceWindow daily_maintenance_window = 1;
+	repeated ContainerClusterXMaintenancePolicyXMaintenanceExclusion maintenance_exclusion = 2;
+	ContainerClusterXMaintenancePolicyXRecurringWindow recurring_window = 3;
+}
+
+message ContainerClusterXMasterAuthXClientCertificateConfig {
+	bool issue_client_certificate = 1;
+}
+
+message ContainerClusterXMasterAuth {
+	string client_certificate = 1;
+	string client_key = 2;
+	string cluster_ca_certificate = 3;
+	ContainerClusterXMasterAuthXClientCertificateConfig client_certificate_config = 4;
+}
+
+message ContainerClusterXMasterAuthorizedNetworksConfigXCidrBlocks {
+	string cidr_block = 1;
+	string display_name = 2;
+}
+
+message ContainerClusterXMasterAuthorizedNetworksConfig {
+	repeated ContainerClusterXMasterAuthorizedNetworksConfigXCidrBlocks cidr_blocks = 1;
+}
+
+message ContainerClusterXMonitoringConfig {
+	repeated string enable_components = 1;
+}
+
+message ContainerClusterXNetworkPolicy {
+	bool enabled = 1;
+	string provider = 2;
+}
+
+message ContainerClusterXNodeConfigXGcfsConfig {
+	bool enabled = 1;
+}
+
+message ContainerClusterXNodeConfigXGvnic {
+	bool enabled = 1;
+}
+
+message ContainerClusterXNodeConfigXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+}
+
+message ContainerClusterXNodeConfigXWorkloadMetadataConfig {
+	string mode = 1;
+}
+
+message ContainerClusterXNodeConfig {
+	string boot_disk_kms_key = 1;
+	double disk_size_gb = 2;
+	string disk_type = 3;
+	map<string, string> guest_accelerator = 4;
+	string image_type = 5;
+	map<string, string> labels = 6;
+	double local_ssd_count = 7;
+	string machine_type = 8;
+	map<string, string> metadata = 9;
+	string min_cpu_platform = 10;
+	string node_group = 11;
+	repeated string oauth_scopes = 12;
+	bool preemptible = 13;
+	string service_account = 14;
+	bool spot = 15;
+	repeated string tags = 16;
+	map<string, string> taint = 17;
+	ContainerClusterXNodeConfigXGcfsConfig gcfs_config = 18;
+	ContainerClusterXNodeConfigXGvnic gvnic = 19;
+	ContainerClusterXNodeConfigXShieldedInstanceConfig shielded_instance_config = 20;
+	ContainerClusterXNodeConfigXWorkloadMetadataConfig workload_metadata_config = 21;
+}
+
+message ContainerClusterXNodePoolXAutoscaling {
+	double max_node_count = 1;
+	double min_node_count = 2;
+}
+
+message ContainerClusterXNodePoolXManagement {
+	bool auto_repair = 1;
+	bool auto_upgrade = 2;
+}
+
+message ContainerClusterXNodePoolXNodeConfigXGcfsConfig {
+	bool enabled = 1;
+}
+
+message ContainerClusterXNodePoolXNodeConfigXGvnic {
+	bool enabled = 1;
+}
+
+message ContainerClusterXNodePoolXNodeConfigXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+}
+
+message ContainerClusterXNodePoolXNodeConfigXWorkloadMetadataConfig {
+	string mode = 1;
+}
+
+message ContainerClusterXNodePoolXNodeConfig {
+	string boot_disk_kms_key = 1;
+	double disk_size_gb = 2;
+	string disk_type = 3;
+	map<string, string> guest_accelerator = 4;
+	string image_type = 5;
+	map<string, string> labels = 6;
+	double local_ssd_count = 7;
+	string machine_type = 8;
+	map<string, string> metadata = 9;
+	string min_cpu_platform = 10;
+	string node_group = 11;
+	repeated string oauth_scopes = 12;
+	bool preemptible = 13;
+	string service_account = 14;
+	bool spot = 15;
+	repeated string tags = 16;
+	map<string, string> taint = 17;
+	ContainerClusterXNodePoolXNodeConfigXGcfsConfig gcfs_config = 18;
+	ContainerClusterXNodePoolXNodeConfigXGvnic gvnic = 19;
+	ContainerClusterXNodePoolXNodeConfigXShieldedInstanceConfig shielded_instance_config = 20;
+	ContainerClusterXNodePoolXNodeConfigXWorkloadMetadataConfig workload_metadata_config = 21;
+}
+
+message ContainerClusterXNodePoolXUpgradeSettings {
+	double max_surge = 1;
+	double max_unavailable = 2;
+}
+
+message ContainerClusterXNodePool {
+	double initial_node_count = 1;
+	repeated string instance_group_urls = 2;
+	repeated string managed_instance_group_urls = 3;
+	double max_pods_per_node = 4;
+	string name = 5;
+	string name_prefix = 6;
+	double node_count = 7;
+	repeated string node_locations = 8;
+	string version = 9;
+	ContainerClusterXNodePoolXAutoscaling autoscaling = 10;
+	ContainerClusterXNodePoolXManagement management = 11;
+	ContainerClusterXNodePoolXNodeConfig node_config = 12;
+	ContainerClusterXNodePoolXUpgradeSettings upgrade_settings = 13;
+}
+
+message ContainerClusterXNotificationConfigXPubsub {
+	bool enabled = 1;
+	string topic = 2;
+}
+
+message ContainerClusterXNotificationConfig {
+	ContainerClusterXNotificationConfigXPubsub pubsub = 1;
+}
+
+message ContainerClusterXPrivateClusterConfigXMasterGlobalAccessConfig {
+	bool enabled = 1;
+}
+
+message ContainerClusterXPrivateClusterConfig {
+	bool enable_private_endpoint = 1;
+	bool enable_private_nodes = 2;
+	string master_ipv4_cidr_block = 3;
+	string peering_name = 4;
+	string private_endpoint = 5;
+	string public_endpoint = 6;
+	ContainerClusterXPrivateClusterConfigXMasterGlobalAccessConfig master_global_access_config = 7;
+}
+
+message ContainerClusterXReleaseChannel {
+	string channel = 1;
+}
+
+message ContainerClusterXResourceUsageExportConfigXBigqueryDestination {
+	string dataset_id = 1;
+}
+
+message ContainerClusterXResourceUsageExportConfig {
+	bool enable_network_egress_metering = 1;
+	bool enable_resource_consumption_metering = 2;
+	ContainerClusterXResourceUsageExportConfigXBigqueryDestination bigquery_destination = 3;
+}
+
+message ContainerClusterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string read = 3;
+	string update = 4;
+}
+
+message ContainerClusterXVerticalPodAutoscaling {
+	bool enabled = 1;
+}
+
+message ContainerClusterXWorkloadIdentityConfig {
+	string workload_pool = 1;
+}
+
+message ContainerCluster {
+	string cluster_ipv4_cidr = 1;
+	string datapath_provider = 2;
+	double default_max_pods_per_node = 3;
+	string description = 4;
+	bool enable_autopilot = 5;
+	bool enable_binary_authorization = 6;
+	bool enable_intranode_visibility = 7;
+	bool enable_kubernetes_alpha = 8;
+	bool enable_legacy_abac = 9;
+	bool enable_shielded_nodes = 10;
+	bool enable_tpu = 11;
+	string endpoint = 12;
+	string id = 13;
+	double initial_node_count = 14;
+	string label_fingerprint = 15;
+	string location = 16;
+	string logging_service = 17;
+	string master_version = 18;
+	string min_master_version = 19;
+	string monitoring_service = 20;
+	string name = 21;
+	string network = 22;
+	string networking_mode = 23;
+	repeated string node_locations = 24;
+	string node_version = 25;
+	string operation = 26;
+	string private_ipv6_google_access = 27;
+	string project = 28;
+	bool remove_default_node_pool = 29;
+	map<string, string> resource_labels = 30;
+	string self_link = 31;
+	string services_ipv4_cidr = 32;
+	string subnetwork = 33;
+	string tpu_ipv4_cidr_block = 34;
+	ContainerClusterXAddonsConfig addons_config = 35;
+	ContainerClusterXAuthenticatorGroupsConfig authenticator_groups_config = 36;
+	ContainerClusterXBinaryAuthorization binary_authorization = 37;
+	ContainerClusterXClusterAutoscaling cluster_autoscaling = 38;
+	ContainerClusterXConfidentialNodes confidential_nodes = 39;
+	ContainerClusterXDatabaseEncryption database_encryption = 40;
+	ContainerClusterXDefaultSnatStatus default_snat_status = 41;
+	ContainerClusterXDnsConfig dns_config = 42;
+	ContainerClusterXIpAllocationPolicy ip_allocation_policy = 43;
+	ContainerClusterXLoggingConfig logging_config = 44;
+	ContainerClusterXMaintenancePolicy maintenance_policy = 45;
+	ContainerClusterXMasterAuth master_auth = 46;
+	ContainerClusterXMasterAuthorizedNetworksConfig master_authorized_networks_config = 47;
+	ContainerClusterXMonitoringConfig monitoring_config = 48;
+	ContainerClusterXNetworkPolicy network_policy = 49;
+	ContainerClusterXNodeConfig node_config = 50;
+	repeated ContainerClusterXNodePool node_pool = 51;
+	ContainerClusterXNotificationConfig notification_config = 52;
+	ContainerClusterXPrivateClusterConfig private_cluster_config = 53;
+	ContainerClusterXReleaseChannel release_channel = 54;
+	ContainerClusterXResourceUsageExportConfig resource_usage_export_config = 55;
+	ContainerClusterXTimeouts timeouts = 56;
+	ContainerClusterXVerticalPodAutoscaling vertical_pod_autoscaling = 57;
+	ContainerClusterXWorkloadIdentityConfig workload_identity_config = 58;
+	oak9.tython.shared.ResourceInfo resource_info = 59;
+}
+
+message ContainerNodePoolXAutoscaling {
+	double max_node_count = 1;
+	double min_node_count = 2;
+}
+
+message ContainerNodePoolXManagement {
+	bool auto_repair = 1;
+	bool auto_upgrade = 2;
+}
+
+message ContainerNodePoolXNodeConfigXGcfsConfig {
+	bool enabled = 1;
+}
+
+message ContainerNodePoolXNodeConfigXGvnic {
+	bool enabled = 1;
+}
+
+message ContainerNodePoolXNodeConfigXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+}
+
+message ContainerNodePoolXNodeConfigXWorkloadMetadataConfig {
+	string mode = 1;
+}
+
+message ContainerNodePoolXNodeConfig {
+	string boot_disk_kms_key = 1;
+	double disk_size_gb = 2;
+	string disk_type = 3;
+	map<string, string> guest_accelerator = 4;
+	string image_type = 5;
+	map<string, string> labels = 6;
+	double local_ssd_count = 7;
+	string machine_type = 8;
+	map<string, string> metadata = 9;
+	string min_cpu_platform = 10;
+	string node_group = 11;
+	repeated string oauth_scopes = 12;
+	bool preemptible = 13;
+	string service_account = 14;
+	bool spot = 15;
+	repeated string tags = 16;
+	map<string, string> taint = 17;
+	ContainerNodePoolXNodeConfigXGcfsConfig gcfs_config = 18;
+	ContainerNodePoolXNodeConfigXGvnic gvnic = 19;
+	ContainerNodePoolXNodeConfigXShieldedInstanceConfig shielded_instance_config = 20;
+	ContainerNodePoolXNodeConfigXWorkloadMetadataConfig workload_metadata_config = 21;
+}
+
+message ContainerNodePoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ContainerNodePoolXUpgradeSettings {
+	double max_surge = 1;
+	double max_unavailable = 2;
+}
+
+message ContainerNodePool {
+	string cluster = 1;
+	string id = 2;
+	double initial_node_count = 3;
+	repeated string instance_group_urls = 4;
+	string location = 5;
+	repeated string managed_instance_group_urls = 6;
+	double max_pods_per_node = 7;
+	string name = 8;
+	string name_prefix = 9;
+	double node_count = 10;
+	repeated string node_locations = 11;
+	string operation = 12;
+	string project = 13;
+	string version = 14;
+	ContainerNodePoolXAutoscaling autoscaling = 15;
+	ContainerNodePoolXManagement management = 16;
+	ContainerNodePoolXNodeConfig node_config = 17;
+	ContainerNodePoolXTimeouts timeouts = 18;
+	ContainerNodePoolXUpgradeSettings upgrade_settings = 19;
+	oak9.tython.shared.ResourceInfo resource_info = 20;
+}
+
+message ContainerRegistry {
+	string bucket_self_link = 1;
+	string id = 2;
+	string location = 3;
+	string project = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

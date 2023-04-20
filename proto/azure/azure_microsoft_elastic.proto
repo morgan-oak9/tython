@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_elastic;
+
+import "shared/shared.proto";
+
+message Microsoft_Elastic {
+	repeated Monitors monitors = 1;
+}
+
+message MonitorsTagRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	LogRules log_rules = 3;
+	string provisioning_state = 4;
+}
+
+message LogRules {
+	repeated FilteringTag filtering_tags = 1;
+	bool send_aad_logs = 2;
+	bool send_activity_logs = 3;
+	bool send_subscription_logs = 4;
+}
+
+message FilteringTag {
+	string action = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message Monitors {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityProperties identity = 2;
+	string location = 3;
+	string name = 4;
+	ElasticProperties elastic_properties = 5;
+	string liftr_resource_category = 6;
+	string monitoring_status = 7;
+	string provisioning_state = 8;
+	UserInfo user_info = 9;
+	string version = 10;
+	ResourceSku sku = 11;
+	map<string, string> tags = 12;
+	repeated MonitorsTagRules monitors_tag_rules = 13;
+}
+
+message ResourceSku {
+	string name = 1;
+}
+
+message UserInfo {
+	CompanyInfo company_info = 1;
+	string company_name = 2;
+	string email_address = 3;
+	string first_name = 4;
+	string last_name = 5;
+}
+
+message CompanyInfo {
+	string business = 1;
+	string country = 2;
+	string domain = 3;
+	string employees_number = 4;
+	string state = 5;
+}
+
+message ElasticProperties {
+	ElasticCloudDeployment elastic_cloud_deployment = 1;
+	ElasticCloudUser elastic_cloud_user = 2;
+}
+
+message ElasticCloudUser {
+	string name = 1;
+}
+
+message ElasticCloudDeployment {
+	string name = 1;
+}
+
+message IdentityProperties {
+	string type = 1;
+}
+

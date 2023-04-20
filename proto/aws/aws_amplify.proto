@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package oak9.tython.aws.amplify;
+
+import "shared/shared.proto";
+
+message AppEnvironmentVariable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string name = 3;
+}
+
+message AppBasicAuthConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	bool enable_basic_auth = 3;
+	string password = 4;
+}
+
+message AppAutoBranchCreationConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated AppEnvironmentVariable environment_variables = 2;
+	bool enable_auto_branch_creation = 3;
+	string pull_request_environment_name = 4;
+	repeated string auto_branch_creation_patterns = 5;
+	bool enable_pull_request_preview = 6;
+	bool enable_auto_build = 7;
+	bool enable_performance_mode = 8;
+	string build_spec = 9;
+	string stage = 10;
+	AppBasicAuthConfig basic_auth_config = 11;
+}
+
+message AppCustomRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string condition = 2;
+	string status = 3;
+	string target = 4;
+	string source = 5;
+}
+
+message App {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	AppAutoBranchCreationConfig auto_branch_creation_config = 2;
+	string oauth_token = 3;
+	string description = 4;
+	bool enable_branch_auto_deletion = 5;
+	string name = 6;
+	string repository = 7;
+	repeated AppEnvironmentVariable environment_variables = 8;
+	string access_token = 9;
+	string build_spec = 10;
+	repeated AppCustomRule custom_rules = 11;
+	AppBasicAuthConfig basic_auth_config = 12;
+	map<string, string> tags = 13;
+	string iam_service_role = 14;
+}
+
+message Amplify {
+	repeated App app = 1;
+	repeated Branch branch = 2;
+	repeated Domain domain = 3;
+}
+
+message BranchEnvironmentVariable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string name = 3;
+}
+
+message BranchBasicAuthConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	bool enable_basic_auth = 3;
+	string password = 4;
+}
+
+message Branch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated BranchEnvironmentVariable environment_variables = 3;
+	string app_id = 4;
+	string pull_request_environment_name = 5;
+	bool enable_pull_request_preview = 6;
+	bool enable_auto_build = 7;
+	bool enable_performance_mode = 8;
+	string build_spec = 9;
+	string stage = 10;
+	string branch_name = 11;
+	BranchBasicAuthConfig basic_auth_config = 12;
+	map<string, string> tags = 13;
+}
+
+message DomainSubDomainSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string prefix = 2;
+	string branch_name = 3;
+}
+
+message Domain {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DomainSubDomainSetting sub_domain_settings = 2;
+	string app_id = 3;
+	string auto_sub_domain_iam_role = 4;
+	string domain_name = 5;
+	bool enable_auto_sub_domain = 6;
+	repeated string auto_sub_domain_creation_patterns = 7;
+}
+

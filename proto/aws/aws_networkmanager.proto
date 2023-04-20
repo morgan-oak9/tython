@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package oak9.tython.aws.networkmanager;
+
+import "shared/shared.proto";
+
+message CustomerGatewayAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string global_network_id = 2;
+	string customer_gateway_arn = 3;
+	string device_id = 4;
+	string link_id = 5;
+}
+
+message NetworkManager {
+	repeated CustomerGatewayAssociation customer_gateway_association = 1;
+	repeated Device device = 2;
+	repeated GlobalNetwork global_network = 3;
+	repeated Link link = 4;
+	repeated LinkAssociation link_association = 5;
+	repeated Site site = 6;
+	repeated TransitGatewayRegistration transit_gateway_registration = 7;
+}
+
+message DeviceLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string address = 2;
+	string latitude = 3;
+	string longitude = 4;
+}
+
+message Device {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> tags = 3;
+	string global_network_id = 4;
+	DeviceLocation location = 5;
+	string model = 6;
+	string serial_number = 7;
+	string site_id = 8;
+	string type = 9;
+	string vendor = 10;
+}
+
+message GlobalNetwork {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> tags = 3;
+}
+
+message LinkBandwidth {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 download_speed = 2;
+	int32 upload_speed = 3;
+}
+
+message Link {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string global_network_id = 2;
+	string site_id = 3;
+	LinkBandwidth bandwidth = 4;
+	string provider = 5;
+	string description = 6;
+	map<string, string> tags = 7;
+	string type = 8;
+}
+
+message LinkAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string global_network_id = 2;
+	string device_id = 3;
+	string link_id = 4;
+}
+
+message SiteLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string address = 2;
+	string latitude = 3;
+	string longitude = 4;
+}
+
+message Site {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> tags = 3;
+	string global_network_id = 4;
+	SiteLocation location = 5;
+}
+
+message TransitGatewayRegistration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string global_network_id = 2;
+	string transit_gateway_arn = 3;
+}
+

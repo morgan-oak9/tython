@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_app;
+
+import "shared/shared.proto";
+
+message Microsoft_App {
+	repeated ConnectedEnvironments connected_environments = 1;
+	repeated ManagedEnvironments managed_environments = 2;
+}
+
+message ManagedEnvironmentsStorages {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	AzureFileProperties azure_file = 3;
+}
+
+message ManagedEnvironmentsDaprComponents {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string component_type = 3;
+	bool ignore_errors = 4;
+	string init_timeout = 5;
+	repeated DaprMetadata metadata = 6;
+	repeated string scopes = 7;
+	repeated Secret secrets = 8;
+	string secret_store_component = 9;
+	string version = 10;
+}
+
+message ManagedEnvironmentsCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string password = 4;
+	string value = 5;
+	map<string, string> tags = 6;
+}
+
+message ManagedEnvironments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	AppLogsConfiguration app_logs_configuration = 4;
+	CustomDomainConfiguration custom_domain_configuration = 5;
+	string dapr_a_i_connection_string = 6;
+	string dapr_a_i_instrumentation_key = 7;
+	VnetConfiguration vnet_configuration = 8;
+	repeated WorkloadProfile workload_profiles = 9;
+	bool zone_redundant = 10;
+	EnvironmentSkuProperties sku = 11;
+	map<string, string> tags = 12;
+	repeated ManagedEnvironmentsDaprComponents managed_environments_dapr_components = 13;
+	repeated ManagedEnvironmentsCertificates managed_environments_certificates = 14;
+	repeated ManagedEnvironmentsStorages managed_environments_storages = 15;
+}
+
+message EnvironmentSkuProperties {
+	string name = 1;
+}
+
+message WorkloadProfile {
+	int32 maximum_count = 1;
+	int32 minimum_count = 2;
+	string workload_profile_type = 3;
+}
+
+message VnetConfiguration {
+	string docker_bridge_cidr = 1;
+	string infrastructure_subnet_id = 2;
+	bool internal = 3;
+	ManagedEnvironmentOutboundSettings outbound_settings = 4;
+	string platform_reserved_cidr = 5;
+	string platform_reserved_dns_ip = 6;
+	string runtime_subnet_id = 7;
+}
+
+message ManagedEnvironmentOutboundSettings {
+	string out_bound_type = 1;
+	string virtual_network_appliance_ip = 2;
+}
+
+message AppLogsConfiguration {
+	string destination = 1;
+	LogAnalyticsConfiguration log_analytics_configuration = 2;
+}
+
+message LogAnalyticsConfiguration {
+	string customer_id = 1;
+	string shared_key = 2;
+}
+
+message ConnectedEnvironmentsStorages {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	AzureFileProperties azure_file = 3;
+}
+
+message AzureFileProperties {
+	string access_mode = 1;
+	string account_key = 2;
+	string account_name = 3;
+	string share_name = 4;
+}
+
+message ConnectedEnvironmentsDaprComponents {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string component_type = 3;
+	bool ignore_errors = 4;
+	string init_timeout = 5;
+	repeated DaprMetadata metadata = 6;
+	repeated string scopes = 7;
+	repeated Secret secrets = 8;
+	string secret_store_component = 9;
+	string version = 10;
+}
+
+message Secret {
+	string name = 1;
+	string value = 2;
+}
+
+message DaprMetadata {
+	string name = 1;
+	string secret_ref = 2;
+	string value = 3;
+}
+
+message ConnectedEnvironmentsCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string password = 4;
+	string value = 5;
+	map<string, string> tags = 6;
+}
+
+message ConnectedEnvironments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	string location = 3;
+	string name = 4;
+	CustomDomainConfiguration custom_domain_configuration = 5;
+	string dapr_a_i_connection_string = 6;
+	string static_ip = 7;
+	map<string, string> tags = 8;
+	repeated ConnectedEnvironmentsCertificates connected_environments_certificates = 9;
+	repeated ConnectedEnvironmentsDaprComponents connected_environments_dapr_components = 10;
+	repeated ConnectedEnvironmentsStorages connected_environments_storages = 11;
+}
+
+message CustomDomainConfiguration {
+	string certificate_password = 1;
+	string certificate_value = 2;
+	string dns_suffix = 3;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ecr;
+
+import "shared/shared.proto";
+
+message RepositoryLifecyclePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string lifecycle_policy_text = 2;
+	string registry_id = 3;
+}
+
+message Repository {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RepositoryLifecyclePolicy lifecycle_policy = 2;
+	string repository_name = 3;
+	map<string, string> repository_policy_text = 4;
+	map<string, string> tags = 5;
+	string image_tag_mutability = 6;
+	map<string, string> image_scanning_configuration = 7;
+}
+
+message ECR {
+	repeated Repository repository = 1;
+}
+

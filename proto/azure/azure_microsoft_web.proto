@@ -1,0 +1,1263 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_web;
+
+import "shared/shared.proto";
+
+message Microsoft_Web {
+	HostingEnvironments hosting_environments = 1;
+	Serverfarms serverfarms = 2;
+	repeated ServerfarmsVirtualNetworkConnectionsGateways serverfarms_virtual_network_connections_gateways = 3;
+	repeated ServerfarmsVirtualNetworkConnectionsRoutes serverfarms_virtual_network_connections_routes = 4;
+	Sites sites = 5;
+	repeated SiteConfig sites_config = 6;
+	repeated SitesDeployments sites_deployments = 7;
+	repeated SitesHostNameBindings sites_host_name_bindings = 8;
+}
+
+message StaticSitesUserProvidedFunctionApps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string function_app_region = 4;
+	string function_app_resource_id = 5;
+}
+
+message StaticSitesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	PrivateLinkConnectionState private_link_service_connection_state = 4;
+}
+
+message StaticSitesLinkedBackends {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string backend_resource_id = 4;
+	string region = 5;
+}
+
+message StaticSitesCustomDomains {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string validation_method = 4;
+}
+
+message StaticSitesConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message StaticSitesBuildsUserProvidedFunctionApps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string function_app_region = 4;
+	string function_app_resource_id = 5;
+}
+
+message StaticSitesBuildsLinkedBackends {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string backend_resource_id = 4;
+	string region = 5;
+}
+
+message StaticSitesBuildsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message StaticSites {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string kind = 3;
+	string location = 4;
+	string name = 5;
+	bool allow_config_file_updates = 6;
+	string branch = 7;
+	StaticSiteBuildProperties build_properties = 8;
+	string enterprise_grade_cdn_status = 9;
+	string provider = 10;
+	string public_network_access = 11;
+	string repository_token = 12;
+	string repository_url = 13;
+	string staging_environment_policy = 14;
+	StaticSiteTemplateOptions template_properties = 15;
+	SkuDescription sku = 16;
+	map<string, string> tags = 17;
+	repeated StaticSitesConfig static_sites_config = 18;
+	repeated StaticSitesCustomDomains static_sites_custom_domains = 19;
+	repeated StaticSitesPrivateEndpointConnections static_sites_private_endpoint_connections = 20;
+	repeated StaticSitesUserProvidedFunctionApps static_sites_user_provided_function_apps = 21;
+	repeated StaticSitesLinkedBackends static_sites_linked_backends = 22;
+}
+
+message StaticSiteTemplateOptions {
+	string description = 1;
+	bool is_private = 2;
+	string owner = 3;
+	string repository_name = 4;
+	string template_repository_url = 5;
+}
+
+message StaticSiteBuildProperties {
+	string api_build_command = 1;
+	string api_location = 2;
+	string app_artifact_location = 3;
+	string app_build_command = 4;
+	string app_location = 5;
+	string github_action_secret_name_override = 6;
+	string output_location = 7;
+	bool skip_github_action_workflow_generation = 8;
+}
+
+message SitesVirtualNetworkConnectionsGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string vnet_name = 4;
+	string vpn_package_uri = 5;
+}
+
+message SitesVirtualNetworkConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string cert_blob = 4;
+	string dns_servers = 5;
+	bool is_swift = 6;
+	string vnet_resource_id = 7;
+	repeated SitesVirtualNetworkConnectionsGateways sites_virtual_network_connections_gateways = 8;
+}
+
+message SitesSourcecontrols {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string branch = 4;
+	bool deployment_rollback_enabled = 5;
+	GitHubActionConfiguration git_hub_action_configuration = 6;
+	bool is_git_hub_action = 7;
+	bool is_manual_integration = 8;
+	bool is_mercurial = 9;
+	string repo_url = 10;
+}
+
+message SitesSlotsVirtualNetworkConnectionsGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string vnet_name = 4;
+	string vpn_package_uri = 5;
+}
+
+message SitesSlotsVirtualNetworkConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string cert_blob = 4;
+	string dns_servers = 5;
+	bool is_swift = 6;
+	string vnet_resource_id = 7;
+	repeated SitesSlotsVirtualNetworkConnectionsGateways sites_slots_virtual_network_connections_gateways = 8;
+}
+
+message SitesSlotsSourcecontrols {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string branch = 4;
+	bool deployment_rollback_enabled = 5;
+	GitHubActionConfiguration git_hub_action_configuration = 6;
+	bool is_git_hub_action = 7;
+	bool is_manual_integration = 8;
+	bool is_mercurial = 9;
+	string repo_url = 10;
+}
+
+message GitHubActionConfiguration {
+	GitHubActionCodeConfiguration code_configuration = 1;
+	GitHubActionContainerConfiguration container_configuration = 2;
+	bool generate_workflow_file = 3;
+	bool is_linux = 4;
+}
+
+message GitHubActionContainerConfiguration {
+	string image_name = 1;
+	string password = 2;
+	string server_url = 3;
+	string username = 4;
+}
+
+message GitHubActionCodeConfiguration {
+	string runtime_stack = 1;
+	string runtime_version = 2;
+}
+
+message SitesSlotsSiteextensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message SitesSlotsPublicCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string blob = 4;
+	string public_certificate_location = 5;
+}
+
+message SitesSlotsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	PrivateLinkConnectionState private_link_service_connection_state = 4;
+}
+
+message SitesSlotsPrivateAccess {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool enabled = 4;
+	repeated PrivateAccessVirtualNetwork virtual_networks = 5;
+}
+
+message SitesSlotsPremieraddons {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string location = 3;
+	string name = 4;
+	string marketplace_offer = 5;
+	string marketplace_publisher = 6;
+	string product = 7;
+	string sku = 8;
+	string vendor = 9;
+	map<string, string> tags = 10;
+}
+
+message SitesSlotsNetworkConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string subnet_resource_id = 4;
+	bool swift_supported = 5;
+}
+
+message SitesSlotsInstancesExtensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool app_offline = 4;
+	string connection_string = 5;
+	string db_type = 6;
+	string package_uri = 7;
+	map<string, string> set_parameters = 8;
+	string set_parameters_xml_file_uri = 9;
+	bool skip_app_data = 10;
+}
+
+message SitesSlotsHybridConnectionNamespacesRelays {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string hostname = 4;
+	int32 port = 5;
+	string relay_arm_uri = 6;
+	string relay_name = 7;
+	string send_key_name = 8;
+	string send_key_value = 9;
+	string service_bus_namespace = 10;
+	string service_bus_suffix = 11;
+}
+
+message SitesSlotsHybridconnection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string biztalk_uri = 4;
+	string entity_connection_string = 5;
+	string entity_name = 6;
+	string hostname = 7;
+	int32 port = 8;
+	string resource_connection_string = 9;
+	string resource_type = 10;
+}
+
+message SitesSlotsHostNameBindings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string azure_resource_name = 4;
+	string azure_resource_type = 5;
+	string custom_host_name_dns_record_type = 6;
+	string domain_id = 7;
+	string host_name_type = 8;
+	string site_name = 9;
+	string ssl_state = 10;
+	string thumbprint = 11;
+}
+
+message SitesSlotsFunctionsKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message SitesSlotsFunctions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	map<string, string> config = 4;
+	string config_href = 5;
+	map<string, string> files = 6;
+	string function_app_id = 7;
+	string href = 8;
+	string invoke_url_template = 9;
+	bool is_disabled = 10;
+	string language = 11;
+	string script_href = 12;
+	string script_root_path_href = 13;
+	string secrets_file_href = 14;
+	string test_data = 15;
+	string test_data_href = 16;
+	repeated SitesSlotsFunctionsKeys sites_slots_functions_keys = 17;
+}
+
+message SitesSlotsExtensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool app_offline = 4;
+	string connection_string = 5;
+	string db_type = 6;
+	string package_uri = 7;
+	map<string, string> set_parameters = 8;
+	string set_parameters_xml_file_uri = 9;
+	bool skip_app_data = 10;
+}
+
+message SitesSlotsDomainOwnershipIdentifiers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string id = 4;
+}
+
+message SitesSlotsDeployments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool active = 4;
+	string author = 5;
+	string author_email = 6;
+	string deployer = 7;
+	string details = 8;
+	string end_time = 9;
+	string message = 10;
+	string start_time = 11;
+	int32 status = 12;
+}
+
+message SitesSlotsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message SitesSlotsBasicPublishingCredentialsPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message SitesSlots {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	ManagedServiceIdentity identity = 3;
+	string kind = 4;
+	string location = 5;
+	string name = 6;
+	bool client_affinity_enabled = 7;
+	bool client_cert_enabled = 8;
+	string client_cert_exclusion_paths = 9;
+	string client_cert_mode = 10;
+	CloningInfo cloning_info = 11;
+	int32 container_size = 12;
+	string custom_domain_verification_id = 13;
+	int32 daily_memory_time_quota = 14;
+	bool enabled = 15;
+	HostingEnvironmentProfile hosting_environment_profile = 16;
+	bool host_names_disabled = 17;
+	repeated HostNameSslState host_name_ssl_states = 18;
+	bool https_only = 19;
+	bool hyper_v = 20;
+	bool is_xenon = 21;
+	string key_vault_reference_identity = 22;
+	string public_network_access = 23;
+	string redundancy_mode = 24;
+	bool reserved = 25;
+	bool scm_site_also_stopped = 26;
+	string server_farm_id = 27;
+	SiteConfig site_config = 28;
+	bool storage_account_required = 29;
+	string virtual_network_subnet_id = 30;
+	bool vnet_content_share_enabled = 31;
+	bool vnet_image_pull_enabled = 32;
+	bool vnet_route_all_enabled = 33;
+	map<string, string> tags = 34;
+	repeated SitesSlotsBasicPublishingCredentialsPolicies sites_slots_basic_publishing_credentials_policies = 35;
+	repeated SitesSlotsConfig sites_slots_config = 36;
+	repeated SitesSlotsDeployments sites_slots_deployments = 37;
+	repeated SitesSlotsDomainOwnershipIdentifiers sites_slots_domain_ownership_identifiers = 38;
+	repeated SitesSlotsExtensions sites_slots_extensions = 39;
+	repeated SitesSlotsFunctions sites_slots_functions = 40;
+	repeated SitesSlotsHostNameBindings sites_slots_host_name_bindings = 41;
+	repeated SitesSlotsHybridconnection sites_slots_hybridconnection = 42;
+	repeated SitesSlotsNetworkConfig sites_slots_network_config = 43;
+	repeated SitesSlotsPremieraddons sites_slots_premieraddons = 44;
+	repeated SitesSlotsPrivateAccess sites_slots_private_access = 45;
+	repeated SitesSlotsPrivateEndpointConnections sites_slots_private_endpoint_connections = 46;
+	repeated SitesSlotsPublicCertificates sites_slots_public_certificates = 47;
+	repeated SitesSlotsSiteextensions sites_slots_siteextensions = 48;
+	repeated SitesSlotsSourcecontrols sites_slots_sourcecontrols = 49;
+	repeated SitesSlotsVirtualNetworkConnections sites_slots_virtual_network_connections = 50;
+}
+
+message SitesSiteextensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message SitesPublicCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string blob = 4;
+	string public_certificate_location = 5;
+}
+
+message SitesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	PrivateLinkConnectionState private_link_service_connection_state = 4;
+}
+
+message SitesPrivateAccess {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool enabled = 4;
+	repeated PrivateAccessVirtualNetwork virtual_networks = 5;
+}
+
+message PrivateAccessVirtualNetwork {
+	int32 key = 1;
+	string name = 2;
+	string resource_id = 3;
+	repeated PrivateAccessSubnet subnets = 4;
+}
+
+message PrivateAccessSubnet {
+	int32 key = 1;
+	string name = 2;
+}
+
+message SitesPremieraddons {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string location = 3;
+	string name = 4;
+	string marketplace_offer = 5;
+	string marketplace_publisher = 6;
+	string product = 7;
+	string sku = 8;
+	string vendor = 9;
+	map<string, string> tags = 10;
+}
+
+message SitesNetworkConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string subnet_resource_id = 4;
+	bool swift_supported = 5;
+}
+
+message SitesMigrate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string azurefiles_connection_string = 4;
+	string azurefiles_share = 5;
+	bool block_write_access_to_site = 6;
+	bool switch_site_after_migration = 7;
+}
+
+message SitesInstancesExtensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool app_offline = 4;
+	string connection_string = 5;
+	string db_type = 6;
+	string package_uri = 7;
+	map<string, string> set_parameters = 8;
+	string set_parameters_xml_file_uri = 9;
+	bool skip_app_data = 10;
+}
+
+message SitesHybridConnectionNamespacesRelays {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string hostname = 4;
+	int32 port = 5;
+	string relay_arm_uri = 6;
+	string relay_name = 7;
+	string send_key_name = 8;
+	string send_key_value = 9;
+	string service_bus_namespace = 10;
+	string service_bus_suffix = 11;
+}
+
+message SitesHybridconnection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string biztalk_uri = 4;
+	string entity_connection_string = 5;
+	string entity_name = 6;
+	string hostname = 7;
+	int32 port = 8;
+	string resource_connection_string = 9;
+	string resource_type = 10;
+}
+
+message SitesHostNameBindings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string azure_resource_name = 4;
+	string azure_resource_type = 5;
+	string custom_host_name_dns_record_type = 6;
+	string domain_id = 7;
+	string host_name_type = 8;
+	string site_name = 9;
+	string ssl_state = 10;
+	string thumbprint = 11;
+}
+
+message SitesFunctionsKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message SitesFunctions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	map<string, string> config = 4;
+	string config_href = 5;
+	map<string, string> files = 6;
+	string function_app_id = 7;
+	string href = 8;
+	string invoke_url_template = 9;
+	bool is_disabled = 10;
+	string language = 11;
+	string script_href = 12;
+	string script_root_path_href = 13;
+	string secrets_file_href = 14;
+	string test_data = 15;
+	string test_data_href = 16;
+	repeated SitesFunctionsKeys sites_functions_keys = 17;
+}
+
+message SitesExtensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message SitesDomainOwnershipIdentifiers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string id = 4;
+}
+
+message SitesDeployments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	bool active = 4;
+	string author = 5;
+	string author_email = 6;
+	string deployer = 7;
+	string details = 8;
+	string end_time = 9;
+	string message = 10;
+	string start_time = 11;
+	int32 status = 12;
+}
+
+message SitesConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ftps_state = 2;
+	string health_check_path = 3;
+	string http20_enabled = 4;
+	string http_logging_enabled = 5;
+	string java_container = 6;
+	string java_container_version = 7;
+	string java_version = 8;
+	string linux_fx_version = 9;
+	string load_balancing = 10;
+	string logs_directory_size_limit = 11;
+	string managed_pipeline_mode = 12;
+	string min_tls_version = 13;
+	string net_framework_version = 14;
+	string node_version = 15;
+	string php_version = 16;
+	string publishing_username = 17;
+	string python_version = 18;
+	string remote_debugging_enabled = 19;
+	string remote_debugging_version = 20;
+	string scm_ip_security_restrictions_use_main = 21;
+	string windows_fx_version = 22;
+}
+
+message SitesBasicPublishingCredentialsPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message Sites {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	ManagedServiceIdentity identity = 3;
+	string kind = 4;
+	string location = 5;
+	string name = 6;
+	bool client_affinity_enabled = 7;
+	bool client_cert_enabled = 8;
+	string client_cert_exclusion_paths = 9;
+	string client_cert_mode = 10;
+	CloningInfo cloning_info = 11;
+	int32 container_size = 12;
+	string custom_domain_verification_id = 13;
+	int32 daily_memory_time_quota = 14;
+	bool enabled = 15;
+	HostingEnvironmentProfile hosting_environment_profile = 16;
+	bool host_names_disabled = 17;
+	repeated HostNameSslState host_name_ssl_states = 18;
+	bool https_only = 19;
+	bool hyper_v = 20;
+	bool is_xenon = 21;
+	string key_vault_reference_identity = 22;
+	string public_network_access = 23;
+	string redundancy_mode = 24;
+	bool reserved = 25;
+	bool scm_site_also_stopped = 26;
+	string server_farm_id = 27;
+	SiteConfig site_config = 28;
+	bool storage_account_required = 29;
+	string virtual_network_subnet_id = 30;
+	bool vnet_content_share_enabled = 31;
+	bool vnet_image_pull_enabled = 32;
+	bool vnet_route_all_enabled = 33;
+	map<string, string> tags = 34;
+	repeated SitesBasicPublishingCredentialsPolicies sites_basic_publishing_credentials_policies = 35;
+	repeated SitesDomainOwnershipIdentifiers sites_domain_ownership_identifiers = 36;
+	repeated SitesExtensions sites_extensions = 37;
+	repeated SitesFunctions sites_functions = 38;
+	repeated SitesHybridconnection sites_hybridconnection = 39;
+	repeated SitesMigrate sites_migrate = 40;
+	repeated SitesNetworkConfig sites_network_config = 41;
+	repeated SitesPremieraddons sites_premieraddons = 42;
+	repeated SitesPrivateAccess sites_private_access = 43;
+	repeated SitesPrivateEndpointConnections sites_private_endpoint_connections = 44;
+	repeated SitesPublicCertificates sites_public_certificates = 45;
+	repeated SitesSiteextensions sites_siteextensions = 46;
+	repeated SitesSlots sites_slots = 47;
+	repeated SitesSourcecontrols sites_sourcecontrols = 48;
+	repeated SitesVirtualNetworkConnections sites_virtual_network_connections = 49;
+}
+
+message SiteConfig {
+	bool acr_use_managed_identity_creds = 1;
+	string acr_user_managed_identity_id = 2;
+	bool always_on = 3;
+	ApiDefinitionInfo api_definition = 4;
+	ApiManagementConfig api_management_config = 5;
+	string app_command_line = 6;
+	repeated NameValuePair app_settings = 7;
+	bool auto_heal_enabled = 8;
+	AutoHealRules auto_heal_rules = 9;
+	string auto_swap_slot_name = 10;
+	map<string, string> azure_storage_accounts = 11;
+	repeated ConnStringInfo connection_strings = 12;
+	CorsSettings cors = 13;
+	repeated string default_documents = 14;
+	bool detailed_error_logging_enabled = 15;
+	string document_root = 16;
+	Experiments experiments = 17;
+	string ftps_state = 18;
+	int32 function_app_scale_limit = 19;
+	bool functions_runtime_scale_monitoring_enabled = 20;
+	repeated HandlerMapping handler_mappings = 21;
+	string health_check_path = 22;
+	bool http20_enabled = 23;
+	bool http_logging_enabled = 24;
+	repeated IpSecurityRestriction ip_security_restrictions = 25;
+	string java_container = 26;
+	string java_container_version = 27;
+	string java_version = 28;
+	string key_vault_reference_identity = 29;
+	SiteLimits limits = 30;
+	string linux_fx_version = 31;
+	string load_balancing = 32;
+	bool local_my_sql_enabled = 33;
+	int32 logs_directory_size_limit = 34;
+	string managed_pipeline_mode = 35;
+	int32 managed_service_identity_id = 36;
+	int32 minimum_elastic_instance_count = 37;
+	string min_tls_version = 38;
+	string net_framework_version = 39;
+	string node_version = 40;
+	int32 number_of_workers = 41;
+	string php_version = 42;
+	string power_shell_version = 43;
+	int32 pre_warmed_instance_count = 44;
+	string public_network_access = 45;
+	string publishing_username = 46;
+	PushSettings push = 47;
+	string python_version = 48;
+	bool remote_debugging_enabled = 49;
+	string remote_debugging_version = 50;
+	bool request_tracing_enabled = 51;
+	string request_tracing_expiration_time = 52;
+	repeated IpSecurityRestriction scm_ip_security_restrictions = 53;
+	bool scm_ip_security_restrictions_use_main = 54;
+	string scm_min_tls_version = 55;
+	string scm_type = 56;
+	string tracing_options = 57;
+	bool use32_bit_worker_process = 58;
+	repeated VirtualApplication virtual_applications = 59;
+	string vnet_name = 60;
+	int32 vnet_private_ports_count = 61;
+	bool vnet_route_all_enabled = 62;
+	string website_time_zone = 63;
+	bool web_sockets_enabled = 64;
+	string windows_fx_version = 65;
+	int32 x_managed_service_identity_id = 66;
+}
+
+message VirtualApplication {
+	string physical_path = 1;
+	bool preload_enabled = 2;
+	repeated VirtualDirectory virtual_directories = 3;
+	string virtual_path = 4;
+}
+
+message VirtualDirectory {
+	string physical_path = 1;
+	string virtual_path = 2;
+}
+
+message PushSettings {
+	string kind = 1;
+	string dynamic_tags_json = 2;
+	bool is_push_enabled = 3;
+	string tags_requiring_auth = 4;
+	string tag_whitelist_json = 5;
+}
+
+message SiteLimits {
+	int32 max_disk_size_in_mb = 1;
+	int32 max_memory_in_mb = 2;
+	double max_percentage_cpu = 3;
+}
+
+message IpSecurityRestriction {
+	string action = 1;
+	string description = 2;
+	map<string, string> headers = 3;
+	string ip_address = 4;
+	string name = 5;
+	int32 priority = 6;
+	string subnet_mask = 7;
+	int32 subnet_traffic_tag = 8;
+	string tag = 9;
+	string vnet_subnet_resource_id = 10;
+	int32 vnet_traffic_tag = 11;
+}
+
+message HandlerMapping {
+	string arguments = 1;
+	string extension = 2;
+	string script_processor = 3;
+}
+
+message Experiments {
+	repeated RampUpRule ramp_up_rules = 1;
+}
+
+message RampUpRule {
+	string action_host_name = 1;
+	string change_decision_callback_url = 2;
+	int32 change_interval_in_minutes = 3;
+	double change_step = 4;
+	double max_reroute_percentage = 5;
+	double min_reroute_percentage = 6;
+	string name = 7;
+	double reroute_percentage = 8;
+}
+
+message CorsSettings {
+	repeated string allowed_origins = 1;
+	bool support_credentials = 2;
+}
+
+message ConnStringInfo {
+	string connection_string = 1;
+	string name = 2;
+	string type = 3;
+}
+
+message AutoHealRules {
+	AutoHealActions actions = 1;
+	AutoHealTriggers triggers = 2;
+}
+
+message AutoHealTriggers {
+	int32 private_bytes_in_kb = 1;
+	RequestsBasedTrigger requests = 2;
+	SlowRequestsBasedTrigger slow_requests = 3;
+	repeated SlowRequestsBasedTrigger slow_requests_with_path = 4;
+	repeated StatusCodesBasedTrigger status_codes = 5;
+	repeated StatusCodesRangeBasedTrigger status_codes_range = 6;
+}
+
+message StatusCodesRangeBasedTrigger {
+	int32 count = 1;
+	string path = 2;
+	string status_codes = 3;
+	string time_interval = 4;
+}
+
+message StatusCodesBasedTrigger {
+	int32 count = 1;
+	string path = 2;
+	int32 status = 3;
+	int32 sub_status = 4;
+	string time_interval = 5;
+	int32 win32_status = 6;
+}
+
+message SlowRequestsBasedTrigger {
+	int32 count = 1;
+	string path = 2;
+	string time_interval = 3;
+	string time_taken = 4;
+}
+
+message RequestsBasedTrigger {
+	int32 count = 1;
+	string time_interval = 2;
+}
+
+message AutoHealActions {
+	string action_type = 1;
+	AutoHealCustomAction custom_action = 2;
+	string min_process_execution_time = 3;
+}
+
+message AutoHealCustomAction {
+	string exe = 1;
+	string parameters = 2;
+}
+
+message ApiManagementConfig {
+	string id = 1;
+}
+
+message ApiDefinitionInfo {
+	string url = 1;
+}
+
+message HostNameSslState {
+	string host_type = 1;
+	string name = 2;
+	string ssl_state = 3;
+	string thumbprint = 4;
+	bool to_update = 5;
+	string virtual_ip = 6;
+}
+
+message CloningInfo {
+	map<string, string> app_settings_overrides = 1;
+	bool clone_custom_host_names = 2;
+	bool clone_source_control = 3;
+	bool configure_load_balancing = 4;
+	string correlation_id = 5;
+	string hosting_environment = 6;
+	bool overwrite = 7;
+	string source_web_app_id = 8;
+	string source_web_app_location = 9;
+	string traffic_manager_profile_id = 10;
+	string traffic_manager_profile_name = 11;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ServerfarmsVirtualNetworkConnectionsRoutes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string end_address = 4;
+	string route_type = 5;
+	string start_address = 6;
+}
+
+message ServerfarmsVirtualNetworkConnectionsGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string vnet_name = 4;
+	string vpn_package_uri = 5;
+}
+
+message Serverfarms {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	string kind = 3;
+	string location = 4;
+	string name = 5;
+	bool elastic_scale_enabled = 6;
+	string free_offer_expiration_time = 7;
+	HostingEnvironmentProfile hosting_environment_profile = 8;
+	bool hyper_v = 9;
+	bool is_spot = 10;
+	bool is_xenon = 11;
+	KubeEnvironmentProfile kube_environment_profile = 12;
+	int32 maximum_elastic_worker_count = 13;
+	bool per_site_scaling = 14;
+	bool reserved = 15;
+	string spot_expiration_time = 16;
+	int32 target_worker_count = 17;
+	int32 target_worker_size_id = 18;
+	string worker_tier_name = 19;
+	bool zone_redundant = 20;
+	SkuDescription sku = 21;
+	map<string, string> tags = 22;
+}
+
+message KubeEnvironmentProfile {
+	string id = 1;
+}
+
+message HostingEnvironmentProfile {
+	string id = 1;
+}
+
+message KubeEnvironments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	string kind = 3;
+	string location = 4;
+	string name = 5;
+	string aks_resource_id = 6;
+	AppLogsConfiguration app_logs_configuration = 7;
+	ArcConfiguration arc_configuration = 8;
+	ContainerAppsConfiguration container_apps_configuration = 9;
+	string environment_type = 10;
+	bool internal_load_balancer_enabled = 11;
+	string static_ip = 12;
+	map<string, string> tags = 13;
+}
+
+message ContainerAppsConfiguration {
+	string app_subnet_resource_id = 1;
+	string control_plane_subnet_resource_id = 2;
+	string dapr_a_i_instrumentation_key = 3;
+	string docker_bridge_cidr = 4;
+	string platform_reserved_cidr = 5;
+	string platform_reserved_dns_ip = 6;
+}
+
+message ArcConfiguration {
+	string artifacts_storage_type = 1;
+	string artifact_storage_access_mode = 2;
+	string artifact_storage_class_name = 3;
+	string artifact_storage_mount_path = 4;
+	string artifact_storage_node_name = 5;
+	FrontEndConfiguration front_end_service_configuration = 6;
+	string kube_config = 7;
+}
+
+message FrontEndConfiguration {
+	string kind = 1;
+}
+
+message AppLogsConfiguration {
+	string destination = 1;
+	LogAnalyticsConfiguration log_analytics_configuration = 2;
+}
+
+message LogAnalyticsConfiguration {
+	string customer_id = 1;
+	string shared_key = 2;
+}
+
+message ExtendedLocation {
+	string name = 1;
+}
+
+message HostingEnvironmentsWorkerPools {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string compute_mode = 4;
+	int32 worker_count = 5;
+	string worker_size = 6;
+	int32 worker_size_id = 7;
+	SkuDescription sku = 8;
+}
+
+message HostingEnvironmentsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	PrivateLinkConnectionState private_link_service_connection_state = 4;
+}
+
+message PrivateLinkConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message HostingEnvironmentsMultiRolePools {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string name = 3;
+	string compute_mode = 4;
+	int32 worker_count = 5;
+	string worker_size = 6;
+	int32 worker_size_id = 7;
+	SkuDescription sku = 8;
+}
+
+message SkuDescription {
+	repeated Capability capabilities = 1;
+	int32 capacity = 2;
+	string family = 3;
+	repeated string locations = 4;
+	string name = 5;
+	string size = 6;
+	SkuCapacity sku_capacity = 7;
+	string tier = 8;
+}
+
+message SkuCapacity {
+	int32 default = 1;
+	int32 elastic_maximum = 2;
+	int32 maximum = 3;
+	int32 minimum = 4;
+	string scale_type = 5;
+}
+
+message Capability {
+	string name = 1;
+	string reason = 2;
+	string value = 3;
+}
+
+message HostingEnvironmentsConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message HostingEnvironments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string location = 3;
+	string name = 4;
+	repeated NameValuePair cluster_settings = 5;
+	CustomDnsSuffixConfiguration custom_dns_suffix_configuration = 6;
+	int32 dedicated_host_count = 7;
+	string dns_suffix = 8;
+	int32 front_end_scale_factor = 9;
+	string internal_load_balancing_mode = 10;
+	int32 ipssl_address_count = 11;
+	string multi_size = 12;
+	AseV3NetworkingConfiguration networking_configuration = 13;
+	string upgrade_preference = 14;
+	repeated string user_whitelisted_ip_ranges = 15;
+	VirtualNetworkProfile virtual_network = 16;
+	bool zone_redundant = 17;
+	map<string, string> tags = 18;
+	repeated HostingEnvironmentsConfigurations hosting_environments_configurations = 19;
+	repeated HostingEnvironmentsMultiRolePools hosting_environments_multi_role_pools = 20;
+	repeated HostingEnvironmentsPrivateEndpointConnections hosting_environments_private_endpoint_connections = 21;
+	repeated HostingEnvironmentsWorkerPools hosting_environments_worker_pools = 22;
+}
+
+message VirtualNetworkProfile {
+	string id = 1;
+	string subnet = 2;
+}
+
+message AseV3NetworkingConfiguration {
+	string kind = 1;
+	bool allow_new_private_endpoint_connections = 2;
+	bool ftp_enabled = 3;
+	string inbound_ip_address_override = 4;
+	bool remote_debug_enabled = 5;
+}
+
+message CustomDnsSuffixConfiguration {
+	string kind = 1;
+	string certificate_url = 2;
+	string dns_suffix = 3;
+	string key_vault_reference_identity = 4;
+}
+
+message NameValuePair {
+	string name = 1;
+	string value = 2;
+}
+
+message ContainerApps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string location = 3;
+	string name = 4;
+	Configuration configuration = 5;
+	string kube_environment_id = 6;
+	Template template = 7;
+	map<string, string> tags = 8;
+}
+
+message Template {
+	repeated Container containers = 1;
+	Dapr dapr = 2;
+	string revision_suffix = 3;
+	Scale scale = 4;
+}
+
+message Scale {
+	int32 max_replicas = 1;
+	int32 min_replicas = 2;
+	repeated ScaleRule rules = 3;
+}
+
+message ScaleRule {
+	QueueScaleRule azure_queue = 1;
+	CustomScaleRule custom = 2;
+	HttpScaleRule http = 3;
+	string name = 4;
+}
+
+message HttpScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	map<string, string> metadata = 2;
+}
+
+message CustomScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	map<string, string> metadata = 2;
+	string type = 3;
+}
+
+message QueueScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	int32 queue_length = 2;
+	string queue_name = 3;
+}
+
+message ScaleRuleAuth {
+	string secret_ref = 1;
+	string trigger_parameter = 2;
+}
+
+message Dapr {
+	string app_id = 1;
+	int32 app_port = 2;
+	repeated DaprComponent components = 3;
+	bool enabled = 4;
+}
+
+message DaprComponent {
+	repeated DaprMetadata metadata = 1;
+	string name = 2;
+	string type = 3;
+	string version = 4;
+}
+
+message DaprMetadata {
+	string name = 1;
+	string secret_ref = 2;
+	string value = 3;
+}
+
+message Container {
+	repeated string args = 1;
+	repeated string command = 2;
+	repeated EnvironmentVar env = 3;
+	string image = 4;
+	string name = 5;
+}
+
+message EnvironmentVar {
+	string name = 1;
+	string secret_ref = 2;
+	string value = 3;
+}
+
+message Configuration {
+	string active_revisions_mode = 1;
+	Ingress ingress = 2;
+	repeated RegistryCredentials registries = 3;
+	repeated Secret secrets = 4;
+}
+
+message Secret {
+	string name = 1;
+	string value = 2;
+}
+
+message RegistryCredentials {
+	string password_secret_ref = 1;
+	string server = 2;
+	string username = 3;
+}
+
+message Ingress {
+	bool allow_insecure = 1;
+	bool external = 2;
+	int32 target_port = 3;
+	repeated TrafficWeight traffic = 4;
+	string transport = 5;
+}
+
+message TrafficWeight {
+	bool latest_revision = 1;
+	string revision_name = 2;
+	int32 weight = 3;
+}
+
+message Certificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kind = 2;
+	string location = 3;
+	string name = 4;
+	string canonical_name = 5;
+	string domain_validation_method = 6;
+	repeated string host_names = 7;
+	string key_vault_id = 8;
+	string key_vault_secret_name = 9;
+	string password = 10;
+	string pfx_blob = 11;
+	string server_farm_id = 12;
+	map<string, string> tags = 13;
+}
+

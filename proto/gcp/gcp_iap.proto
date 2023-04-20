@@ -1,0 +1,384 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.iap;
+
+import "shared/shared.proto";
+
+message IapAppEngineServiceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapAppEngineServiceIamBinding {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string service = 7;
+	IapAppEngineServiceIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message IapAppEngineServiceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapAppEngineServiceIamMember {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string service = 7;
+	IapAppEngineServiceIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message IapAppEngineServiceIamPolicy {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string service = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapAppEngineVersionIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapAppEngineVersionIamBinding {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string service = 7;
+	string version_id = 8;
+	IapAppEngineVersionIamBindingXCondition condition = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message IapAppEngineVersionIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapAppEngineVersionIamMember {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string service = 7;
+	string version_id = 8;
+	IapAppEngineVersionIamMemberXCondition condition = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message IapAppEngineVersionIamPolicy {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string service = 6;
+	string version_id = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message IapBrandXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message IapBrand {
+	string application_title = 1;
+	string id = 2;
+	string name = 3;
+	bool org_internal_only = 4;
+	string project = 5;
+	string support_email = 6;
+	IapBrandXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message IapClientXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message IapClient {
+	string brand = 1;
+	string client_id = 2;
+	string display_name = 3;
+	string id = 4;
+	string secret = 5;
+	IapClientXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapTunnelIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapTunnelIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string role = 5;
+	IapTunnelIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapTunnelIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapTunnelIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string role = 5;
+	IapTunnelIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapTunnelIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message IapTunnelInstanceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapTunnelInstanceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string zone = 7;
+	IapTunnelInstanceIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message IapTunnelInstanceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapTunnelInstanceIamMember {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string zone = 7;
+	IapTunnelInstanceIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message IapTunnelInstanceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string policy_data = 4;
+	string project = 5;
+	string zone = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapWebBackendServiceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebBackendServiceIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string role = 5;
+	string web_backend_service = 6;
+	IapWebBackendServiceIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message IapWebBackendServiceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebBackendServiceIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string role = 5;
+	string web_backend_service = 6;
+	IapWebBackendServiceIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message IapWebBackendServiceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	string web_backend_service = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message IapWebIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string role = 5;
+	IapWebIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapWebIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string role = 5;
+	IapWebIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapWebIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message IapWebTypeAppEngineIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebTypeAppEngineIamBinding {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	IapWebTypeAppEngineIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message IapWebTypeAppEngineIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebTypeAppEngineIamMember {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	IapWebTypeAppEngineIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message IapWebTypeAppEngineIamPolicy {
+	string app_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message IapWebTypeComputeIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebTypeComputeIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string role = 5;
+	IapWebTypeComputeIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapWebTypeComputeIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message IapWebTypeComputeIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string role = 5;
+	IapWebTypeComputeIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message IapWebTypeComputeIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

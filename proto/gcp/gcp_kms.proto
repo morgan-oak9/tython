@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.kms;
+
+import "shared/shared.proto";
+
+message KmsCryptoKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message KmsCryptoKeyXVersionTemplate {
+	string algorithm = 1;
+	string protection_level = 2;
+}
+
+message KmsCryptoKey {
+	string destroy_scheduled_duration = 1;
+	string id = 2;
+	bool import_only = 3;
+	string key_ring = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	string purpose = 7;
+	string rotation_period = 8;
+	bool skip_initial_version_creation = 9;
+	KmsCryptoKeyXTimeouts timeouts = 10;
+	KmsCryptoKeyXVersionTemplate version_template = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message KmsCryptoKeyIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message KmsCryptoKeyIamBinding {
+	string crypto_key_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	KmsCryptoKeyIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message KmsCryptoKeyIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message KmsCryptoKeyIamMember {
+	string crypto_key_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	KmsCryptoKeyIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message KmsCryptoKeyIamPolicy {
+	string crypto_key_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message KmsKeyRingXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message KmsKeyRing {
+	string id = 1;
+	string location = 2;
+	string name = 3;
+	string project = 4;
+	KmsKeyRingXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message KmsKeyRingIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message KmsKeyRingIamBinding {
+	string etag = 1;
+	string id = 2;
+	string key_ring_id = 3;
+	repeated string members = 4;
+	string role = 5;
+	KmsKeyRingIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message KmsKeyRingIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message KmsKeyRingIamMember {
+	string etag = 1;
+	string id = 2;
+	string key_ring_id = 3;
+	string member = 4;
+	string role = 5;
+	KmsKeyRingIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message KmsKeyRingIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string key_ring_id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message KmsKeyRingImportJobXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message KmsKeyRingImportJob {
+	map<string, string> attestation = 1;
+	string expire_time = 2;
+	string id = 3;
+	string import_job_id = 4;
+	string import_method = 5;
+	string key_ring = 6;
+	string name = 7;
+	string protection_level = 8;
+	map<string, string> public_key = 9;
+	string state = 10;
+	KmsKeyRingImportJobXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message KmsSecretCiphertextXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message KmsSecretCiphertext {
+	string additional_authenticated_data = 1;
+	string ciphertext = 2;
+	string crypto_key = 3;
+	string id = 4;
+	string plaintext = 5;
+	KmsSecretCiphertextXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

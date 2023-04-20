@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_external;
+
+import "shared/shared.proto";
+
+message ComputeExternalVpnGatewayXInterface {
+	double id = 1;
+	string ip_address = 2;
+}
+
+message ComputeExternalVpnGatewayXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeExternalVpnGateway {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string project = 4;
+	string redundancy_type = 5;
+	string self_link = 6;
+	repeated ComputeExternalVpnGatewayXInterface interface = 7;
+	ComputeExternalVpnGatewayXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

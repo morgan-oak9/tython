@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_autoscaler;
+
+import "shared/shared.proto";
+
+message ComputeAutoscalerXAutoscalingPolicyXCpuUtilization {
+	string predictive_method = 1;
+	double target = 2;
+}
+
+message ComputeAutoscalerXAutoscalingPolicyXLoadBalancingUtilization {
+	double target = 1;
+}
+
+message ComputeAutoscalerXAutoscalingPolicyXMetric {
+	string name = 1;
+	double target = 2;
+	string type = 3;
+}
+
+message ComputeAutoscalerXAutoscalingPolicyXScaleInControlXMaxScaledInReplicas {
+	double fixed = 1;
+	double percent = 2;
+}
+
+message ComputeAutoscalerXAutoscalingPolicyXScaleInControl {
+	double time_window_sec = 1;
+	ComputeAutoscalerXAutoscalingPolicyXScaleInControlXMaxScaledInReplicas max_scaled_in_replicas = 2;
+}
+
+message ComputeAutoscalerXAutoscalingPolicyXScalingSchedules {
+	string description = 1;
+	bool disabled = 2;
+	double duration_sec = 3;
+	double min_required_replicas = 4;
+	string name = 5;
+	string schedule = 6;
+	string time_zone = 7;
+}
+
+message ComputeAutoscalerXAutoscalingPolicy {
+	double cooldown_period = 1;
+	double max_replicas = 2;
+	double min_replicas = 3;
+	string mode = 4;
+	ComputeAutoscalerXAutoscalingPolicyXCpuUtilization cpu_utilization = 5;
+	ComputeAutoscalerXAutoscalingPolicyXLoadBalancingUtilization load_balancing_utilization = 6;
+	repeated ComputeAutoscalerXAutoscalingPolicyXMetric metric = 7;
+	ComputeAutoscalerXAutoscalingPolicyXScaleInControl scale_in_control = 8;
+	repeated ComputeAutoscalerXAutoscalingPolicyXScalingSchedules scaling_schedules = 9;
+}
+
+message ComputeAutoscalerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeAutoscaler {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	string self_link = 6;
+	string target = 7;
+	string zone = 8;
+	ComputeAutoscalerXAutoscalingPolicy autoscaling_policy = 9;
+	ComputeAutoscalerXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

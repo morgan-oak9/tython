@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+package oak9.tython.aws.cloudwatch;
+
+import "shared/shared.proto";
+
+message AlarmDimension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message AlarmMetric {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated AlarmDimension dimensions = 2;
+	string metric_name = 3;
+	string namespace = 4;
+}
+
+message AlarmMetricStat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	AlarmMetric metric = 2;
+	int32 period = 3;
+	string stat = 4;
+	string unit = 5;
+}
+
+message AlarmMetricDataQuery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string expression = 2;
+	string id = 3;
+	string label = 4;
+	AlarmMetricStat metric_stat = 5;
+	int32 period = 6;
+	bool return_data = 7;
+}
+
+message Alarm {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool actions_enabled = 2;
+	repeated string alarm_actions = 3;
+	string alarm_description = 4;
+	string alarm_name = 5;
+	string comparison_operator = 6;
+	int32 datapoints_to_alarm = 7;
+	repeated AlarmDimension dimensions = 8;
+	string evaluate_low_sample_count_percentile = 9;
+	int32 evaluation_periods = 10;
+	string extended_statistic = 11;
+	repeated string insufficient_data_actions = 12;
+	string metric_name = 13;
+	repeated AlarmMetricDataQuery metrics = 14;
+	string namespace = 15;
+	repeated string ok_actions = 16;
+	int32 period = 17;
+	string statistic = 18;
+	double threshold = 19;
+	string threshold_metric_id = 20;
+	string treat_missing_data = 21;
+	string unit = 22;
+}
+
+message CloudWatch {
+	repeated Alarm alarm = 1;
+	repeated AnomalyDetector anomaly_detector = 2;
+	repeated CompositeAlarm composite_alarm = 3;
+	repeated Dashboard dashboard = 4;
+	repeated InsightRule insight_rule = 5;
+}
+
+message AnomalyDetectorRange {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string end_time = 2;
+	string start_time = 3;
+}
+
+message AnomalyDetectorConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_time_zone = 2;
+	repeated AnomalyDetectorRange excluded_time_ranges = 3;
+}
+
+message AnomalyDetectorDimension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string name = 3;
+}
+
+message AnomalyDetector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	string stat = 3;
+	AnomalyDetectorConfiguration configuration = 4;
+	repeated AnomalyDetectorDimension dimensions = 5;
+	string namespace = 6;
+}
+
+message CompositeAlarm {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string alarm_name = 2;
+	string alarm_rule = 3;
+	string alarm_description = 4;
+	bool actions_enabled = 5;
+	repeated string ok_actions = 6;
+	repeated string alarm_actions = 7;
+	repeated string insufficient_data_actions = 8;
+}
+
+message Dashboard {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string dashboard_name = 2;
+	string dashboard_body = 3;
+}
+
+message InsightRuleTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message InsightRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string rule_state = 2;
+	string rule_body = 3;
+	string rule_name = 4;
+	InsightRuleTags tags = 5;
+}
+

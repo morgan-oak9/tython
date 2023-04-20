@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.game;
+
+import "shared/shared.proto";
+
+message GameServicesGameServerClusterXConnectionInfoXGkeClusterReference {
+	string cluster = 1;
+}
+
+message GameServicesGameServerClusterXConnectionInfo {
+	string namespace = 1;
+	GameServicesGameServerClusterXConnectionInfoXGkeClusterReference gke_cluster_reference = 2;
+}
+
+message GameServicesGameServerClusterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message GameServicesGameServerCluster {
+	string cluster_id = 1;
+	string description = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	string realm_id = 8;
+	GameServicesGameServerClusterXConnectionInfo connection_info = 9;
+	GameServicesGameServerClusterXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message GameServicesGameServerConfigXFleetConfigs {
+	string fleet_spec = 1;
+	string name = 2;
+}
+
+message GameServicesGameServerConfigXScalingConfigsXSchedules {
+	string cron_job_duration = 1;
+	string cron_spec = 2;
+	string end_time = 3;
+	string start_time = 4;
+}
+
+message GameServicesGameServerConfigXScalingConfigsXSelectors {
+	map<string, string> labels = 1;
+}
+
+message GameServicesGameServerConfigXScalingConfigs {
+	string fleet_autoscaler_spec = 1;
+	string name = 2;
+	repeated GameServicesGameServerConfigXScalingConfigsXSchedules schedules = 3;
+	repeated GameServicesGameServerConfigXScalingConfigsXSelectors selectors = 4;
+}
+
+message GameServicesGameServerConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message GameServicesGameServerConfig {
+	string config_id = 1;
+	string deployment_id = 2;
+	string description = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string location = 6;
+	string name = 7;
+	string project = 8;
+	repeated GameServicesGameServerConfigXFleetConfigs fleet_configs = 9;
+	repeated GameServicesGameServerConfigXScalingConfigs scaling_configs = 10;
+	GameServicesGameServerConfigXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message GameServicesGameServerDeploymentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message GameServicesGameServerDeployment {
+	string deployment_id = 1;
+	string description = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	GameServicesGameServerDeploymentXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message GameServicesGameServerDeploymentRolloutXGameServerConfigOverridesXRealmsSelector {
+	repeated string realms = 1;
+}
+
+message GameServicesGameServerDeploymentRolloutXGameServerConfigOverrides {
+	string config_version = 1;
+	GameServicesGameServerDeploymentRolloutXGameServerConfigOverridesXRealmsSelector realms_selector = 2;
+}
+
+message GameServicesGameServerDeploymentRolloutXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message GameServicesGameServerDeploymentRollout {
+	string default_game_server_config = 1;
+	string deployment_id = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	repeated GameServicesGameServerDeploymentRolloutXGameServerConfigOverrides game_server_config_overrides = 6;
+	GameServicesGameServerDeploymentRolloutXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message GameServicesRealmXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message GameServicesRealm {
+	string description = 1;
+	string etag = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	string realm_id = 8;
+	string time_zone = 9;
+	GameServicesRealmXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

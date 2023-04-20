@@ -1,0 +1,1045 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2;
+
+import "shared/shared.proto";
+
+message CapacityReservationTagSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_type = 2;
+	map<string, string> tags = 3;
+}
+
+message CapacityReservation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string tenancy = 2;
+	string end_date_type = 3;
+	int32 instance_count = 4;
+	repeated CapacityReservationTagSpecification tag_specifications = 5;
+	string availability_zone = 6;
+	string instance_platform = 7;
+	string instance_type = 8;
+	bool ephemeral_storage = 9;
+	string instance_match_criteria = 10;
+	string end_date = 11;
+	bool ebs_optimized = 12;
+}
+
+message EC2 {
+	repeated CapacityReservation capacity_reservation = 1;
+	repeated ClientVpnAuthorizationRule client_vpn_authorization_rule = 2;
+	repeated ClientVpnEndpoint client_vpn_endpoint = 3;
+	repeated ClientVpnRoute client_vpn_route = 4;
+	repeated ClientVpnTargetNetworkAssociation client_vpn_target_network_association = 5;
+	repeated CustomerGateway customer_gateway = 6;
+	repeated EC2Fleet e_c2_fleet = 7;
+	repeated EIP e_ip = 8;
+	repeated EIPAssociation e_ip_association = 9;
+	repeated EgressOnlyInternetGateway egress_only_internet_gateway = 10;
+	repeated FlowLog flow_log = 11;
+	repeated GatewayRouteTableAssociation gateway_route_table_association = 12;
+	repeated Host host = 13;
+	repeated InternetGateway internet_gateway = 14;
+	repeated LocalGatewayRoute local_gateway_route = 15;
+	repeated LocalGatewayRouteTableVPCAssociation local_gateway_route_table_vpc_association = 16;
+	repeated NatGateway nat_gateway = 17;
+	repeated NetworkInterface network_interface = 18;
+	repeated NetworkInterfaceAttachment network_interface_attachment = 19;
+	repeated NetworkInterfacePermission network_interface_permission = 20;
+	repeated PlacementGroup placement_group = 21;
+	repeated PrefixList prefix_list = 22;
+	repeated SpotFleet spot_fleet = 23;
+	repeated TrafficMirrorFilter traffic_mirror_filter = 24;
+	repeated TrafficMirrorFilterRule traffic_mirror_filter_rule = 25;
+	repeated TrafficMirrorSession traffic_mirror_session = 26;
+	repeated TrafficMirrorTarget traffic_mirror_target = 27;
+	repeated TransitGateway transit_gateway = 28;
+	repeated TransitGatewayAttachment transit_gateway_attachment = 29;
+	repeated TransitGatewayRoute transit_gateway_route = 30;
+	repeated TransitGatewayRouteTable transit_gateway_route_table = 31;
+	repeated TransitGatewayRouteTableAssociation transit_gateway_route_table_association = 32;
+	repeated TransitGatewayRouteTablePropagation transit_gateway_route_table_propagation = 33;
+	repeated VPCGatewayAttachment vpc_gateway_attachment = 34;
+	repeated VPNConnection vpn_connection = 35;
+	repeated VPNConnectionRoute vpn_connection_route = 36;
+	repeated VPNGateway vpn_gateway = 37;
+	repeated VPNGatewayRoutePropagation vpn_gateway_route_propagation = 38;
+	repeated Volume volume = 39;
+	repeated VolumeAttachment volume_attachment = 40;
+	repeated InstanceAssociationParameter instance_association_parameter = 41;
+	repeated InstanceBlockDeviceMapping instance_block_device_mapping = 42;
+	repeated InstanceCpuOptions instance_cpu_options = 43;
+	repeated InstanceCreditSpecification instance_credit_specification = 44;
+	repeated InstanceElasticGpuSpecification instance_elastic_gpu_specification = 45;
+	repeated InstanceElasticInferenceAccelerator instance_elastic_inference_accelerator = 46;
+	repeated InstanceHibernationOptions instance_hibernation_options = 47;
+	repeated InstanceInstanceIpv6Address instance_instance_ipv6_address = 48;
+	repeated InstanceLaunchTemplateSpecification instance_launch_template_specification = 49;
+	repeated InstanceLicenseSpecification instance_license_specification = 50;
+	repeated InstanceNetworkInterface instance_network_interface = 51;
+	repeated InstanceSsmAssociation instance_ssm_association = 52;
+	repeated InstanceVolume instance_volume = 53;
+	repeated LaunchTemplateBlockDeviceMapping launch_template_block_device_mapping = 54;
+	repeated LaunchTemplateCapacityReservationSpecification launch_template_capacity_reservation_specification = 55;
+	repeated LaunchTemplateCpuOptions launch_template_cpu_options = 56;
+	repeated LaunchTemplateCreditSpecification launch_template_credit_specification = 57;
+	repeated LaunchTemplateElasticGpuSpecification launch_template_elastic_gpu_specification = 58;
+	repeated LaunchTemplateHibernationOptions launch_template_hibernation_options = 59;
+	repeated LaunchTemplateIamInstanceProfile launch_template_iam_instance_profile = 60;
+	repeated LaunchTemplateInstanceMarketOptions launch_template_instance_market_options = 61;
+	repeated LaunchTemplateIpv6Add launch_template_ipv6_add = 62;
+	repeated LaunchTemplateLaunchTemplateData launch_template_launch_template_data = 63;
+	repeated NetworkAclEntryIcmp network_acl_entry_icmp = 64;
+	repeated NetworkAclEntryPortRange network_acl_entry_port_range = 65;
+	repeated SecurityGroupEgress security_group_egress = 66;
+	repeated SecurityGroupIngress security_group_ingress = 67;
+}
+
+message ClientVpnAuthorizationRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_vpn_endpoint_id = 2;
+	string description = 3;
+	string access_group_id = 4;
+	string target_network_cidr = 5;
+	bool authorize_all_groups = 6;
+}
+
+message ClientVpnEndpointConnectionLogOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cloudwatch_log_stream = 2;
+	bool enabled = 3;
+	string cloudwatch_log_group = 4;
+}
+
+message ClientVpnEndpointTagSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_type = 2;
+	map<string, string> tags = 3;
+}
+
+message ClientVpnEndpointCertificateAuthenticationRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_root_certificate_chain_arn = 2;
+}
+
+message ClientVpnEndpointFederatedAuthenticationRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string saml_provider_arn = 2;
+}
+
+message ClientVpnEndpointDirectoryServiceAuthenticationRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string directory_id = 2;
+}
+
+message ClientVpnEndpointClientAuthenticationRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClientVpnEndpointCertificateAuthenticationRequest mutual_authentication = 2;
+	ClientVpnEndpointFederatedAuthenticationRequest federated_authentication = 3;
+	ClientVpnEndpointDirectoryServiceAuthenticationRequest active_directory = 4;
+}
+
+message ClientVpnEndpoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_cidr_block = 2;
+	ClientVpnEndpointConnectionLogOptions connection_log_options = 3;
+	bool split_tunnel = 4;
+	string description = 5;
+	repeated ClientVpnEndpointTagSpecification tag_specifications = 6;
+	string vpc_id = 7;
+	repeated ClientVpnEndpointClientAuthenticationRequest authentication_options = 8;
+	string server_certificate_arn = 9;
+	repeated string dns_servers = 10;
+	string transport_protocol = 11;
+	repeated string security_group_ids = 12;
+	int32 vpn_port = 13;
+}
+
+message ClientVpnRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_vpn_endpoint_id = 2;
+	string target_vpc_subnet_id = 3;
+	string description = 4;
+	string destination_cidr_block = 5;
+}
+
+message ClientVpnTargetNetworkAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_vpn_endpoint_id = 2;
+	string subnet_id = 3;
+}
+
+message CustomerGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 bgp_asn = 2;
+	string ip_address = 3;
+	map<string, string> tags = 4;
+	string type = 5;
+}
+
+message EC2FleetTargetCapacitySpecificationRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string default_target_capacity_type = 2;
+	int32 total_target_capacity = 3;
+	int32 on_demand_target_capacity = 4;
+	int32 spot_target_capacity = 5;
+}
+
+message EC2FleetCapacityReservationOptionsRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string usage_strategy = 2;
+}
+
+message EC2FleetOnDemandOptionsRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool single_availability_zone = 2;
+	string allocation_strategy = 3;
+	bool single_instance_type = 4;
+	int32 min_target_capacity = 5;
+	string max_total_price = 6;
+	EC2FleetCapacityReservationOptionsRequest capacity_reservation_options = 7;
+}
+
+message EC2FleetTagSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_type = 2;
+	map<string, string> tags = 3;
+}
+
+message EC2FleetSpotOptionsRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool single_availability_zone = 2;
+	string allocation_strategy = 3;
+	bool single_instance_type = 4;
+	int32 min_target_capacity = 5;
+	string max_total_price = 6;
+	string instance_interruption_behavior = 7;
+	int32 instance_pools_to_use_count = 8;
+}
+
+message EC2FleetFleetLaunchTemplateSpecificationRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string launch_template_name = 2;
+	string version = 3;
+	string launch_template_id = 4;
+}
+
+message EC2FleetPlacement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	string tenancy = 3;
+	string spread_domain = 4;
+	int32 partition_number = 5;
+	string availability_zone = 6;
+	string affinity = 7;
+	string host_id = 8;
+	string host_resource_group_arn = 9;
+}
+
+message EC2FleetFleetLaunchTemplateOverridesRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double weighted_capacity = 2;
+	EC2FleetPlacement placement = 3;
+	double priority = 4;
+	string availability_zone = 5;
+	string subnet_id = 6;
+	string instance_type = 7;
+	string max_price = 8;
+}
+
+message EC2FleetFleetLaunchTemplateConfigRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	EC2FleetFleetLaunchTemplateSpecificationRequest launch_template_specification = 2;
+	repeated EC2FleetFleetLaunchTemplateOverridesRequest overrides = 3;
+}
+
+message EC2Fleet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	EC2FleetTargetCapacitySpecificationRequest target_capacity_specification = 2;
+	EC2FleetOnDemandOptionsRequest on_demand_options = 3;
+	string type = 4;
+	string excess_capacity_termination_policy = 5;
+	repeated EC2FleetTagSpecification tag_specifications = 6;
+	EC2FleetSpotOptionsRequest spot_options = 7;
+	string valid_from = 8;
+	bool replace_unhealthy_instances = 9;
+	repeated EC2FleetFleetLaunchTemplateConfigRequest launch_template_configs = 10;
+	bool terminate_instances_with_expiration = 11;
+	string valid_until = 12;
+}
+
+message EIP {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string domain = 2;
+	string instance_id = 3;
+	string public_ipv4_pool = 4;
+	map<string, string> tags = 5;
+}
+
+message EIPAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string allocation_id = 2;
+	string e_ip = 3;
+	string instance_id = 4;
+	string network_interface_id = 5;
+	string private_ip_address = 6;
+}
+
+message EgressOnlyInternetGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string vpc_id = 2;
+}
+
+message FlowLog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string deliver_logs_permission_arn = 2;
+	string log_destination = 3;
+	string log_destination_type = 4;
+	string log_format = 5;
+	string log_group_name = 6;
+	int32 max_aggregation_interval = 7;
+	string resource_id = 8;
+	string resource_type = 9;
+	map<string, string> tags = 10;
+	string traffic_type = 11;
+}
+
+message GatewayRouteTableAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string route_table_id = 2;
+	string gateway_id = 3;
+}
+
+message Host {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auto_placement = 2;
+	string availability_zone = 3;
+	string host_recovery = 4;
+	string instance_type = 5;
+}
+
+message InternetGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message LocalGatewayRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_cidr_block = 2;
+	string local_gateway_route_table_id = 3;
+	string local_gateway_virtual_interface_group_id = 4;
+}
+
+message LocalGatewayRouteTableVPCAssociationTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message LocalGatewayRouteTableVPCAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string local_gateway_route_table_id = 2;
+	string vpc_id = 3;
+	LocalGatewayRouteTableVPCAssociationTags tags = 4;
+}
+
+message NatGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string allocation_id = 2;
+	string subnet_id = 3;
+	map<string, string> tags = 4;
+}
+
+message NetworkInterfaceInstanceIpv6Address {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_address = 2;
+}
+
+message NetworkInterfacePrivateIpAddressSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool primary = 2;
+	string private_ip_address = 3;
+}
+
+message NetworkInterface {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string group_set = 3;
+	string interface_type = 4;
+	int32 ipv6_address_count = 5;
+	repeated NetworkInterfaceInstanceIpv6Address ipv6_addresses = 6;
+	string private_ip_address = 7;
+	repeated NetworkInterfacePrivateIpAddressSpecification private_ip_addresses = 8;
+	int32 secondary_private_ip_address_count = 9;
+	bool source_dest_check = 10;
+	string subnet_id = 11;
+	map<string, string> tags = 12;
+}
+
+message NetworkInterfaceAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_on_termination = 2;
+	string device_index = 3;
+	string instance_id = 4;
+	string network_interface_id = 5;
+}
+
+message NetworkInterfacePermission {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string aws_account_id = 2;
+	string network_interface_id = 3;
+	string permission = 4;
+}
+
+message PlacementGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string strategy = 2;
+}
+
+message PrefixListEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr = 2;
+	string description = 3;
+}
+
+message PrefixList {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string prefix_list_name = 2;
+	string address_family = 3;
+	int32 max_entries = 4;
+	map<string, string> tags = 5;
+	repeated PrefixListEntry entries = 6;
+}
+
+message SpotFleetEbsBlockDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_on_termination = 2;
+	bool encrypted = 3;
+	int32 iops = 4;
+	string snapshot_id = 5;
+	int32 volume_size = 6;
+	string volume_type = 7;
+}
+
+message SpotFleetBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	SpotFleetEbsBlockDevice ebs = 3;
+	string no_device = 4;
+	string virtual_name = 5;
+}
+
+message SpotFleetIamInstanceProfileSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+}
+
+message SpotFleetSpotFleetMonitoring {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+}
+
+message SpotFleetInstanceIpv6Address {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_address = 2;
+}
+
+message SpotFleetPrivateIpAddressSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool primary = 2;
+	string private_ip_address = 3;
+}
+
+message SpotFleetInstanceNetworkInterfaceSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool associate_public_ip_address = 2;
+	bool delete_on_termination = 3;
+	string description = 4;
+	int32 device_index = 5;
+	repeated string groups = 6;
+	int32 ipv6_address_count = 7;
+	repeated SpotFleetInstanceIpv6Address ipv6_addresses = 8;
+	string network_interface_id = 9;
+	repeated SpotFleetPrivateIpAddressSpecification private_ip_addresses = 10;
+	int32 secondary_private_ip_address_count = 11;
+	string subnet_id = 12;
+}
+
+message SpotFleetSpotPlacement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string availability_zone = 2;
+	string group_name = 3;
+	string tenancy = 4;
+}
+
+message SpotFleetGroupIdentifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_id = 2;
+}
+
+message SpotFleetSpotFleetTagSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_type = 2;
+	map<string, string> tags = 3;
+}
+
+message SpotFleetSpotFleetLaunchSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated SpotFleetBlockDeviceMapping block_device_mappings = 2;
+	bool ebs_optimized = 3;
+	SpotFleetIamInstanceProfileSpecification iam_instance_profile = 4;
+	string image_id = 5;
+	string instance_type = 6;
+	string kernel_id = 7;
+	string key_name = 8;
+	SpotFleetSpotFleetMonitoring monitoring = 9;
+	repeated SpotFleetInstanceNetworkInterfaceSpecification network_interfaces = 10;
+	SpotFleetSpotPlacement placement = 11;
+	string ramdisk_id = 12;
+	repeated SpotFleetGroupIdentifier security_groups = 13;
+	string spot_price = 14;
+	string subnet_id = 15;
+	repeated SpotFleetSpotFleetTagSpecification tag_specifications = 16;
+	string user_data = 17;
+	double weighted_capacity = 18;
+}
+
+message SpotFleetFleetLaunchTemplateSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string launch_template_id = 2;
+	string launch_template_name = 3;
+	string version = 4;
+}
+
+message SpotFleetLaunchTemplateOverrides {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string availability_zone = 2;
+	string instance_type = 3;
+	string spot_price = 4;
+	string subnet_id = 5;
+	double weighted_capacity = 6;
+}
+
+message SpotFleetLaunchTemplateConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SpotFleetFleetLaunchTemplateSpecification launch_template_specification = 2;
+	repeated SpotFleetLaunchTemplateOverrides overrides = 3;
+}
+
+message SpotFleetClassicLoadBalancer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message SpotFleetClassicLoadBalancersConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated SpotFleetClassicLoadBalancer classic_load_balancers = 2;
+}
+
+message SpotFleetTargetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+}
+
+message SpotFleetTargetGroupsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated SpotFleetTargetGroup target_groups = 2;
+}
+
+message SpotFleetLoadBalancersConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SpotFleetClassicLoadBalancersConfig classic_load_balancers_config = 2;
+	SpotFleetTargetGroupsConfig target_groups_config = 3;
+}
+
+message SpotFleetSpotFleetRequestConfigData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string allocation_strategy = 2;
+	string excess_capacity_termination_policy = 3;
+	string iam_fleet_role = 4;
+	string instance_interruption_behavior = 5;
+	repeated SpotFleetSpotFleetLaunchSpecification launch_specifications = 6;
+	repeated SpotFleetLaunchTemplateConfig launch_template_configs = 7;
+	SpotFleetLoadBalancersConfig load_balancers_config = 8;
+	bool replace_unhealthy_instances = 9;
+	string spot_price = 10;
+	int32 target_capacity = 11;
+	bool terminate_instances_with_expiration = 12;
+	string valid_from = 13;
+	string valid_until = 14;
+}
+
+message SpotFleet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SpotFleetSpotFleetRequestConfigData spot_fleet_request_config_data = 2;
+}
+
+message TrafficMirrorFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string network_services = 3;
+	map<string, string> tags = 4;
+}
+
+message TrafficMirrorFilterRuleTrafficMirrorPortRange {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 from_port = 2;
+	int32 to_port = 3;
+}
+
+message TrafficMirrorFilterRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TrafficMirrorFilterRuleTrafficMirrorPortRange destination_port_range = 2;
+	string description = 3;
+	TrafficMirrorFilterRuleTrafficMirrorPortRange source_port_range = 4;
+	string rule_action = 5;
+	string source_cidr_block = 6;
+	int32 rule_number = 7;
+	string destination_cidr_block = 8;
+	string traffic_mirror_filter_id = 9;
+	string traffic_direction = 10;
+	int32 protocol = 11;
+}
+
+message TrafficMirrorSession {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string traffic_mirror_target_id = 2;
+	string description = 3;
+	int32 session_number = 4;
+	int32 virtual_network_id = 5;
+	int32 packet_length = 6;
+	string network_interface_id = 7;
+	string traffic_mirror_filter_id = 8;
+	map<string, string> tags = 9;
+}
+
+message TrafficMirrorTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string network_load_balancer_arn = 2;
+	string description = 3;
+	string network_interface_id = 4;
+	map<string, string> tags = 5;
+}
+
+message TransitGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string default_route_table_propagation = 2;
+	string description = 3;
+	string auto_accept_shared_attachments = 4;
+	string default_route_table_association = 5;
+	string vpn_ecmp_support = 6;
+	string dns_support = 7;
+	string multicast_support = 8;
+	int32 amazon_side_asn = 9;
+	map<string, string> tags = 10;
+}
+
+message TransitGatewayAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transit_gateway_id = 2;
+	string vpc_id = 3;
+	repeated string subnet_ids = 4;
+	map<string, string> tags = 5;
+}
+
+message TransitGatewayRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transit_gateway_route_table_id = 2;
+	string destination_cidr_block = 3;
+	bool blackhole = 4;
+	string transit_gateway_attachment_id = 5;
+}
+
+message TransitGatewayRouteTable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transit_gateway_id = 2;
+	map<string, string> tags = 3;
+}
+
+message TransitGatewayRouteTableAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transit_gateway_route_table_id = 2;
+	string transit_gateway_attachment_id = 3;
+}
+
+message TransitGatewayRouteTablePropagation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transit_gateway_route_table_id = 2;
+	string transit_gateway_attachment_id = 3;
+}
+
+message VPCGatewayAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string internet_gateway_id = 2;
+	string vpc_id = 3;
+	string vpn_gateway_id = 4;
+}
+
+message VPNConnectionVpnTunnelOptionsSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string pre_shared_key = 2;
+	string tunnel_inside_cidr = 3;
+}
+
+message VPNConnection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string customer_gateway_id = 2;
+	bool static_routes_only = 3;
+	map<string, string> tags = 4;
+	string transit_gateway_id = 5;
+	string type = 6;
+	string vpn_gateway_id = 7;
+	repeated VPNConnectionVpnTunnelOptionsSpecification vpn_tunnel_options_specifications = 8;
+}
+
+message VPNConnectionRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_cidr_block = 2;
+	string vpn_connection_id = 3;
+}
+
+message VPNGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 amazon_side_asn = 2;
+	map<string, string> tags = 3;
+	string type = 4;
+}
+
+message VPNGatewayRoutePropagation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string route_table_ids = 2;
+	string vpn_gateway_id = 3;
+}
+
+message Volume {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool auto_enable_io = 2;
+	string availability_zone = 3;
+	bool encrypted = 4;
+	int32 iops = 5;
+	string kms_key_id = 6;
+	bool multi_attach_enabled = 7;
+	string outpost_arn = 8;
+	int32 size = 9;
+	string snapshot_id = 10;
+	map<string, string> tags = 11;
+	string volume_type = 12;
+}
+
+message VolumeAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device = 2;
+	string instance_id = 3;
+	string volume_id = 4;
+}
+
+message InstanceAssociationParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	repeated string value = 3;
+}
+
+message InstanceEbs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_on_termination = 2;
+	bool encrypted = 3;
+	int32 iops = 4;
+	string kms_key_id = 5;
+	string snapshot_id = 6;
+	int32 volume_size = 7;
+	string volume_type = 8;
+}
+
+message InstanceNoDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message InstanceBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	InstanceEbs ebs = 3;
+	InstanceNoDevice no_device = 4;
+	string virtual_name = 5;
+}
+
+message InstanceCpuOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 core_count = 2;
+	int32 threads_per_core = 3;
+}
+
+message InstanceCreditSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cpu_credits = 2;
+}
+
+message InstanceElasticGpuSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message InstanceElasticInferenceAccelerator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 count = 2;
+}
+
+message InstanceHibernationOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool configured = 2;
+}
+
+message InstanceInstanceIpv6Address {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_address = 2;
+}
+
+message InstanceLaunchTemplateSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string launch_template_id = 2;
+	string launch_template_name = 3;
+	string version = 4;
+}
+
+message InstanceLicenseSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string license_configuration_arn = 2;
+}
+
+message InstancePrivateIpAddressSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool primary = 2;
+	string private_ip_address = 3;
+}
+
+message InstanceNetworkInterface {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool associate_public_ip_address = 2;
+	bool delete_on_termination = 3;
+	string description = 4;
+	string device_index = 5;
+	repeated string group_set = 6;
+	int32 ipv6_address_count = 7;
+	repeated InstanceInstanceIpv6Address ipv6_addresses = 8;
+	string network_interface_id = 9;
+	string private_ip_address = 10;
+	repeated InstancePrivateIpAddressSpecification private_ip_addresses = 11;
+	int32 secondary_private_ip_address_count = 12;
+	string subnet_id = 13;
+}
+
+message InstanceSsmAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated InstanceAssociationParameter association_parameters = 2;
+	string document_name = 3;
+}
+
+message InstanceVolume {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device = 2;
+	string volume_id = 3;
+}
+
+message LaunchTemplateEbs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string snapshot_id = 2;
+	string volume_type = 3;
+	string kms_key_id = 4;
+	bool encrypted = 5;
+	int32 iops = 6;
+	int32 volume_size = 7;
+	bool delete_on_termination = 8;
+}
+
+message LaunchTemplateBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LaunchTemplateEbs ebs = 2;
+	string no_device = 3;
+	string virtual_name = 4;
+	string device_name = 5;
+}
+
+message LaunchTemplateCapacityReservationTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string capacity_reservation_id = 2;
+}
+
+message LaunchTemplateCapacityReservationSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string capacity_reservation_preference = 2;
+	LaunchTemplateCapacityReservationTarget capacity_reservation_target = 3;
+}
+
+message LaunchTemplateCpuOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 threads_per_core = 2;
+	int32 core_count = 3;
+}
+
+message LaunchTemplateCreditSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cpu_credits = 2;
+}
+
+message LaunchTemplateElasticGpuSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message LaunchTemplateHibernationOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool configured = 2;
+}
+
+message LaunchTemplateIamInstanceProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	string name = 3;
+}
+
+message LaunchTemplateSpotOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string spot_instance_type = 2;
+	string instance_interruption_behavior = 3;
+	string max_price = 4;
+	int32 block_duration_minutes = 5;
+	string valid_until = 6;
+}
+
+message LaunchTemplateInstanceMarketOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LaunchTemplateSpotOptions spot_options = 2;
+	string market_type = 3;
+}
+
+message LaunchTemplateIpv6Add {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_address = 2;
+}
+
+message LaunchTemplateTagSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_type = 2;
+	map<string, string> tags = 3;
+}
+
+message LaunchTemplateLaunchTemplateElasticInferenceAccelerator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 count = 2;
+}
+
+message LaunchTemplatePlacement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	string tenancy = 3;
+	string spread_domain = 4;
+	int32 partition_number = 5;
+	string availability_zone = 6;
+	string affinity = 7;
+	string host_id = 8;
+	string host_resource_group_arn = 9;
+}
+
+message LaunchTemplatePrivateIpAdd {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string private_ip_address = 2;
+	bool primary = 3;
+}
+
+message LaunchTemplateNetworkInterface {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string private_ip_address = 3;
+	repeated LaunchTemplatePrivateIpAdd private_ip_addresses = 4;
+	int32 secondary_private_ip_address_count = 5;
+	int32 device_index = 6;
+	string subnet_id = 7;
+	repeated LaunchTemplateIpv6Add ipv6_addresses = 8;
+	bool associate_public_ip_address = 9;
+	string network_interface_id = 10;
+	string interface_type = 11;
+	int32 ipv6_address_count = 12;
+	repeated string groups = 13;
+	bool delete_on_termination = 14;
+}
+
+message LaunchTemplateMonitoring {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+}
+
+message LaunchTemplateMetadataOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 http_put_response_hop_limit = 2;
+	string http_tokens = 3;
+	string http_endpoint = 4;
+}
+
+message LaunchTemplateLicenseSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string license_configuration_arn = 2;
+}
+
+message LaunchTemplateLaunchTemplateData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_groups = 2;
+	repeated LaunchTemplateTagSpecification tag_specifications = 3;
+	string user_data = 4;
+	repeated LaunchTemplateBlockDeviceMapping block_device_mappings = 5;
+	LaunchTemplateIamInstanceProfile iam_instance_profile = 6;
+	string kernel_id = 7;
+	bool ebs_optimized = 8;
+	repeated LaunchTemplateElasticGpuSpecification elastic_gpu_specifications = 9;
+	repeated LaunchTemplateLaunchTemplateElasticInferenceAccelerator elastic_inference_accelerators = 10;
+	LaunchTemplatePlacement placement = 11;
+	repeated LaunchTemplateNetworkInterface network_interfaces = 12;
+	string image_id = 13;
+	string instance_type = 14;
+	LaunchTemplateMonitoring monitoring = 15;
+	LaunchTemplateHibernationOptions hibernation_options = 16;
+	LaunchTemplateMetadataOptions metadata_options = 17;
+	repeated LaunchTemplateLicenseSpecification license_specifications = 18;
+	string instance_initiated_shutdown_behavior = 19;
+	LaunchTemplateCpuOptions cpu_options = 20;
+	repeated string security_group_ids = 21;
+	string key_name = 22;
+	bool disable_api_termination = 23;
+	LaunchTemplateInstanceMarketOptions instance_market_options = 24;
+	string ram_disk_id = 25;
+	LaunchTemplateCapacityReservationSpecification capacity_reservation_specification = 26;
+	LaunchTemplateCreditSpecification credit_specification = 27;
+}
+
+message NetworkAclEntryIcmp {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 code = 2;
+}
+
+message NetworkAclEntryPortRange {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 from = 2;
+	int32 to = 3;
+}
+
+message SecurityGroupEgress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string cidr_ipv6 = 3;
+	string description = 4;
+	string destination_prefix_list_id = 5;
+	string destination_security_group_id = 6;
+	int32 from_port = 7;
+	string ip_protocol = 8;
+	int32 to_port = 9;
+}
+
+message SecurityGroupIngress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string cidr_ipv6 = 3;
+	string description = 4;
+	int32 from_port = 5;
+	string ip_protocol = 6;
+	string source_prefix_list_id = 7;
+	string source_security_group_id = 8;
+	string source_security_group_name = 9;
+	string source_security_group_owner_id = 10;
+	int32 to_port = 11;
+}
+

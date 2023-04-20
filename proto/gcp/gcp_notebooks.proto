@@ -1,0 +1,332 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.notebooks;
+
+import "shared/shared.proto";
+
+message NotebooksEnvironmentXContainerImage {
+	string repository = 1;
+	string tag = 2;
+}
+
+message NotebooksEnvironmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NotebooksEnvironmentXVmImage {
+	string image_family = 1;
+	string image_name = 2;
+	string project = 3;
+}
+
+message NotebooksEnvironment {
+	string create_time = 1;
+	string description = 2;
+	string display_name = 3;
+	string id = 4;
+	string location = 5;
+	string name = 6;
+	string post_startup_script = 7;
+	string project = 8;
+	NotebooksEnvironmentXContainerImage container_image = 9;
+	NotebooksEnvironmentXTimeouts timeouts = 10;
+	NotebooksEnvironmentXVmImage vm_image = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message NotebooksInstanceXAcceleratorConfig {
+	double core_count = 1;
+	string type = 2;
+}
+
+message NotebooksInstanceXContainerImage {
+	string repository = 1;
+	string tag = 2;
+}
+
+message NotebooksInstanceXReservationAffinity {
+	string consume_reservation_type = 1;
+	string key = 2;
+	repeated string values = 3;
+}
+
+message NotebooksInstanceXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+	bool enable_vtpm = 3;
+}
+
+message NotebooksInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NotebooksInstanceXVmImage {
+	string image_family = 1;
+	string image_name = 2;
+	string project = 3;
+}
+
+message NotebooksInstance {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	string create_time = 3;
+	string custom_gpu_driver_path = 4;
+	double data_disk_size_gb = 5;
+	string data_disk_type = 6;
+	string disk_encryption = 7;
+	string id = 8;
+	bool install_gpu_driver = 9;
+	repeated string instance_owners = 10;
+	string kms_key = 11;
+	map<string, string> labels = 12;
+	string location = 13;
+	string machine_type = 14;
+	map<string, string> metadata = 15;
+	string name = 16;
+	string network = 17;
+	string nic_type = 18;
+	bool no_proxy_access = 19;
+	bool no_public_ip = 20;
+	bool no_remove_data_disk = 21;
+	string post_startup_script = 22;
+	string project = 23;
+	string proxy_uri = 24;
+	string service_account = 25;
+	repeated string service_account_scopes = 26;
+	string state = 27;
+	string subnet = 28;
+	repeated string tags = 29;
+	string update_time = 30;
+	NotebooksInstanceXAcceleratorConfig accelerator_config = 31;
+	NotebooksInstanceXContainerImage container_image = 32;
+	NotebooksInstanceXReservationAffinity reservation_affinity = 33;
+	NotebooksInstanceXShieldedInstanceConfig shielded_instance_config = 34;
+	NotebooksInstanceXTimeouts timeouts = 35;
+	NotebooksInstanceXVmImage vm_image = 36;
+	oak9.tython.shared.ResourceInfo resource_info = 37;
+}
+
+message NotebooksInstanceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message NotebooksInstanceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string instance_name = 3;
+	string location = 4;
+	repeated string members = 5;
+	string project = 6;
+	string role = 7;
+	NotebooksInstanceIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message NotebooksInstanceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message NotebooksInstanceIamMember {
+	string etag = 1;
+	string id = 2;
+	string instance_name = 3;
+	string location = 4;
+	string member = 5;
+	string project = 6;
+	string role = 7;
+	NotebooksInstanceIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message NotebooksInstanceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string instance_name = 3;
+	string location = 4;
+	string policy_data = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message NotebooksLocationXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NotebooksLocation {
+	string id = 1;
+	string name = 2;
+	string project = 3;
+	string self_link = 4;
+	NotebooksLocationXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NotebooksRuntimeXAccessConfig {
+	string access_type = 1;
+	string proxy_uri = 2;
+	string runtime_owner = 3;
+}
+
+message NotebooksRuntimeXSoftwareConfigXKernels {
+	string repository = 1;
+	string tag = 2;
+}
+
+message NotebooksRuntimeXSoftwareConfig {
+	string custom_gpu_driver_path = 1;
+	bool enable_health_monitoring = 2;
+	bool idle_shutdown = 3;
+	double idle_shutdown_timeout = 4;
+	bool install_gpu_driver = 5;
+	string notebook_upgrade_schedule = 6;
+	string post_startup_script = 7;
+	string post_startup_script_behavior = 8;
+	bool upgradeable = 9;
+	repeated NotebooksRuntimeXSoftwareConfigXKernels kernels = 10;
+}
+
+message NotebooksRuntimeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXAcceleratorConfig {
+	double core_count = 1;
+	string type = 2;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXContainerImages {
+	string repository = 1;
+	string tag = 2;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXDataDiskXInitializeParams {
+	string description = 1;
+	string disk_name = 2;
+	double disk_size_gb = 3;
+	string disk_type = 4;
+	map<string, string> labels = 5;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXDataDisk {
+	bool auto_delete = 1;
+	bool boot = 2;
+	string device_name = 3;
+	repeated string guest_os_features = 4;
+	double index = 5;
+	string interface = 6;
+	string kind = 7;
+	repeated string licenses = 8;
+	string mode = 9;
+	string source = 10;
+	string type = 11;
+	NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXDataDiskXInitializeParams initialize_params = 12;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXEncryptionConfig {
+	string kms_key = 1;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+	bool enable_vtpm = 3;
+}
+
+message NotebooksRuntimeXVirtualMachineXVirtualMachineConfig {
+	map<string, string> guest_attributes = 1;
+	bool internal_ip_only = 2;
+	map<string, string> labels = 3;
+	string machine_type = 4;
+	map<string, string> metadata = 5;
+	string network = 6;
+	string nic_type = 7;
+	string reserved_ip_range = 8;
+	string subnet = 9;
+	repeated string tags = 10;
+	string zone = 11;
+	NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXAcceleratorConfig accelerator_config = 12;
+	repeated NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXContainerImages container_images = 13;
+	NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXDataDisk data_disk = 14;
+	NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXEncryptionConfig encryption_config = 15;
+	NotebooksRuntimeXVirtualMachineXVirtualMachineConfigXShieldedInstanceConfig shielded_instance_config = 16;
+}
+
+message NotebooksRuntimeXVirtualMachine {
+	string instance_id = 1;
+	string instance_name = 2;
+	NotebooksRuntimeXVirtualMachineXVirtualMachineConfig virtual_machine_config = 3;
+}
+
+message NotebooksRuntime {
+	string health_state = 1;
+	string id = 2;
+	string location = 3;
+	map<string, string> metrics = 4;
+	string name = 5;
+	string project = 6;
+	string state = 7;
+	NotebooksRuntimeXAccessConfig access_config = 8;
+	NotebooksRuntimeXSoftwareConfig software_config = 9;
+	NotebooksRuntimeXTimeouts timeouts = 10;
+	NotebooksRuntimeXVirtualMachine virtual_machine = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message NotebooksRuntimeIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message NotebooksRuntimeIamBinding {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string runtime_name = 7;
+	NotebooksRuntimeIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message NotebooksRuntimeIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message NotebooksRuntimeIamMember {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string runtime_name = 7;
+	NotebooksRuntimeIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message NotebooksRuntimeIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string policy_data = 4;
+	string project = 5;
+	string runtime_name = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

@@ -1,0 +1,662 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.bigquery;
+
+import "shared/shared.proto";
+
+message BigqueryConnectionXAwsXAccessRole {
+	string iam_role_id = 1;
+	string identity = 2;
+}
+
+message BigqueryConnectionXAws {
+	BigqueryConnectionXAwsXAccessRole access_role = 1;
+}
+
+message BigqueryConnectionXAzure {
+	string application = 1;
+	string client_id = 2;
+	string customer_tenant_id = 3;
+	string object_id = 4;
+	string redirect_uri = 5;
+}
+
+message BigqueryConnectionXCloudResource {
+	string service_account_id = 1;
+}
+
+message BigqueryConnectionXCloudSpanner {
+	string database = 1;
+	bool use_parallelism = 2;
+}
+
+message BigqueryConnectionXCloudSqlXCredential {
+	string password = 1;
+	string username = 2;
+}
+
+message BigqueryConnectionXCloudSql {
+	string database = 1;
+	string instance_id = 2;
+	string type = 3;
+	BigqueryConnectionXCloudSqlXCredential credential = 4;
+}
+
+message BigqueryConnectionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BigqueryConnection {
+	string connection_id = 1;
+	string description = 2;
+	string friendly_name = 3;
+	bool has_credential = 4;
+	string id = 5;
+	string location = 6;
+	string name = 7;
+	string project = 8;
+	BigqueryConnectionXAws aws = 9;
+	BigqueryConnectionXAzure azure = 10;
+	BigqueryConnectionXCloudResource cloud_resource = 11;
+	BigqueryConnectionXCloudSpanner cloud_spanner = 12;
+	BigqueryConnectionXCloudSql cloud_sql = 13;
+	BigqueryConnectionXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message BigqueryConnectionIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigqueryConnectionIamBinding {
+	string connection_id = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	repeated string members = 5;
+	string project = 6;
+	string role = 7;
+	BigqueryConnectionIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigqueryConnectionIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigqueryConnectionIamMember {
+	string connection_id = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	string member = 5;
+	string project = 6;
+	string role = 7;
+	BigqueryConnectionIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigqueryConnectionIamPolicy {
+	string connection_id = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	string policy_data = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message BigqueryDataTransferConfigXEmailPreferences {
+	bool enable_failure_email = 1;
+}
+
+message BigqueryDataTransferConfigXScheduleOptions {
+	bool disable_auto_scheduling = 1;
+	string end_time = 2;
+	string start_time = 3;
+}
+
+message BigqueryDataTransferConfigXSensitiveParams {
+	string secret_access_key = 1;
+}
+
+message BigqueryDataTransferConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BigqueryDataTransferConfig {
+	double data_refresh_window_days = 1;
+	string data_source_id = 2;
+	string destination_dataset_id = 3;
+	bool disabled = 4;
+	string display_name = 5;
+	string id = 6;
+	string location = 7;
+	string name = 8;
+	string notification_pubsub_topic = 9;
+	map<string, string> params = 10;
+	string project = 11;
+	string schedule = 12;
+	string service_account_name = 13;
+	BigqueryDataTransferConfigXEmailPreferences email_preferences = 14;
+	BigqueryDataTransferConfigXScheduleOptions schedule_options = 15;
+	BigqueryDataTransferConfigXSensitiveParams sensitive_params = 16;
+	BigqueryDataTransferConfigXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+
+message BigqueryDatasetXAccessXDatasetXDataset {
+	string dataset_id = 1;
+	string project_id = 2;
+}
+
+message BigqueryDatasetXAccessXDataset {
+	repeated string target_types = 1;
+	BigqueryDatasetXAccessXDatasetXDataset dataset = 2;
+}
+
+message BigqueryDatasetXAccessXView {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryDatasetXAccess {
+	string domain = 1;
+	string group_by_email = 2;
+	string role = 3;
+	string special_group = 4;
+	string user_by_email = 5;
+	BigqueryDatasetXAccessXDataset dataset = 6;
+	BigqueryDatasetXAccessXView view = 7;
+}
+
+message BigqueryDatasetXDefaultEncryptionConfiguration {
+	string kms_key_name = 1;
+}
+
+message BigqueryDatasetXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BigqueryDataset {
+	double creation_time = 1;
+	string dataset_id = 2;
+	double default_partition_expiration_ms = 3;
+	double default_table_expiration_ms = 4;
+	bool delete_contents_on_destroy = 5;
+	string description = 6;
+	string etag = 7;
+	string friendly_name = 8;
+	string id = 9;
+	map<string, string> labels = 10;
+	double last_modified_time = 11;
+	string location = 12;
+	string project = 13;
+	string self_link = 14;
+	repeated BigqueryDatasetXAccess access = 15;
+	BigqueryDatasetXDefaultEncryptionConfiguration default_encryption_configuration = 16;
+	BigqueryDatasetXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+
+message BigqueryDatasetAccessXDatasetXDataset {
+	string dataset_id = 1;
+	string project_id = 2;
+}
+
+message BigqueryDatasetAccessXDataset {
+	repeated string target_types = 1;
+	BigqueryDatasetAccessXDatasetXDataset dataset = 2;
+}
+
+message BigqueryDatasetAccessXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message BigqueryDatasetAccessXView {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryDatasetAccess {
+	bool api_updated_member = 1;
+	string dataset_id = 2;
+	string domain = 3;
+	string group_by_email = 4;
+	string iam_member = 5;
+	string id = 6;
+	string project = 7;
+	string role = 8;
+	string special_group = 9;
+	string user_by_email = 10;
+	BigqueryDatasetAccessXDataset dataset = 11;
+	BigqueryDatasetAccessXTimeouts timeouts = 12;
+	BigqueryDatasetAccessXView view = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message BigqueryDatasetIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigqueryDatasetIamBinding {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	BigqueryDatasetIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BigqueryDatasetIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigqueryDatasetIamMember {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	BigqueryDatasetIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BigqueryDatasetIamPolicy {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message BigqueryJobXCopyXDestinationEncryptionConfiguration {
+	string kms_key_name = 1;
+	string kms_key_version = 2;
+}
+
+message BigqueryJobXCopyXDestinationTable {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryJobXCopyXSourceTables {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryJobXCopy {
+	string create_disposition = 1;
+	string write_disposition = 2;
+	BigqueryJobXCopyXDestinationEncryptionConfiguration destination_encryption_configuration = 3;
+	BigqueryJobXCopyXDestinationTable destination_table = 4;
+	repeated BigqueryJobXCopyXSourceTables source_tables = 5;
+}
+
+message BigqueryJobXExtractXSourceModel {
+	string dataset_id = 1;
+	string model_id = 2;
+	string project_id = 3;
+}
+
+message BigqueryJobXExtractXSourceTable {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryJobXExtract {
+	string compression = 1;
+	string destination_format = 2;
+	repeated string destination_uris = 3;
+	string field_delimiter = 4;
+	bool print_header = 5;
+	bool use_avro_logical_types = 6;
+	BigqueryJobXExtractXSourceModel source_model = 7;
+	BigqueryJobXExtractXSourceTable source_table = 8;
+}
+
+message BigqueryJobXLoadXDestinationEncryptionConfiguration {
+	string kms_key_name = 1;
+	string kms_key_version = 2;
+}
+
+message BigqueryJobXLoadXDestinationTable {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryJobXLoadXTimePartitioning {
+	string expiration_ms = 1;
+	string field = 2;
+	string type = 3;
+}
+
+message BigqueryJobXLoad {
+	bool allow_jagged_rows = 1;
+	bool allow_quoted_newlines = 2;
+	bool autodetect = 3;
+	string create_disposition = 4;
+	string encoding = 5;
+	string field_delimiter = 6;
+	bool ignore_unknown_values = 7;
+	double max_bad_records = 8;
+	string null_marker = 9;
+	repeated string projection_fields = 10;
+	string quote = 11;
+	repeated string schema_update_options = 12;
+	double skip_leading_rows = 13;
+	string source_format = 14;
+	repeated string source_uris = 15;
+	string write_disposition = 16;
+	BigqueryJobXLoadXDestinationEncryptionConfiguration destination_encryption_configuration = 17;
+	BigqueryJobXLoadXDestinationTable destination_table = 18;
+	BigqueryJobXLoadXTimePartitioning time_partitioning = 19;
+}
+
+message BigqueryJobXQueryXDefaultDataset {
+	string dataset_id = 1;
+	string project_id = 2;
+}
+
+message BigqueryJobXQueryXDestinationEncryptionConfiguration {
+	string kms_key_name = 1;
+	string kms_key_version = 2;
+}
+
+message BigqueryJobXQueryXDestinationTable {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message BigqueryJobXQueryXScriptOptions {
+	string key_result_statement = 1;
+	string statement_byte_budget = 2;
+	string statement_timeout_ms = 3;
+}
+
+message BigqueryJobXQueryXUserDefinedFunctionResources {
+	string inline_code = 1;
+	string resource_uri = 2;
+}
+
+message BigqueryJobXQuery {
+	bool allow_large_results = 1;
+	string create_disposition = 2;
+	bool flatten_results = 3;
+	double maximum_billing_tier = 4;
+	string maximum_bytes_billed = 5;
+	string parameter_mode = 6;
+	string priority = 7;
+	string query = 8;
+	repeated string schema_update_options = 9;
+	bool use_legacy_sql = 10;
+	bool use_query_cache = 11;
+	string write_disposition = 12;
+	BigqueryJobXQueryXDefaultDataset default_dataset = 13;
+	BigqueryJobXQueryXDestinationEncryptionConfiguration destination_encryption_configuration = 14;
+	BigqueryJobXQueryXDestinationTable destination_table = 15;
+	BigqueryJobXQueryXScriptOptions script_options = 16;
+	repeated BigqueryJobXQueryXUserDefinedFunctionResources user_defined_function_resources = 17;
+}
+
+message BigqueryJobXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message BigqueryJob {
+	string id = 1;
+	string job_id = 2;
+	string job_timeout_ms = 3;
+	string job_type = 4;
+	map<string, string> labels = 5;
+	string location = 6;
+	string project = 7;
+	map<string, string> status = 8;
+	string user_email = 9;
+	BigqueryJobXCopy copy = 10;
+	BigqueryJobXExtract extract = 11;
+	BigqueryJobXLoad load = 12;
+	BigqueryJobXQuery query = 13;
+	BigqueryJobXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message BigqueryReservationXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BigqueryReservation {
+	string id = 1;
+	bool ignore_idle_slots = 2;
+	string location = 3;
+	string name = 4;
+	string project = 5;
+	double slot_capacity = 6;
+	BigqueryReservationXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BigqueryReservationAssignmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message BigqueryReservationAssignment {
+	string assignee = 1;
+	string id = 2;
+	string job_type = 3;
+	string location = 4;
+	string name = 5;
+	string project = 6;
+	string reservation = 7;
+	string state = 8;
+	BigqueryReservationAssignmentXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message BigqueryRoutineXArguments {
+	string argument_kind = 1;
+	string data_type = 2;
+	string mode = 3;
+	string name = 4;
+}
+
+message BigqueryRoutineXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BigqueryRoutine {
+	double creation_time = 1;
+	string dataset_id = 2;
+	string definition_body = 3;
+	string description = 4;
+	string determinism_level = 5;
+	string id = 6;
+	repeated string imported_libraries = 7;
+	string language = 8;
+	double last_modified_time = 9;
+	string project = 10;
+	string return_table_type = 11;
+	string return_type = 12;
+	string routine_id = 13;
+	string routine_type = 14;
+	repeated BigqueryRoutineXArguments arguments = 15;
+	BigqueryRoutineXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message BigqueryTableXEncryptionConfiguration {
+	string kms_key_name = 1;
+	string kms_key_version = 2;
+}
+
+message BigqueryTableXExternalDataConfigurationXCsvOptions {
+	bool allow_jagged_rows = 1;
+	bool allow_quoted_newlines = 2;
+	string encoding = 3;
+	string field_delimiter = 4;
+	string quote = 5;
+	double skip_leading_rows = 6;
+}
+
+message BigqueryTableXExternalDataConfigurationXSheetsOptions {
+	string range = 1;
+	double skip_leading_rows = 2;
+}
+
+message BigqueryTableXExternalDataConfigurationXHivePartitioningOptions {
+	string mode = 1;
+	bool require_partition_filter = 2;
+	string source_uri_prefix = 3;
+}
+
+message BigqueryTableXExternalDataConfiguration {
+	bool autodetect = 1;
+	string compression = 2;
+	string connection_id = 3;
+	bool ignore_unknown_values = 4;
+	double max_bad_records = 5;
+	string schema = 6;
+	string source_format = 7;
+	repeated string source_uris = 8;
+	BigqueryTableXExternalDataConfigurationXCsvOptions csv_options = 9;
+	BigqueryTableXExternalDataConfigurationXSheetsOptions google_sheets_options = 10;
+	BigqueryTableXExternalDataConfigurationXHivePartitioningOptions hive_partitioning_options = 11;
+}
+
+message BigqueryTableXMaterializedView {
+	bool enable_refresh = 1;
+	string query = 2;
+	double refresh_interval_ms = 3;
+}
+
+message BigqueryTableXRangePartitioningXRange {
+	double end = 1;
+	double interval = 2;
+	double start = 3;
+}
+
+message BigqueryTableXRangePartitioning {
+	string field = 1;
+	BigqueryTableXRangePartitioningXRange range = 2;
+}
+
+message BigqueryTableXTimePartitioning {
+	double expiration_ms = 1;
+	string field = 2;
+	bool require_partition_filter = 3;
+	string type = 4;
+}
+
+message BigqueryTableXView {
+	string query = 1;
+	bool use_legacy_sql = 2;
+}
+
+message BigqueryTable {
+	repeated string clustering = 1;
+	double creation_time = 2;
+	string dataset_id = 3;
+	bool deletion_protection = 4;
+	string description = 5;
+	string etag = 6;
+	double expiration_time = 7;
+	string friendly_name = 8;
+	string id = 9;
+	map<string, string> labels = 10;
+	double last_modified_time = 11;
+	string location = 12;
+	double num_bytes = 13;
+	double num_long_term_bytes = 14;
+	double num_rows = 15;
+	string project = 16;
+	string schema = 17;
+	string self_link = 18;
+	string table_id = 19;
+	string type = 20;
+	BigqueryTableXEncryptionConfiguration encryption_configuration = 21;
+	BigqueryTableXExternalDataConfiguration external_data_configuration = 22;
+	BigqueryTableXMaterializedView materialized_view = 23;
+	BigqueryTableXRangePartitioning range_partitioning = 24;
+	BigqueryTableXTimePartitioning time_partitioning = 25;
+	BigqueryTableXView view = 26;
+	oak9.tython.shared.ResourceInfo resource_info = 27;
+}
+
+message BigqueryTableIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigqueryTableIamBinding {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string table_id = 7;
+	BigqueryTableIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigqueryTableIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigqueryTableIamMember {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string table_id = 7;
+	BigqueryTableIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigqueryTableIamPolicy {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string table_id = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codeguruprofiler;
+
+import "shared/shared.proto";
+
+message ProfilingGroupChannel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string channel_id = 2;
+	string channel_uri = 3;
+}
+
+message ProfilingGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string profiling_group_name = 2;
+	string compute_platform = 3;
+	map<string, string> agent_permissions = 4;
+	repeated ProfilingGroupChannel anomaly_detection_notification_configuration = 5;
+	map<string, string> tags = 6;
+}
+
+message CodeGuruProfiler {
+	repeated ProfilingGroup profiling_group = 1;
+}
+

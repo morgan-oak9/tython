@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.apimachinery.pkg.apis.meta.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.runtime.proto";
+
+message APIGroup {
+	string api_version = 1;
+	string kind = 2;
+	string name = 3;
+	GroupVersionForDiscovery preferred_version = 4;
+	repeated ServerAddressByClientCIDR server_address_by_client_cidrs = 5;
+	repeated GroupVersionForDiscovery versions = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message APIGroupList {
+	string api_version = 1;
+	repeated APIGroup groups = 2;
+	string kind = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message APIResource {
+	repeated string categories = 1;
+	string group = 2;
+	string kind = 3;
+	string name = 4;
+	bool namespaced = 5;
+	repeated string short_names = 6;
+	string singular_name = 7;
+	string storage_version_hash = 8;
+	repeated string verbs = 9;
+	string version = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message APIResourceList {
+	string api_version = 1;
+	string group_version = 2;
+	string kind = 3;
+	repeated APIResource resources = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message APIVersions {
+	string api_version = 1;
+	string kind = 2;
+	repeated ServerAddressByClientCIDR server_address_by_client_cidrs = 3;
+	repeated string versions = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Condition {
+	Time last_transition_time = 1;
+	string message = 2;
+	int32 observed_generation = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DeleteOptions {
+	string api_version = 1;
+	repeated string dry_run = 2;
+	int32 grace_period_seconds = 3;
+	string kind = 4;
+	bool orphan_dependents = 5;
+	Preconditions preconditions = 6;
+	string propagation_policy = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message FieldsV1 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message GroupVersionForDiscovery {
+	string group_version = 1;
+	string version = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message LabelSelector {
+	repeated LabelSelectorRequirement match_expressions = 1;
+	map<string, string> match_labels = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message LabelSelectorRequirement {
+	string key = 1;
+	string operator = 2;
+	repeated string values = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ListMeta {
+	string continue = 1;
+	int32 remaining_item_count = 2;
+	string resource_version = 3;
+	string self_link = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ManagedFieldsEntry {
+	string api_version = 1;
+	string fields_type = 2;
+	FieldsV1 fields_v1 = 3;
+	string manager = 4;
+	string operation = 5;
+	string subresource = 6;
+	Time time = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message MicroTime {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ObjectMeta {
+	map<string, string> annotations = 1;
+	Time creation_timestamp = 2;
+	int32 deletion_grace_period_seconds = 3;
+	Time deletion_timestamp = 4;
+	repeated string finalizers = 5;
+	string generate_name = 6;
+	int32 generation = 7;
+	map<string, string> labels = 8;
+	repeated ManagedFieldsEntry managed_fields = 9;
+	string name = 10;
+	string namespace = 11;
+	repeated OwnerReference owner_references = 12;
+	string resource_version = 13;
+	string self_link = 14;
+	string uid = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+
+message OwnerReference {
+	string api_version = 1;
+	bool block_owner_deletion = 2;
+	bool controller = 3;
+	string kind = 4;
+	string name = 5;
+	string uid = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message Patch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message Preconditions {
+	string resource_version = 1;
+	string uid = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ServerAddressByClientCIDR {
+	string client_cidr = 1;
+	string server_address = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Status {
+	string api_version = 1;
+	int32 code = 2;
+	StatusDetails details = 3;
+	string kind = 4;
+	string message = 5;
+	ListMeta metadata = 6;
+	string reason = 7;
+	string status = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message StatusCause {
+	string field = 1;
+	string message = 2;
+	string reason = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message StatusDetails {
+	repeated StatusCause causes = 1;
+	string group = 2;
+	string kind = 3;
+	string name = 4;
+	int32 retry_after_seconds = 5;
+	string uid = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message Time {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message WatchEvent {
+	oak9.tython.k8s.apimachinery.pkg.runtime.RawExtension object = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

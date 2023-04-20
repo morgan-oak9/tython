@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package oak9.tython.aws.autoscalingplans;
+
+import "shared/shared.proto";
+
+message ScalingPlanTagFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string values = 2;
+	string key = 3;
+}
+
+message ScalingPlanApplicationSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cloud_formation_stack_arn = 2;
+	repeated ScalingPlanTagFilter tag_filters = 3;
+}
+
+message ScalingPlanPredefinedScalingMetricSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_label = 2;
+	string predefined_scaling_metric_type = 3;
+}
+
+message ScalingPlanMetricDimension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string name = 3;
+}
+
+message ScalingPlanCustomizedScalingMetricSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	string statistic = 3;
+	repeated ScalingPlanMetricDimension dimensions = 4;
+	string unit = 5;
+	string namespace = 6;
+}
+
+message ScalingPlanTargetTrackingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 scale_out_cooldown = 2;
+	double target_value = 3;
+	ScalingPlanPredefinedScalingMetricSpecification predefined_scaling_metric_specification = 4;
+	bool disable_scale_in = 5;
+	int32 scale_in_cooldown = 6;
+	int32 estimated_instance_warmup = 7;
+	ScalingPlanCustomizedScalingMetricSpecification customized_scaling_metric_specification = 8;
+}
+
+message ScalingPlanCustomizedLoadMetricSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	string statistic = 3;
+	repeated ScalingPlanMetricDimension dimensions = 4;
+	string unit = 5;
+	string namespace = 6;
+}
+
+message ScalingPlanPredefinedLoadMetricSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string predefined_load_metric_type = 2;
+	string resource_label = 3;
+}
+
+message ScalingPlanScalingInstruction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool disable_dynamic_scaling = 2;
+	string service_namespace = 3;
+	string predictive_scaling_max_capacity_behavior = 4;
+	string scalable_dimension = 5;
+	string scaling_policy_update_behavior = 6;
+	int32 min_capacity = 7;
+	repeated ScalingPlanTargetTrackingConfiguration target_tracking_configurations = 8;
+	int32 predictive_scaling_max_capacity_buffer = 9;
+	ScalingPlanCustomizedLoadMetricSpecification customized_load_metric_specification = 10;
+	ScalingPlanPredefinedLoadMetricSpecification predefined_load_metric_specification = 11;
+	string resource_id = 12;
+	int32 scheduled_action_buffer_time = 13;
+	int32 max_capacity = 14;
+	string predictive_scaling_mode = 15;
+}
+
+message ScalingPlan {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ScalingPlanApplicationSource application_source = 2;
+	repeated ScalingPlanScalingInstruction scaling_instructions = 3;
+}
+
+message AutoScalingPlans {
+	repeated ScalingPlan scaling_plan = 1;
+}
+

@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_networkacl;
+
+import "shared/shared.proto";
+
+message NetworkAcl {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+	string vpc_id = 3;
+}
+
+message EC2_NetworkACL {
+	NetworkAcl network_acl = 1;
+	repeated NetworkAclEntry network_acl_entry = 2;
+}
+
+message NetworkAclEntryIcmp {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 code = 2;
+}
+
+message NetworkAclEntryPortRange {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 from = 2;
+	int32 to = 3;
+}
+
+message NetworkAclEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_block = 2;
+	bool egress = 3;
+	NetworkAclEntryIcmp icmp = 4;
+	string ipv6_cidr_block = 5;
+	string network_acl_id = 6;
+	NetworkAclEntryPortRange port_range = 7;
+	int32 protocol = 8;
+	string rule_action = 9;
+	int32 rule_number = 10;
+}
+

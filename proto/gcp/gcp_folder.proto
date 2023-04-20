@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.folder;
+
+import "shared/shared.proto";
+
+message FolderXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string read = 3;
+	string update = 4;
+}
+
+message Folder {
+	string create_time = 1;
+	string display_name = 2;
+	string folder_id = 3;
+	string id = 4;
+	string lifecycle_state = 5;
+	string name = 6;
+	string parent = 7;
+	FolderXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message FolderAccessApprovalSettingsXEnrolledServices {
+	string cloud_product = 1;
+	string enrollment_level = 2;
+}
+
+message FolderAccessApprovalSettingsXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message FolderAccessApprovalSettings {
+	string active_key_version = 1;
+	bool ancestor_has_active_key_version = 2;
+	bool enrolled_ancestor = 3;
+	string folder_id = 4;
+	string id = 5;
+	bool invalid_key_version = 6;
+	string name = 7;
+	repeated string notification_emails = 8;
+	repeated FolderAccessApprovalSettingsXEnrolledServices enrolled_services = 9;
+	FolderAccessApprovalSettingsXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message FolderIamAuditConfigXAuditLogConfig {
+	repeated string exempted_members = 1;
+	string log_type = 2;
+}
+
+message FolderIamAuditConfig {
+	string etag = 1;
+	string folder = 2;
+	string id = 3;
+	string service = 4;
+	repeated FolderIamAuditConfigXAuditLogConfig audit_log_config = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message FolderIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message FolderIamBinding {
+	string etag = 1;
+	string folder = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	FolderIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message FolderIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message FolderIamMember {
+	string etag = 1;
+	string folder = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	FolderIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message FolderIamPolicy {
+	string etag = 1;
+	string folder = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message FolderOrganizationPolicyXBooleanPolicy {
+	bool enforced = 1;
+}
+
+message FolderOrganizationPolicyXListPolicyXAllow {
+	bool all = 1;
+	repeated string values = 2;
+}
+
+message FolderOrganizationPolicyXListPolicyXDeny {
+	bool all = 1;
+	repeated string values = 2;
+}
+
+message FolderOrganizationPolicyXListPolicy {
+	bool inherit_from_parent = 1;
+	string suggested_value = 2;
+	FolderOrganizationPolicyXListPolicyXAllow allow = 3;
+	FolderOrganizationPolicyXListPolicyXDeny deny = 4;
+}
+
+message FolderOrganizationPolicyXRestorePolicy {
+	bool default = 1;
+}
+
+message FolderOrganizationPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string read = 3;
+	string update = 4;
+}
+
+message FolderOrganizationPolicy {
+	string constraint = 1;
+	string etag = 2;
+	string folder = 3;
+	string id = 4;
+	string update_time = 5;
+	double version = 6;
+	FolderOrganizationPolicyXBooleanPolicy boolean_policy = 7;
+	FolderOrganizationPolicyXListPolicy list_policy = 8;
+	FolderOrganizationPolicyXRestorePolicy restore_policy = 9;
+	FolderOrganizationPolicyXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

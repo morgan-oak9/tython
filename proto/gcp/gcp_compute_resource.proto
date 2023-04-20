@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_resource;
+
+import "shared/shared.proto";
+
+message ComputeResourcePolicyXGroupPlacementPolicy {
+	double availability_domain_count = 1;
+	string collocation = 2;
+	double vm_count = 3;
+}
+
+message ComputeResourcePolicyXInstanceSchedulePolicyXVmStartSchedule {
+	string schedule = 1;
+}
+
+message ComputeResourcePolicyXInstanceSchedulePolicyXVmStopSchedule {
+	string schedule = 1;
+}
+
+message ComputeResourcePolicyXInstanceSchedulePolicy {
+	string expiration_time = 1;
+	string start_time = 2;
+	string time_zone = 3;
+	ComputeResourcePolicyXInstanceSchedulePolicyXVmStartSchedule vm_start_schedule = 4;
+	ComputeResourcePolicyXInstanceSchedulePolicyXVmStopSchedule vm_stop_schedule = 5;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXRetentionPolicy {
+	double max_retention_days = 1;
+	string on_source_disk_delete = 2;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXDailySchedule {
+	double days_in_cycle = 1;
+	string start_time = 2;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXHourlySchedule {
+	double hours_in_cycle = 1;
+	string start_time = 2;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXWeeklyScheduleXDayOfWeeks {
+	string day = 1;
+	string start_time = 2;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXWeeklySchedule {
+	repeated ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXWeeklyScheduleXDayOfWeeks day_of_weeks = 1;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXSchedule {
+	ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXDailySchedule daily_schedule = 1;
+	ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXHourlySchedule hourly_schedule = 2;
+	ComputeResourcePolicyXSnapshotSchedulePolicyXScheduleXWeeklySchedule weekly_schedule = 3;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicyXSnapshotProperties {
+	bool guest_flush = 1;
+	map<string, string> labels = 2;
+	repeated string storage_locations = 3;
+}
+
+message ComputeResourcePolicyXSnapshotSchedulePolicy {
+	ComputeResourcePolicyXSnapshotSchedulePolicyXRetentionPolicy retention_policy = 1;
+	ComputeResourcePolicyXSnapshotSchedulePolicyXSchedule schedule = 2;
+	ComputeResourcePolicyXSnapshotSchedulePolicyXSnapshotProperties snapshot_properties = 3;
+}
+
+message ComputeResourcePolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeResourcePolicy {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string project = 4;
+	string region = 5;
+	string self_link = 6;
+	ComputeResourcePolicyXGroupPlacementPolicy group_placement_policy = 7;
+	ComputeResourcePolicyXInstanceSchedulePolicy instance_schedule_policy = 8;
+	ComputeResourcePolicyXSnapshotSchedulePolicy snapshot_schedule_policy = 9;
+	ComputeResourcePolicyXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

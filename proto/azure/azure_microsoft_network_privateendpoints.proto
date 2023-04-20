@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_privateendpoints;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_privateEndpoints {
+	PrivateEndpoints private_endpoints = 1;
+	repeated PrivateEndpointsPrivateDnsZoneGroups private_endpoints_private_dns_zone_groups = 2;
+}
+
+message Subnet {
+	string id = 1;
+}
+
+message PrivateEndpointsPrivateDnsZoneGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated PrivateDnsZoneConfig private_dns_zone_configs = 3;
+}
+
+message PrivateDnsZoneConfig {
+	string name = 1;
+	string private_dns_zone_id = 2;
+}
+
+message PrivateEndpoints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	Subnet subnet = 6;
+	repeated PrivateLinkServiceConnection private_link_service_connections = 7;
+	repeated PrivateLinkServiceConnection manual_private_link_service_connections = 8;
+	repeated CustomDnsConfigPropertiesFormat custom_dns_configs = 9;
+}
+
+message CustomDnsConfigPropertiesFormat {
+	string fqdn = 1;
+	repeated string ip_addresses = 2;
+}
+
+message PrivateLinkServiceConnection {
+	string private_link_service_id = 1;
+	repeated string group_ids = 2;
+	string request_message = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+	string name = 5;
+}
+
+message PrivateLinkServiceConnectionState {
+	string status = 1;
+	string description = 2;
+	string actions_required = 3;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

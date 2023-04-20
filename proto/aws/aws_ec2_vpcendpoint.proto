@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_vpcendpoint;
+
+import "shared/shared.proto";
+
+message VPCEndpoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> policy_document = 2;
+	bool private_dns_enabled = 3;
+	repeated string route_table_ids = 4;
+	repeated string security_group_ids = 5;
+	string service_name = 6;
+	repeated string subnet_ids = 7;
+	string vpc_endpoint_type = 8;
+	string vpc_id = 9;
+}
+
+message EC2_VPCEndpoint {
+	VPCEndpoint vpc_endpoint = 1;
+	VPCEndpointService vpc_endpoint_service = 2;
+	repeated VPCEndpointServicePermissions vpc_endpoint_service_permissions = 3;
+}
+
+message VPCEndpointService {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string network_load_balancer_arns = 2;
+	bool acceptance_required = 3;
+	repeated string appliance_load_balancer_arns = 4;
+}
+
+message VPCEndpointServicePermissions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string allowed_principals = 2;
+	string service_id = 3;
+}
+

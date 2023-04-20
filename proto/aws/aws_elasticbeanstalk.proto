@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package oak9.tython.aws.elasticbeanstalk;
+
+import "shared/shared.proto";
+
+message ApplicationMaxAgeRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_source_from_s3 = 2;
+	bool enabled = 3;
+	int32 max_age_in_days = 4;
+}
+
+message ApplicationMaxCountRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_source_from_s3 = 2;
+	bool enabled = 3;
+	int32 max_count = 4;
+}
+
+message ApplicationApplicationVersionLifecycleConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationMaxAgeRule max_age_rule = 2;
+	ApplicationMaxCountRule max_count_rule = 3;
+}
+
+message ApplicationApplicationResourceLifecycleConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string service_role = 2;
+	ApplicationApplicationVersionLifecycleConfig version_lifecycle_config = 3;
+}
+
+message Application {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	string description = 3;
+	ApplicationApplicationResourceLifecycleConfig resource_lifecycle_config = 4;
+}
+
+message ElasticBeanstalk {
+	Application application = 1;
+	repeated ApplicationVersion application_version = 2;
+	ConfigurationTemplate configuration_template = 3;
+	repeated Environment environment = 4;
+}
+
+message ApplicationVersionSourceBundle {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_bucket = 2;
+	string s3_key = 3;
+}
+
+message ApplicationVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	string description = 3;
+	ApplicationVersionSourceBundle source_bundle = 4;
+}
+
+message ConfigurationTemplateConfigurationOptionSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string namespace = 2;
+	string option_name = 3;
+	string resource_name = 4;
+	string value = 5;
+}
+
+message ConfigurationTemplateSourceConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	string template_name = 3;
+}
+
+message ConfigurationTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	string description = 3;
+	string environment_id = 4;
+	repeated ConfigurationTemplateConfigurationOptionSetting option_settings = 5;
+	string platform_arn = 6;
+	string solution_stack_name = 7;
+	ConfigurationTemplateSourceConfiguration source_configuration = 8;
+}
+
+message EnvironmentOptionSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string namespace = 2;
+	string option_name = 3;
+	string resource_name = 4;
+	string value = 5;
+}
+
+message EnvironmentTier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string version = 3;
+}
+
+message Environment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	string cname_prefix = 3;
+	string description = 4;
+	string environment_name = 5;
+	repeated EnvironmentOptionSetting option_settings = 6;
+	string platform_arn = 7;
+	string solution_stack_name = 8;
+	map<string, string> tags = 9;
+	string template_name = 10;
+	EnvironmentTier tier = 11;
+	string version_label = 12;
+}
+

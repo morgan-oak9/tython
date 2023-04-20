@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package oak9.tython.aws.lakeformation;
+
+import "shared/shared.proto";
+
+message DataLakeSettingsAdmins {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message DataLakeSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DataLakeSettingsAdmins admins = 2;
+}
+
+message LakeFormation {
+	repeated DataLakeSettings data_lake_settings = 1;
+	repeated Permissions permissions = 2;
+	repeated Resource resource = 3;
+	repeated DataLakeSettingsDataLakePrincipal data_lake_settings_data_lake_principal = 4;
+}
+
+message PermissionsDataLakePrincipal {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data_lake_principal_identifier = 2;
+}
+
+message PermissionsTableWildcard {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message PermissionsTableResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string database_name = 2;
+	string catalog_id = 3;
+	PermissionsTableWildcard table_wildcard = 4;
+	string name = 5;
+}
+
+message PermissionsDatabaseResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string catalog_id = 2;
+	string name = 3;
+}
+
+message PermissionsDataLocationResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_resource = 2;
+	string catalog_id = 3;
+}
+
+message PermissionsColumnWildcard {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string excluded_column_names = 2;
+}
+
+message PermissionsTableWithColumnsResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string column_names = 2;
+	string database_name = 3;
+	string catalog_id = 4;
+	string name = 5;
+	PermissionsColumnWildcard column_wildcard = 6;
+}
+
+message PermissionsResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	PermissionsTableResource table_resource = 2;
+	PermissionsDatabaseResource database_resource = 3;
+	PermissionsDataLocationResource data_location_resource = 4;
+	PermissionsTableWithColumnsResource table_with_columns_resource = 5;
+}
+
+message Permissions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	PermissionsDataLakePrincipal data_lake_principal = 2;
+	PermissionsResource resource = 3;
+	repeated string permissions = 4;
+	repeated string permissions_with_grant_option = 5;
+}
+
+message Resource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	bool use_service_linked_role = 3;
+	string role_arn = 4;
+}
+
+message DataLakeSettingsDataLakePrincipal {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data_lake_principal_identifier = 2;
+}
+

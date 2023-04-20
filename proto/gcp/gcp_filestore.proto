@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.filestore;
+
+import "shared/shared.proto";
+
+message FilestoreInstanceXFileSharesXNfsExportOptions {
+	string access_mode = 1;
+	double anon_gid = 2;
+	double anon_uid = 3;
+	repeated string ip_ranges = 4;
+	string squash_mode = 5;
+}
+
+message FilestoreInstanceXFileShares {
+	double capacity_gb = 1;
+	string name = 2;
+	repeated FilestoreInstanceXFileSharesXNfsExportOptions nfs_export_options = 3;
+}
+
+message FilestoreInstanceXNetworks {
+	string connect_mode = 1;
+	repeated string ip_addresses = 2;
+	repeated string modes = 3;
+	string network = 4;
+	string reserved_ip_range = 5;
+}
+
+message FilestoreInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message FilestoreInstance {
+	string create_time = 1;
+	string description = 2;
+	string etag = 3;
+	string id = 4;
+	string kms_key_name = 5;
+	map<string, string> labels = 6;
+	string location = 7;
+	string name = 8;
+	string project = 9;
+	string tier = 10;
+	string zone = 11;
+	FilestoreInstanceXFileShares file_shares = 12;
+	repeated FilestoreInstanceXNetworks networks = 13;
+	FilestoreInstanceXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

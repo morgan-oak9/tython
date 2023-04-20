@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package oak9.tython.aws.iam;
+
+import "shared/shared.proto";
+
+message AccessKey {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 serial = 2;
+	string status = 3;
+	string user_name = 4;
+}
+
+message IAM {
+	repeated Group group = 1;
+	repeated ManagedPolicy managed_policy = 2;
+	repeated Policy policy = 3;
+	repeated Role role = 4;
+	repeated User user = 5;
+}
+
+message GroupPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string policy_name = 2;
+	string policy_document = 3;
+}
+
+message Group {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	repeated string managed_policy_arns = 3;
+	string path = 4;
+	repeated GroupPolicy policies = 5;
+}
+
+message InstanceProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_profile_name = 2;
+	string path = 3;
+	repeated string roles = 4;
+}
+
+message ManagedPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string groups = 3;
+	string managed_policy_name = 4;
+	string path = 5;
+	repeated string roles = 6;
+	repeated string users = 7;
+	string policy_document = 8;
+}
+
+message Policy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string groups = 2;
+	string policy_name = 3;
+	repeated string roles = 4;
+	repeated string users = 5;
+	string policy_document = 6;
+}
+
+message RolePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string policy_name = 2;
+	string policy_document = 3;
+}
+
+message Role {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string managed_policy_arns = 3;
+	int32 max_session_duration = 4;
+	string path = 5;
+	string permissions_boundary = 6;
+	repeated RolePolicy policies = 7;
+	string role_name = 8;
+	map<string, string> tags = 9;
+	string assume_role_policy_document = 10;
+}
+
+message ServiceLinkedRole {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string custom_suffix = 2;
+	string description = 3;
+	string aws_service_name = 4;
+}
+
+message UserLoginProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string password = 2;
+	bool password_reset_required = 3;
+}
+
+message UserPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string policy_name = 2;
+	string policy_document = 3;
+}
+
+message User {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string groups = 2;
+	UserLoginProfile login_profile = 3;
+	repeated string managed_policy_arns = 4;
+	string path = 5;
+	string permissions_boundary = 6;
+	repeated UserPolicy policies = 7;
+	map<string, string> tags = 8;
+	string user_name = 9;
+}
+
+message UserToGroupAddition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	repeated string users = 3;
+}
+

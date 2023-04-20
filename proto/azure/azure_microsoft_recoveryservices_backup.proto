@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_recoveryservices_backup;
+
+import "shared/shared.proto";
+
+message Microsoft_RecoveryServices_Backup {
+	repeated VaultsBackupconfig vaults_backupconfig = 1;
+	repeated VaultsBackupEncryptionConfigs vaults_backup_encryption_configs = 2;
+	repeated VaultsBackupFabricsBackupProtectionIntent vaults_backup_fabrics_backup_protection_intent = 3;
+	repeated VaultsBackupFabricsProtectionContainers vaults_backup_fabrics_protection_containers = 4;
+	repeated VaultsBackupPolicies vaults_backup_policies = 5;
+	repeated VaultsBackupResourceGuardProxies vaults_backup_resource_guard_proxies = 6;
+	repeated VaultsBackupstorageconfig vaults_backupstorageconfig = 7;
+	repeated VaultsPrivateEndpointConnections vaults_private_endpoint_connections = 8;
+}
+
+message VaultsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	PrivateEndpoint private_endpoint = 5;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 6;
+	string provisioning_state = 7;
+	map<string, string> tags = 8;
+}
+
+message PrivateLinkServiceConnectionState {
+	string action_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string id = 1;
+}
+
+message VaultsBackupstorageconfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	bool cross_region_restore_flag = 5;
+	string dedup_state = 6;
+	string storage_model_type = 7;
+	string storage_type = 8;
+	string storage_type_state = 9;
+	string xcool_state = 10;
+	map<string, string> tags = 11;
+}
+
+message VaultsBackupResourceGuardProxies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message VaultsBackupPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	int32 protected_items_count = 5;
+	repeated string resource_guard_operation_requests = 6;
+	map<string, string> tags = 7;
+}
+
+message VaultsBackupFabricsProtectionContainersProtectedItems {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	string backup_management_type = 5;
+	string backup_set_name = 6;
+	string container_name = 7;
+	string create_mode = 8;
+	string deferred_delete_time_in_u_t_c = 9;
+	string deferred_delete_time_remaining = 10;
+	bool is_archive_enabled = 11;
+	bool is_deferred_delete_schedule_upcoming = 12;
+	bool is_rehydrate = 13;
+	bool is_scheduled_for_deferred_delete = 14;
+	string last_recovery_point = 15;
+	string policy_id = 16;
+	string policy_name = 17;
+	repeated string resource_guard_operation_requests = 18;
+	string source_resource_id = 19;
+	string workload_type = 20;
+	map<string, string> tags = 21;
+}
+
+message VaultsBackupFabricsProtectionContainers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	string backup_management_type = 5;
+	string friendly_name = 6;
+	string health_status = 7;
+	string protectable_object_type = 8;
+	string registration_status = 9;
+	map<string, string> tags = 10;
+	repeated VaultsBackupFabricsProtectionContainersProtectedItems vaults_backup_fabrics_protection_containers_protected_items = 11;
+}
+
+message VaultsBackupFabricsBackupProtectionIntent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	string backup_management_type = 5;
+	string item_id = 6;
+	string policy_id = 7;
+	string protection_state = 8;
+	string source_resource_id = 9;
+	map<string, string> tags = 10;
+}
+
+message VaultsBackupEncryptionConfigs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	string encryption_at_rest_type = 5;
+	string infrastructure_encryption_state = 6;
+	string key_uri = 7;
+	string last_update_status = 8;
+	string subscription_id = 9;
+	map<string, string> tags = 10;
+}
+
+message VaultsBackupconfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string e_tag = 2;
+	string location = 3;
+	string name = 4;
+	string enhanced_security_state = 5;
+	bool is_soft_delete_feature_state_editable = 6;
+	repeated string resource_guard_operation_requests = 7;
+	string soft_delete_feature_state = 8;
+	string storage_model_type = 9;
+	string storage_type = 10;
+	string storage_type_state = 11;
+	map<string, string> tags = 12;
+}
+

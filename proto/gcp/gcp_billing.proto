@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.billing;
+
+import "shared/shared.proto";
+
+message BillingAccountIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BillingAccountIamBinding {
+	string billing_account_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	BillingAccountIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message BillingAccountIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BillingAccountIamMember {
+	string billing_account_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	BillingAccountIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message BillingAccountIamPolicy {
+	string billing_account_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message BillingBudgetXAllUpdatesRule {
+	bool disable_default_iam_recipients = 1;
+	repeated string monitoring_notification_channels = 2;
+	string pubsub_topic = 3;
+	string schema_version = 4;
+}
+
+message BillingBudgetXAmountXSpecifiedAmount {
+	string currency_code = 1;
+	double nanos = 2;
+	string units = 3;
+}
+
+message BillingBudgetXAmount {
+	bool last_period_amount = 1;
+	BillingBudgetXAmountXSpecifiedAmount specified_amount = 2;
+}
+
+message BillingBudgetXBudgetFilterXCustomPeriodXEndDate {
+	double day = 1;
+	double month = 2;
+	double year = 3;
+}
+
+message BillingBudgetXBudgetFilterXCustomPeriodXStartDate {
+	double day = 1;
+	double month = 2;
+	double year = 3;
+}
+
+message BillingBudgetXBudgetFilterXCustomPeriod {
+	BillingBudgetXBudgetFilterXCustomPeriodXEndDate end_date = 1;
+	BillingBudgetXBudgetFilterXCustomPeriodXStartDate start_date = 2;
+}
+
+message BillingBudgetXBudgetFilter {
+	string calendar_period = 1;
+	repeated string credit_types = 2;
+	string credit_types_treatment = 3;
+	map<string, string> labels = 4;
+	repeated string projects = 5;
+	repeated string services = 6;
+	repeated string subaccounts = 7;
+	BillingBudgetXBudgetFilterXCustomPeriod custom_period = 8;
+}
+
+message BillingBudgetXThresholdRules {
+	string spend_basis = 1;
+	double threshold_percent = 2;
+}
+
+message BillingBudgetXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BillingBudget {
+	string billing_account = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	BillingBudgetXAllUpdatesRule all_updates_rule = 5;
+	BillingBudgetXAmount amount = 6;
+	BillingBudgetXBudgetFilter budget_filter = 7;
+	repeated BillingBudgetXThresholdRules threshold_rules = 8;
+	BillingBudgetXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message BillingSubaccount {
+	string billing_account_id = 1;
+	string deletion_policy = 2;
+	string display_name = 3;
+	string id = 4;
+	string master_billing_account = 5;
+	string name = 6;
+	bool open = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ram;
+
+import "shared/shared.proto";
+
+message ResourceShare {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string principals = 2;
+	bool allow_external_principals = 3;
+	repeated string resource_arns = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message RAM {
+	repeated ResourceShare resource_share = 1;
+}
+

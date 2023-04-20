@@ -1,0 +1,273 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.apps.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.runtime.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.util.intstr.proto";
+
+message ControllerRevision {
+	string api_version = 1;
+	oak9.tython.k8s.apimachinery.pkg.runtime.RawExtension data = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 4;
+	int32 revision = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ControllerRevisionList {
+	string api_version = 1;
+	repeated ControllerRevision items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message DaemonSet {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	DaemonSetSpec spec = 4;
+	DaemonSetStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message DaemonSetCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message DaemonSetList {
+	string api_version = 1;
+	repeated DaemonSet items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message DaemonSetSpec {
+	int32 min_ready_seconds = 1;
+	int32 revision_history_limit = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 3;
+	oak9.tython.k8s.api.core.v1.PodTemplateSpec template = 4;
+	DaemonSetUpdateStrategy update_strategy = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message DaemonSetStatus {
+	int32 collision_count = 1;
+	repeated DaemonSetCondition conditions = 2;
+	int32 current_number_scheduled = 3;
+	int32 desired_number_scheduled = 4;
+	int32 number_available = 5;
+	int32 number_misscheduled = 6;
+	int32 number_ready = 7;
+	int32 number_unavailable = 8;
+	int32 observed_generation = 9;
+	int32 updated_number_scheduled = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message DaemonSetUpdateStrategy {
+	RollingUpdateDaemonSet rolling_update = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Deployment {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	DeploymentSpec spec = 4;
+	DeploymentStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message DeploymentCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_update_time = 2;
+	string message = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DeploymentList {
+	string api_version = 1;
+	repeated Deployment items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message DeploymentSpec {
+	int32 min_ready_seconds = 1;
+	bool paused = 2;
+	int32 progress_deadline_seconds = 3;
+	int32 replicas = 4;
+	int32 revision_history_limit = 5;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 6;
+	DeploymentStrategy strategy = 7;
+	oak9.tython.k8s.api.core.v1.PodTemplateSpec template = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DeploymentStatus {
+	int32 available_replicas = 1;
+	int32 collision_count = 2;
+	repeated DeploymentCondition conditions = 3;
+	int32 observed_generation = 4;
+	int32 ready_replicas = 5;
+	int32 replicas = 6;
+	int32 unavailable_replicas = 7;
+	int32 updated_replicas = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DeploymentStrategy {
+	RollingUpdateDeployment rolling_update = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ReplicaSet {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ReplicaSetSpec spec = 4;
+	ReplicaSetStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ReplicaSetCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ReplicaSetList {
+	string api_version = 1;
+	repeated ReplicaSet items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ReplicaSetSpec {
+	int32 min_ready_seconds = 1;
+	int32 replicas = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 3;
+	oak9.tython.k8s.api.core.v1.PodTemplateSpec template = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ReplicaSetStatus {
+	int32 available_replicas = 1;
+	repeated ReplicaSetCondition conditions = 2;
+	int32 fully_labeled_replicas = 3;
+	int32 observed_generation = 4;
+	int32 ready_replicas = 5;
+	int32 replicas = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message RollingUpdateDaemonSet {
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString max_surge = 1;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString max_unavailable = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message RollingUpdateDeployment {
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString max_surge = 1;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString max_unavailable = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message RollingUpdateStatefulSetStrategy {
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString max_unavailable = 1;
+	int32 partition = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message StatefulSet {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	StatefulSetSpec spec = 4;
+	StatefulSetStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message StatefulSetCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message StatefulSetList {
+	string api_version = 1;
+	repeated StatefulSet items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message StatefulSetOrdinals {
+	int32 start = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message StatefulSetPersistentVolumeClaimRetentionPolicy {
+	string when_deleted = 1;
+	string when_scaled = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message StatefulSetSpec {
+	int32 min_ready_seconds = 1;
+	StatefulSetOrdinals ordinals = 2;
+	StatefulSetPersistentVolumeClaimRetentionPolicy persistent_volume_claim_retention_policy = 3;
+	string pod_management_policy = 4;
+	int32 replicas = 5;
+	int32 revision_history_limit = 6;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 7;
+	string service_name = 8;
+	oak9.tython.k8s.api.core.v1.PodTemplateSpec template = 9;
+	StatefulSetUpdateStrategy update_strategy = 10;
+	repeated oak9.tython.k8s.api.core.v1.PersistentVolumeClaim volume_claim_templates = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message StatefulSetStatus {
+	int32 available_replicas = 1;
+	int32 collision_count = 2;
+	repeated StatefulSetCondition conditions = 3;
+	int32 current_replicas = 4;
+	string current_revision = 5;
+	int32 observed_generation = 6;
+	int32 ready_replicas = 7;
+	int32 replicas = 8;
+	string update_revision = 9;
+	int32 updated_replicas = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message StatefulSetUpdateStrategy {
+	RollingUpdateStatefulSetStrategy rolling_update = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

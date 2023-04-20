@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.clouddeploy;
+
+import "shared/shared.proto";
+
+message ClouddeployDeliveryPipelineXSerialPipelineXStages {
+	repeated string profiles = 1;
+	string target_id = 2;
+}
+
+message ClouddeployDeliveryPipelineXSerialPipeline {
+	repeated ClouddeployDeliveryPipelineXSerialPipelineXStages stages = 1;
+}
+
+message ClouddeployDeliveryPipelineXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ClouddeployDeliveryPipeline {
+	map<string, string> annotations = 1;
+	map<string, string> condition = 2;
+	string create_time = 3;
+	string description = 4;
+	string etag = 5;
+	string id = 6;
+	map<string, string> labels = 7;
+	string location = 8;
+	string name = 9;
+	string project = 10;
+	bool suspended = 11;
+	string uid = 12;
+	string update_time = 13;
+	ClouddeployDeliveryPipelineXSerialPipeline serial_pipeline = 14;
+	ClouddeployDeliveryPipelineXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+
+message ClouddeployTargetXAnthosCluster {
+	string membership = 1;
+}
+
+message ClouddeployTargetXExecutionConfigs {
+	string artifact_storage = 1;
+	string service_account = 2;
+	repeated string usages = 3;
+	string worker_pool = 4;
+}
+
+message ClouddeployTargetXGke {
+	string cluster = 1;
+	bool internal_ip = 2;
+}
+
+message ClouddeployTargetXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ClouddeployTarget {
+	map<string, string> annotations = 1;
+	string create_time = 2;
+	string description = 3;
+	string etag = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	string location = 7;
+	string name = 8;
+	string project = 9;
+	bool require_approval = 10;
+	string target_id = 11;
+	string uid = 12;
+	string update_time = 13;
+	ClouddeployTargetXAnthosCluster anthos_cluster = 14;
+	repeated ClouddeployTargetXExecutionConfigs execution_configs = 15;
+	ClouddeployTargetXGke gke = 16;
+	ClouddeployTargetXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+

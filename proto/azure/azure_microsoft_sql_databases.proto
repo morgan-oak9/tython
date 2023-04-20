@@ -1,0 +1,329 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_sql_databases;
+
+import "shared/shared.proto";
+
+message Microsoft_Sql_Databases {
+	ServersDatabases servers_databases = 1;
+	ServersDatabasesAuditingSettings servers_databases_auditing_settings = 2;
+	ServersDatabasesBackupLongTermRetentionPolicies servers_databases_backup_long_term_retention_policies = 3;
+	ServersDatabasesBackupShortTermRetentionPolicies servers_databases_backup_short_term_retention_policies = 4;
+	ServersDatabasesExtendedAuditingSettings servers_databases_extended_auditing_settings = 5;
+	ServersDatabasesExtensions servers_databases_extensions = 6;
+	ServersDatabasesSecurityAlertPolicies servers_databases_security_alert_policies = 7;
+	repeated ServersDatabasesSyncGroups servers_databases_sync_groups = 8;
+	repeated ServersDatabasesSyncGroupsSyncMembers servers_databases_sync_groups_sync_members = 9;
+	ServersDatabasesTransparentDataEncryption servers_databases_transparent_data_encryption = 10;
+	ServersDatabasesVulnerabilityAssessments servers_databases_vulnerability_assessments = 11;
+	ServersDatabasesVulnerabilityAssessmentsRulesBaselines servers_databases_vulnerability_assessments_rules_baselines = 12;
+	ServersDatabasesConnectionPolicies servers_databases_connection_policies = 13;
+	ServersDatabasesDataMaskingPolicies servers_databases_data_masking_policies = 14;
+	ServersDatabasesGeoBackupPolicies servers_databases_geo_backup_policies = 15;
+}
+
+message ServersDatabasesGeoBackupPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string kind = 3;
+	string location = 4;
+	string name = 5;
+	string state = 6;
+	string storage_type = 7;
+	string type = 8;
+}
+
+message ServersDatabasesDataMaskingPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string name = 3;
+	string kind = 4;
+	string data_masking_state = 5;
+	string application_principals = 6;
+	string exempt_principals = 7;
+	string type = 8;
+}
+
+message ServersDatabasesConnectionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string name = 3;
+	string connection_type = 4;
+	string kind = 5;
+	string location = 6;
+	string type = 7;
+}
+
+message ServersDatabasesWorkloadGroupsWorkloadClassifiers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string context = 3;
+	string end_time = 4;
+	string importance = 5;
+	string label = 6;
+	string member_name = 7;
+	string start_time = 8;
+}
+
+message ServersDatabasesWorkloadGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string importance = 3;
+	int32 max_resource_percent = 4;
+	double max_resource_percent_per_request = 5;
+	int32 min_resource_percent = 6;
+	double min_resource_percent_per_request = 7;
+	int32 query_execution_timeout = 8;
+	repeated ServersDatabasesWorkloadGroupsWorkloadClassifiers servers_databases_workload_groups_workload_classifiers = 9;
+}
+
+message ServersDatabasesVulnerabilityAssessmentsRulesBaselines {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated DatabaseVulnerabilityAssessmentRuleBaselineItem baseline_results = 3;
+}
+
+message DatabaseVulnerabilityAssessmentRuleBaselineItem {
+	repeated string result = 1;
+}
+
+message ServersDatabasesVulnerabilityAssessments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	VulnerabilityAssessmentRecurringScansProperties recurring_scans = 3;
+	string storage_account_access_key = 4;
+	string storage_container_path = 5;
+	string storage_container_sas_key = 6;
+	string id = 7;
+	string type = 8;
+	string emails = 9;
+	string email_subscription_admins = 10;
+	string is_enabled = 11;
+}
+
+message VulnerabilityAssessmentRecurringScansProperties {
+	repeated string emails = 1;
+	bool email_subscription_admins = 2;
+	bool is_enabled = 3;
+}
+
+message ServersDatabasesTransparentDataEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string state = 3;
+	string id = 4;
+	string type = 5;
+}
+
+message ServersDatabasesSyncGroupsSyncMembers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string database_name = 3;
+	string database_type = 4;
+	string password = 5;
+	string server_name = 6;
+	string sql_server_database_id = 7;
+	string sync_agent_id = 8;
+	string sync_direction = 9;
+	string sync_member_azure_database_resource_id = 10;
+	bool use_private_link_connection = 11;
+	string user_name = 12;
+}
+
+message ServersDatabasesSyncGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 conflict_logging_retention_in_days = 3;
+	string conflict_resolution_policy = 4;
+	bool enable_conflict_logging = 5;
+	string hub_database_password = 6;
+	string hub_database_user_name = 7;
+	int32 interval = 8;
+	SyncGroupSchema schema = 9;
+	string sync_database_id = 10;
+	bool use_private_link_connection = 11;
+	Sku sku = 12;
+}
+
+message SyncGroupSchema {
+	string master_sync_member_name = 1;
+	repeated SyncGroupSchemaTable tables = 2;
+}
+
+message SyncGroupSchemaTable {
+	repeated SyncGroupSchemaTableColumn columns = 1;
+	string quoted_name = 2;
+}
+
+message SyncGroupSchemaTableColumn {
+	string data_size = 1;
+	string data_type = 2;
+	string quoted_name = 3;
+}
+
+message ServersDatabasesSecurityAlertPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string disabled_alerts = 3;
+	bool email_account_admins = 4;
+	repeated string email_addresses = 5;
+	int32 retention_days = 6;
+	string state = 7;
+	string storage_account_access_key = 8;
+	string storage_endpoint = 9;
+	string id = 10;
+	string type = 11;
+}
+
+message ServersDatabasesSchemasTablesColumnsSensitivityLabels {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string information_type = 3;
+	string information_type_id = 4;
+	string label_id = 5;
+	string label_name = 6;
+	string rank = 7;
+}
+
+message ServersDatabasesMaintenanceWindows {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated MaintenanceWindowTimeRange time_ranges = 3;
+}
+
+message MaintenanceWindowTimeRange {
+	string day_of_week = 1;
+	string duration = 2;
+	string start_time = 3;
+}
+
+message ServersDatabasesLedgerDigestUploads {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string digest_storage_endpoint = 3;
+}
+
+message ServersDatabasesExtensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string administrator_login = 3;
+	string administrator_login_password = 4;
+	string authentication_type = 5;
+	string database_edition = 6;
+	string max_size_bytes = 7;
+	NetworkIsolationSettings network_isolation = 8;
+	string operation_mode = 9;
+	string service_objective_name = 10;
+	string storage_key = 11;
+	string storage_key_type = 12;
+	string storage_uri = 13;
+}
+
+message NetworkIsolationSettings {
+	string sql_server_resource_id = 1;
+	string storage_account_resource_id = 2;
+}
+
+message ServersDatabasesExtendedAuditingSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string audit_actions_and_groups = 3;
+	bool is_azure_monitor_target_enabled = 4;
+	bool is_storage_secondary_key_in_use = 5;
+	string predicate_expression = 6;
+	int32 queue_delay_ms = 7;
+	int32 retention_days = 8;
+	string state = 9;
+	string storage_account_access_key = 10;
+	string storage_account_subscription_id = 11;
+	string storage_endpoint = 12;
+}
+
+message ServersDatabasesBackupShortTermRetentionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 diff_backup_interval_in_hours = 3;
+	int32 retention_days = 4;
+	string id = 5;
+	string type = 6;
+}
+
+message ServersDatabasesBackupLongTermRetentionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string monthly_retention = 3;
+	string weekly_retention = 4;
+	int32 week_of_year = 5;
+	string yearly_retention = 6;
+	string id = 7;
+	string type = 8;
+}
+
+message ServersDatabasesAuditingSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string audit_actions_and_groups = 3;
+	bool is_azure_monitor_target_enabled = 4;
+	bool is_storage_secondary_key_in_use = 5;
+	int32 queue_delay_ms = 6;
+	int32 retention_days = 7;
+	string state = 8;
+	string storage_account_access_key = 9;
+	string storage_account_subscription_id = 10;
+	string storage_endpoint = 11;
+	string kind = 12;
+	string is_managed_identity_in_use = 13;
+	string id = 14;
+}
+
+message ServersDatabases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatabaseIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	int32 auto_pause_delay = 5;
+	string catalog_collation = 6;
+	string collation = 7;
+	string create_mode = 8;
+	string elastic_pool_id = 9;
+	string federated_client_id = 10;
+	int32 high_availability_replica_count = 11;
+	bool is_ledger_on = 12;
+	string license_type = 13;
+	string long_term_retention_backup_resource_id = 14;
+	string maintenance_configuration_id = 15;
+	int32 max_size_bytes = 16;
+	double min_capacity = 17;
+	string primary_delegated_identity_client_id = 18;
+	string read_scale = 19;
+	string recoverable_database_id = 20;
+	string recovery_services_recovery_point_id = 21;
+	string requested_backup_storage_redundancy = 22;
+	string restorable_dropped_database_id = 23;
+	string restore_point_in_time = 24;
+	string sample_name = 25;
+	string secondary_type = 26;
+	string source_database_deletion_date = 27;
+	string source_database_id = 28;
+	bool zone_redundant = 29;
+	Sku sku = 30;
+	map<string, string> tags = 31;
+	repeated ServersDatabasesLedgerDigestUploads servers_databases_ledger_digest_uploads = 32;
+	repeated ServersDatabasesMaintenanceWindows servers_databases_maintenance_windows = 33;
+	repeated ServersDatabasesWorkloadGroups servers_databases_workload_groups = 34;
+}
+
+message Sku {
+	int32 capacity = 1;
+	string family = 2;
+	string name = 3;
+	string size = 4;
+	string tier = 5;
+}
+
+message DatabaseIdentity {
+	map<string, string> delegated_resources = 1;
+	string type = 2;
+	map<string, string> user_assigned_identities = 3;
+}
+

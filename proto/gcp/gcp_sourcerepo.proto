@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.sourcerepo;
+
+import "shared/shared.proto";
+
+message SourcerepoRepositoryXPubsubConfigs {
+	string message_format = 1;
+	string service_account_email = 2;
+	string topic = 3;
+}
+
+message SourcerepoRepositoryXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SourcerepoRepository {
+	string id = 1;
+	string name = 2;
+	string project = 3;
+	double size = 4;
+	string url = 5;
+	repeated SourcerepoRepositoryXPubsubConfigs pubsub_configs = 6;
+	SourcerepoRepositoryXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message SourcerepoRepositoryIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message SourcerepoRepositoryIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string repository = 5;
+	string role = 6;
+	SourcerepoRepositoryIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message SourcerepoRepositoryIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message SourcerepoRepositoryIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string repository = 5;
+	string role = 6;
+	SourcerepoRepositoryIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message SourcerepoRepositoryIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	string repository = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

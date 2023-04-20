@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package oak9.tython.aws.directoryservice;
+
+import "shared/shared.proto";
+
+message MicrosoftADVpcSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string subnet_ids = 2;
+	string vpc_id = 3;
+}
+
+message MicrosoftAD {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool create_alias = 2;
+	string edition = 3;
+	bool enable_sso = 4;
+	string name = 5;
+	string password = 6;
+	string short_name = 7;
+	MicrosoftADVpcSettings vpc_settings = 8;
+}
+
+message DirectoryService {
+	repeated MicrosoftAD microsoft_ad = 1;
+	repeated SimpleAD simple_ad = 2;
+}
+
+message SimpleADVpcSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string subnet_ids = 2;
+	string vpc_id = 3;
+}
+
+message SimpleAD {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool create_alias = 2;
+	string description = 3;
+	bool enable_sso = 4;
+	string name = 5;
+	string password = 6;
+	string short_name = 7;
+	string size = 8;
+	SimpleADVpcSettings vpc_settings = 9;
+}
+

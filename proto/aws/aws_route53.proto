@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package oak9.tython.aws.route53;
+
+import "shared/shared.proto";
+
+message HealthCheckHealthCheckTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message HealthCheck {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> health_check_config = 2;
+	repeated HealthCheckHealthCheckTag health_check_tags = 3;
+}
+
+message Route53 {
+	repeated HealthCheck health_check = 1;
+	HostedZone hosted_zone = 2;
+	repeated RecordSet record_set = 3;
+	RecordSetGroup record_set_group = 4;
+}
+
+message HostedZoneHostedZoneConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+}
+
+message HostedZoneHostedZoneTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message HostedZoneQueryLoggingConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cloud_watch_logs_log_group_arn = 2;
+}
+
+message HostedZoneVPC {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string vpc_id = 2;
+	string vpc_region = 3;
+}
+
+message HostedZone {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	HostedZoneHostedZoneConfig hosted_zone_config = 2;
+	repeated HostedZoneHostedZoneTag hosted_zone_tags = 3;
+	string name = 4;
+	HostedZoneQueryLoggingConfig query_logging_config = 5;
+	repeated HostedZoneVPC vpcs = 6;
+}
+
+message RecordSetAliasTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string dns_name = 2;
+	bool evaluate_target_health = 3;
+	string hosted_zone_id = 4;
+}
+
+message RecordSetGeoLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string continent_code = 2;
+	string country_code = 3;
+	string subdivision_code = 4;
+}
+
+message RecordSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RecordSetAliasTarget alias_target = 2;
+	string comment = 3;
+	string failover = 4;
+	RecordSetGeoLocation geo_location = 5;
+	string health_check_id = 6;
+	string hosted_zone_id = 7;
+	string hosted_zone_name = 8;
+	bool multi_value_answer = 9;
+	string name = 10;
+	string region = 11;
+	repeated string resource_records = 12;
+	string set_identifier = 13;
+	string ttl = 14;
+	string type = 15;
+	int32 weight = 16;
+}
+
+message RecordSetGroupAliasTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string dns_name = 2;
+	bool evaluate_target_health = 3;
+	string hosted_zone_id = 4;
+}
+
+message RecordSetGroupGeoLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string continent_code = 2;
+	string country_code = 3;
+	string subdivision_code = 4;
+}
+
+message RecordSetGroupRecordSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RecordSetGroupAliasTarget alias_target = 2;
+	string comment = 3;
+	string failover = 4;
+	RecordSetGroupGeoLocation geo_location = 5;
+	string health_check_id = 6;
+	string hosted_zone_id = 7;
+	string hosted_zone_name = 8;
+	bool multi_value_answer = 9;
+	string name = 10;
+	string region = 11;
+	repeated string resource_records = 12;
+	string set_identifier = 13;
+	string ttl = 14;
+	int32 weight = 15;
+}
+
+message RecordSetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+	string hosted_zone_id = 3;
+	string hosted_zone_name = 4;
+	repeated RecordSetGroupRecordSet record_sets = 5;
+}
+

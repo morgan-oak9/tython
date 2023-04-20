@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_vpn;
+
+import "shared/shared.proto";
+
+message ComputeVpnGatewayXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeVpnGateway {
+	string creation_timestamp = 1;
+	string description = 2;
+	double gateway_id = 3;
+	string id = 4;
+	string name = 5;
+	string network = 6;
+	string project = 7;
+	string region = 8;
+	string self_link = 9;
+	ComputeVpnGatewayXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ComputeVpnTunnelXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeVpnTunnel {
+	string creation_timestamp = 1;
+	string description = 2;
+	string detailed_status = 3;
+	string id = 4;
+	double ike_version = 5;
+	repeated string local_traffic_selector = 6;
+	string name = 7;
+	string peer_external_gateway = 8;
+	double peer_external_gateway_interface = 9;
+	string peer_gcp_gateway = 10;
+	string peer_ip = 11;
+	string project = 12;
+	string region = 13;
+	repeated string remote_traffic_selector = 14;
+	string router = 15;
+	string self_link = 16;
+	string shared_secret = 17;
+	string shared_secret_hash = 18;
+	string target_vpn_gateway = 19;
+	string tunnel_id = 20;
+	string vpn_gateway = 21;
+	double vpn_gateway_interface = 22;
+	ComputeVpnTunnelXTimeouts timeouts = 23;
+	oak9.tython.shared.ResourceInfo resource_info = 24;
+}
+

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_managed;
+
+import "shared/shared.proto";
+
+message ComputeManagedSslCertificateXManaged {
+	repeated string domains = 1;
+}
+
+message ComputeManagedSslCertificateXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeManagedSslCertificate {
+	double certificate_id = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	string expire_time = 4;
+	string id = 5;
+	string name = 6;
+	string project = 7;
+	string self_link = 8;
+	repeated string subject_alternative_names = 9;
+	string type = 10;
+	ComputeManagedSslCertificateXManaged managed = 11;
+	ComputeManagedSslCertificateXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+

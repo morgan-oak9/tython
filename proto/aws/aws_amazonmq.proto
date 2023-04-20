@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package oak9.tython.aws.amazonmq;
+
+import "shared/shared.proto";
+
+message BrokerConfigurationId {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 revision = 2;
+	string id = 3;
+}
+
+message BrokerMaintenanceWindow {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string day_of_week = 2;
+	string time_of_day = 3;
+	string time_zone = 4;
+}
+
+message BrokerInterBrokerCred {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message BrokerServerMetadata {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string hosts = 2;
+	string user_role_name = 3;
+	string user_search_matching = 4;
+	string role_name = 5;
+	string user_base = 6;
+	bool user_search_subtree = 7;
+	string role_search_matching = 8;
+	string service_account_username = 9;
+	string role_base = 10;
+	string service_account_password = 11;
+	bool role_search_subtree = 12;
+}
+
+message BrokerLdapMetadata {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BrokerInterBrokerCred inter_broker_creds = 2;
+	BrokerServerMetadata server_metadata = 3;
+}
+
+message BrokerUser {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	repeated string groups = 3;
+	bool console_access = 4;
+	string password = 5;
+}
+
+message BrokerLogList {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool audit = 2;
+	bool general = 3;
+}
+
+message BrokerLdapServerMetadata {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string hosts = 2;
+	string user_role_name = 3;
+	string user_search_matching = 4;
+	string role_name = 5;
+	string user_base = 6;
+	bool user_search_subtree = 7;
+	string role_search_matching = 8;
+	string service_account_username = 9;
+	string role_base = 10;
+	string service_account_password = 11;
+	bool role_search_subtree = 12;
+}
+
+message BrokerEncryptionOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_key_id = 2;
+	bool use_aws_owned_key = 3;
+}
+
+message BrokerTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Broker {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_groups = 2;
+	string storage_type = 3;
+	string engine_version = 4;
+	BrokerConfigurationId configuration = 5;
+	string authentication_strategy = 6;
+	BrokerMaintenanceWindow maintenance_window_start_time = 7;
+	BrokerLdapMetadata ldap_metadata = 8;
+	string host_instance_type = 9;
+	bool auto_minor_version_upgrade = 10;
+	repeated BrokerUser users = 11;
+	BrokerLogList logs = 12;
+	repeated string subnet_ids = 13;
+	string broker_name = 14;
+	BrokerLdapServerMetadata ldap_server_metadata = 15;
+	string deployment_mode = 16;
+	string engine_type = 17;
+	bool publicly_accessible = 18;
+	BrokerEncryptionOptions encryption_options = 19;
+	repeated BrokerTagsEntry tags = 20;
+}
+
+message AmazonMQ {
+	repeated Broker broker = 1;
+	repeated Configuration configuration = 2;
+	repeated ConfigurationAssociation configuration_association = 3;
+}
+
+message ConfigurationTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Configuration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string engine_version = 2;
+	string description = 3;
+	string engine_type = 4;
+	string data = 5;
+	repeated ConfigurationTagsEntry tags = 6;
+	string name = 7;
+}
+
+message ConfigurationAssociationConfigurationId {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 revision = 2;
+	string id = 3;
+}
+
+message ConfigurationAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string broker = 2;
+	ConfigurationAssociationConfigurationId configuration = 3;
+}
+

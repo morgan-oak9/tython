@@ -1,0 +1,422 @@
+syntax = "proto3";
+
+package oak9.tython.aws.emr;
+
+import "shared/shared.proto";
+
+message ClusterApplication {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> additional_info = 2;
+	repeated string args = 3;
+	string name = 4;
+	string version = 5;
+}
+
+message ClusterScriptBootstrapActionConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string args = 2;
+	string path = 3;
+}
+
+message ClusterBootstrapActionConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ClusterScriptBootstrapActionConfig script_bootstrap_action = 3;
+}
+
+message ClusterConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string classification = 2;
+	map<string, string> configuration_properties = 3;
+	repeated ClusterConfiguration configurations = 4;
+}
+
+message ClusterVolumeSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 iops = 2;
+	int32 size_in_gb = 3;
+	string volume_type = 4;
+}
+
+message ClusterEbsBlockDeviceConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterVolumeSpecification volume_specification = 2;
+	int32 volumes_per_instance = 3;
+}
+
+message ClusterEbsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ClusterEbsBlockDeviceConfig ebs_block_device_configs = 2;
+	bool ebs_optimized = 3;
+}
+
+message ClusterInstanceTypeConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bid_price = 2;
+	double bid_price_as_percentage_of_on_demand_price = 3;
+	repeated ClusterConfiguration configurations = 4;
+	ClusterEbsConfiguration ebs_configuration = 5;
+	string instance_type = 6;
+	int32 weighted_capacity = 7;
+}
+
+message ClusterSpotProvisioningSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 block_duration_minutes = 2;
+	string timeout_action = 3;
+	int32 timeout_duration_minutes = 4;
+}
+
+message ClusterInstanceFleetProvisioningSpecifications {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterSpotProvisioningSpecification spot_specification = 2;
+}
+
+message ClusterInstanceFleetConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ClusterInstanceTypeConfig instance_type_configs = 2;
+	ClusterInstanceFleetProvisioningSpecifications launch_specifications = 3;
+	string name = 4;
+	int32 target_on_demand_capacity = 5;
+	int32 target_spot_capacity = 6;
+}
+
+message ClusterScalingConstraints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_capacity = 2;
+	int32 min_capacity = 3;
+}
+
+message ClusterSimpleScalingPolicyConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string adjustment_type = 2;
+	int32 cool_down = 3;
+	int32 scaling_adjustment = 4;
+}
+
+message ClusterScalingAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string market = 2;
+	ClusterSimpleScalingPolicyConfiguration simple_scaling_policy_configuration = 3;
+}
+
+message ClusterMetricDimension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message ClusterCloudWatchAlarmDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comparison_operator = 2;
+	repeated ClusterMetricDimension dimensions = 3;
+	int32 evaluation_periods = 4;
+	string metric_name = 5;
+	string namespace = 6;
+	int32 period = 7;
+	string statistic = 8;
+	double threshold = 9;
+	string unit = 10;
+}
+
+message ClusterScalingTrigger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterCloudWatchAlarmDefinition cloud_watch_alarm_definition = 2;
+}
+
+message ClusterScalingRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterScalingAction action = 2;
+	string description = 3;
+	string name = 4;
+	ClusterScalingTrigger trigger = 5;
+}
+
+message ClusterAutoScalingPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterScalingConstraints constraints = 2;
+	repeated ClusterScalingRule rules = 3;
+}
+
+message ClusterInstanceGroupConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterAutoScalingPolicy auto_scaling_policy = 2;
+	string bid_price = 3;
+	repeated ClusterConfiguration configurations = 4;
+	ClusterEbsConfiguration ebs_configuration = 5;
+	int32 instance_count = 6;
+	string instance_type = 7;
+	string market = 8;
+	string name = 9;
+}
+
+message ClusterPlacementType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string availability_zone = 2;
+}
+
+message ClusterJobFlowInstancesConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string additional_master_security_groups = 2;
+	repeated string additional_slave_security_groups = 3;
+	ClusterInstanceFleetConfig core_instance_fleet = 4;
+	ClusterInstanceGroupConfig core_instance_group = 5;
+	string ec2_key_name = 6;
+	string ec2_subnet_id = 7;
+	repeated string ec2_subnet_ids = 8;
+	string emr_managed_master_security_group = 9;
+	string emr_managed_slave_security_group = 10;
+	string hadoop_version = 11;
+	bool keep_job_flow_alive_when_no_steps = 12;
+	ClusterInstanceFleetConfig master_instance_fleet = 13;
+	ClusterInstanceGroupConfig master_instance_group = 14;
+	ClusterPlacementType placement = 15;
+	string service_access_security_group = 16;
+	bool termination_protected = 17;
+}
+
+message ClusterKerberosAttributes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ad_domain_join_password = 2;
+	string ad_domain_join_user = 3;
+	string cross_realm_trust_principal_password = 4;
+	string kdc_admin_password = 5;
+	string realm = 6;
+}
+
+message ClusterKeyValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message ClusterHadoopJarStepConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string args = 2;
+	string jar = 3;
+	string main_class = 4;
+	repeated ClusterKeyValue step_properties = 5;
+}
+
+message ClusterStepConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string action_on_failure = 2;
+	ClusterHadoopJarStepConfig hadoop_jar_step = 3;
+	string name = 4;
+}
+
+message Cluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> additional_info = 2;
+	repeated ClusterApplication applications = 3;
+	string auto_scaling_role = 4;
+	repeated ClusterBootstrapActionConfig bootstrap_actions = 5;
+	repeated ClusterConfiguration configurations = 6;
+	string custom_ami_id = 7;
+	int32 ebs_root_volume_size = 8;
+	ClusterJobFlowInstancesConfig instances = 9;
+	string job_flow_role = 10;
+	ClusterKerberosAttributes kerberos_attributes = 11;
+	string log_uri = 12;
+	string name = 13;
+	string release_label = 14;
+	string scale_down_behavior = 15;
+	string security_configuration = 16;
+	string service_role = 17;
+	repeated ClusterStepConfig steps = 18;
+	map<string, string> tags = 19;
+	bool visible_to_all_users = 20;
+}
+
+message EMR {
+	repeated Cluster cluster = 1;
+	repeated InstanceFleetConfig instance_fleet_config = 2;
+	repeated InstanceGroupConfig instance_group_config = 3;
+	repeated SecurityConfiguration security_configuration = 4;
+	repeated Step step = 5;
+}
+
+message InstanceFleetConfigConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string classification = 2;
+	map<string, string> configuration_properties = 3;
+	repeated InstanceFleetConfigConfiguration configurations = 4;
+}
+
+message InstanceFleetConfigVolumeSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 iops = 2;
+	int32 size_in_gb = 3;
+	string volume_type = 4;
+}
+
+message InstanceFleetConfigEbsBlockDeviceConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceFleetConfigVolumeSpecification volume_specification = 2;
+	int32 volumes_per_instance = 3;
+}
+
+message InstanceFleetConfigEbsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated InstanceFleetConfigEbsBlockDeviceConfig ebs_block_device_configs = 2;
+	bool ebs_optimized = 3;
+}
+
+message InstanceFleetConfigInstanceTypeConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bid_price = 2;
+	double bid_price_as_percentage_of_on_demand_price = 3;
+	repeated InstanceFleetConfigConfiguration configurations = 4;
+	InstanceFleetConfigEbsConfiguration ebs_configuration = 5;
+	string instance_type = 6;
+	int32 weighted_capacity = 7;
+}
+
+message InstanceFleetConfigSpotProvisioningSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 block_duration_minutes = 2;
+	string timeout_action = 3;
+	int32 timeout_duration_minutes = 4;
+}
+
+message InstanceFleetConfigInstanceFleetProvisioningSpecifications {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceFleetConfigSpotProvisioningSpecification spot_specification = 2;
+}
+
+message InstanceFleetConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cluster_id = 2;
+	string instance_fleet_type = 3;
+	repeated InstanceFleetConfigInstanceTypeConfig instance_type_configs = 4;
+	InstanceFleetConfigInstanceFleetProvisioningSpecifications launch_specifications = 5;
+	string name = 6;
+	int32 target_on_demand_capacity = 7;
+	int32 target_spot_capacity = 8;
+}
+
+message InstanceGroupConfigScalingConstraints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_capacity = 2;
+	int32 min_capacity = 3;
+}
+
+message InstanceGroupConfigSimpleScalingPolicyConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string adjustment_type = 2;
+	int32 cool_down = 3;
+	int32 scaling_adjustment = 4;
+}
+
+message InstanceGroupConfigScalingAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string market = 2;
+	InstanceGroupConfigSimpleScalingPolicyConfiguration simple_scaling_policy_configuration = 3;
+}
+
+message InstanceGroupConfigMetricDimension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message InstanceGroupConfigCloudWatchAlarmDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comparison_operator = 2;
+	repeated InstanceGroupConfigMetricDimension dimensions = 3;
+	int32 evaluation_periods = 4;
+	string metric_name = 5;
+	string namespace = 6;
+	int32 period = 7;
+	string statistic = 8;
+	double threshold = 9;
+	string unit = 10;
+}
+
+message InstanceGroupConfigScalingTrigger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceGroupConfigCloudWatchAlarmDefinition cloud_watch_alarm_definition = 2;
+}
+
+message InstanceGroupConfigScalingRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceGroupConfigScalingAction action = 2;
+	string description = 3;
+	string name = 4;
+	InstanceGroupConfigScalingTrigger trigger = 5;
+}
+
+message InstanceGroupConfigAutoScalingPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceGroupConfigScalingConstraints constraints = 2;
+	repeated InstanceGroupConfigScalingRule rules = 3;
+}
+
+message InstanceGroupConfigConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string classification = 2;
+	map<string, string> configuration_properties = 3;
+	repeated InstanceGroupConfigConfiguration configurations = 4;
+}
+
+message InstanceGroupConfigVolumeSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 iops = 2;
+	int32 size_in_gb = 3;
+	string volume_type = 4;
+}
+
+message InstanceGroupConfigEbsBlockDeviceConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceGroupConfigVolumeSpecification volume_specification = 2;
+	int32 volumes_per_instance = 3;
+}
+
+message InstanceGroupConfigEbsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated InstanceGroupConfigEbsBlockDeviceConfig ebs_block_device_configs = 2;
+	bool ebs_optimized = 3;
+}
+
+message InstanceGroupConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InstanceGroupConfigAutoScalingPolicy auto_scaling_policy = 2;
+	string bid_price = 3;
+	repeated InstanceGroupConfigConfiguration configurations = 4;
+	InstanceGroupConfigEbsConfiguration ebs_configuration = 5;
+	int32 instance_count = 6;
+	string instance_role = 7;
+	string instance_type = 8;
+	string job_flow_id = 9;
+	string market = 10;
+	string name = 11;
+}
+
+message SecurityConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	map<string, string> security_configuration = 3;
+}
+
+message StepKeyValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message StepHadoopJarStepConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string args = 2;
+	string jar = 3;
+	string main_class = 4;
+	repeated StepKeyValue step_properties = 5;
+}
+
+message Step {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string action_on_failure = 2;
+	StepHadoopJarStepConfig hadoop_jar_step = 3;
+	string job_flow_id = 4;
+	string name = 5;
+}
+

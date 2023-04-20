@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_firewallpolicies;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_firewallPolicies {
+	FirewallPolicies firewall_policies = 1;
+}
+
+message FirewallPoliciesRuleCollectionGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 priority = 3;
+	repeated FirewallPolicyRuleCollection rule_collections = 4;
+}
+
+message FirewallPolicyRuleCollection {
+	string name = 1;
+	int32 priority = 2;
+	string rule_collection_type = 3;
+}
+
+message FirewallPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string base_policy = 5;
+	string threat_intel_mode = 6;
+	FirewallPolicyThreatIntelWhitelist threat_intel_whitelist = 7;
+	DnsSettings dns_settings = 8;
+	FirewallPolicyIntrusionDetection intrusion_detection = 9;
+	FirewallPolicyTransportSecurity transport_security = 10;
+	FirewallPolicySku sku = 11;
+	ManagedServiceIdentity identity = 12;
+	repeated FirewallPoliciesRuleCollectionGroups firewall_policies_rule_collection_groups = 13;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message FirewallPolicySku {
+	string tier = 1;
+}
+
+message FirewallPolicyTransportSecurity {
+	FirewallPolicyCertificateAuthority certificate_authority = 1;
+}
+
+message FirewallPolicyCertificateAuthority {
+	string key_vault_secret_id = 1;
+	string name = 2;
+}
+
+message FirewallPolicyIntrusionDetection {
+	string mode = 1;
+	FirewallPolicyIntrusionDetectionConfiguration configuration = 2;
+}
+
+message FirewallPolicyIntrusionDetectionConfiguration {
+	repeated FirewallPolicyIntrusionDetectionSignatureSpecification signature_overrides = 1;
+	repeated FirewallPolicyIntrusionDetectionBypassTrafficSpecifications bypass_traffic_settings = 2;
+}
+
+message FirewallPolicyIntrusionDetectionBypassTrafficSpecifications {
+	string name = 1;
+	string description = 2;
+	string protocol = 3;
+	repeated string source_addresses = 4;
+	repeated string destination_addresses = 5;
+	repeated string destination_ports = 6;
+	repeated string source_ip_groups = 7;
+	repeated string destination_ip_groups = 8;
+}
+
+message FirewallPolicyIntrusionDetectionSignatureSpecification {
+	string id = 1;
+	string mode = 2;
+}
+
+message DnsSettings {
+	repeated string servers = 1;
+	bool enable_proxy = 2;
+	bool require_proxy_for_network_rules = 3;
+}
+
+message FirewallPolicyThreatIntelWhitelist {
+	repeated string ip_addresses = 1;
+	repeated string fqdns = 2;
+}
+

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.networking.v1alpha1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+
+message ClusterCIDR {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ClusterCIDRSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ClusterCIDRList {
+	string api_version = 1;
+	repeated ClusterCIDR items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ClusterCIDRSpec {
+	string ipv4 = 1;
+	string ipv6 = 2;
+	oak9.tython.k8s.api.core.v1.NodeSelector node_selector = 3;
+	int32 per_node_host_bits = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

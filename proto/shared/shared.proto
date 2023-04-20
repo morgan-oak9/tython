@@ -1,0 +1,267 @@
+syntax = "proto3";
+
+package oak9.tython.shared;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+message Blueprint {
+    string blueprint_id = 1;
+    string parent_blueprint_id = 2;
+    string blueprint_name = 3;
+    optional string status = 4;
+    string description = 5;
+    string type = 6;
+    string revision = 7;
+    string version = 8;
+    string author = 9;
+    repeated string compliance_objectives = 10;
+    google.protobuf.Timestamp last_updated_on = 11;
+    ComponentInfo component_info = 12;
+    optional ReferencedDocumentModel blueprint_reference = 13;
+    repeated Requirement requirements = 14;
+    bool is_deleted = 15;
+    optional string reference_project_id = 16;
+    oak9.tython.shared.Context context = 17;
+    repeated Blueprint blueprints = 18;
+    string blueprint_location = 19;
+    // bool has_status = 20;
+    // bool has_reference_project_id = 21;
+}
+
+message ComponentInfo {
+    string component_id = 1;
+    string name = 2;
+    string type = 3;
+    string component_type_id = 4;
+    sint32 x_position = 5;
+    sint32 y_position = 6;
+    repeated ComponentInfo connections = 7;
+    bool collapsed = 8;
+}
+
+message ReferencedDocumentModel {
+    string entity_type = 1;
+    string reference_type = 2;
+    string reference_key = 3;
+    string document_primary_key = 4;
+    string document_entity_key = 5;
+}
+
+message Requirement {
+    optional string id = 1;
+    oak9.tython.shared.Context context = 2;
+    optional string description = 3;
+    optional string version = 4;
+    optional string type = 5;
+    optional string category = 6;
+    optional string sub_category = 7;
+    optional string component = 8;
+    optional string tags = 9;
+    optional string guidance = 10;
+    optional string hi_trust_mapping = 11;
+    optional string hi_trust94_mapping = 12;
+    optional string nist_mapping = 13;
+    repeated IndustryFrameworkMappingModel industry_frameworks = 14;
+    optional string hl_rs = 15;
+    // bool has_id = 16;
+    // bool has_description = 17;
+    // bool has_version = 18;
+    // bool has_type = 19;
+    // bool has_category = 20;
+    // bool has_sub_category = 21;
+    // bool has_component = 22;
+    // bool has_tags = 23;
+    // bool has_guidance = 24;
+    // bool has_hi_trust_mapping = 25;
+    // bool has_hi_trust94_mapping = 26;
+    // bool has_nist_mapping = 27;
+    // bool has_hl_rs = 28;
+}
+
+message IndustryFrameworkMappingModel {
+    string industry_framework_id = 1;
+    repeated string mapped_requirements = 2;
+}
+
+
+message Context {
+	AccessibilityAttributes accessibility = 1;
+	SusceptibilityAttributes susceptibility = 2;
+	AppArchitectureAttributes app_architecture = 3;
+	SecurityArchitectureAttributes security_architecture = 4;
+}
+
+message AccessibilityAttributes {
+	EndUsers end_users = 1;
+	LevelOfAccess level_of_access = 2;
+	AccessType access_type = 3;
+	ApplicableComponentSlices applicable_component_slices = 4;
+}
+
+message EndUsers {
+	string workforce = 1;
+	string consumers = 2;
+	string business_partners = 3;
+}
+
+message LevelOfAccess {
+	string physical = 1;
+	string open = 2;
+	string limited_sensitive_data = 3;
+	string broad_sensitive_data = 4;
+	string security_privileged = 5;
+}
+
+message AccessType {
+	string external_access = 1;
+	string internal_access = 2;
+	string remote_access   = 3;
+	string wireless_access = 4;
+	string outbound_access = 5;
+}
+
+message ApplicableComponentSlices {
+	string component_core = 1;
+	string user_interface = 2;
+	string management_interface = 3;
+}
+
+message SusceptibilityAttributes {
+	string data_sensitivity = 1;
+	string business_impact = 2;
+}
+
+message AppArchitectureAttributes {
+	string deployment_model = 1;
+}
+
+message SecurityArchitectureAttributes {
+	string security_level = 1;
+}
+
+message DesignGap {
+    string capability_id = 1;
+    string capability_name = 2;
+    string source = 3;
+    string resource_name = 4;
+    string resource_id = 5;
+    string resource_type= 6;
+    optional string resource_gap = 7;
+    optional string resource_impact = 8;
+    repeated Violation violations = 9;
+    optional string oak9_guidance = 10;
+    repeated MappedIndustryFramework mapped_industry_frameworks = 11;
+}
+
+message Violation {
+    optional string severity = 1;
+    optional string config_gap = 2;
+    optional string capability_id = 3;
+    optional string resource_id = 4;
+    optional string resource_type= 5;
+    optional string config_id = 6;
+    optional string config_value = 7;
+    optional string oak9_guidance = 8;
+    optional string preffered_value = 9;
+    optional string capability_name =10;
+    optional string config_fix = 11;
+    optional string config_impact = 12;
+    optional bool existing_config = 13; 
+}
+
+message MappedIndustryFramework {
+    string industry_standard = 1;
+    string display_name = 2;
+    string description = 3;
+}
+
+enum VertexType {
+    GENERIC = 0;
+    REQUIREMENT = 1;
+    DETAILED_REQUIREMENT = 2;
+    IL_MAPPING_KEYWORD = 3;
+    AWS_INSTANCE_RESOURCE = 4;
+    AWS_SUBNET_RESOURCE = 5;
+    AWS_VPC_RESOURCE = 6;
+    AWS_SECURITY_GROUP_RESOURCE = 7;
+    AWS_ELASTIC_LB_RESOURCE = 8;
+    CLOUDFRONT_RESOURCE = 9;
+    LOAD_BALANCER_RESOURCE = 10;
+}
+  
+  message Graph {
+    repeated Connection root_nodes = 1;
+}
+  
+  message Connection {
+    Vertex node = 1;
+    google.protobuf.Any edge = 2;
+    repeated Connection neighbors = 3;
+}
+  
+  message Vertex {
+    string unique_id = 1;
+    VertexType vertex_type = 2;
+    repeated string labels = 3;
+    Resource resource = 4; // The type of data is determined by VertexType
+}
+  
+  message ResourceInfo {
+	optional string id = 1;
+    optional string name = 2;
+    optional string csp = 3;
+	optional string resource_type = 4;
+    map<string,string> tags = 5;
+    optional string blueprint_id = 6;
+	optional Context context =7;
+}
+
+message Resource {
+    google.protobuf.Any data = 1;
+}
+
+  
+message RunnerException{
+    string error_code = 1; 
+    string error_message = 2;
+}
+
+service Runner {
+    rpc Run (stream RunnerInput) returns (stream ValidationReply) {}
+}
+  
+message RunnerInput {
+    Graph graph = 1;
+    Blueprint blueprint = 2;
+    Context project_context = 3;
+    ValidationMetaInfo meta_info = 4;
+}
+
+message ValidationMetaInfo{
+    string caller = 1; 
+    string request_id = 2; 
+    string resource_type = 3;
+    string blueprint_id = 4;
+    string resource_name = 5;
+    string resource_id = 6; 
+    repeated string compliance_objectives = 7;
+}
+
+message ValidationReply {
+    repeated DesignGap design_gaps = 1;
+    repeated ValidationRequirement requirements = 2;
+    repeated RunnerException exceptions = 3;
+}
+
+message ValidationRequirement {
+    RequirementType requirement_type = 1;
+    repeated string parameters = 2;
+}
+
+enum RequirementType {
+    ALL_NEIGHBORS = 0;
+    NEIGHBORS_OF_TYPE = 1;
+    NEIGHBOR_WITH_RELATIONSHIP = 2;
+    WHOLE_GRAPH = 3;
+}

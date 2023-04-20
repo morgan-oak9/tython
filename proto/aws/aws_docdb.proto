@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package oak9.tython.aws.docdb;
+
+import "shared/shared.proto";
+
+message DBCluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool storage_encrypted = 2;
+	string engine_version = 3;
+	string kms_key_id = 4;
+	repeated string availability_zones = 5;
+	string snapshot_identifier = 6;
+	int32 port = 7;
+	string db_cluster_identifier = 8;
+	string preferred_maintenance_window = 9;
+	string db_subnet_group_name = 10;
+	bool deletion_protection = 11;
+	string preferred_backup_window = 12;
+	string master_user_password = 13;
+	repeated string vpc_security_group_ids = 14;
+	string master_username = 15;
+	string db_cluster_parameter_group_name = 16;
+	int32 backup_retention_period = 17;
+	map<string, string> tags = 18;
+	repeated string enable_cloudwatch_logs_exports = 19;
+}
+
+message DocDB {
+	repeated DBCluster db_cluster = 1;
+	repeated DBClusterParameterGroup db_cluster_parameter_group = 2;
+	repeated DBInstance db_instance = 3;
+	repeated DBSubnetGroup db_subnet_group = 4;
+}
+
+message DBClusterParameterGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> parameters = 3;
+	string family = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message DBInstance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_instance_class = 2;
+	string db_cluster_identifier = 3;
+	string availability_zone = 4;
+	string preferred_maintenance_window = 5;
+	bool auto_minor_version_upgrade = 6;
+	string db_instance_identifier = 7;
+	map<string, string> tags = 8;
+}
+
+message DBSubnetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_subnet_group_name = 2;
+	string db_subnet_group_description = 3;
+	repeated string subnet_ids = 4;
+	map<string, string> tags = 5;
+}
+

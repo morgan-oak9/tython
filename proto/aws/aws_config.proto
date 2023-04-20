@@ -1,0 +1,215 @@
+syntax = "proto3";
+
+package oak9.tython.aws.config;
+
+import "shared/shared.proto";
+
+message AggregationAuthorization {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string authorized_account_id = 2;
+	string authorized_aws_region = 3;
+	map<string, string> tags = 4;
+}
+
+message Config {
+	repeated AggregationAuthorization aggregation_authorization = 1;
+	repeated ConfigRule config_rule = 2;
+	repeated ConfigurationAggregator configuration_aggregator = 3;
+	repeated ConfigurationRecorder configuration_recorder = 4;
+	repeated ConformancePack conformance_pack = 5;
+	repeated DeliveryChannel delivery_channel = 6;
+	repeated OrganizationConfigRule organization_config_rule = 7;
+	repeated OrganizationConformancePack organization_conformance_pack = 8;
+	repeated RemediationConfiguration remediation_configuration = 9;
+	repeated RemediationConfigurationRemediationParameterValue remediation_configuration_remediation_parameter_value = 10;
+}
+
+message ConfigRuleScope {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string compliance_resource_id = 2;
+	repeated string compliance_resource_types = 3;
+	string tag_key = 4;
+	string tag_value = 5;
+}
+
+message ConfigRuleSourceDetail {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string event_source = 2;
+	string maximum_execution_frequency = 3;
+	string message_type = 4;
+}
+
+message ConfigRuleSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string owner = 2;
+	repeated ConfigRuleSourceDetail source_details = 3;
+	string source_identifier = 4;
+}
+
+message ConfigRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string config_rule_name = 2;
+	string description = 3;
+	map<string, string> input_parameters = 4;
+	string maximum_execution_frequency = 5;
+	ConfigRuleScope scope = 6;
+	ConfigRuleSource source = 7;
+}
+
+message ConfigurationAggregatorAccountAggregationSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool all_aws_regions = 2;
+	repeated string aws_regions = 3;
+	repeated string account_ids = 4;
+}
+
+message ConfigurationAggregatorOrganizationAggregationSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool all_aws_regions = 2;
+	repeated string aws_regions = 3;
+	string role_arn = 4;
+}
+
+message ConfigurationAggregator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ConfigurationAggregatorAccountAggregationSource account_aggregation_sources = 2;
+	string configuration_aggregator_name = 3;
+	ConfigurationAggregatorOrganizationAggregationSource organization_aggregation_source = 4;
+	map<string, string> tags = 5;
+}
+
+message ConfigurationRecorderRecordingGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool all_supported = 2;
+	bool include_global_resource_types = 3;
+	repeated string resource_types = 4;
+}
+
+message ConfigurationRecorder {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ConfigurationRecorderRecordingGroup recording_group = 3;
+	string role_arn = 4;
+}
+
+message ConformancePackConformancePackInputParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string parameter_name = 2;
+	string parameter_value = 3;
+}
+
+message ConformancePack {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string conformance_pack_name = 2;
+	string delivery_s3_bucket = 3;
+	string delivery_s3_key_prefix = 4;
+	string template_body = 5;
+	string template_s3_uri = 6;
+	repeated ConformancePackConformancePackInputParameter conformance_pack_input_parameters = 7;
+}
+
+message DeliveryChannelConfigSnapshotDeliveryProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string delivery_frequency = 2;
+}
+
+message DeliveryChannel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DeliveryChannelConfigSnapshotDeliveryProperties config_snapshot_delivery_properties = 2;
+	string name = 3;
+	string s3_bucket_name = 4;
+	string s3_key_prefix = 5;
+	string sns_topic_arn = 6;
+}
+
+message OrganizationConfigRuleOrganizationManagedRuleMetadata {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string tag_key_scope = 2;
+	string tag_value_scope = 3;
+	string description = 4;
+	string resource_id_scope = 5;
+	string rule_identifier = 6;
+	repeated string resource_types_scope = 7;
+	string maximum_execution_frequency = 8;
+	string input_parameters = 9;
+}
+
+message OrganizationConfigRuleOrganizationCustomRuleMetadata {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string tag_key_scope = 2;
+	string tag_value_scope = 3;
+	string description = 4;
+	string resource_id_scope = 5;
+	string lambda_function_arn = 6;
+	repeated string organization_config_rule_trigger_types = 7;
+	repeated string resource_types_scope = 8;
+	string maximum_execution_frequency = 9;
+	string input_parameters = 10;
+}
+
+message OrganizationConfigRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	OrganizationConfigRuleOrganizationManagedRuleMetadata organization_managed_rule_metadata = 2;
+	string organization_config_rule_name = 3;
+	OrganizationConfigRuleOrganizationCustomRuleMetadata organization_custom_rule_metadata = 4;
+	repeated string excluded_accounts = 5;
+}
+
+message OrganizationConformancePackConformancePackInputParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string parameter_name = 2;
+	string parameter_value = 3;
+}
+
+message OrganizationConformancePack {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string organization_conformance_pack_name = 2;
+	string template_s3_uri = 3;
+	string template_body = 4;
+	string delivery_s3_bucket = 5;
+	string delivery_s3_key_prefix = 6;
+	repeated OrganizationConformancePackConformancePackInputParameter conformance_pack_input_parameters = 7;
+	repeated string excluded_accounts = 8;
+}
+
+message RemediationConfigurationSsmControls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 error_percentage = 2;
+	int32 concurrent_execution_rate_percentage = 3;
+}
+
+message RemediationConfigurationExecutionControls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RemediationConfigurationSsmControls ssm_controls = 2;
+}
+
+message RemediationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_version = 2;
+	RemediationConfigurationExecutionControls execution_controls = 3;
+	map<string, string> parameters = 4;
+	string target_type = 5;
+	string config_rule_name = 6;
+	string resource_type = 7;
+	int32 retry_attempt_seconds = 8;
+	int32 maximum_automatic_attempts = 9;
+	string target_id = 10;
+	bool automatic = 11;
+}
+
+message RemediationConfigurationResourceValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+}
+
+message RemediationConfigurationStaticValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string values = 2;
+}
+
+message RemediationConfigurationRemediationParameterValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RemediationConfigurationResourceValue resource_value = 2;
+	RemediationConfigurationStaticValue static_value = 3;
+}
+

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_pubsub_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_pubsub.proto";
+
+message GooglePubsub {
+	oak9.tython.gcp.pubsub.PubsubSchema pubsub_schema = 1;
+	repeated oak9.tython.gcp.pubsub.PubsubSubscription pubsub_subscription = 2;
+	repeated oak9.tython.gcp.pubsub.PubsubSubscriptionIamBinding pubsub_subscription_iam_binding = 3;
+	repeated oak9.tython.gcp.pubsub.PubsubSubscriptionIamMember pubsub_subscription_iam_member = 4;
+	repeated oak9.tython.gcp.pubsub.PubsubSubscriptionIamPolicy pubsub_subscription_iam_policy = 5;
+	oak9.tython.gcp.pubsub.PubsubTopic pubsub_topic = 6;
+	repeated oak9.tython.gcp.pubsub.PubsubTopicIamBinding pubsub_topic_iam_binding = 7;
+	repeated oak9.tython.gcp.pubsub.PubsubTopicIamMember pubsub_topic_iam_member = 8;
+	repeated oak9.tython.gcp.pubsub.PubsubTopicIamPolicy pubsub_topic_iam_policy = 9;
+}
+

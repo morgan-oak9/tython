@@ -1,0 +1,406 @@
+syntax = "proto3";
+
+package oak9.tython.aws.cognito;
+
+import "shared/shared.proto";
+
+message IdentityPoolPushSync {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string application_arns = 2;
+	string role_arn = 3;
+}
+
+message IdentityPoolCognitoIdentityProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool server_side_token_check = 2;
+	string provider_name = 3;
+	string client_id = 4;
+}
+
+message IdentityPoolCognitoStreams {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string streaming_status = 2;
+	string stream_name = 3;
+	string role_arn = 4;
+}
+
+message IdentityPool {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityPoolPushSync push_sync = 2;
+	repeated IdentityPoolCognitoIdentityProvider cognito_identity_providers = 3;
+	map<string, string> cognito_events = 4;
+	string developer_provider_name = 5;
+	IdentityPoolCognitoStreams cognito_streams = 6;
+	string identity_pool_name = 7;
+	bool allow_unauthenticated_identities = 8;
+	map<string, string> supported_login_providers = 9;
+	repeated string saml_provider_arns = 10;
+	repeated string open_id_connect_provider_arns = 11;
+	bool allow_classic_flow = 12;
+}
+
+message Cognito {
+	repeated IdentityPool identity_pool = 1;
+	repeated IdentityPoolRoleAttachment identity_pool_role_attachment = 2;
+	repeated UserPool user_pool = 3;
+	repeated UserPoolClient user_pool_client = 4;
+	repeated UserPoolDomain user_pool_domain = 5;
+	repeated UserPoolGroup user_pool_group = 6;
+	repeated UserPoolIdentityProvider user_pool_identity_provider = 7;
+	repeated UserPoolResourceServer user_pool_resource_server = 8;
+	repeated UserPoolRiskConfigurationAttachment user_pool_risk_configuration_attachment = 9;
+	repeated UserPoolUICustomizationAttachment user_pool_u_i_customization_attachment = 10;
+	repeated UserPoolUser user_pool_user = 11;
+	repeated UserPoolUserToGroupAttachment user_pool_user_to_group_attachment = 12;
+	repeated IdentityPoolRoleAttachmentMappingRule identity_pool_role_attachment_mapping_rule = 13;
+	repeated IdentityPoolRoleAttachmentRoleMapping identity_pool_role_attachment_role_mapping = 14;
+}
+
+message IdentityPoolRoleAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> role_mappings = 2;
+	string identity_pool_id = 3;
+	map<string, string> roles = 4;
+}
+
+message UserPoolPasswordPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool require_numbers = 2;
+	int32 minimum_length = 3;
+	int32 temporary_password_validity_days = 4;
+	bool require_uppercase = 5;
+	bool require_lowercase = 6;
+	bool require_symbols = 7;
+}
+
+message UserPoolPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolPasswordPolicy password_policy = 2;
+}
+
+message UserPoolVerificationMessageTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string email_message_by_link = 2;
+	string email_message = 3;
+	string sms_message = 4;
+	string email_subject = 5;
+	string default_email_option = 6;
+	string email_subject_by_link = 7;
+}
+
+message UserPoolStringAttributeConstraints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string min_length = 2;
+	string max_length = 3;
+}
+
+message UserPoolNumberAttributeConstraints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string min_value = 2;
+	string max_value = 3;
+}
+
+message UserPoolSchemaAttribute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool developer_only_attribute = 2;
+	bool mutable = 3;
+	string attribute_data_type = 4;
+	UserPoolStringAttributeConstraints string_attribute_constraints = 5;
+	bool required = 6;
+	UserPoolNumberAttributeConstraints number_attribute_constraints = 7;
+	string name = 8;
+}
+
+message UserPoolInviteMessageTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string email_message = 2;
+	string sms_message = 3;
+	string email_subject = 4;
+}
+
+message UserPoolAdminCreateUserConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolInviteMessageTemplate invite_message_template = 2;
+	int32 unused_account_validity_days = 3;
+	bool allow_admin_create_user_only = 4;
+}
+
+message UserPoolUsernameConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool case_sensitive = 2;
+}
+
+message UserPoolUserPoolAddOns {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string advanced_security_mode = 2;
+}
+
+message UserPoolEmailConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string reply_to_email_address = 2;
+	string configuration_set = 3;
+	string email_sending_account = 4;
+	string source_arn = 5;
+	string from = 6;
+}
+
+message UserPoolSmsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string external_id = 2;
+	string sns_caller_arn = 3;
+}
+
+message UserPoolLambdaConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string create_auth_challenge = 2;
+	string pre_authentication = 3;
+	string define_auth_challenge = 4;
+	string pre_sign_up = 5;
+	string pre_token_generation = 6;
+	string user_migration = 7;
+	string post_authentication = 8;
+	string post_confirmation = 9;
+	string custom_message = 10;
+	string verify_auth_challenge_response = 11;
+}
+
+message UserPoolDeviceConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool device_only_remembered_on_user_prompt = 2;
+	bool challenge_required_on_new_device = 3;
+}
+
+message UserPoolRecoveryOption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 priority = 2;
+	string name = 3;
+}
+
+message UserPoolAccountRecoverySetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated UserPoolRecoveryOption recovery_mechanisms = 2;
+}
+
+message UserPool {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> user_pool_tags = 2;
+	UserPoolPolicies policies = 3;
+	UserPoolVerificationMessageTemplate verification_message_template = 4;
+	string mfa_configuration = 5;
+	repeated UserPoolSchemaAttribute schema = 6;
+	UserPoolAdminCreateUserConfig admin_create_user_config = 7;
+	string sms_authentication_message = 8;
+	UserPoolUsernameConfiguration username_configuration = 9;
+	string user_pool_name = 10;
+	string sms_verification_message = 11;
+	UserPoolUserPoolAddOns user_pool_add_ons = 12;
+	UserPoolEmailConfiguration email_configuration = 13;
+	UserPoolSmsConfiguration sms_configuration = 14;
+	repeated string alias_attributes = 15;
+	repeated string enabled_mfas = 16;
+	string email_verification_subject = 17;
+	UserPoolLambdaConfig lambda_config = 18;
+	repeated string username_attributes = 19;
+	repeated string auto_verified_attributes = 20;
+	UserPoolDeviceConfiguration device_configuration = 21;
+	string email_verification_message = 22;
+	UserPoolAccountRecoverySetting account_recovery_setting = 23;
+}
+
+message UserPoolClientAnalyticsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool user_data_shared = 2;
+	string external_id = 3;
+	string application_id = 4;
+	string role_arn = 5;
+}
+
+message UserPoolClientTokenValidityUnits {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id_token = 2;
+	string refresh_token = 3;
+	string access_token = 4;
+}
+
+message UserPoolClient {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolClientAnalyticsConfiguration analytics_configuration = 2;
+	bool generate_secret = 3;
+	repeated string callback_u_r_ls = 4;
+	int32 id_token_validity = 5;
+	repeated string allowed_o_auth_scopes = 6;
+	UserPoolClientTokenValidityUnits token_validity_units = 7;
+	repeated string read_attributes = 8;
+	bool allowed_o_auth_flows_user_pool_client = 9;
+	string default_redirect_u_r_i = 10;
+	repeated string supported_identity_providers = 11;
+	string client_name = 12;
+	string user_pool_id = 13;
+	repeated string allowed_o_auth_flows = 14;
+	repeated string explicit_auth_flows = 15;
+	repeated string logout_u_r_ls = 16;
+	int32 access_token_validity = 17;
+	int32 refresh_token_validity = 18;
+	repeated string write_attributes = 19;
+	string prevent_user_existence_errors = 20;
+}
+
+message UserPoolDomainCustomDomainConfigType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate_arn = 2;
+}
+
+message UserPoolDomain {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string user_pool_id = 2;
+	UserPoolDomainCustomDomainConfigType custom_domain_config = 3;
+	string domain = 4;
+}
+
+message UserPoolGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	string description = 3;
+	string user_pool_id = 4;
+	double precedence = 5;
+	string role_arn = 6;
+}
+
+message UserPoolIdentityProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string provider_name = 2;
+	string user_pool_id = 3;
+	map<string, string> attribute_mapping = 4;
+	map<string, string> provider_details = 5;
+	string provider_type = 6;
+	repeated string idp_identifiers = 7;
+}
+
+message UserPoolResourceServerResourceServerScopeType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string scope_name = 2;
+	string scope_description = 3;
+}
+
+message UserPoolResourceServer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string user_pool_id = 2;
+	string identifier = 3;
+	repeated UserPoolResourceServerResourceServerScopeType scopes = 4;
+	string name = 5;
+}
+
+message UserPoolRiskConfigurationAttachmentCompromisedCredentialsActionsType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string event_action = 2;
+}
+
+message UserPoolRiskConfigurationAttachmentCompromisedCredentialsRiskConfigurationType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolRiskConfigurationAttachmentCompromisedCredentialsActionsType actions = 2;
+	repeated string event_filter = 3;
+}
+
+message UserPoolRiskConfigurationAttachmentAccountTakeoverActionType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool notify = 2;
+	string event_action = 3;
+}
+
+message UserPoolRiskConfigurationAttachmentAccountTakeoverActionsType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolRiskConfigurationAttachmentAccountTakeoverActionType high_action = 2;
+	UserPoolRiskConfigurationAttachmentAccountTakeoverActionType low_action = 3;
+	UserPoolRiskConfigurationAttachmentAccountTakeoverActionType medium_action = 4;
+}
+
+message UserPoolRiskConfigurationAttachmentNotifyEmailType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string text_body = 2;
+	string html_body = 3;
+	string subject = 4;
+}
+
+message UserPoolRiskConfigurationAttachmentNotifyConfigurationType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolRiskConfigurationAttachmentNotifyEmailType block_email = 2;
+	string reply_to = 3;
+	string source_arn = 4;
+	UserPoolRiskConfigurationAttachmentNotifyEmailType no_action_email = 5;
+	string from = 6;
+	UserPoolRiskConfigurationAttachmentNotifyEmailType mfa_email = 7;
+}
+
+message UserPoolRiskConfigurationAttachmentAccountTakeoverRiskConfigurationType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolRiskConfigurationAttachmentAccountTakeoverActionsType actions = 2;
+	UserPoolRiskConfigurationAttachmentNotifyConfigurationType notify_configuration = 3;
+}
+
+message UserPoolRiskConfigurationAttachmentRiskExceptionConfigurationType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string blocked_ip_range_list = 2;
+	repeated string skipped_ip_range_list = 3;
+}
+
+message UserPoolRiskConfigurationAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	UserPoolRiskConfigurationAttachmentCompromisedCredentialsRiskConfigurationType compromised_credentials_risk_configuration = 2;
+	string user_pool_id = 3;
+	string client_id = 4;
+	UserPoolRiskConfigurationAttachmentAccountTakeoverRiskConfigurationType account_takeover_risk_configuration = 5;
+	UserPoolRiskConfigurationAttachmentRiskExceptionConfigurationType risk_exception_configuration = 6;
+}
+
+message UserPoolUICustomizationAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cs_s = 2;
+	string user_pool_id = 3;
+	string client_id = 4;
+}
+
+message UserPoolUserAttributeType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string name = 3;
+}
+
+message UserPoolUser {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated UserPoolUserAttributeType validation_data = 2;
+	string user_pool_id = 3;
+	string username = 4;
+	string message_action = 5;
+	map<string, string> client_metadata = 6;
+	repeated string desired_delivery_mediums = 7;
+	bool force_alias_creation = 8;
+	repeated UserPoolUserAttributeType user_attributes = 9;
+}
+
+message UserPoolUserToGroupAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	string user_pool_id = 3;
+	string username = 4;
+}
+
+message IdentityPoolRoleAttachmentMappingRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string match_type = 2;
+	string value = 3;
+	string claim = 4;
+	string role_arn = 5;
+}
+
+message IdentityPoolRoleAttachmentRulesConfigurationType {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated IdentityPoolRoleAttachmentMappingRule rules = 2;
+}
+
+message IdentityPoolRoleAttachmentRoleMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ambiguous_role_resolution = 2;
+	IdentityPoolRoleAttachmentRulesConfigurationType rules_configuration = 3;
+	string identity_provider = 4;
+}
+

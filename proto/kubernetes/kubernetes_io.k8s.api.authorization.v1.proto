@@ -1,0 +1,111 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.authorization.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message LocalSubjectAccessReview {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	SubjectAccessReviewSpec spec = 4;
+	SubjectAccessReviewStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NonResourceAttributes {
+	string path = 1;
+	string verb = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NonResourceRule {
+	repeated string non_resource_u_r_ls = 1;
+	repeated string verbs = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ResourceAttributes {
+	string group = 1;
+	string name = 2;
+	string namespace = 3;
+	string resource = 4;
+	string subresource = 5;
+	string verb = 6;
+	string version = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ResourceRule {
+	repeated string api_groups = 1;
+	repeated string resource_names = 2;
+	repeated string resources = 3;
+	repeated string verbs = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message SelfSubjectAccessReview {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	SelfSubjectAccessReviewSpec spec = 4;
+	SubjectAccessReviewStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message SelfSubjectAccessReviewSpec {
+	NonResourceAttributes non_resource_attributes = 1;
+	ResourceAttributes resource_attributes = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message SelfSubjectRulesReview {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	SelfSubjectRulesReviewSpec spec = 4;
+	SubjectRulesReviewStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message SelfSubjectRulesReviewSpec {
+	string namespace = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message SubjectAccessReview {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	SubjectAccessReviewSpec spec = 4;
+	SubjectAccessReviewStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message SubjectAccessReviewSpec {
+	map<string, string> extra = 1;
+	repeated string groups = 2;
+	NonResourceAttributes non_resource_attributes = 3;
+	ResourceAttributes resource_attributes = 4;
+	string uid = 5;
+	string user = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message SubjectAccessReviewStatus {
+	bool allowed = 1;
+	bool denied = 2;
+	string evaluation_error = 3;
+	string reason = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message SubjectRulesReviewStatus {
+	string evaluation_error = 1;
+	bool incomplete = 2;
+	repeated NonResourceRule non_resource_rules = 3;
+	repeated ResourceRule resource_rules = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_eventgrid;
+
+import "shared/shared.proto";
+
+message Microsoft_EventGrid {
+	Domains domains = 1;
+	repeated DomainsPrivateEndpointConnections domains_private_endpoint_connections = 2;
+	repeated DomainsTopics domains_topics = 3;
+	Topics topics = 4;
+	repeated TopicsPrivateEndpointConnections topics_private_endpoint_connections = 5;
+}
+
+message TopicsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string group_ids = 3;
+	PrivateEndpoint private_endpoint = 4;
+	ConnectionState private_link_service_connection_state = 5;
+	string provisioning_state = 6;
+}
+
+message Topics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityInfo identity = 2;
+	string location = 3;
+	string name = 4;
+	bool disable_local_auth = 5;
+	repeated InboundIpRule inbound_ip_rules = 6;
+	string input_schema = 7;
+	InputSchemaMapping input_schema_mapping = 8;
+	string public_network_access = 9;
+	map<string, string> tags = 10;
+}
+
+message SystemTopicsEventSubscriptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	DeadLetterDestination dead_letter_destination = 3;
+	DeadLetterWithResourceIdentity dead_letter_with_resource_identity = 4;
+	DeliveryWithResourceIdentity delivery_with_resource_identity = 5;
+	EventSubscriptionDestination destination = 6;
+	string event_delivery_schema = 7;
+	string expiration_time_utc = 8;
+	EventSubscriptionFilter filter = 9;
+	repeated string labels = 10;
+	RetryPolicy retry_policy = 11;
+}
+
+message RetryPolicy {
+	int32 event_time_to_live_in_minutes = 1;
+	int32 max_delivery_attempts = 2;
+}
+
+message EventSubscriptionFilter {
+	repeated AdvancedFilter advanced_filters = 1;
+	bool enable_advanced_filtering_on_arrays = 2;
+	repeated string included_event_types = 3;
+	bool is_subject_case_sensitive = 4;
+	string subject_begins_with = 5;
+	string subject_ends_with = 6;
+}
+
+message AdvancedFilter {
+	string key = 1;
+}
+
+message DeliveryWithResourceIdentity {
+	EventSubscriptionDestination destination = 1;
+	EventSubscriptionIdentity identity = 2;
+}
+
+message EventSubscriptionDestination {
+	string name = 1;
+}
+
+message DeadLetterWithResourceIdentity {
+	DeadLetterDestination dead_letter_destination = 1;
+	EventSubscriptionIdentity identity = 2;
+}
+
+message EventSubscriptionIdentity {
+	string type = 1;
+	string user_assigned_identity = 2;
+}
+
+message DeadLetterDestination {
+	string name = 1;
+}
+
+message SystemTopics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityInfo identity = 2;
+	string location = 3;
+	string name = 4;
+	string source = 5;
+	string topic_type = 6;
+	map<string, string> tags = 7;
+	repeated SystemTopicsEventSubscriptions system_topics_event_subscriptions = 8;
+}
+
+message DomainsTopics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message DomainsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string group_ids = 3;
+	PrivateEndpoint private_endpoint = 4;
+	ConnectionState private_link_service_connection_state = 5;
+	string provisioning_state = 6;
+}
+
+message ConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string id = 1;
+}
+
+message Domains {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityInfo identity = 2;
+	string location = 3;
+	string name = 4;
+	bool auto_create_topic_with_first_subscription = 5;
+	bool auto_delete_topic_with_last_subscription = 6;
+	bool disable_local_auth = 7;
+	repeated InboundIpRule inbound_ip_rules = 8;
+	string input_schema = 9;
+	InputSchemaMapping input_schema_mapping = 10;
+	string public_network_access = 11;
+	map<string, string> tags = 12;
+}
+
+message InputSchemaMapping {
+	string name = 1;
+}
+
+message InboundIpRule {
+	string action = 1;
+	string ip_mask = 2;
+}
+
+message IdentityInfo {
+	string principal_id = 1;
+	string tenant_id = 2;
+	string type = 3;
+	map<string, string> user_assigned_identities = 4;
+}
+

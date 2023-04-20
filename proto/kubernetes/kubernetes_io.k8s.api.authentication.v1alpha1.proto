@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.authentication.v1alpha1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.authentication.v1.proto";
+
+message SelfSubjectReview {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	SelfSubjectReviewStatus status = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message SelfSubjectReviewStatus {
+	oak9.tython.k8s.api.authentication.v1.UserInfo user_info = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+

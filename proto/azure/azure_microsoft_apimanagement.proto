@@ -1,0 +1,775 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_apimanagement;
+
+import "shared/shared.proto";
+
+message Microsoft_ApiManagement {
+	Service service = 1;
+	repeated ServiceUsers service_users = 2;
+	repeated ServiceApiVersionSets service_api_version_sets = 3;
+	repeated ServiceApis service_apis = 4;
+	repeated ServiceApisDiagnostics service_apis_diagnostics = 5;
+	repeated ServiceApisOperations service_apis_operations = 6;
+	repeated ServiceApisOperationsPolicies service_apis_operations_policies = 7;
+	repeated ServiceApisOperationsTags service_apis_operations_tags = 8;
+	repeated ServiceApisPolicies service_apis_policies = 9;
+	repeated ServiceApisTagDescriptions service_apis_tag_descriptions = 10;
+	repeated ServiceApisTags service_apis_tags = 11;
+	repeated ServiceAuthorizationServers service_authorization_servers = 12;
+	repeated ServiceBackends service_backends = 13;
+	repeated ServiceCertificates service_certificates = 14;
+	repeated ServiceDiagnostics service_diagnostics = 15;
+	repeated ServiceGateways service_gateways = 16;
+	repeated ServiceGatewaysApis service_gateways_apis = 17;
+	repeated ServiceGatewaysHostnameConfigurations service_gateways_hostname_configurations = 18;
+	repeated ServiceGroups service_groups = 19;
+	repeated ServiceGroupsUsers service_groups_users = 20;
+	repeated ServiceIdentityProviders service_identity_providers = 21;
+	repeated ServiceLoggers service_loggers = 22;
+	repeated ServiceNamedValues service_named_values = 23;
+	repeated ServiceNotifications service_notifications = 24;
+	repeated ServiceOpenidConnectProviders service_openid_connect_providers = 25;
+	repeated ServicePolicies service_policies = 26;
+	repeated ServiceProducts service_products = 27;
+	repeated ServiceSubscriptions service_subscriptions = 28;
+}
+
+message ServiceUsers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string app_type = 3;
+	string confirmation = 4;
+	string email = 5;
+	string first_name = 6;
+	repeated UserIdentityContract identities = 7;
+	string last_name = 8;
+	string note = 9;
+	string password = 10;
+	string state = 11;
+}
+
+message UserIdentityContract {
+	string id = 1;
+	string provider = 2;
+}
+
+message ServiceTenant {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool enabled = 3;
+	string primary_key = 4;
+	string principal_id = 5;
+	string secondary_key = 6;
+}
+
+message ServiceTemplates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string body = 3;
+	string description = 4;
+	repeated EmailTemplateParametersContractProperties parameters = 5;
+	string subject = 6;
+	string title = 7;
+}
+
+message EmailTemplateParametersContractProperties {
+	string description = 1;
+	string name = 2;
+	string title = 3;
+}
+
+message ServiceTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string display_name = 3;
+}
+
+message ServiceSubscriptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool allow_tracing = 3;
+	string display_name = 4;
+	string owner_id = 5;
+	string primary_key = 6;
+	string scope = 7;
+	string secondary_key = 8;
+	string state = 9;
+}
+
+message ServiceSchemas {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	map<string, string> document = 4;
+	string schema_type = 5;
+	map<string, string> value = 6;
+}
+
+message ServiceProductsTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceProductsPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string format = 3;
+	string value = 4;
+}
+
+message ServiceProductsGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceProductsApis {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceProducts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool approval_required = 3;
+	string description = 4;
+	string display_name = 5;
+	string state = 6;
+	bool subscription_required = 7;
+	int32 subscriptions_limit = 8;
+	string terms = 9;
+	repeated ServiceProductsTags service_products_tags = 10;
+	repeated ServiceProductsApis service_products_apis = 11;
+	repeated ServiceProductsGroups service_products_groups = 12;
+	repeated ServiceProductsPolicies service_products_policies = 13;
+}
+
+message ServicePrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string name = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+}
+
+message ServicePortalsettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ServicePortalRevisions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	bool is_current = 4;
+}
+
+message ServicePolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string format = 3;
+	string value = 4;
+}
+
+message ServiceOpenidConnectProviders {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string client_id = 3;
+	string client_secret = 4;
+	string description = 5;
+	string display_name = 6;
+	string metadata_endpoint = 7;
+}
+
+message ServiceNotificationsRecipientUsers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceNotificationsRecipientEmails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceNotifications {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ServiceNotificationsRecipientUsers service_notifications_recipient_users = 3;
+	repeated ServiceNotificationsRecipientEmails service_notifications_recipient_emails = 4;
+}
+
+message ServiceNamedValues {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string display_name = 3;
+	KeyVaultContractCreateProperties key_vault = 4;
+	bool secret = 5;
+	repeated string tags = 6;
+	string value = 7;
+}
+
+message ServiceLoggers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	map<string, string> credentials = 3;
+	string description = 4;
+	bool is_buffered = 5;
+	string logger_type = 6;
+	string resource_id = 7;
+}
+
+message ServiceIdentityProviders {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string allowed_tenants = 3;
+	string authority = 4;
+	string client_id = 5;
+	string client_secret = 6;
+	string password_reset_policy_name = 7;
+	string profile_editing_policy_name = 8;
+	string signin_policy_name = 9;
+	string signin_tenant = 10;
+	string signup_policy_name = 11;
+	string type = 12;
+}
+
+message ServiceGroupsUsers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string display_name = 4;
+	string external_id = 5;
+	string type = 6;
+}
+
+message ServiceGatewaysHostnameConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string certificate_id = 3;
+	string hostname = 4;
+	bool http2_enabled = 5;
+	bool negotiate_client_certificate = 6;
+	bool tls10_enabled = 7;
+	bool tls11_enabled = 8;
+}
+
+message ServiceGatewaysCertificateAuthorities {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool is_trusted = 3;
+}
+
+message ServiceGatewaysApis {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string provisioning_state = 3;
+}
+
+message ServiceGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	ResourceLocationDataContract location_data = 4;
+	repeated ServiceGatewaysCertificateAuthorities service_gateways_certificate_authorities = 5;
+}
+
+message ResourceLocationDataContract {
+	string city = 1;
+	string country_or_region = 2;
+	string district = 3;
+	string name = 4;
+}
+
+message ServiceDiagnostics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string always_log = 3;
+	PipelineDiagnosticSettings backend = 4;
+	PipelineDiagnosticSettings frontend = 5;
+	string http_correlation_protocol = 6;
+	bool log_client_ip = 7;
+	string logger_id = 8;
+	string operation_name_format = 9;
+	SamplingSettings sampling = 10;
+	string verbosity = 11;
+}
+
+message ServiceContentTypesContentItems {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceContentTypes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ServiceContentTypesContentItems service_content_types_content_items = 3;
+}
+
+message ServiceCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string data = 3;
+	KeyVaultContractCreateProperties key_vault = 4;
+	string password = 5;
+}
+
+message KeyVaultContractCreateProperties {
+	string identity_client_id = 1;
+	string secret_identifier = 2;
+}
+
+message ServiceCaches {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string connection_string = 3;
+	string description = 4;
+	string resource_id = 5;
+	string use_from_location = 6;
+}
+
+message ServiceBackends {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	BackendCredentialsContract credentials = 3;
+	string description = 4;
+	BackendServiceFabricClusterProperties service_fabric_cluster = 5;
+	string protocol = 6;
+	BackendProxyContract proxy = 7;
+	string resource_id = 8;
+	string title = 9;
+	BackendTlsProperties tls = 10;
+	string url = 11;
+}
+
+message BackendTlsProperties {
+	bool validate_certificate_chain = 1;
+	bool validate_certificate_name = 2;
+}
+
+message BackendProxyContract {
+	string password = 1;
+	string url = 2;
+	string username = 3;
+}
+
+message BackendServiceFabricClusterProperties {
+	string client_certificate_id = 1;
+	string client_certificatethumbprint = 2;
+	repeated string management_endpoints = 3;
+	int32 max_partition_resolution_retries = 4;
+	repeated string server_certificate_thumbprints = 5;
+	repeated X509CertificateName server_x509_names = 6;
+}
+
+message X509CertificateName {
+	string issuer_certificate_thumbprint = 1;
+	string name = 2;
+}
+
+message BackendCredentialsContract {
+	BackendAuthorizationHeaderCredentials authorization = 1;
+	repeated string certificate = 2;
+	repeated string certificate_ids = 3;
+	map<string, string> header = 4;
+	map<string, string> query = 5;
+}
+
+message BackendAuthorizationHeaderCredentials {
+	string parameter = 1;
+	string scheme = 2;
+}
+
+message ServiceAuthorizationServers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string authorization_endpoint = 3;
+	repeated string authorization_methods = 4;
+	repeated string bearer_token_sending_methods = 5;
+	repeated string client_authentication_method = 6;
+	string client_id = 7;
+	string client_registration_endpoint = 8;
+	string client_secret = 9;
+	string default_scope = 10;
+	string description = 11;
+	string display_name = 12;
+	repeated string grant_types = 13;
+	string resource_owner_password = 14;
+	string resource_owner_username = 15;
+	bool support_state = 16;
+	repeated TokenBodyParameterContract token_body_parameters = 17;
+	string token_endpoint = 18;
+}
+
+message TokenBodyParameterContract {
+	string name = 1;
+	string value = 2;
+}
+
+message ServiceApiVersionSets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string display_name = 4;
+	string version_header_name = 5;
+	string versioning_scheme = 6;
+	string version_query_name = 7;
+}
+
+message ServiceApisTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceApisTagDescriptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string external_docs_description = 4;
+	string external_docs_url = 5;
+}
+
+message ServiceApisSchemas {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string content_type = 3;
+	SchemaDocumentProperties document = 4;
+}
+
+message SchemaDocumentProperties {
+	map<string, string> components = 1;
+	map<string, string> definitions = 2;
+	string value = 3;
+}
+
+message ServiceApisReleases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string api_id = 3;
+	string notes = 4;
+}
+
+message ServiceApisPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string format = 3;
+	string value = 4;
+}
+
+message ServiceApisOperationsTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServiceApisOperationsPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string format = 3;
+	string value = 4;
+}
+
+message ServiceApisOperations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string display_name = 4;
+	string method = 5;
+	string policies = 6;
+	RequestContract request = 7;
+	repeated ResponseContract responses = 8;
+	repeated ParameterContract template_parameters = 9;
+	string url_template = 10;
+}
+
+message ResponseContract {
+	string description = 1;
+	repeated ParameterContract headers = 2;
+	repeated RepresentationContract representations = 3;
+	int32 status_code = 4;
+}
+
+message RequestContract {
+	string description = 1;
+	repeated ParameterContract headers = 2;
+	repeated ParameterContract query_parameters = 3;
+	repeated RepresentationContract representations = 4;
+}
+
+message RepresentationContract {
+	string content_type = 1;
+	map<string, string> examples = 2;
+	repeated ParameterContract form_parameters = 3;
+	string schema_id = 4;
+	string type_name = 5;
+}
+
+message ParameterContract {
+	string default_value = 1;
+	string description = 2;
+	map<string, string> examples = 3;
+	string name = 4;
+	bool required = 5;
+	string schema_id = 6;
+	string type = 7;
+	string type_name = 8;
+	repeated string values = 9;
+}
+
+message ServiceApisIssuesComments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string created_date = 3;
+	string text = 4;
+	string user_id = 5;
+}
+
+message ServiceApisIssuesAttachments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string content = 3;
+	string content_format = 4;
+	string title = 5;
+}
+
+message ServiceApisIssues {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string api_id = 3;
+	string created_date = 4;
+	string description = 5;
+	string state = 6;
+	string title = 7;
+	string user_id = 8;
+	repeated ServiceApisIssuesComments service_apis_issues_comments = 9;
+	repeated ServiceApisIssuesAttachments service_apis_issues_attachments = 10;
+}
+
+message ServiceApisDiagnostics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string always_log = 3;
+	PipelineDiagnosticSettings backend = 4;
+	PipelineDiagnosticSettings frontend = 5;
+	string http_correlation_protocol = 6;
+	bool log_client_ip = 7;
+	string logger_id = 8;
+	string operation_name_format = 9;
+	SamplingSettings sampling = 10;
+	string verbosity = 11;
+}
+
+message SamplingSettings {
+	double percentage = 1;
+	string sampling_type = 2;
+}
+
+message PipelineDiagnosticSettings {
+	HttpMessageDiagnostic request = 1;
+	HttpMessageDiagnostic response = 2;
+}
+
+message HttpMessageDiagnostic {
+	BodyDiagnosticSettings body = 1;
+	DataMasking data_masking = 2;
+	repeated string headers = 3;
+}
+
+message DataMasking {
+	repeated DataMaskingEntity headers = 1;
+	repeated DataMaskingEntity query_params = 2;
+}
+
+message DataMaskingEntity {
+	string mode = 1;
+	string value = 2;
+}
+
+message BodyDiagnosticSettings {
+	int32 bytes = 1;
+}
+
+message ServiceApis {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string api_revision = 3;
+	string api_revision_description = 4;
+	string api_type = 5;
+	string api_version_description = 6;
+	ApiVersionSetContractDetails api_version_set = 7;
+	string api_version_set_id = 8;
+	AuthenticationSettingsContract authentication_settings = 9;
+	ApiContactInformation contact = 10;
+	string description = 11;
+	string display_name = 12;
+	string format = 13;
+	bool is_current = 14;
+	ApiLicenseInformation license = 15;
+	string path = 16;
+	repeated string protocols = 17;
+	string service_url = 18;
+	string source_api_id = 19;
+	SubscriptionKeyParameterNamesContract subscription_key_parameter_names = 20;
+	bool subscription_required = 21;
+	string terms_of_service_url = 22;
+	string type = 23;
+	string value = 24;
+	ApiCreateOrUpdatePropertiesWsdlSelector wsdl_selector = 25;
+	repeated ServiceApisReleases service_apis_releases = 26;
+	repeated ServiceApisSchemas service_apis_schemas = 27;
+	repeated ServiceApisIssues service_apis_issues = 28;
+}
+
+message ApiCreateOrUpdatePropertiesWsdlSelector {
+	string wsdl_endpoint_name = 1;
+	string wsdl_service_name = 2;
+}
+
+message SubscriptionKeyParameterNamesContract {
+	string header = 1;
+	string query = 2;
+}
+
+message ApiLicenseInformation {
+	string name = 1;
+	string url = 2;
+}
+
+message ApiContactInformation {
+	string email = 1;
+	string name = 2;
+	string url = 3;
+}
+
+message AuthenticationSettingsContract {
+	OAuth2AuthenticationSettingsContract o_auth2 = 1;
+	OpenIdAuthenticationSettingsContract openid = 2;
+}
+
+message OpenIdAuthenticationSettingsContract {
+	repeated string bearer_token_sending_methods = 1;
+	string openid_provider_id = 2;
+}
+
+message OAuth2AuthenticationSettingsContract {
+	string authorization_server_id = 1;
+	string scope = 2;
+}
+
+message ApiVersionSetContractDetails {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string version_header_name = 4;
+	string versioning_scheme = 5;
+	string version_query_name = 6;
+}
+
+message Service {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApiManagementServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	repeated AdditionalLocation additional_locations = 5;
+	ApiVersionConstraint api_version_constraint = 6;
+	repeated CertificateConfiguration certificates = 7;
+	map<string, string> custom_properties = 8;
+	bool disable_gateway = 9;
+	bool enable_client_certificate = 10;
+	repeated HostnameConfiguration hostname_configurations = 11;
+	string notification_sender_email = 12;
+	repeated RemotePrivateEndpointConnectionWrapper private_endpoint_connections = 13;
+	string public_ip_address_id = 14;
+	string public_network_access = 15;
+	string publisher_email = 16;
+	string publisher_name = 17;
+	bool restore = 18;
+	VirtualNetworkConfiguration virtual_network_configuration = 19;
+	string virtual_network_type = 20;
+	ApiManagementServiceSkuProperties sku = 21;
+	map<string, string> tags = 22;
+	repeated string zones = 23;
+	repeated ServiceTags service_tags = 24;
+	repeated ServiceCaches service_caches = 25;
+	repeated ServiceContentTypes service_content_types = 26;
+	repeated ServiceTemplates service_templates = 27;
+	repeated ServicePortalRevisions service_portal_revisions = 28;
+	repeated ServicePortalsettings service_portalsettings = 29;
+	repeated ServicePrivateEndpointConnections service_private_endpoint_connections = 30;
+	repeated ServiceSchemas service_schemas = 31;
+	repeated ServiceTenant service_tenant = 32;
+}
+
+message RemotePrivateEndpointConnectionWrapper {
+	string id = 1;
+	string name = 2;
+	ArmIdWrapper private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+	string type = 5;
+}
+
+message PrivateLinkServiceConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message ArmIdWrapper {
+	string name = 1;
+}
+
+message HostnameConfiguration {
+	CertificateInformation certificate = 1;
+	string certificate_password = 2;
+	string certificate_source = 3;
+	string certificate_status = 4;
+	bool default_ssl_binding = 5;
+	string encoded_certificate = 6;
+	string host_name = 7;
+	string identity_client_id = 8;
+	string key_vault_id = 9;
+	bool negotiate_client_certificate = 10;
+	string type = 11;
+}
+
+message CertificateConfiguration {
+	CertificateInformation certificate = 1;
+	string certificate_password = 2;
+	string encoded_certificate = 3;
+	string store_name = 4;
+}
+
+message CertificateInformation {
+	string expiry = 1;
+	string subject = 2;
+	string thumbprint = 3;
+}
+
+message ApiVersionConstraint {
+	string min_api_version = 1;
+}
+
+message AdditionalLocation {
+	bool disable_gateway = 1;
+	string location = 2;
+	string public_ip_address_id = 3;
+	ApiManagementServiceSkuProperties sku = 4;
+	VirtualNetworkConfiguration virtual_network_configuration = 5;
+	repeated string zones = 6;
+}
+
+message VirtualNetworkConfiguration {
+	string subnet_resource_id = 1;
+}
+
+message ApiManagementServiceSkuProperties {
+	int32 capacity = 1;
+	string name = 2;
+}
+
+message ApiManagementServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+

@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package oak9.tython.aws.redshift;
+
+import "shared/shared.proto";
+
+message ClusterLoggingProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket_name = 2;
+	string s3_key_prefix = 3;
+}
+
+message Cluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool allow_version_upgrade = 2;
+	int32 automated_snapshot_retention_period = 3;
+	string availability_zone = 4;
+	string cluster_identifier = 5;
+	string cluster_parameter_group_name = 6;
+	repeated string cluster_security_groups = 7;
+	string cluster_subnet_group_name = 8;
+	string cluster_type = 9;
+	string cluster_version = 10;
+	string db_name = 11;
+	string elastic_ip = 12;
+	bool encrypted = 13;
+	string hsm_client_certificate_identifier = 14;
+	string hsm_configuration_identifier = 15;
+	repeated string iam_roles = 16;
+	string kms_key_id = 17;
+	ClusterLoggingProperties logging_properties = 18;
+	string master_user_password = 19;
+	string master_username = 20;
+	string node_type = 21;
+	int32 number_of_nodes = 22;
+	string owner_account = 23;
+	int32 port = 24;
+	string preferred_maintenance_window = 25;
+	bool publicly_accessible = 26;
+	string snapshot_cluster_identifier = 27;
+	string snapshot_identifier = 28;
+	map<string, string> tags = 29;
+	repeated string vpc_security_group_ids = 30;
+}
+
+message Redshift {
+	repeated Cluster cluster = 1;
+	repeated ClusterParameterGroup cluster_parameter_group = 2;
+	repeated ClusterSecurityGroup cluster_security_group = 3;
+	repeated ClusterSecurityGroupIngress cluster_security_group_ingress = 4;
+	repeated ClusterSubnetGroup cluster_subnet_group = 5;
+}
+
+message ClusterParameterGroupParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string parameter_name = 2;
+	string parameter_value = 3;
+}
+
+message ClusterParameterGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string parameter_group_family = 3;
+	repeated ClusterParameterGroupParameter parameters = 4;
+	map<string, string> tags = 5;
+}
+
+message ClusterSecurityGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> tags = 3;
+}
+
+message ClusterSecurityGroupIngress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string cluster_security_group_name = 3;
+	string e_c2_security_group_name = 4;
+	string e_c2_security_group_owner_id = 5;
+}
+
+message ClusterSubnetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string subnet_ids = 3;
+	map<string, string> tags = 4;
+}
+

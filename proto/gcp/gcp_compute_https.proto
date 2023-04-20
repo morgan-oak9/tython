@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_https;
+
+import "shared/shared.proto";
+
+message ComputeHttpsHealthCheckXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeHttpsHealthCheck {
+	double check_interval_sec = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	double healthy_threshold = 4;
+	string host = 5;
+	string id = 6;
+	string name = 7;
+	double port = 8;
+	string project = 9;
+	string request_path = 10;
+	string self_link = 11;
+	double timeout_sec = 12;
+	double unhealthy_threshold = 13;
+	ComputeHttpsHealthCheckXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

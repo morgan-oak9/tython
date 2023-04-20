@@ -1,0 +1,19 @@
+name: Package and Publish SDKs
+  
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number for PyPI, Nuget, and NPM Packages'
+        required: true
+      
+jobs:
+  trigger-package-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger PyPI and Nuget workflows
+        run: |
+          gh workflow run package-and-publish-pypi.yml --ref main --inputs version=${{ github.event.inputs.version }}
+          gh workflow run package-and-publish-nuget.yml --ref main --inputs version=${{ github.event.inputs.version }}
+        env:
+            GITHUB_TOKEN: ${{  secrets.SERVICES_OAK9_PAT  }}

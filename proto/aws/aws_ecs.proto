@@ -1,0 +1,433 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ecs;
+
+import "shared/shared.proto";
+
+message CapacityProviderManagedScaling {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 minimum_scaling_step_size = 2;
+	int32 maximum_scaling_step_size = 3;
+	string status = 4;
+	int32 target_capacity = 5;
+}
+
+message CapacityProviderAutoScalingGroupProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auto_scaling_group_arn = 2;
+	CapacityProviderManagedScaling managed_scaling = 3;
+	string managed_termination_protection = 4;
+}
+
+message CapacityProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	CapacityProviderAutoScalingGroupProvider auto_scaling_group_provider = 2;
+	string name = 3;
+	map<string, string> tags = 4;
+}
+
+message ECS {
+	repeated CapacityProvider capacity_provider = 1;
+	Cluster cluster = 2;
+	PrimaryTaskSet primary_task_set = 3;
+	repeated Service service = 4;
+	repeated TaskDefinition task_definition = 5;
+	repeated TaskSet task_set = 6;
+}
+
+message ClusterClusterSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message ClusterCapacityProviderStrategyItem {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string capacity_provider = 2;
+	int32 weight = 3;
+	int32 base = 4;
+}
+
+message Cluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+	string cluster_name = 3;
+	repeated ClusterClusterSettings cluster_settings = 4;
+	repeated string capacity_providers = 5;
+	repeated ClusterCapacityProviderStrategyItem default_capacity_provider_strategy = 6;
+}
+
+message PrimaryTaskSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cluster = 2;
+	string task_set_id = 3;
+	string service = 4;
+}
+
+message ServiceCapacityProviderStrategyItem {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 base = 2;
+	string capacity_provider = 3;
+	int32 weight = 4;
+}
+
+message ServiceDeploymentConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 maximum_percent = 2;
+	int32 minimum_healthy_percent = 3;
+}
+
+message ServiceDeploymentController {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ServiceLoadBalancer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_name = 2;
+	int32 container_port = 3;
+	string load_balancer_name = 4;
+	string target_group_arn = 5;
+}
+
+message ServiceAwsVpcConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string assign_public_ip = 2;
+	repeated string security_groups = 3;
+	repeated string subnets = 4;
+}
+
+message ServiceNetworkConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ServiceAwsVpcConfiguration aws_vpc_configuration = 2;
+}
+
+message ServicePlacementConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string expression = 2;
+}
+
+message ServicePlacementStrategy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string field = 2;
+}
+
+message ServiceServiceRegistry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_name = 2;
+	int32 container_port = 3;
+	int32 port = 4;
+	string registry_arn = 5;
+}
+
+message Service {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string service_arn = 2;
+	repeated ServiceCapacityProviderStrategyItem capacity_provider_strategy = 3;
+	string cluster = 4;
+	ServiceDeploymentConfiguration deployment_configuration = 5;
+	ServiceDeploymentController deployment_controller = 6;
+	int32 desired_count = 7;
+	bool enable_ecs_managed_tags = 8;
+	int32 health_check_grace_period_seconds = 9;
+	string launch_type = 10;
+	repeated ServiceLoadBalancer load_balancers = 11;
+	ServiceNetworkConfiguration network_configuration = 12;
+	repeated ServicePlacementConstraint placement_constraints = 13;
+	repeated ServicePlacementStrategy placement_strategies = 14;
+	string platform_version = 15;
+	string propagate_tags = 16;
+	string role = 17;
+	string scheduling_strategy = 18;
+	string service_name = 19;
+	repeated ServiceServiceRegistry service_registries = 20;
+	map<string, string> tags = 21;
+	string task_definition = 22;
+}
+
+message TaskDefinitionKeyValuePair {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message TaskDefinitionEnvironmentFile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+}
+
+message TaskDefinitionHostEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string hostname = 2;
+	string ip_address = 3;
+}
+
+message TaskDefinitionFirelensConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> options = 2;
+}
+
+message TaskDefinitionHealthCheck {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string command = 2;
+	int32 interval = 3;
+	int32 timeout = 4;
+	int32 retries = 5;
+	int32 start_period = 6;
+}
+
+message TaskDefinitionKernelCapabilities {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string add = 2;
+	repeated string drop = 3;
+}
+
+message TaskDefinitionDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_path = 2;
+	string host_path = 3;
+	repeated string permissions = 4;
+}
+
+message TaskDefinitionTmpfs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_path = 2;
+	repeated string mount_options = 3;
+	int32 size = 4;
+}
+
+message TaskDefinitionLinuxParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TaskDefinitionKernelCapabilities capabilities = 2;
+	repeated TaskDefinitionDevice devices = 3;
+	bool init_process_enabled = 4;
+	int32 max_swap = 5;
+	int32 shared_memory_size = 6;
+	int32 swappiness = 7;
+	repeated TaskDefinitionTmpfs tmpfs = 8;
+}
+
+message TaskDefinitionSecret {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value_from = 3;
+}
+
+message TaskDefinitionLogConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_driver = 2;
+	map<string, string> options = 3;
+	repeated TaskDefinitionSecret secret_options = 4;
+}
+
+message TaskDefinitionMountPoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_path = 2;
+	bool read_only = 3;
+	string source_volume = 4;
+}
+
+message TaskDefinitionPortMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 container_port = 2;
+	int32 host_port = 3;
+	string protocol = 4;
+}
+
+message TaskDefinitionRepositoryCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string credentials_parameter = 2;
+}
+
+message TaskDefinitionResourceRequirement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+}
+
+message TaskDefinitionUlimit {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 hard_limit = 2;
+	string name = 3;
+	int32 soft_limit = 4;
+}
+
+message TaskDefinitionVolumeFrom {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool read_only = 2;
+	string source_container = 3;
+}
+
+message TaskDefinitionSystemControl {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string namespace = 2;
+	string value = 3;
+}
+
+message TaskDefinitionContainerDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string command = 2;
+	int32 cpu = 3;
+	bool disable_networking = 4;
+	repeated string dns_search_domains = 5;
+	repeated string dns_servers = 6;
+	map<string, string> docker_labels = 7;
+	repeated string docker_security_options = 8;
+	repeated string entry_point = 9;
+	repeated TaskDefinitionKeyValuePair environment = 10;
+	repeated TaskDefinitionEnvironmentFile environment_files = 11;
+	bool essential = 12;
+	repeated TaskDefinitionHostEntry extra_hosts = 13;
+	TaskDefinitionFirelensConfiguration firelens_configuration = 14;
+	TaskDefinitionHealthCheck health_check = 15;
+	string hostname = 16;
+	string image = 17;
+	repeated string links = 18;
+	TaskDefinitionLinuxParameters linux_parameters = 19;
+	TaskDefinitionLogConfiguration log_configuration = 20;
+	int32 memory = 21;
+	int32 memory_reservation = 22;
+	repeated TaskDefinitionMountPoint mount_points = 23;
+	string name = 24;
+	repeated TaskDefinitionPortMapping port_mappings = 25;
+	bool privileged = 26;
+	bool readonly_root_filesystem = 27;
+	TaskDefinitionRepositoryCredentials repository_credentials = 28;
+	repeated TaskDefinitionResourceRequirement resource_requirements = 29;
+	repeated TaskDefinitionSecret secrets = 30;
+	int32 start_timeout = 31;
+	int32 stop_timeout = 32;
+	repeated TaskDefinitionUlimit ulimits = 33;
+	string user = 34;
+	repeated TaskDefinitionVolumeFrom volumes_from = 35;
+	string working_directory = 36;
+	bool interactive = 37;
+	bool pseudo_terminal = 38;
+	repeated TaskDefinitionSystemControl system_controls = 39;
+}
+
+message TaskDefinitionInferenceAccelerator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	string device_type = 3;
+}
+
+message TaskDefinitionTaskDefinitionPlacementConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string expression = 2;
+}
+
+message TaskDefinitionProxyConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_name = 2;
+	repeated TaskDefinitionKeyValuePair proxy_configuration_properties = 3;
+}
+
+message TaskDefinitionDockerVolumeConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool autoprovision = 2;
+	string driver = 3;
+	map<string, string> driver_opts = 4;
+	map<string, string> labels = 5;
+	string scope = 6;
+}
+
+message TaskDefinitionEFSVolumeConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string filesystem_id = 2;
+	string root_directory = 3;
+	string transit_encryption = 4;
+	int32 transit_encryption_port = 5;
+	TaskDefinitionAuthorizationConfig authorization_config = 6;
+}
+
+message TaskDefinitionHostVolumeProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_path = 2;
+}
+
+message TaskDefinitionVolume {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TaskDefinitionDockerVolumeConfiguration docker_volume_configuration = 2;
+	TaskDefinitionEFSVolumeConfiguration efs_volume_configuration = 3;
+	TaskDefinitionHostVolumeProperties host = 4;
+	string name = 5;
+}
+
+message TaskDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string family = 2;
+	repeated TaskDefinitionContainerDefinition container_definitions = 3;
+	string cpu = 4;
+	string execution_role_arn = 5;
+	repeated TaskDefinitionInferenceAccelerator inference_accelerators = 6;
+	string memory = 7;
+	string network_mode = 8;
+	repeated TaskDefinitionTaskDefinitionPlacementConstraint placement_constraints = 9;
+	TaskDefinitionProxyConfiguration proxy_configuration = 10;
+	repeated string requires_compatibilities = 11;
+	string task_role_arn = 12;
+	repeated TaskDefinitionVolume volumes = 13;
+	string pid_mode = 14;
+	string ipc_mode = 15;
+	map<string, string> tags = 16;
+}
+
+message TaskSetLoadBalancer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_name = 2;
+	int32 container_port = 3;
+	string load_balancer_name = 4;
+	string target_group_arn = 5;
+}
+
+message TaskSetAwsVpcConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string assign_public_ip = 2;
+	repeated string security_groups = 3;
+	repeated string subnets = 4;
+}
+
+message TaskSetNetworkConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TaskSetAwsVpcConfiguration aws_vpc_configuration = 2;
+}
+
+message TaskSetScale {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string unit = 2;
+	double value = 3;
+}
+
+message TaskSetServiceRegistry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_name = 2;
+	int32 container_port = 3;
+	int32 port = 4;
+	string registry_arn = 5;
+}
+
+message TaskSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cluster = 2;
+	string external_id = 3;
+	string launch_type = 4;
+	repeated TaskSetLoadBalancer load_balancers = 5;
+	TaskSetNetworkConfiguration network_configuration = 6;
+	string platform_version = 7;
+	TaskSetScale scale = 8;
+	string service = 9;
+	repeated TaskSetServiceRegistry service_registries = 10;
+	string task_definition = 11;
+}
+
+message TaskDefinitionAuthorizationConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string iam = 2;
+	string access_point_id = 3;
+}
+
+message TaskDefinitionContainerDependency {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_name = 2;
+	string condition = 3;
+}
+

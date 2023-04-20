@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.redis;
+
+import "shared/shared.proto";
+
+message RedisInstanceXMaintenancePolicyXWeeklyMaintenanceWindowXStartTime {
+	double hours = 1;
+	double minutes = 2;
+	double nanos = 3;
+	double seconds = 4;
+}
+
+message RedisInstanceXMaintenancePolicyXWeeklyMaintenanceWindow {
+	string day = 1;
+	string duration = 2;
+	RedisInstanceXMaintenancePolicyXWeeklyMaintenanceWindowXStartTime start_time = 3;
+}
+
+message RedisInstanceXMaintenancePolicy {
+	string create_time = 1;
+	string description = 2;
+	string update_time = 3;
+	repeated RedisInstanceXMaintenancePolicyXWeeklyMaintenanceWindow weekly_maintenance_window = 4;
+}
+
+message RedisInstanceXMaintenanceSchedule {
+	string end_time = 1;
+	string schedule_deadline_time = 2;
+	string start_time = 3;
+}
+
+message RedisInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message RedisInstance {
+	string alternative_location_id = 1;
+	bool auth_enabled = 2;
+	string auth_string = 3;
+	string authorized_network = 4;
+	string connect_mode = 5;
+	string create_time = 6;
+	string current_location_id = 7;
+	string customer_managed_key = 8;
+	string display_name = 9;
+	string host = 10;
+	string id = 11;
+	map<string, string> labels = 12;
+	string location_id = 13;
+	double memory_size_gb = 14;
+	string name = 15;
+	map<string, string> nodes = 16;
+	string persistence_iam_identity = 17;
+	double port = 18;
+	string project = 19;
+	string read_endpoint = 20;
+	double read_endpoint_port = 21;
+	string read_replicas_mode = 22;
+	map<string, string> redis_configs = 23;
+	string redis_version = 24;
+	string region = 25;
+	double replica_count = 26;
+	string reserved_ip_range = 27;
+	string secondary_ip_range = 28;
+	map<string, string> server_ca_certs = 29;
+	string tier = 30;
+	string transit_encryption_mode = 31;
+	RedisInstanceXMaintenancePolicy maintenance_policy = 32;
+	RedisInstanceXMaintenanceSchedule maintenance_schedule = 33;
+	RedisInstanceXTimeouts timeouts = 34;
+	oak9.tython.shared.ResourceInfo resource_info = 35;
+}
+

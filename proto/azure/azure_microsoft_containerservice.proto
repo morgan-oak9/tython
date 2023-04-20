@@ -1,0 +1,441 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_containerservice;
+
+import "shared/shared.proto";
+
+message Microsoft_ContainerService {
+	ManagedClusters managed_clusters = 1;
+	repeated ManagedClustersAgentPools managed_clusters_agent_pools = 2;
+}
+
+message Snapshots {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	CreationData creation_data = 4;
+	string snapshot_type = 5;
+	map<string, string> tags = 6;
+}
+
+message ManagedClustersPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+}
+
+message PrivateLinkServiceConnectionState {
+	string description = 1;
+	string status = 2;
+}
+
+message PrivateEndpoint {
+	string id = 1;
+}
+
+message ManagedClustersMaintenanceConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated TimeSpan not_allowed_time = 3;
+	repeated TimeInWeek time_in_week = 4;
+}
+
+message TimeInWeek {
+	string day = 1;
+	repeated int32 hour_slots = 2;
+}
+
+message TimeSpan {
+	string end = 1;
+	string start = 2;
+}
+
+message ManagedClustersAgentPools {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string availability_zones = 3;
+	string capacity_reservation_group_id = 4;
+	int32 count = 5;
+	CreationData creation_data = 6;
+	bool enable_auto_scaling = 7;
+	bool enable_encryption_at_host = 8;
+	bool enable_fips = 9;
+	bool enable_node_public_ip = 10;
+	bool enable_ultra_ssd = 11;
+	string gpu_instance_profile = 12;
+	string host_group_id = 13;
+	KubeletConfig kubelet_config = 14;
+	string kubelet_disk_type = 15;
+	LinuxOSConfig linux_os_config = 16;
+	int32 max_count = 17;
+	int32 max_pods = 18;
+	string message_of_the_day = 19;
+	int32 min_count = 20;
+	string mode = 21;
+	map<string, string> node_labels = 22;
+	string node_public_ip_prefix_id = 23;
+	repeated string node_taints = 24;
+	string orchestrator_version = 25;
+	int32 os_disk_size_gb = 26;
+	string os_disk_type = 27;
+	string os_sku = 28;
+	string os_type = 29;
+	string pod_subnet_id = 30;
+	PowerState power_state = 31;
+	string proximity_placement_group_id = 32;
+	string scale_down_mode = 33;
+	string scale_set_eviction_policy = 34;
+	string scale_set_priority = 35;
+	double spot_max_price = 36;
+	map<string, string> tags = 37;
+	string type = 38;
+	AgentPoolUpgradeSettings upgrade_settings = 39;
+	string vm_size = 40;
+	string vnet_subnet_id = 41;
+	string workload_runtime = 42;
+}
+
+message ManagedClusters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	ManagedClusterIdentity identity = 3;
+	string location = 4;
+	string name = 5;
+	ManagedClusterAADProfile aad_profile = 6;
+	map<string, string> addon_profiles = 7;
+	repeated ManagedClusterAgentPoolProfile agent_pool_profiles = 8;
+	ManagedClusterAPIServerAccessProfile api_server_access_profile = 9;
+	ManagedClusterPropertiesAutoScalerProfile auto_scaler_profile = 10;
+	ManagedClusterAutoUpgradeProfile auto_upgrade_profile = 11;
+	bool disable_local_accounts = 12;
+	string disk_encryption_set_id = 13;
+	string dns_prefix = 14;
+	bool enable_namespace_resources = 15;
+	bool enable_pod_security_policy = 16;
+	bool enable_rbac = 17;
+	string fqdn_subdomain = 18;
+	ManagedClusterHTTPProxyConfig http_proxy_config = 19;
+	map<string, string> identity_profile = 20;
+	string kubernetes_version = 21;
+	ContainerServiceLinuxProfile linux_profile = 22;
+	ContainerServiceNetworkProfile network_profile = 23;
+	string node_resource_group = 24;
+	ManagedClusterOIDCIssuerProfile oidc_issuer_profile = 25;
+	ManagedClusterPodIdentityProfile pod_identity_profile = 26;
+	repeated PrivateLinkResource private_link_resources = 27;
+	string public_network_access = 28;
+	ManagedClusterSecurityProfile security_profile = 29;
+	ManagedClusterServicePrincipalProfile service_principal_profile = 30;
+	ManagedClusterWindowsProfile windows_profile = 31;
+	ManagedClusterSKU sku = 32;
+	map<string, string> tags = 33;
+	repeated ManagedClustersMaintenanceConfigurations managed_clusters_maintenance_configurations = 34;
+	repeated ManagedClustersPrivateEndpointConnections managed_clusters_private_endpoint_connections = 35;
+}
+
+message ManagedClusterSKU {
+	string name = 1;
+	string tier = 2;
+}
+
+message ManagedClusterWindowsProfile {
+	string admin_password = 1;
+	string admin_username = 2;
+	bool enable_cs_iproxy = 3;
+	WindowsGmsaProfile gmsa_profile = 4;
+	string license_type = 5;
+}
+
+message WindowsGmsaProfile {
+	string dns_server = 1;
+	bool enabled = 2;
+	string root_domain_name = 3;
+}
+
+message ManagedClusterServicePrincipalProfile {
+	string client_id = 1;
+	string secret = 2;
+}
+
+message ManagedClusterSecurityProfile {
+	ManagedClusterSecurityProfileAzureDefender azure_defender = 1;
+}
+
+message ManagedClusterSecurityProfileAzureDefender {
+	bool enabled = 1;
+	string log_analytics_workspace_resource_id = 2;
+}
+
+message PrivateLinkResource {
+	string group_id = 1;
+	string id = 2;
+	string name = 3;
+	repeated string required_members = 4;
+	string type = 5;
+}
+
+message ManagedClusterPodIdentityProfile {
+	bool allow_network_plugin_kubenet = 1;
+	bool enabled = 2;
+	repeated ManagedClusterPodIdentity user_assigned_identities = 3;
+	repeated ManagedClusterPodIdentityException user_assigned_identity_exceptions = 4;
+}
+
+message ManagedClusterPodIdentityException {
+	string name = 1;
+	string namespace = 2;
+	map<string, string> pod_labels = 3;
+}
+
+message ManagedClusterPodIdentity {
+	string binding_selector = 1;
+	UserAssignedIdentity identity = 2;
+	string name = 3;
+	string namespace = 4;
+}
+
+message UserAssignedIdentity {
+	string client_id = 1;
+	string object_id = 2;
+	string resource_id = 3;
+}
+
+message ManagedClusterOIDCIssuerProfile {
+	bool enabled = 1;
+}
+
+message ContainerServiceNetworkProfile {
+	string dns_service_ip = 1;
+	string docker_bridge_cidr = 2;
+	repeated string ip_families = 3;
+	ManagedClusterLoadBalancerProfile load_balancer_profile = 4;
+	string load_balancer_sku = 5;
+	ManagedClusterNATGatewayProfile nat_gateway_profile = 6;
+	string network_mode = 7;
+	string network_plugin = 8;
+	string network_policy = 9;
+	string outbound_type = 10;
+	string pod_cidr = 11;
+	repeated string pod_cidrs = 12;
+	string service_cidr = 13;
+	repeated string service_cidrs = 14;
+}
+
+message ManagedClusterNATGatewayProfile {
+	repeated ResourceReference effective_outbound_ips = 1;
+	int32 idle_timeout_in_minutes = 2;
+	ManagedClusterManagedOutboundIPProfile managed_outbound_ip_profile = 3;
+}
+
+message ManagedClusterManagedOutboundIPProfile {
+	int32 count = 1;
+}
+
+message ManagedClusterLoadBalancerProfile {
+	int32 allocated_outbound_ports = 1;
+	repeated ResourceReference effective_outbound_ips = 2;
+	bool enable_multiple_standard_load_balancers = 3;
+	int32 idle_timeout_in_minutes = 4;
+	ManagedClusterLoadBalancerProfileManagedOutboundIPs managed_outbound_ips = 5;
+	ManagedClusterLoadBalancerProfileOutboundIPPrefixes outbound_ip_prefixes = 6;
+	ManagedClusterLoadBalancerProfileOutboundIPs outbound_ips = 7;
+}
+
+message ManagedClusterLoadBalancerProfileOutboundIPs {
+	repeated ResourceReference public_ips = 1;
+}
+
+message ManagedClusterLoadBalancerProfileOutboundIPPrefixes {
+	repeated ResourceReference public_ip_prefixes = 1;
+}
+
+message ManagedClusterLoadBalancerProfileManagedOutboundIPs {
+	int32 count = 1;
+	int32 count_ipv6 = 2;
+}
+
+message ResourceReference {
+	string id = 1;
+}
+
+message ContainerServiceLinuxProfile {
+	string admin_username = 1;
+	ContainerServiceSshConfiguration ssh = 2;
+}
+
+message ContainerServiceSshConfiguration {
+	repeated ContainerServiceSshPublicKey public_keys = 1;
+}
+
+message ContainerServiceSshPublicKey {
+	string key_data = 1;
+}
+
+message ManagedClusterHTTPProxyConfig {
+	string http_proxy = 1;
+	string https_proxy = 2;
+	repeated string no_proxy = 3;
+	string trusted_ca = 4;
+}
+
+message ManagedClusterAutoUpgradeProfile {
+	string upgrade_channel = 1;
+}
+
+message ManagedClusterPropertiesAutoScalerProfile {
+	string balance_similar_node_groups = 1;
+	string expander = 2;
+	string max_empty_bulk_delete = 3;
+	string max_graceful_termination_sec = 4;
+	string max_node_provision_time = 5;
+	string max_total_unready_percentage = 6;
+	string new_pod_scale_up_delay = 7;
+	string ok_total_unready_count = 8;
+	string scale_down_delay_after_add = 9;
+	string scale_down_delay_after_delete = 10;
+	string scale_down_delay_after_failure = 11;
+	string scale_down_unneeded_time = 12;
+	string scale_down_unready_time = 13;
+	string scale_down_utilization_threshold = 14;
+	string scan_interval = 15;
+	string skip_nodes_with_local_storage = 16;
+	string skip_nodes_with_system_pods = 17;
+}
+
+message ManagedClusterAPIServerAccessProfile {
+	repeated string authorized_ip_ranges = 1;
+	bool disable_run_command = 2;
+	bool enable_private_cluster = 3;
+	bool enable_private_cluster_public_fqdn = 4;
+	string private_dns_zone = 5;
+}
+
+message ManagedClusterAgentPoolProfile {
+	repeated string availability_zones = 1;
+	string capacity_reservation_group_id = 2;
+	int32 count = 3;
+	CreationData creation_data = 4;
+	bool enable_auto_scaling = 5;
+	bool enable_encryption_at_host = 6;
+	bool enable_fips = 7;
+	bool enable_node_public_ip = 8;
+	bool enable_ultra_ssd = 9;
+	string gpu_instance_profile = 10;
+	string host_group_id = 11;
+	KubeletConfig kubelet_config = 12;
+	string kubelet_disk_type = 13;
+	LinuxOSConfig linux_os_config = 14;
+	int32 max_count = 15;
+	int32 max_pods = 16;
+	string message_of_the_day = 17;
+	int32 min_count = 18;
+	string mode = 19;
+	string name = 20;
+	map<string, string> node_labels = 21;
+	string node_public_ip_prefix_id = 22;
+	repeated string node_taints = 23;
+	string orchestrator_version = 24;
+	int32 os_disk_size_gb = 25;
+	string os_disk_type = 26;
+	string os_sku = 27;
+	string os_type = 28;
+	string pod_subnet_id = 29;
+	PowerState power_state = 30;
+	string proximity_placement_group_id = 31;
+	string scale_down_mode = 32;
+	string scale_set_eviction_policy = 33;
+	string scale_set_priority = 34;
+	double spot_max_price = 35;
+	map<string, string> tags = 36;
+	string type = 37;
+	AgentPoolUpgradeSettings upgrade_settings = 38;
+	string vm_size = 39;
+	string vnet_subnet_id = 40;
+	string workload_runtime = 41;
+}
+
+message AgentPoolUpgradeSettings {
+	string max_surge = 1;
+}
+
+message PowerState {
+	string code = 1;
+}
+
+message LinuxOSConfig {
+	int32 swap_file_size_mb = 1;
+	SysctlConfig sysctls = 2;
+	string transparent_huge_page_defrag = 3;
+	string transparent_huge_page_enabled = 4;
+}
+
+message SysctlConfig {
+	int32 fs_aio_max_nr = 1;
+	int32 fs_file_max = 2;
+	int32 fs_inotify_max_user_watches = 3;
+	int32 fs_nr_open = 4;
+	int32 kernel_threads_max = 5;
+	int32 net_core_netdev_max_backlog = 6;
+	int32 net_core_optmem_max = 7;
+	int32 net_core_rmem_default = 8;
+	int32 net_core_rmem_max = 9;
+	int32 net_core_somaxconn = 10;
+	int32 net_core_wmem_default = 11;
+	int32 net_core_wmem_max = 12;
+	string net_ipv4_ip_local_port_range = 13;
+	int32 net_ipv4_neigh_default_gc_thresh1 = 14;
+	int32 net_ipv4_neigh_default_gc_thresh2 = 15;
+	int32 net_ipv4_neigh_default_gc_thresh3 = 16;
+	int32 net_ipv4_tcp_fin_timeout = 17;
+	int32 net_ipv4_tcpkeepalive_intvl = 18;
+	int32 net_ipv4_tcp_keepalive_probes = 19;
+	int32 net_ipv4_tcp_keepalive_time = 20;
+	int32 net_ipv4_tcp_max_syn_backlog = 21;
+	int32 net_ipv4_tcp_max_tw_buckets = 22;
+	bool net_ipv4_tcp_tw_reuse = 23;
+	int32 net_netfilter_nf_conntrack_buckets = 24;
+	int32 net_netfilter_nf_conntrack_max = 25;
+	int32 vm_max_map_count = 26;
+	int32 vm_swappiness = 27;
+	int32 vm_vfs_cache_pressure = 28;
+}
+
+message KubeletConfig {
+	repeated string allowed_unsafe_sysctls = 1;
+	int32 container_log_max_files = 2;
+	int32 container_log_max_size_mb = 3;
+	bool cpu_cfs_quota = 4;
+	string cpu_cfs_quota_period = 5;
+	string cpu_manager_policy = 6;
+	bool fail_swap_on = 7;
+	int32 image_gc_high_threshold = 8;
+	int32 image_gc_low_threshold = 9;
+	int32 pod_max_pids = 10;
+	string topology_manager_policy = 11;
+}
+
+message CreationData {
+	string source_resource_id = 1;
+}
+
+message ManagedClusterAADProfile {
+	repeated string admin_group_object_ids = 1;
+	string client_app_id = 2;
+	bool enable_azure_rbac = 3;
+	bool managed = 4;
+	string server_app_id = 5;
+	string server_app_secret = 6;
+	string tenant_id = 7;
+}
+
+message ManagedClusterIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

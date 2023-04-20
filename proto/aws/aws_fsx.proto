@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package oak9.tython.aws.fsx;
+
+import "shared/shared.proto";
+
+message FileSystemLustreConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string drive_cache_type = 2;
+	string import_path = 3;
+	string weekly_maintenance_start_time = 4;
+	string auto_import_policy = 5;
+	int32 imported_file_chunk_size = 6;
+	string deployment_type = 7;
+	string daily_automatic_backup_start_time = 8;
+	bool copy_tags_to_backups = 9;
+	string export_path = 10;
+	int32 per_unit_storage_throughput = 11;
+	int32 automatic_backup_retention_days = 12;
+}
+
+message FileSystemSelfManagedActiveDirectoryConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string file_system_administrators_group = 2;
+	string user_name = 3;
+	string domain_name = 4;
+	string organizational_unit_distinguished_name = 5;
+	repeated string dns_ips = 6;
+	string password = 7;
+}
+
+message FileSystemWindowsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FileSystemSelfManagedActiveDirectoryConfiguration self_managed_active_directory_configuration = 2;
+	string weekly_maintenance_start_time = 3;
+	string active_directory_id = 4;
+	string deployment_type = 5;
+	int32 throughput_capacity = 6;
+	bool copy_tags_to_backups = 7;
+	string daily_automatic_backup_start_time = 8;
+	int32 automatic_backup_retention_days = 9;
+	string preferred_subnet_id = 10;
+}
+
+message FileSystem {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string storage_type = 2;
+	string kms_key_id = 3;
+	int32 storage_capacity = 4;
+	string file_system_type = 5;
+	FileSystemLustreConfiguration lustre_configuration = 6;
+	string backup_id = 7;
+	repeated string subnet_ids = 8;
+	repeated string security_group_ids = 9;
+	map<string, string> tags = 10;
+	FileSystemWindowsConfiguration windows_configuration = 11;
+}
+
+message FSx {
+	repeated FileSystem file_system = 1;
+}
+

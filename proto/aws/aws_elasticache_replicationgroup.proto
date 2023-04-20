@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package oak9.tython.aws.elasticache_replicationgroup;
+
+import "shared/shared.proto";
+
+message ReplicationGroupNodeGroupConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string node_group_id = 2;
+	string primary_availability_zone = 3;
+	repeated string replica_availability_zones = 4;
+	int32 replica_count = 5;
+	string slots = 6;
+}
+
+message ReplicationGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool at_rest_encryption_enabled = 2;
+	string auth_token = 3;
+	bool auto_minor_version_upgrade = 4;
+	bool automatic_failover_enabled = 5;
+	string cache_node_type = 6;
+	string cache_parameter_group_name = 7;
+	repeated string cache_security_group_names = 8;
+	string cache_subnet_group_name = 9;
+	string engine = 10;
+	string engine_version = 11;
+	string kms_key_id = 12;
+	bool multi_az_enabled = 13;
+	repeated ReplicationGroupNodeGroupConfiguration node_group_configuration = 14;
+	string notification_topic_arn = 15;
+	int32 num_cache_clusters = 16;
+	int32 num_node_groups = 17;
+	int32 port = 18;
+	repeated string preferred_cache_cluster_azs = 19;
+	string preferred_maintenance_window = 20;
+	string primary_cluster_id = 21;
+	int32 replicas_per_node_group = 22;
+	string replication_group_description = 23;
+	string replication_group_id = 24;
+	repeated string security_group_ids = 25;
+	repeated string snapshot_arns = 26;
+	string snapshot_name = 27;
+	int32 snapshot_retention_limit = 28;
+	string snapshot_window = 29;
+	string snapshotting_cluster_id = 30;
+	map<string, string> tags = 31;
+	bool transit_encryption_enabled = 32;
+}
+
+message ElastiCache_ReplicationGroup {
+	ReplicationGroup replication_group = 1;
+	SecurityGroup security_group = 2;
+	repeated SecurityGroupIngress security_group_ingress = 3;
+	SubnetGroup subnet_group = 4;
+}
+
+message SecurityGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+}
+
+message SecurityGroupIngress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cache_security_group_name = 2;
+	string e_c2_security_group_name = 3;
+	string e_c2_security_group_owner_id = 4;
+}
+
+message SubnetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cache_subnet_group_name = 2;
+	string description = 3;
+	repeated string subnet_ids = 4;
+}
+

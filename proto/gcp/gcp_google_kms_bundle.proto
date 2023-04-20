@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_kms_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_kms.proto";
+
+message GoogleKms {
+	repeated oak9.tython.gcp.kms.KmsCryptoKey kms_crypto_key = 1;
+	repeated oak9.tython.gcp.kms.KmsCryptoKeyIamBinding kms_crypto_key_iam_binding = 2;
+	repeated oak9.tython.gcp.kms.KmsCryptoKeyIamMember kms_crypto_key_iam_member = 3;
+	repeated oak9.tython.gcp.kms.KmsCryptoKeyIamPolicy kms_crypto_key_iam_policy = 4;
+	oak9.tython.gcp.kms.KmsKeyRing kms_key_ring = 5;
+	repeated oak9.tython.gcp.kms.KmsKeyRingIamBinding kms_key_ring_iam_binding = 6;
+	repeated oak9.tython.gcp.kms.KmsKeyRingIamMember kms_key_ring_iam_member = 7;
+	repeated oak9.tython.gcp.kms.KmsKeyRingIamPolicy kms_key_ring_iam_policy = 8;
+	repeated oak9.tython.gcp.kms.KmsKeyRingImportJob kms_key_ring_import_job = 9;
+	oak9.tython.gcp.kms.KmsSecretCiphertext kms_secret_ciphertext = 10;
+}
+

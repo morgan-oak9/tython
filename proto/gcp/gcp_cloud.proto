@@ -1,0 +1,555 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.cloud;
+
+import "shared/shared.proto";
+
+message CloudAssetFolderFeedXCondition {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message CloudAssetFolderFeedXFeedOutputConfigXPubsubDestination {
+	string topic = 1;
+}
+
+message CloudAssetFolderFeedXFeedOutputConfig {
+	CloudAssetFolderFeedXFeedOutputConfigXPubsubDestination pubsub_destination = 1;
+}
+
+message CloudAssetFolderFeedXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudAssetFolderFeed {
+	repeated string asset_names = 1;
+	repeated string asset_types = 2;
+	string billing_project = 3;
+	string content_type = 4;
+	string feed_id = 5;
+	string folder = 6;
+	string folder_id = 7;
+	string id = 8;
+	string name = 9;
+	CloudAssetFolderFeedXCondition condition = 10;
+	CloudAssetFolderFeedXFeedOutputConfig feed_output_config = 11;
+	CloudAssetFolderFeedXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message CloudAssetOrganizationFeedXCondition {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message CloudAssetOrganizationFeedXFeedOutputConfigXPubsubDestination {
+	string topic = 1;
+}
+
+message CloudAssetOrganizationFeedXFeedOutputConfig {
+	CloudAssetOrganizationFeedXFeedOutputConfigXPubsubDestination pubsub_destination = 1;
+}
+
+message CloudAssetOrganizationFeedXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudAssetOrganizationFeed {
+	repeated string asset_names = 1;
+	repeated string asset_types = 2;
+	string billing_project = 3;
+	string content_type = 4;
+	string feed_id = 5;
+	string id = 6;
+	string name = 7;
+	string org_id = 8;
+	CloudAssetOrganizationFeedXCondition condition = 9;
+	CloudAssetOrganizationFeedXFeedOutputConfig feed_output_config = 10;
+	CloudAssetOrganizationFeedXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message CloudAssetProjectFeedXCondition {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message CloudAssetProjectFeedXFeedOutputConfigXPubsubDestination {
+	string topic = 1;
+}
+
+message CloudAssetProjectFeedXFeedOutputConfig {
+	CloudAssetProjectFeedXFeedOutputConfigXPubsubDestination pubsub_destination = 1;
+}
+
+message CloudAssetProjectFeedXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudAssetProjectFeed {
+	repeated string asset_names = 1;
+	repeated string asset_types = 2;
+	string billing_project = 3;
+	string content_type = 4;
+	string feed_id = 5;
+	string id = 6;
+	string name = 7;
+	string project = 8;
+	CloudAssetProjectFeedXCondition condition = 9;
+	CloudAssetProjectFeedXFeedOutputConfig feed_output_config = 10;
+	CloudAssetProjectFeedXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message CloudIdentityGroupXGroupKey {
+	string id = 1;
+	string namespace = 2;
+}
+
+message CloudIdentityGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudIdentityGroup {
+	string create_time = 1;
+	string description = 2;
+	string display_name = 3;
+	string id = 4;
+	string initial_group_config = 5;
+	map<string, string> labels = 6;
+	string name = 7;
+	string parent = 8;
+	string update_time = 9;
+	CloudIdentityGroupXGroupKey group_key = 10;
+	CloudIdentityGroupXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message CloudIdentityGroupMembershipXPreferredMemberKey {
+	string id = 1;
+	string namespace = 2;
+}
+
+message CloudIdentityGroupMembershipXRoles {
+	string name = 1;
+}
+
+message CloudIdentityGroupMembershipXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudIdentityGroupMembership {
+	string create_time = 1;
+	string group = 2;
+	string id = 3;
+	string name = 4;
+	string type = 5;
+	string update_time = 6;
+	CloudIdentityGroupMembershipXPreferredMemberKey preferred_member_key = 7;
+	repeated CloudIdentityGroupMembershipXRoles roles = 8;
+	CloudIdentityGroupMembershipXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message CloudRunDomainMappingXMetadata {
+	map<string, string> annotations = 1;
+	double generation = 2;
+	map<string, string> labels = 3;
+	string namespace = 4;
+	string resource_version = 5;
+	string self_link = 6;
+	string uid = 7;
+}
+
+message CloudRunDomainMappingXSpec {
+	string certificate_mode = 1;
+	bool force_override = 2;
+	string route_name = 3;
+}
+
+message CloudRunDomainMappingXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message CloudRunDomainMapping {
+	string id = 1;
+	string location = 2;
+	string name = 3;
+	string project = 4;
+	map<string, string> status = 5;
+	CloudRunDomainMappingXMetadata metadata = 6;
+	CloudRunDomainMappingXSpec spec = 7;
+	CloudRunDomainMappingXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudRunServiceXMetadata {
+	map<string, string> annotations = 1;
+	double generation = 2;
+	map<string, string> labels = 3;
+	string namespace = 4;
+	string resource_version = 5;
+	string self_link = 6;
+	string uid = 7;
+}
+
+message CloudRunServiceXTemplateXMetadata {
+	map<string, string> annotations = 1;
+	double generation = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string namespace = 5;
+	string resource_version = 6;
+	string self_link = 7;
+	string uid = 8;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvXValueFromXSecretKeyRef {
+	string key = 1;
+	string name = 2;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvXValueFrom {
+	CloudRunServiceXTemplateXSpecXContainersXEnvXValueFromXSecretKeyRef secret_key_ref = 1;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnv {
+	string name = 1;
+	string value = 2;
+	CloudRunServiceXTemplateXSpecXContainersXEnvXValueFrom value_from = 3;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvFromXConfigMapRefXLocalObjectReference {
+	string name = 1;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvFromXConfigMapRef {
+	bool optional = 1;
+	CloudRunServiceXTemplateXSpecXContainersXEnvFromXConfigMapRefXLocalObjectReference local_object_reference = 2;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvFromXSecretRefXLocalObjectReference {
+	string name = 1;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvFromXSecretRef {
+	bool optional = 1;
+	CloudRunServiceXTemplateXSpecXContainersXEnvFromXSecretRefXLocalObjectReference local_object_reference = 2;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXEnvFrom {
+	string prefix = 1;
+	CloudRunServiceXTemplateXSpecXContainersXEnvFromXConfigMapRef config_map_ref = 2;
+	CloudRunServiceXTemplateXSpecXContainersXEnvFromXSecretRef secret_ref = 3;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXPorts {
+	double container_port = 1;
+	string name = 2;
+	string protocol = 3;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXResources {
+	map<string, string> limits = 1;
+	map<string, string> requests = 2;
+}
+
+message CloudRunServiceXTemplateXSpecXContainersXVolumeMounts {
+	string mount_path = 1;
+	string name = 2;
+}
+
+message CloudRunServiceXTemplateXSpecXContainers {
+	repeated string args = 1;
+	repeated string command = 2;
+	string image = 3;
+	string working_dir = 4;
+	repeated CloudRunServiceXTemplateXSpecXContainersXEnv env = 5;
+	repeated CloudRunServiceXTemplateXSpecXContainersXEnvFrom env_from = 6;
+	repeated CloudRunServiceXTemplateXSpecXContainersXPorts ports = 7;
+	CloudRunServiceXTemplateXSpecXContainersXResources resources = 8;
+	repeated CloudRunServiceXTemplateXSpecXContainersXVolumeMounts volume_mounts = 9;
+}
+
+message CloudRunServiceXTemplateXSpecXVolumesXSecretXItems {
+	string key = 1;
+	double mode = 2;
+	string path = 3;
+}
+
+message CloudRunServiceXTemplateXSpecXVolumesXSecret {
+	double default_mode = 1;
+	string secret_name = 2;
+	repeated CloudRunServiceXTemplateXSpecXVolumesXSecretXItems items = 3;
+}
+
+message CloudRunServiceXTemplateXSpecXVolumes {
+	string name = 1;
+	CloudRunServiceXTemplateXSpecXVolumesXSecret secret = 2;
+}
+
+message CloudRunServiceXTemplateXSpec {
+	double container_concurrency = 1;
+	string service_account_name = 2;
+	string serving_state = 3;
+	double timeout_seconds = 4;
+	repeated CloudRunServiceXTemplateXSpecXContainers containers = 5;
+	repeated CloudRunServiceXTemplateXSpecXVolumes volumes = 6;
+}
+
+message CloudRunServiceXTemplate {
+	CloudRunServiceXTemplateXMetadata metadata = 1;
+	CloudRunServiceXTemplateXSpec spec = 2;
+}
+
+message CloudRunServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudRunServiceXTraffic {
+	bool latest_revision = 1;
+	double percent = 2;
+	string revision_name = 3;
+	string tag = 4;
+	string url = 5;
+}
+
+message CloudRunService {
+	bool autogenerate_revision_name = 1;
+	string id = 2;
+	string location = 3;
+	string name = 4;
+	string project = 5;
+	map<string, string> status = 6;
+	CloudRunServiceXMetadata metadata = 7;
+	CloudRunServiceXTemplate template = 8;
+	CloudRunServiceXTimeouts timeouts = 9;
+	repeated CloudRunServiceXTraffic traffic = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message CloudRunServiceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudRunServiceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string service = 7;
+	CloudRunServiceIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudRunServiceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudRunServiceIamMember {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string service = 7;
+	CloudRunServiceIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudRunServiceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string policy_data = 4;
+	string project = 5;
+	string service = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CloudSchedulerJobXAppEngineHttpTargetXAppEngineRouting {
+	string instance = 1;
+	string service = 2;
+	string version = 3;
+}
+
+message CloudSchedulerJobXAppEngineHttpTarget {
+	string body = 1;
+	map<string, string> headers = 2;
+	string http_method = 3;
+	string relative_uri = 4;
+	CloudSchedulerJobXAppEngineHttpTargetXAppEngineRouting app_engine_routing = 5;
+}
+
+message CloudSchedulerJobXHttpTargetXOauthToken {
+	string scope = 1;
+	string service_account_email = 2;
+}
+
+message CloudSchedulerJobXHttpTargetXOidcToken {
+	string audience = 1;
+	string service_account_email = 2;
+}
+
+message CloudSchedulerJobXHttpTarget {
+	string body = 1;
+	map<string, string> headers = 2;
+	string http_method = 3;
+	string uri = 4;
+	CloudSchedulerJobXHttpTargetXOauthToken oauth_token = 5;
+	CloudSchedulerJobXHttpTargetXOidcToken oidc_token = 6;
+}
+
+message CloudSchedulerJobXPubsubTarget {
+	map<string, string> attributes = 1;
+	string data = 2;
+	string topic_name = 3;
+}
+
+message CloudSchedulerJobXRetryConfig {
+	string max_backoff_duration = 1;
+	double max_doublings = 2;
+	string max_retry_duration = 3;
+	string min_backoff_duration = 4;
+	double retry_count = 5;
+}
+
+message CloudSchedulerJobXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudSchedulerJob {
+	string attempt_deadline = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string schedule = 7;
+	string time_zone = 8;
+	CloudSchedulerJobXAppEngineHttpTarget app_engine_http_target = 9;
+	CloudSchedulerJobXHttpTarget http_target = 10;
+	CloudSchedulerJobXPubsubTarget pubsub_target = 11;
+	CloudSchedulerJobXRetryConfig retry_config = 12;
+	CloudSchedulerJobXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message CloudTasksQueueXAppEngineRoutingOverride {
+	string host = 1;
+	string instance = 2;
+	string service = 3;
+	string version = 4;
+}
+
+message CloudTasksQueueXRateLimits {
+	double max_burst_size = 1;
+	double max_concurrent_dispatches = 2;
+	double max_dispatches_per_second = 3;
+}
+
+message CloudTasksQueueXRetryConfig {
+	double max_attempts = 1;
+	string max_backoff = 2;
+	double max_doublings = 3;
+	string max_retry_duration = 4;
+	string min_backoff = 5;
+}
+
+message CloudTasksQueueXStackdriverLoggingConfig {
+	double sampling_ratio = 1;
+}
+
+message CloudTasksQueueXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudTasksQueue {
+	string id = 1;
+	string location = 2;
+	string name = 3;
+	string project = 4;
+	CloudTasksQueueXAppEngineRoutingOverride app_engine_routing_override = 5;
+	CloudTasksQueueXRateLimits rate_limits = 6;
+	CloudTasksQueueXRetryConfig retry_config = 7;
+	CloudTasksQueueXStackdriverLoggingConfig stackdriver_logging_config = 8;
+	CloudTasksQueueXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message CloudTasksQueueIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudTasksQueueIamBinding {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	repeated string members = 4;
+	string name = 5;
+	string project = 6;
+	string role = 7;
+	CloudTasksQueueIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudTasksQueueIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudTasksQueueIamMember {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string member = 4;
+	string name = 5;
+	string project = 6;
+	string role = 7;
+	CloudTasksQueueIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudTasksQueueIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string name = 4;
+	string policy_data = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package oak9.tython.aws.autoscaling;
+
+import "shared/shared.proto";
+
+message AutoScalingGroupLaunchTemplateSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string launch_template_id = 2;
+	string launch_template_name = 3;
+	string version = 4;
+}
+
+message AutoScalingGroupLifecycleHookSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string default_result = 2;
+	int32 heartbeat_timeout = 3;
+	string lifecycle_hook_name = 4;
+	string lifecycle_transition = 5;
+	string notification_metadata = 6;
+	string notification_target_arn = 7;
+	string role_arn = 8;
+}
+
+message AutoScalingGroupMetricsCollection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string granularity = 2;
+	repeated string metrics = 3;
+}
+
+message AutoScalingGroupInstancesDistribution {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string on_demand_allocation_strategy = 2;
+	int32 on_demand_base_capacity = 3;
+	int32 on_demand_percentage_above_base_capacity = 4;
+	string spot_allocation_strategy = 5;
+	int32 spot_instance_pools = 6;
+	string spot_max_price = 7;
+}
+
+message AutoScalingGroupLaunchTemplateOverrides {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_type = 2;
+	string weighted_capacity = 3;
+}
+
+message AutoScalingGroupLaunchTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	AutoScalingGroupLaunchTemplateSpecification launch_template_specification = 2;
+	repeated AutoScalingGroupLaunchTemplateOverrides overrides = 3;
+}
+
+message AutoScalingGroupMixedInstancesPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	AutoScalingGroupInstancesDistribution instances_distribution = 2;
+	AutoScalingGroupLaunchTemplate launch_template = 3;
+}
+
+message AutoScalingGroupNotificationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string notification_types = 2;
+	string topic_arn = 3;
+}
+
+message AutoScalingGroupTagProperty {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	bool propagate_at_launch = 3;
+	string value = 4;
+}
+
+message AutoScalingGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auto_scaling_group_name = 2;
+	repeated string availability_zones = 3;
+	string cooldown = 4;
+	string desired_capacity = 5;
+	int32 health_check_grace_period = 6;
+	string health_check_type = 7;
+	string instance_id = 8;
+	string launch_configuration_name = 9;
+	AutoScalingGroupLaunchTemplateSpecification launch_template = 10;
+	repeated AutoScalingGroupLifecycleHookSpecification lifecycle_hook_specification_list = 11;
+	repeated string load_balancer_names = 12;
+	int32 max_instance_lifetime = 13;
+	string max_size = 14;
+	repeated AutoScalingGroupMetricsCollection metrics_collection = 15;
+	string min_size = 16;
+	AutoScalingGroupMixedInstancesPolicy mixed_instances_policy = 17;
+	bool new_instances_protected_from_scale_in = 18;
+	repeated AutoScalingGroupNotificationConfiguration notification_configurations = 19;
+	string placement_group = 20;
+	string service_linked_role_arn = 21;
+	repeated AutoScalingGroupTagProperty tags = 22;
+	repeated string target_group_arns = 23;
+	repeated string termination_policies = 24;
+	repeated string vpc_zone_identifier = 25;
+}
+
+message AutoScaling {
+	repeated AutoScalingGroup auto_scaling_group = 1;
+	repeated LaunchConfiguration launch_configuration = 2;
+	repeated LifecycleHook lifecycle_hook = 3;
+	repeated ScalingPolicy scaling_policy = 4;
+	repeated ScheduledAction scheduled_action = 5;
+}
+
+message LaunchConfigurationBlockDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_on_termination = 2;
+	bool encrypted = 3;
+	int32 iops = 4;
+	string snapshot_id = 5;
+	int32 volume_size = 6;
+	string volume_type = 7;
+}
+
+message LaunchConfigurationBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	LaunchConfigurationBlockDevice ebs = 3;
+	bool no_device = 4;
+	string virtual_name = 5;
+}
+
+message LaunchConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool associate_public_ip_address = 2;
+	repeated LaunchConfigurationBlockDeviceMapping block_device_mappings = 3;
+	string classic_link_vpc_id = 4;
+	repeated string classic_link_vpc_security_groups = 5;
+	bool ebs_optimized = 6;
+	string iam_instance_profile = 7;
+	string image_id = 8;
+	string instance_id = 9;
+	bool instance_monitoring = 10;
+	string instance_type = 11;
+	string kernel_id = 12;
+	string key_name = 13;
+	string launch_configuration_name = 14;
+	string placement_tenancy = 15;
+	string ram_disk_id = 16;
+	repeated string security_groups = 17;
+	string spot_price = 18;
+	string user_data = 19;
+}
+
+message LifecycleHook {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auto_scaling_group_name = 2;
+	string default_result = 3;
+	int32 heartbeat_timeout = 4;
+	string lifecycle_hook_name = 5;
+	string lifecycle_transition = 6;
+	string notification_metadata = 7;
+	string notification_target_arn = 8;
+	string role_arn = 9;
+}
+
+message ScalingPolicyStepAdjustment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double metric_interval_lower_bound = 2;
+	double metric_interval_upper_bound = 3;
+	int32 scaling_adjustment = 4;
+}
+
+message ScalingPolicyMetricDimension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message ScalingPolicyCustomizedMetricSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ScalingPolicyMetricDimension dimensions = 2;
+	string metric_name = 3;
+	string namespace = 4;
+	string statistic = 5;
+	string unit = 6;
+}
+
+message ScalingPolicyPredefinedMetricSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string predefined_metric_type = 2;
+	string resource_label = 3;
+}
+
+message ScalingPolicyTargetTrackingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ScalingPolicyCustomizedMetricSpecification customized_metric_specification = 2;
+	bool disable_scale_in = 3;
+	ScalingPolicyPredefinedMetricSpecification predefined_metric_specification = 4;
+	double target_value = 5;
+}
+
+message ScalingPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string adjustment_type = 2;
+	string auto_scaling_group_name = 3;
+	string cooldown = 4;
+	int32 estimated_instance_warmup = 5;
+	string metric_aggregation_type = 6;
+	int32 min_adjustment_magnitude = 7;
+	string policy_type = 8;
+	int32 scaling_adjustment = 9;
+	repeated ScalingPolicyStepAdjustment step_adjustments = 10;
+	ScalingPolicyTargetTrackingConfiguration target_tracking_configuration = 11;
+}
+
+message ScheduledAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auto_scaling_group_name = 2;
+	int32 desired_capacity = 3;
+	string end_time = 4;
+	int32 max_size = 5;
+	int32 min_size = 6;
+	string recurrence = 7;
+	string start_time = 8;
+}
+

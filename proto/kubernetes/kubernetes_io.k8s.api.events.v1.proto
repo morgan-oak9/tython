@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.events.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+
+message Event {
+	string action = 1;
+	string api_version = 2;
+	int32 deprecated_count = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time deprecated_first_timestamp = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time deprecated_last_timestamp = 5;
+	oak9.tython.k8s.api.core.v1.EventSource deprecated_source = 6;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.MicroTime event_time = 7;
+	string kind = 8;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 9;
+	string note = 10;
+	string reason = 11;
+	oak9.tython.k8s.api.core.v1.ObjectReference regarding = 12;
+	oak9.tython.k8s.api.core.v1.ObjectReference related = 13;
+	string reporting_controller = 14;
+	string reporting_instance = 15;
+	EventSeries series = 16;
+	string type = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+
+message EventList {
+	string api_version = 1;
+	repeated Event items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EventSeries {
+	int32 count = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.MicroTime last_observed_time = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

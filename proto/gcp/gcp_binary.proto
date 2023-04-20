@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.binary;
+
+import "shared/shared.proto";
+
+message BinaryAuthorizationAttestorXAttestationAuthorityNoteXPublicKeysXPkixPublicKey {
+	string public_key_pem = 1;
+	string signature_algorithm = 2;
+}
+
+message BinaryAuthorizationAttestorXAttestationAuthorityNoteXPublicKeys {
+	string ascii_armored_pgp_public_key = 1;
+	string comment = 2;
+	string id = 3;
+	BinaryAuthorizationAttestorXAttestationAuthorityNoteXPublicKeysXPkixPublicKey pkix_public_key = 4;
+}
+
+message BinaryAuthorizationAttestorXAttestationAuthorityNote {
+	string delegation_service_account_email = 1;
+	string note_reference = 2;
+	repeated BinaryAuthorizationAttestorXAttestationAuthorityNoteXPublicKeys public_keys = 3;
+}
+
+message BinaryAuthorizationAttestorXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BinaryAuthorizationAttestor {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string project = 4;
+	BinaryAuthorizationAttestorXAttestationAuthorityNote attestation_authority_note = 5;
+	BinaryAuthorizationAttestorXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message BinaryAuthorizationAttestorIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BinaryAuthorizationAttestorIamBinding {
+	string attestor = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	BinaryAuthorizationAttestorIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BinaryAuthorizationAttestorIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BinaryAuthorizationAttestorIamMember {
+	string attestor = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	BinaryAuthorizationAttestorIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BinaryAuthorizationAttestorIamPolicy {
+	string attestor = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message BinaryAuthorizationPolicyXAdmissionWhitelistPatterns {
+	string name_pattern = 1;
+}
+
+message BinaryAuthorizationPolicyXClusterAdmissionRules {
+	string cluster = 1;
+	string enforcement_mode = 2;
+	string evaluation_mode = 3;
+	repeated string require_attestations_by = 4;
+}
+
+message BinaryAuthorizationPolicyXDefaultAdmissionRule {
+	string enforcement_mode = 1;
+	string evaluation_mode = 2;
+	repeated string require_attestations_by = 3;
+}
+
+message BinaryAuthorizationPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BinaryAuthorizationPolicy {
+	string description = 1;
+	string global_policy_evaluation_mode = 2;
+	string id = 3;
+	string project = 4;
+	repeated BinaryAuthorizationPolicyXAdmissionWhitelistPatterns admission_whitelist_patterns = 5;
+	repeated BinaryAuthorizationPolicyXClusterAdmissionRules cluster_admission_rules = 6;
+	BinaryAuthorizationPolicyXDefaultAdmissionRule default_admission_rule = 7;
+	BinaryAuthorizationPolicyXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

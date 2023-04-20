@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package oak9.tython.aws.route53resolver;
+
+import "shared/shared.proto";
+
+message ResolverEndpointIpAddressRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ip = 2;
+	string subnet_id = 3;
+}
+
+message ResolverEndpoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ResolverEndpointIpAddressRequest ip_addresses = 2;
+	string direction = 3;
+	repeated string security_group_ids = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message Route53Resolver {
+	repeated ResolverEndpoint resolver_endpoint = 1;
+	repeated ResolverQueryLoggingConfig resolver_query_logging_config = 2;
+	repeated ResolverQueryLoggingConfigAssociation resolver_query_logging_config_association = 3;
+	repeated ResolverRule resolver_rule = 4;
+	repeated ResolverRuleAssociation resolver_rule_association = 5;
+}
+
+message ResolverQueryLoggingConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string destination_arn = 3;
+}
+
+message ResolverQueryLoggingConfigAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resolver_query_log_config_id = 2;
+	string resource_id = 3;
+}
+
+message ResolverRuleTargetAddress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ip = 2;
+	string port = 3;
+}
+
+message ResolverRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resolver_endpoint_id = 2;
+	string domain_name = 3;
+	string rule_type = 4;
+	repeated ResolverRuleTargetAddress target_ips = 5;
+	map<string, string> tags = 6;
+	string name = 7;
+}
+
+message ResolverRuleAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string vpc_id = 2;
+	string resolver_rule_id = 3;
+	string name = 4;
+}
+

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_routetables;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_routeTables {
+	RouteTables route_tables = 1;
+	repeated RouteTablesRoutes route_tables_routes = 2;
+}
+
+message RouteTablesRoutes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string address_prefix = 3;
+	string next_hop_type = 4;
+	string next_hop_ip_address = 5;
+	bool has_bgp_override = 6;
+}
+
+message RouteTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated Route routes = 5;
+	bool disable_bgp_route_propagation = 6;
+}
+
+message Route {
+	string address_prefix = 1;
+	string next_hop_type = 2;
+	string next_hop_ip_address = 3;
+	bool has_bgp_override = 4;
+	string name = 5;
+}
+

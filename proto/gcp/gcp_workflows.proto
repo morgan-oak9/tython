@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.workflows;
+
+import "shared/shared.proto";
+
+message WorkflowsWorkflowXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message WorkflowsWorkflow {
+	string create_time = 1;
+	string description = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string name = 5;
+	string name_prefix = 6;
+	string project = 7;
+	string region = 8;
+	string revision_id = 9;
+	string service_account = 10;
+	string source_contents = 11;
+	string state = 12;
+	string update_time = 13;
+	WorkflowsWorkflowXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

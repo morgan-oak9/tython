@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.iam;
+
+import "shared/shared.proto";
+
+message IamWorkloadIdentityPoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message IamWorkloadIdentityPool {
+	string description = 1;
+	bool disabled = 2;
+	string display_name = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	string state = 7;
+	string workload_identity_pool_id = 8;
+	IamWorkloadIdentityPoolXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message IamWorkloadIdentityPoolProviderXAws {
+	string account_id = 1;
+}
+
+message IamWorkloadIdentityPoolProviderXOidc {
+	repeated string allowed_audiences = 1;
+	string issuer_uri = 2;
+}
+
+message IamWorkloadIdentityPoolProviderXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message IamWorkloadIdentityPoolProvider {
+	string attribute_condition = 1;
+	map<string, string> attribute_mapping = 2;
+	string description = 3;
+	bool disabled = 4;
+	string display_name = 5;
+	string id = 6;
+	string name = 7;
+	string project = 8;
+	string state = 9;
+	string workload_identity_pool_id = 10;
+	string workload_identity_pool_provider_id = 11;
+	IamWorkloadIdentityPoolProviderXAws aws = 12;
+	IamWorkloadIdentityPoolProviderXOidc oidc = 13;
+	IamWorkloadIdentityPoolProviderXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

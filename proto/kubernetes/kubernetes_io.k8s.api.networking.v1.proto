@@ -1,0 +1,193 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.networking.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.util.intstr.proto";
+
+message HTTPIngressPath {
+	IngressBackend backend = 1;
+	string path = 2;
+	string path_type = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message HTTPIngressRuleValue {
+	repeated HTTPIngressPath paths = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message IPBlock {
+	string cidr = 1;
+	repeated string except = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Ingress {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	IngressSpec spec = 4;
+	IngressStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message IngressBackend {
+	oak9.tython.k8s.api.core.v1.TypedLocalObjectReference resource = 1;
+	IngressServiceBackend service = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message IngressClass {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	IngressClassSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message IngressClassList {
+	string api_version = 1;
+	repeated IngressClass items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message IngressClassParametersReference {
+	string api_group = 1;
+	string kind = 2;
+	string name = 3;
+	string namespace = 4;
+	string scope = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message IngressClassSpec {
+	string controller = 1;
+	IngressClassParametersReference parameters = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message IngressList {
+	string api_version = 1;
+	repeated Ingress items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message IngressLoadBalancerIngress {
+	string hostname = 1;
+	string ip = 2;
+	repeated IngressPortStatus ports = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message IngressLoadBalancerStatus {
+	repeated IngressLoadBalancerIngress ingress = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message IngressPortStatus {
+	string error = 1;
+	int32 port = 2;
+	string protocol = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message IngressRule {
+	string host = 1;
+	HTTPIngressRuleValue http = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message IngressServiceBackend {
+	string name = 1;
+	ServiceBackendPort port = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message IngressSpec {
+	IngressBackend default_backend = 1;
+	string ingress_class_name = 2;
+	repeated IngressRule rules = 3;
+	repeated IngressTLS tls = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message IngressStatus {
+	IngressLoadBalancerStatus load_balancer = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message IngressTLS {
+	repeated string hosts = 1;
+	string secret_name = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NetworkPolicy {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	NetworkPolicySpec spec = 4;
+	NetworkPolicyStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NetworkPolicyEgressRule {
+	repeated NetworkPolicyPort ports = 1;
+	repeated NetworkPolicyPeer to = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NetworkPolicyIngressRule {
+	repeated NetworkPolicyPeer from = 1;
+	repeated NetworkPolicyPort ports = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NetworkPolicyList {
+	string api_version = 1;
+	repeated NetworkPolicy items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message NetworkPolicyPeer {
+	IPBlock ip_block = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector namespace_selector = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector pod_selector = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message NetworkPolicyPort {
+	int32 end_port = 1;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString port = 2;
+	string protocol = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message NetworkPolicySpec {
+	repeated NetworkPolicyEgressRule egress = 1;
+	repeated NetworkPolicyIngressRule ingress = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector pod_selector = 3;
+	repeated string policy_types = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message NetworkPolicyStatus {
+	repeated oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Condition conditions = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ServiceBackendPort {
+	string name = 1;
+	int32 number = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

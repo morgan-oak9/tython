@@ -1,0 +1,512 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.os;
+
+import "shared/shared.proto";
+
+message OsConfigOsPolicyAssignmentXInstanceFilterXExclusionLabels {
+	map<string, string> labels = 1;
+}
+
+message OsConfigOsPolicyAssignmentXInstanceFilterXInclusionLabels {
+	map<string, string> labels = 1;
+}
+
+message OsConfigOsPolicyAssignmentXInstanceFilterXInventories {
+	string os_short_name = 1;
+	string os_version = 2;
+}
+
+message OsConfigOsPolicyAssignmentXInstanceFilter {
+	bool all = 1;
+	repeated OsConfigOsPolicyAssignmentXInstanceFilterXExclusionLabels exclusion_labels = 2;
+	repeated OsConfigOsPolicyAssignmentXInstanceFilterXInclusionLabels inclusion_labels = 3;
+	repeated OsConfigOsPolicyAssignmentXInstanceFilterXInventories inventories = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXInventoryFilters {
+	string os_short_name = 1;
+	string os_version = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforceXFileXGcs {
+	string bucket = 1;
+	double generation = 2;
+	string object = 3;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforceXFileXRemote {
+	string sha256_checksum = 1;
+	string uri = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforceXFile {
+	bool allow_insecure = 1;
+	string local_path = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforceXFileXGcs gcs = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforceXFileXRemote remote = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforce {
+	repeated string args = 1;
+	string interpreter = 2;
+	string output_file_path = 3;
+	string script = 4;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforceXFile file = 5;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidateXFileXGcs {
+	string bucket = 1;
+	double generation = 2;
+	string object = 3;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidateXFileXRemote {
+	string sha256_checksum = 1;
+	string uri = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidateXFile {
+	bool allow_insecure = 1;
+	string local_path = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidateXFileXGcs gcs = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidateXFileXRemote remote = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidate {
+	repeated string args = 1;
+	string interpreter = 2;
+	string output_file_path = 3;
+	string script = 4;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidateXFile file = 5;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExec {
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXEnforce enforce = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExecXValidate validate = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFileXFileXGcs {
+	string bucket = 1;
+	double generation = 2;
+	string object = 3;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFileXFileXRemote {
+	string sha256_checksum = 1;
+	string uri = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFileXFile {
+	bool allow_insecure = 1;
+	string local_path = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFileXFileXGcs gcs = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFileXFileXRemote remote = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFile {
+	string content = 1;
+	string path = 2;
+	string permissions = 3;
+	string state = 4;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFileXFile file = 5;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXApt {
+	string name = 1;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDebXSourceXGcs {
+	string bucket = 1;
+	double generation = 2;
+	string object = 3;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDebXSourceXRemote {
+	string sha256_checksum = 1;
+	string uri = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDebXSource {
+	bool allow_insecure = 1;
+	string local_path = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDebXSourceXGcs gcs = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDebXSourceXRemote remote = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDeb {
+	bool pull_deps = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDebXSource source = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXGooget {
+	string name = 1;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsiXSourceXGcs {
+	string bucket = 1;
+	double generation = 2;
+	string object = 3;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsiXSourceXRemote {
+	string sha256_checksum = 1;
+	string uri = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsiXSource {
+	bool allow_insecure = 1;
+	string local_path = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsiXSourceXGcs gcs = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsiXSourceXRemote remote = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsi {
+	repeated string properties = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsiXSource source = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpmXSourceXGcs {
+	string bucket = 1;
+	double generation = 2;
+	string object = 3;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpmXSourceXRemote {
+	string sha256_checksum = 1;
+	string uri = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpmXSource {
+	bool allow_insecure = 1;
+	string local_path = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpmXSourceXGcs gcs = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpmXSourceXRemote remote = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpm {
+	bool pull_deps = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpmXSource source = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXYum {
+	string name = 1;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXZypper {
+	string name = 1;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkg {
+	string desired_state = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXApt apt = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXDeb deb = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXGooget googet = 4;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXMsi msi = 5;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXRpm rpm = 6;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXYum yum = 7;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkgXZypper zypper = 8;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXApt {
+	string archive_type = 1;
+	repeated string components = 2;
+	string distribution = 3;
+	string gpg_key = 4;
+	string uri = 5;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXGoo {
+	string name = 1;
+	string url = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXYum {
+	string base_url = 1;
+	string display_name = 2;
+	repeated string gpg_keys = 3;
+	string id = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXZypper {
+	string base_url = 1;
+	string display_name = 2;
+	repeated string gpg_keys = 3;
+	string id = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepository {
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXApt apt = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXGoo goo = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXYum yum = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepositoryXZypper zypper = 4;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResources {
+	string id = 1;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXExec exec = 2;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXFile file = 3;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXPkg pkg = 4;
+	OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResourcesXRepository repository = 5;
+}
+
+message OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroups {
+	repeated OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXInventoryFilters inventory_filters = 1;
+	repeated OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroupsXResources resources = 2;
+}
+
+message OsConfigOsPolicyAssignmentXOsPolicies {
+	bool allow_no_resource_group_match = 1;
+	string description = 2;
+	string id = 3;
+	string mode = 4;
+	repeated OsConfigOsPolicyAssignmentXOsPoliciesXResourceGroups resource_groups = 5;
+}
+
+message OsConfigOsPolicyAssignmentXRolloutXDisruptionBudget {
+	double fixed = 1;
+	double percent = 2;
+}
+
+message OsConfigOsPolicyAssignmentXRollout {
+	string min_wait_duration = 1;
+	OsConfigOsPolicyAssignmentXRolloutXDisruptionBudget disruption_budget = 2;
+}
+
+message OsConfigOsPolicyAssignmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message OsConfigOsPolicyAssignment {
+	bool baseline = 1;
+	bool deleted = 2;
+	string description = 3;
+	string etag = 4;
+	string id = 5;
+	string location = 6;
+	string name = 7;
+	string project = 8;
+	bool reconciling = 9;
+	string revision_create_time = 10;
+	string revision_id = 11;
+	string rollout_state = 12;
+	string uid = 13;
+	OsConfigOsPolicyAssignmentXInstanceFilter instance_filter = 14;
+	repeated OsConfigOsPolicyAssignmentXOsPolicies os_policies = 15;
+	OsConfigOsPolicyAssignmentXRollout rollout = 16;
+	OsConfigOsPolicyAssignmentXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+
+message OsConfigPatchDeploymentXInstanceFilterXGroupLabels {
+	map<string, string> labels = 1;
+}
+
+message OsConfigPatchDeploymentXInstanceFilter {
+	bool all = 1;
+	repeated string instance_name_prefixes = 2;
+	repeated string instances = 3;
+	repeated string zones = 4;
+	repeated OsConfigPatchDeploymentXInstanceFilterXGroupLabels group_labels = 5;
+}
+
+message OsConfigPatchDeploymentXOneTimeSchedule {
+	string execute_time = 1;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXApt {
+	repeated string excludes = 1;
+	repeated string exclusive_packages = 2;
+	string type = 3;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXGoo {
+	bool enabled = 1;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPostStepXLinuxExecStepConfigXGcsObject {
+	string bucket = 1;
+	string generation_number = 2;
+	string object = 3;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPostStepXLinuxExecStepConfig {
+	repeated double allowed_success_codes = 1;
+	string interpreter = 2;
+	string local_path = 3;
+	OsConfigPatchDeploymentXPatchConfigXPostStepXLinuxExecStepConfigXGcsObject gcs_object = 4;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPostStepXWindowsExecStepConfigXGcsObject {
+	string bucket = 1;
+	string generation_number = 2;
+	string object = 3;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPostStepXWindowsExecStepConfig {
+	repeated double allowed_success_codes = 1;
+	string interpreter = 2;
+	string local_path = 3;
+	OsConfigPatchDeploymentXPatchConfigXPostStepXWindowsExecStepConfigXGcsObject gcs_object = 4;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPostStep {
+	OsConfigPatchDeploymentXPatchConfigXPostStepXLinuxExecStepConfig linux_exec_step_config = 1;
+	OsConfigPatchDeploymentXPatchConfigXPostStepXWindowsExecStepConfig windows_exec_step_config = 2;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPreStepXLinuxExecStepConfigXGcsObject {
+	string bucket = 1;
+	string generation_number = 2;
+	string object = 3;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPreStepXLinuxExecStepConfig {
+	repeated double allowed_success_codes = 1;
+	string interpreter = 2;
+	string local_path = 3;
+	OsConfigPatchDeploymentXPatchConfigXPreStepXLinuxExecStepConfigXGcsObject gcs_object = 4;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPreStepXWindowsExecStepConfigXGcsObject {
+	string bucket = 1;
+	string generation_number = 2;
+	string object = 3;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPreStepXWindowsExecStepConfig {
+	repeated double allowed_success_codes = 1;
+	string interpreter = 2;
+	string local_path = 3;
+	OsConfigPatchDeploymentXPatchConfigXPreStepXWindowsExecStepConfigXGcsObject gcs_object = 4;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXPreStep {
+	OsConfigPatchDeploymentXPatchConfigXPreStepXLinuxExecStepConfig linux_exec_step_config = 1;
+	OsConfigPatchDeploymentXPatchConfigXPreStepXWindowsExecStepConfig windows_exec_step_config = 2;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXWindowsUpdate {
+	repeated string classifications = 1;
+	repeated string excludes = 2;
+	repeated string exclusive_patches = 3;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXYum {
+	repeated string excludes = 1;
+	repeated string exclusive_packages = 2;
+	bool minimal = 3;
+	bool security = 4;
+}
+
+message OsConfigPatchDeploymentXPatchConfigXZypper {
+	repeated string categories = 1;
+	repeated string excludes = 2;
+	repeated string exclusive_patches = 3;
+	repeated string severities = 4;
+	bool with_optional = 5;
+	bool with_update = 6;
+}
+
+message OsConfigPatchDeploymentXPatchConfig {
+	bool mig_instances_allowed = 1;
+	string reboot_config = 2;
+	OsConfigPatchDeploymentXPatchConfigXApt apt = 3;
+	OsConfigPatchDeploymentXPatchConfigXGoo goo = 4;
+	OsConfigPatchDeploymentXPatchConfigXPostStep post_step = 5;
+	OsConfigPatchDeploymentXPatchConfigXPreStep pre_step = 6;
+	OsConfigPatchDeploymentXPatchConfigXWindowsUpdate windows_update = 7;
+	OsConfigPatchDeploymentXPatchConfigXYum yum = 8;
+	OsConfigPatchDeploymentXPatchConfigXZypper zypper = 9;
+}
+
+message OsConfigPatchDeploymentXRecurringScheduleXMonthlyXWeekDayOfMonth {
+	string day_of_week = 1;
+	double week_ordinal = 2;
+}
+
+message OsConfigPatchDeploymentXRecurringScheduleXMonthly {
+	double month_day = 1;
+	OsConfigPatchDeploymentXRecurringScheduleXMonthlyXWeekDayOfMonth week_day_of_month = 2;
+}
+
+message OsConfigPatchDeploymentXRecurringScheduleXTimeOfDay {
+	double hours = 1;
+	double minutes = 2;
+	double nanos = 3;
+	double seconds = 4;
+}
+
+message OsConfigPatchDeploymentXRecurringScheduleXTimeZone {
+	string id = 1;
+	string version = 2;
+}
+
+message OsConfigPatchDeploymentXRecurringScheduleXWeekly {
+	string day_of_week = 1;
+}
+
+message OsConfigPatchDeploymentXRecurringSchedule {
+	string end_time = 1;
+	string last_execute_time = 2;
+	string next_execute_time = 3;
+	string start_time = 4;
+	OsConfigPatchDeploymentXRecurringScheduleXMonthly monthly = 5;
+	OsConfigPatchDeploymentXRecurringScheduleXTimeOfDay time_of_day = 6;
+	OsConfigPatchDeploymentXRecurringScheduleXTimeZone time_zone = 7;
+	OsConfigPatchDeploymentXRecurringScheduleXWeekly weekly = 8;
+}
+
+message OsConfigPatchDeploymentXRolloutXDisruptionBudget {
+	double fixed = 1;
+	double percentage = 2;
+}
+
+message OsConfigPatchDeploymentXRollout {
+	string mode = 1;
+	OsConfigPatchDeploymentXRolloutXDisruptionBudget disruption_budget = 2;
+}
+
+message OsConfigPatchDeploymentXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message OsConfigPatchDeployment {
+	string create_time = 1;
+	string description = 2;
+	string duration = 3;
+	string id = 4;
+	string last_execute_time = 5;
+	string name = 6;
+	string patch_deployment_id = 7;
+	string project = 8;
+	string update_time = 9;
+	OsConfigPatchDeploymentXInstanceFilter instance_filter = 10;
+	OsConfigPatchDeploymentXOneTimeSchedule one_time_schedule = 11;
+	OsConfigPatchDeploymentXPatchConfig patch_config = 12;
+	OsConfigPatchDeploymentXRecurringSchedule recurring_schedule = 13;
+	OsConfigPatchDeploymentXRollout rollout = 14;
+	OsConfigPatchDeploymentXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+
+message OsLoginSshPublicKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message OsLoginSshPublicKey {
+	string expiration_time_usec = 1;
+	string fingerprint = 2;
+	string id = 3;
+	string key = 4;
+	string project = 5;
+	string user = 6;
+	OsLoginSshPublicKeyXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

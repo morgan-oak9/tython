@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package oak9.tython.aws.athena;
+
+import "shared/shared.proto";
+
+message DataCatalogTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message DataCatalog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	map<string, string> parameters = 4;
+	DataCatalogTags tags = 5;
+	string type = 6;
+}
+
+message Athena {
+	repeated DataCatalog data_catalog = 1;
+	repeated NamedQuery named_query = 2;
+	repeated WorkGroup work_group = 3;
+}
+
+message NamedQuery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string database = 3;
+	string description = 4;
+	string query_string = 5;
+}
+
+message WorkGroupTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message WorkGroupEncryptionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string encryption_option = 2;
+	string kms_key = 3;
+}
+
+message WorkGroupResultConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WorkGroupEncryptionConfiguration encryption_configuration = 2;
+	string output_location = 3;
+}
+
+message WorkGroupWorkGroupConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 bytes_scanned_cutoff_per_query = 2;
+	bool enforce_work_group_configuration = 3;
+	bool publish_cloud_watch_metrics_enabled = 4;
+	bool requester_pays_enabled = 5;
+	WorkGroupResultConfiguration result_configuration = 6;
+}
+
+message WorkGroupResultConfigurationUpdates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WorkGroupEncryptionConfiguration encryption_configuration = 2;
+	string output_location = 3;
+	bool remove_encryption_configuration = 4;
+	bool remove_output_location = 5;
+}
+
+message WorkGroupWorkGroupConfigurationUpdates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 bytes_scanned_cutoff_per_query = 2;
+	bool enforce_work_group_configuration = 3;
+	bool publish_cloud_watch_metrics_enabled = 4;
+	bool requester_pays_enabled = 5;
+	WorkGroupResultConfigurationUpdates result_configuration_updates = 6;
+	bool remove_bytes_scanned_cutoff_per_query = 7;
+}
+
+message WorkGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	WorkGroupTags tags = 4;
+	WorkGroupWorkGroupConfiguration work_group_configuration = 5;
+	WorkGroupWorkGroupConfigurationUpdates work_group_configuration_updates = 6;
+	string state = 7;
+	bool recursive_delete_option = 8;
+}
+

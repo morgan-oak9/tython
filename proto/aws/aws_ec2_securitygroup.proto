@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_securitygroup;
+
+import "shared/shared.proto";
+
+message SecurityGroupEgress {
+	Egress egress = 1;
+}
+
+message SecurityGroupIngress {
+	Ingress ingress = 1;
+}
+
+message SecurityGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_description = 2;
+	string group_name = 3;
+	repeated SecurityGroupEgress security_group_egress = 4;
+	repeated SecurityGroupIngress security_group_ingress = 5;
+	map<string, string> tags = 6;
+	string vpc_id = 7;
+}
+
+message Egress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string cidr_ipv6 = 3;
+	string description = 4;
+	string destination_prefix_list_id = 5;
+	string destination_security_group_id = 6;
+	int32 from_port = 7;
+	string ip_protocol = 8;
+	int32 to_port = 9;
+}
+
+message Ingress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string cidr_ipv6 = 3;
+	string description = 4;
+	string source_prefix_list_id = 5;
+	string source_security_group_id = 6;
+	string source_security_group_name = 7;
+	string source_security_group_owner_id = 8;
+	int32 from_port = 9;
+	string ip_protocol = 10;
+	int32 to_port = 11;
+}
+
+message EC2_SecurityGroup {
+	SecurityGroup security_group = 1;
+}
+

@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.authentication.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message BoundObjectReference {
+	string api_version = 1;
+	string kind = 2;
+	string name = 3;
+	string uid = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message TokenRequest {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	TokenRequestSpec spec = 4;
+	TokenRequestStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message TokenRequestSpec {
+	repeated string audiences = 1;
+	BoundObjectReference bound_object_ref = 2;
+	int32 expiration_seconds = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message TokenRequestStatus {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time expiration_timestamp = 1;
+	string token = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message TokenReview {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	TokenReviewSpec spec = 4;
+	TokenReviewStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message TokenReviewSpec {
+	repeated string audiences = 1;
+	string token = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message TokenReviewStatus {
+	repeated string audiences = 1;
+	bool authenticated = 2;
+	string error = 3;
+	UserInfo user = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message UserInfo {
+	map<string, string> extra = 1;
+	repeated string groups = 2;
+	string uid = 3;
+	string username = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.memcache;
+
+import "shared/shared.proto";
+
+message MemcacheInstanceXMaintenancePolicyXWeeklyMaintenanceWindowXStartTime {
+	double hours = 1;
+	double minutes = 2;
+	double nanos = 3;
+	double seconds = 4;
+}
+
+message MemcacheInstanceXMaintenancePolicyXWeeklyMaintenanceWindow {
+	string day = 1;
+	string duration = 2;
+	MemcacheInstanceXMaintenancePolicyXWeeklyMaintenanceWindowXStartTime start_time = 3;
+}
+
+message MemcacheInstanceXMaintenancePolicy {
+	string create_time = 1;
+	string description = 2;
+	string update_time = 3;
+	repeated MemcacheInstanceXMaintenancePolicyXWeeklyMaintenanceWindow weekly_maintenance_window = 4;
+}
+
+message MemcacheInstanceXMemcacheParameters {
+	string id = 1;
+	map<string, string> params = 2;
+}
+
+message MemcacheInstanceXNodeConfig {
+	double cpu_count = 1;
+	double memory_size_mb = 2;
+}
+
+message MemcacheInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MemcacheInstance {
+	string authorized_network = 1;
+	string create_time = 2;
+	string discovery_endpoint = 3;
+	string display_name = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	map<string, string> maintenance_schedule = 7;
+	string memcache_full_version = 8;
+	map<string, string> memcache_nodes = 9;
+	string memcache_version = 10;
+	string name = 11;
+	double node_count = 12;
+	string project = 13;
+	string region = 14;
+	repeated string zones = 15;
+	MemcacheInstanceXMaintenancePolicy maintenance_policy = 16;
+	MemcacheInstanceXMemcacheParameters memcache_parameters = 17;
+	MemcacheInstanceXNodeConfig node_config = 18;
+	MemcacheInstanceXTimeouts timeouts = 19;
+	oak9.tython.shared.ResourceInfo resource_info = 20;
+}
+

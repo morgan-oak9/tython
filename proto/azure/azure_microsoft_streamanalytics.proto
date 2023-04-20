@@ -1,0 +1,159 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_streamanalytics;
+
+import "shared/shared.proto";
+
+message Microsoft_StreamAnalytics {
+	Streamingjobs streamingjobs = 1;
+	repeated StreamingjobsFunctions streamingjobs_functions = 2;
+	repeated StreamingjobsInputs streamingjobs_inputs = 3;
+	repeated StreamingjobsOutputs streamingjobs_outputs = 4;
+}
+
+message StreamingjobsTransformations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string query = 3;
+	int32 streaming_units = 4;
+	repeated int32 valid_streaming_units = 5;
+}
+
+message StreamingjobsOutputs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	OutputDataSource datasource = 3;
+	Serialization serialization = 4;
+	double size_window = 5;
+	string time_window = 6;
+}
+
+message StreamingjobsInputs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	Compression compression = 3;
+	string partition_key = 4;
+	Serialization serialization = 5;
+}
+
+message StreamingjobsFunctions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	FunctionBinding binding = 3;
+	repeated FunctionInput inputs = 4;
+	FunctionOutput output = 5;
+}
+
+message Streamingjobs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	Identity identity = 2;
+	string location = 3;
+	string name = 4;
+	ClusterInfo cluster = 5;
+	string compatibility_level = 6;
+	string content_storage_policy = 7;
+	string data_locale = 8;
+	int32 events_late_arrival_max_delay_in_seconds = 9;
+	int32 events_out_of_order_max_delay_in_seconds = 10;
+	string events_out_of_order_policy = 11;
+	External externals = 12;
+	repeated Function functions = 13;
+	repeated Input inputs = 14;
+	JobStorageAccount job_storage_account = 15;
+	string job_type = 16;
+	string output_error_policy = 17;
+	repeated Output outputs = 18;
+	string output_start_mode = 19;
+	string output_start_time = 20;
+	Sku sku = 21;
+	Transformation transformation = 22;
+	map<string, string> tags = 23;
+}
+
+message Transformation {
+	string name = 1;
+	string query = 2;
+	int32 streaming_units = 3;
+	repeated int32 valid_streaming_units = 4;
+}
+
+message Sku {
+	string name = 1;
+}
+
+message Output {
+	string name = 1;
+	OutputDataSource datasource = 2;
+	Serialization serialization = 3;
+	double size_window = 4;
+	string time_window = 5;
+}
+
+message OutputDataSource {
+	string name = 1;
+}
+
+message JobStorageAccount {
+	string account_key = 1;
+	string account_name = 2;
+	string authentication_mode = 3;
+}
+
+message Input {
+	string name = 1;
+	Compression compression = 2;
+	string partition_key = 3;
+	Serialization serialization = 4;
+}
+
+message Serialization {
+	string name = 1;
+}
+
+message Compression {
+	string type = 1;
+}
+
+message Function {
+	string name = 1;
+	FunctionBinding binding = 2;
+	repeated FunctionInput inputs = 3;
+	FunctionOutput output = 4;
+}
+
+message FunctionOutput {
+	string data_type = 1;
+}
+
+message FunctionInput {
+	string data_type = 1;
+	bool is_configuration_parameter = 2;
+}
+
+message FunctionBinding {
+	string name = 1;
+	string api_key = 2;
+}
+
+message External {
+	string container = 1;
+	string path = 2;
+	StorageAccount storage_account = 3;
+}
+
+message StorageAccount {
+	string account_key = 1;
+	string account_name = 2;
+}
+
+message ClusterInfo {
+	string id = 1;
+}
+
+message Identity {
+	string principal_id = 1;
+	string tenant_id = 2;
+	string type = 3;
+	map<string, string> user_assigned_identities = 4;
+}
+

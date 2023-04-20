@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_service;
+
+import "shared/shared.proto";
+
+message ComputeServiceAttachmentXConsumerAcceptLists {
+	double connection_limit = 1;
+	string project_id_or_num = 2;
+}
+
+message ComputeServiceAttachmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeServiceAttachment {
+	map<string, string> connected_endpoints = 1;
+	string connection_preference = 2;
+	repeated string consumer_reject_lists = 3;
+	string description = 4;
+	repeated string domain_names = 5;
+	bool enable_proxy_protocol = 6;
+	string fingerprint = 7;
+	string id = 8;
+	string name = 9;
+	repeated string nat_subnets = 10;
+	string project = 11;
+	string region = 12;
+	string self_link = 13;
+	string target_service = 14;
+	repeated ComputeServiceAttachmentXConsumerAcceptLists consumer_accept_lists = 15;
+	ComputeServiceAttachmentXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+

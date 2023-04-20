@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codecommit;
+
+import "shared/shared.proto";
+
+message RepositoryRepositoryTrigger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string events = 2;
+	repeated string branches = 3;
+	string custom_data = 4;
+	string destination_arn = 5;
+	string name = 6;
+}
+
+message RepositoryS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object_version = 2;
+	string bucket = 3;
+	string key = 4;
+}
+
+message RepositoryCode {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RepositoryS3 s3 = 2;
+	string branch_name = 3;
+}
+
+message Repository {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string repository_name = 2;
+	repeated RepositoryRepositoryTrigger triggers = 3;
+	RepositoryCode code = 4;
+	string repository_description = 5;
+	map<string, string> tags = 6;
+}
+
+message CodeCommit {
+	repeated Repository repository = 1;
+}
+

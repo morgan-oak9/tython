@@ -1,0 +1,273 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.logging;
+
+import "shared/shared.proto";
+
+message LoggingBillingAccountBucketConfig {
+	string billing_account = 1;
+	string bucket_id = 2;
+	string description = 3;
+	string id = 4;
+	string lifecycle_state = 5;
+	string location = 6;
+	string name = 7;
+	double retention_days = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message LoggingBillingAccountExclusion {
+	string billing_account = 1;
+	string description = 2;
+	bool disabled = 3;
+	string filter = 4;
+	string id = 5;
+	string name = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message LoggingBillingAccountSinkXBigqueryOptions {
+	bool use_partitioned_tables = 1;
+}
+
+message LoggingBillingAccountSinkXExclusions {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string name = 4;
+}
+
+message LoggingBillingAccountSink {
+	string billing_account = 1;
+	string description = 2;
+	string destination = 3;
+	bool disabled = 4;
+	string filter = 5;
+	string id = 6;
+	string name = 7;
+	string writer_identity = 8;
+	LoggingBillingAccountSinkXBigqueryOptions bigquery_options = 9;
+	repeated LoggingBillingAccountSinkXExclusions exclusions = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message LoggingFolderBucketConfig {
+	string bucket_id = 1;
+	string description = 2;
+	string folder = 3;
+	string id = 4;
+	string lifecycle_state = 5;
+	string location = 6;
+	string name = 7;
+	double retention_days = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message LoggingFolderExclusion {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string folder = 4;
+	string id = 5;
+	string name = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message LoggingFolderSinkXBigqueryOptions {
+	bool use_partitioned_tables = 1;
+}
+
+message LoggingFolderSinkXExclusions {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string name = 4;
+}
+
+message LoggingFolderSink {
+	string description = 1;
+	string destination = 2;
+	bool disabled = 3;
+	string filter = 4;
+	string folder = 5;
+	string id = 6;
+	bool include_children = 7;
+	string name = 8;
+	string writer_identity = 9;
+	LoggingFolderSinkXBigqueryOptions bigquery_options = 10;
+	repeated LoggingFolderSinkXExclusions exclusions = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message LoggingLogViewXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message LoggingLogView {
+	string bucket = 1;
+	string create_time = 2;
+	string description = 3;
+	string filter = 4;
+	string id = 5;
+	string location = 6;
+	string name = 7;
+	string parent = 8;
+	string update_time = 9;
+	LoggingLogViewXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message LoggingMetricXBucketOptionsXExplicitBuckets {
+	repeated double bounds = 1;
+}
+
+message LoggingMetricXBucketOptionsXExponentialBuckets {
+	double growth_factor = 1;
+	double num_finite_buckets = 2;
+	double scale = 3;
+}
+
+message LoggingMetricXBucketOptionsXLinearBuckets {
+	double num_finite_buckets = 1;
+	double offset = 2;
+	double width = 3;
+}
+
+message LoggingMetricXBucketOptions {
+	LoggingMetricXBucketOptionsXExplicitBuckets explicit_buckets = 1;
+	LoggingMetricXBucketOptionsXExponentialBuckets exponential_buckets = 2;
+	LoggingMetricXBucketOptionsXLinearBuckets linear_buckets = 3;
+}
+
+message LoggingMetricXMetricDescriptorXLabels {
+	string description = 1;
+	string key = 2;
+	string value_type = 3;
+}
+
+message LoggingMetricXMetricDescriptor {
+	string display_name = 1;
+	string metric_kind = 2;
+	string unit = 3;
+	string value_type = 4;
+	repeated LoggingMetricXMetricDescriptorXLabels labels = 5;
+}
+
+message LoggingMetricXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message LoggingMetric {
+	string description = 1;
+	string filter = 2;
+	string id = 3;
+	map<string, string> label_extractors = 4;
+	string name = 5;
+	string project = 6;
+	string value_extractor = 7;
+	LoggingMetricXBucketOptions bucket_options = 8;
+	LoggingMetricXMetricDescriptor metric_descriptor = 9;
+	LoggingMetricXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message LoggingOrganizationBucketConfig {
+	string bucket_id = 1;
+	string description = 2;
+	string id = 3;
+	string lifecycle_state = 4;
+	string location = 5;
+	string name = 6;
+	string organization = 7;
+	double retention_days = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message LoggingOrganizationExclusion {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string id = 4;
+	string name = 5;
+	string org_id = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message LoggingOrganizationSinkXBigqueryOptions {
+	bool use_partitioned_tables = 1;
+}
+
+message LoggingOrganizationSinkXExclusions {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string name = 4;
+}
+
+message LoggingOrganizationSink {
+	string description = 1;
+	string destination = 2;
+	bool disabled = 3;
+	string filter = 4;
+	string id = 5;
+	bool include_children = 6;
+	string name = 7;
+	string org_id = 8;
+	string writer_identity = 9;
+	LoggingOrganizationSinkXBigqueryOptions bigquery_options = 10;
+	repeated LoggingOrganizationSinkXExclusions exclusions = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message LoggingProjectBucketConfig {
+	string bucket_id = 1;
+	string description = 2;
+	string id = 3;
+	string lifecycle_state = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	double retention_days = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message LoggingProjectExclusion {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message LoggingProjectSinkXBigqueryOptions {
+	bool use_partitioned_tables = 1;
+}
+
+message LoggingProjectSinkXExclusions {
+	string description = 1;
+	bool disabled = 2;
+	string filter = 3;
+	string name = 4;
+}
+
+message LoggingProjectSink {
+	string description = 1;
+	string destination = 2;
+	bool disabled = 3;
+	string filter = 4;
+	string id = 5;
+	string name = 6;
+	string project = 7;
+	bool unique_writer_identity = 8;
+	string writer_identity = 9;
+	LoggingProjectSinkXBigqueryOptions bigquery_options = 10;
+	repeated LoggingProjectSinkXExclusions exclusions = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+

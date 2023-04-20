@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.node.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+
+message Overhead {
+	map<string, string> pod_fixed = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message RuntimeClass {
+	string api_version = 1;
+	string handler = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 4;
+	Overhead overhead = 5;
+	Scheduling scheduling = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message RuntimeClassList {
+	string api_version = 1;
+	repeated RuntimeClass items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Scheduling {
+	map<string, string> node_selector = 1;
+	repeated oak9.tython.k8s.api.core.v1.Toleration tolerations = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

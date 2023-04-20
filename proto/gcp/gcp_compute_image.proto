@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_image;
+
+import "shared/shared.proto";
+
+message ComputeImageXGuestOsFeatures {
+	string type = 1;
+}
+
+message ComputeImageXRawDisk {
+	string container_type = 1;
+	string sha1 = 2;
+	string source = 3;
+}
+
+message ComputeImageXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeImage {
+	double archive_size_bytes = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	double disk_size_gb = 4;
+	string family = 5;
+	string id = 6;
+	string label_fingerprint = 7;
+	map<string, string> labels = 8;
+	repeated string licenses = 9;
+	string name = 10;
+	string project = 11;
+	string self_link = 12;
+	string source_disk = 13;
+	string source_image = 14;
+	string source_snapshot = 15;
+	repeated ComputeImageXGuestOsFeatures guest_os_features = 16;
+	ComputeImageXRawDisk raw_disk = 17;
+	ComputeImageXTimeouts timeouts = 18;
+	oak9.tython.shared.ResourceInfo resource_info = 19;
+}
+
+message ComputeImageIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeImageIamBinding {
+	string etag = 1;
+	string id = 2;
+	string image = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	ComputeImageIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ComputeImageIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeImageIamMember {
+	string etag = 1;
+	string id = 2;
+	string image = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	ComputeImageIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ComputeImageIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string image = 3;
+	string policy_data = 4;
+	string project = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

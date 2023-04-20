@@ -1,0 +1,211 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codebuild;
+
+import "shared/shared.proto";
+
+message ProjectVpcConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string subnets = 2;
+	string vpc_id = 3;
+	repeated string security_group_ids = 4;
+}
+
+message ProjectSourceAuth {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource = 2;
+}
+
+message ProjectBuildStatusConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string context = 2;
+	string target_url = 3;
+}
+
+message ProjectGitSubmodulesConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool fetch_submodules = 2;
+}
+
+message ProjectSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool report_build_status = 2;
+	ProjectSourceAuth auth = 3;
+	string source_identifier = 4;
+	string build_spec = 5;
+	int32 git_clone_depth = 6;
+	ProjectBuildStatusConfig build_status_config = 7;
+	ProjectGitSubmodulesConfig git_submodules_config = 8;
+	bool insecure_ssl = 9;
+	string location = 10;
+}
+
+message ProjectFilterGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ProjectProjectTriggers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ProjectFilterGroup filter_groups = 2;
+	bool webhook = 3;
+}
+
+message ProjectArtifacts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+	string artifact_identifier = 3;
+	bool override_artifact_name = 4;
+	string packaging = 5;
+	bool encryption_disabled = 6;
+	string location = 7;
+	string name = 8;
+	string namespace_type = 9;
+}
+
+message ProjectCloudWatchLogsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+	string group_name = 3;
+	string stream_name = 4;
+}
+
+message ProjectS3LogsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+	bool encryption_disabled = 3;
+	string location = 4;
+}
+
+message ProjectLogsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ProjectCloudWatchLogsConfig cloud_watch_logs = 2;
+	ProjectS3LogsConfig s3_logs = 3;
+}
+
+message ProjectProjectFileSystemLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mount_point = 2;
+	string identifier = 3;
+	string mount_options = 4;
+	string location = 5;
+}
+
+message ProjectEnvironmentVariable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string name = 3;
+}
+
+message ProjectRegistryCredential {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string credential = 2;
+	string credential_provider = 3;
+}
+
+message ProjectEnvironment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ProjectEnvironmentVariable environment_variables = 2;
+	bool privileged_mode = 3;
+	string image_pull_credentials_type = 4;
+	string image = 5;
+	ProjectRegistryCredential registry_credential = 6;
+	string compute_type = 7;
+	string certificate = 8;
+}
+
+message ProjectProjectSourceVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_identifier = 2;
+	string source_version = 3;
+}
+
+message ProjectBatchRestrictions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string compute_types_allowed = 2;
+	int32 maximum_builds_allowed = 3;
+}
+
+message ProjectProjectBuildBatchConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool combine_artifacts = 2;
+	string service_role = 3;
+	int32 timeout_in_mins = 4;
+	ProjectBatchRestrictions restrictions = 5;
+}
+
+message ProjectProjectCache {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string modes = 2;
+	string location = 3;
+}
+
+message Project {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	ProjectVpcConfig vpc_config = 3;
+	repeated ProjectSource secondary_sources = 4;
+	string encryption_key = 5;
+	string source_version = 6;
+	ProjectProjectTriggers triggers = 7;
+	repeated ProjectArtifacts secondary_artifacts = 8;
+	ProjectSource source = 9;
+	string name = 10;
+	ProjectArtifacts artifacts = 11;
+	bool badge_enabled = 12;
+	ProjectLogsConfig logs_config = 13;
+	string service_role = 14;
+	int32 queued_timeout_in_minutes = 15;
+	repeated ProjectProjectFileSystemLocation file_system_locations = 16;
+	ProjectEnvironment environment = 17;
+	repeated ProjectProjectSourceVersion secondary_source_versions = 18;
+	ProjectProjectBuildBatchConfig build_batch_config = 19;
+	map<string, string> tags = 20;
+	int32 timeout_in_minutes = 21;
+	ProjectProjectCache cache = 22;
+}
+
+message CodeBuild {
+	repeated Project project = 1;
+	repeated ReportGroup report_group = 2;
+	repeated SourceCredential source_credential = 3;
+	repeated ProjectWebhookFilter project_webhook_filter = 4;
+}
+
+message ReportGroupS3ReportExportConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+	string bucket = 3;
+	string packaging = 4;
+	string encryption_key = 5;
+	bool encryption_disabled = 6;
+}
+
+message ReportGroupReportExportConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ReportGroupS3ReportExportConfig s3_destination = 2;
+	string export_config_type = 3;
+}
+
+message ReportGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string type = 2;
+	ReportGroupReportExportConfig export_config = 3;
+	bool delete_reports = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message SourceCredential {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string server_type = 2;
+	string username = 3;
+	string token = 4;
+	string auth_type = 5;
+}
+
+message ProjectWebhookFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string pattern = 2;
+	bool exclude_matched_pattern = 3;
+}
+

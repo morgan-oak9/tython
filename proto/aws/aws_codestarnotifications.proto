@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codestarnotifications;
+
+import "shared/shared.proto";
+
+message NotificationRuleTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_type = 2;
+	string target_address = 3;
+}
+
+message NotificationRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string event_type_ids = 2;
+	string status = 3;
+	string detail_type = 4;
+	string resource = 5;
+	repeated NotificationRuleTarget targets = 6;
+	map<string, string> tags = 7;
+	string name = 8;
+}
+
+message CodeStarNotifications {
+	repeated NotificationRule notification_rule = 1;
+}
+

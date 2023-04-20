@@ -1,0 +1,447 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.dialogflow;
+
+import "shared/shared.proto";
+
+message DialogflowAgentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowAgent {
+	string api_version = 1;
+	string avatar_uri = 2;
+	string avatar_uri_backend = 3;
+	double classification_threshold = 4;
+	string default_language_code = 5;
+	string description = 6;
+	string display_name = 7;
+	bool enable_logging = 8;
+	string id = 9;
+	string match_mode = 10;
+	string project = 11;
+	repeated string supported_language_codes = 12;
+	string tier = 13;
+	string time_zone = 14;
+	DialogflowAgentXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+
+message DialogflowCxAgentXSpeechToTextSettings {
+	bool enable_speech_adaptation = 1;
+}
+
+message DialogflowCxAgentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxAgent {
+	string avatar_uri = 1;
+	string default_language_code = 2;
+	string description = 3;
+	string display_name = 4;
+	bool enable_spell_correction = 5;
+	bool enable_stackdriver_logging = 6;
+	string id = 7;
+	string location = 8;
+	string name = 9;
+	string project = 10;
+	string security_settings = 11;
+	string start_flow = 12;
+	repeated string supported_language_codes = 13;
+	string time_zone = 14;
+	DialogflowCxAgentXSpeechToTextSettings speech_to_text_settings = 15;
+	DialogflowCxAgentXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message DialogflowCxEntityTypeXEntities {
+	repeated string synonyms = 1;
+	string value = 2;
+}
+
+message DialogflowCxEntityTypeXExcludedPhrases {
+	string value = 1;
+}
+
+message DialogflowCxEntityTypeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxEntityType {
+	string auto_expansion_mode = 1;
+	string display_name = 2;
+	bool enable_fuzzy_extraction = 3;
+	string id = 4;
+	string kind = 5;
+	string language_code = 6;
+	string name = 7;
+	string parent = 8;
+	bool redact = 9;
+	repeated DialogflowCxEntityTypeXEntities entities = 10;
+	repeated DialogflowCxEntityTypeXExcludedPhrases excluded_phrases = 11;
+	DialogflowCxEntityTypeXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message DialogflowCxEnvironmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxEnvironmentXVersionConfigs {
+	string version = 1;
+}
+
+message DialogflowCxEnvironment {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	string parent = 5;
+	string update_time = 6;
+	DialogflowCxEnvironmentXTimeouts timeouts = 7;
+	repeated DialogflowCxEnvironmentXVersionConfigs version_configs = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DialogflowCxFlowXEventHandlersXTriggerFulfillmentXMessagesXText {
+	bool allow_playback_interruption = 1;
+	repeated string text = 2;
+}
+
+message DialogflowCxFlowXEventHandlersXTriggerFulfillmentXMessages {
+	DialogflowCxFlowXEventHandlersXTriggerFulfillmentXMessagesXText text = 1;
+}
+
+message DialogflowCxFlowXEventHandlersXTriggerFulfillment {
+	bool return_partial_responses = 1;
+	string tag = 2;
+	string webhook = 3;
+	repeated DialogflowCxFlowXEventHandlersXTriggerFulfillmentXMessages messages = 4;
+}
+
+message DialogflowCxFlowXEventHandlers {
+	string event = 1;
+	string name = 2;
+	string target_flow = 3;
+	string target_page = 4;
+	DialogflowCxFlowXEventHandlersXTriggerFulfillment trigger_fulfillment = 5;
+}
+
+message DialogflowCxFlowXNluSettings {
+	double classification_threshold = 1;
+	string model_training_mode = 2;
+	string model_type = 3;
+}
+
+message DialogflowCxFlowXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxFlowXTransitionRoutesXTriggerFulfillmentXMessagesXText {
+	bool allow_playback_interruption = 1;
+	repeated string text = 2;
+}
+
+message DialogflowCxFlowXTransitionRoutesXTriggerFulfillmentXMessages {
+	DialogflowCxFlowXTransitionRoutesXTriggerFulfillmentXMessagesXText text = 1;
+}
+
+message DialogflowCxFlowXTransitionRoutesXTriggerFulfillment {
+	bool return_partial_responses = 1;
+	string tag = 2;
+	string webhook = 3;
+	repeated DialogflowCxFlowXTransitionRoutesXTriggerFulfillmentXMessages messages = 4;
+}
+
+message DialogflowCxFlowXTransitionRoutes {
+	string condition = 1;
+	string intent = 2;
+	string name = 3;
+	string target_flow = 4;
+	string target_page = 5;
+	DialogflowCxFlowXTransitionRoutesXTriggerFulfillment trigger_fulfillment = 6;
+}
+
+message DialogflowCxFlow {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string language_code = 4;
+	string name = 5;
+	string parent = 6;
+	repeated string transition_route_groups = 7;
+	repeated DialogflowCxFlowXEventHandlers event_handlers = 8;
+	DialogflowCxFlowXNluSettings nlu_settings = 9;
+	DialogflowCxFlowXTimeouts timeouts = 10;
+	repeated DialogflowCxFlowXTransitionRoutes transition_routes = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message DialogflowCxIntentXParameters {
+	string entity_type = 1;
+	string id = 2;
+	bool is_list = 3;
+	bool redact = 4;
+}
+
+message DialogflowCxIntentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxIntentXTrainingPhrasesXParts {
+	string parameter_id = 1;
+	string text = 2;
+}
+
+message DialogflowCxIntentXTrainingPhrases {
+	string id = 1;
+	double repeat_count = 2;
+	repeated DialogflowCxIntentXTrainingPhrasesXParts parts = 3;
+}
+
+message DialogflowCxIntent {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	bool is_fallback = 4;
+	map<string, string> labels = 5;
+	string language_code = 6;
+	string name = 7;
+	string parent = 8;
+	double priority = 9;
+	repeated DialogflowCxIntentXParameters parameters = 10;
+	DialogflowCxIntentXTimeouts timeouts = 11;
+	repeated DialogflowCxIntentXTrainingPhrases training_phrases = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message DialogflowCxPageXEntryFulfillmentXMessagesXText {
+	bool allow_playback_interruption = 1;
+	repeated string text = 2;
+}
+
+message DialogflowCxPageXEntryFulfillmentXMessages {
+	DialogflowCxPageXEntryFulfillmentXMessagesXText text = 1;
+}
+
+message DialogflowCxPageXEntryFulfillment {
+	bool return_partial_responses = 1;
+	string tag = 2;
+	string webhook = 3;
+	repeated DialogflowCxPageXEntryFulfillmentXMessages messages = 4;
+}
+
+message DialogflowCxPageXEventHandlersXTriggerFulfillmentXMessagesXText {
+	bool allow_playback_interruption = 1;
+	repeated string text = 2;
+}
+
+message DialogflowCxPageXEventHandlersXTriggerFulfillmentXMessages {
+	DialogflowCxPageXEventHandlersXTriggerFulfillmentXMessagesXText text = 1;
+}
+
+message DialogflowCxPageXEventHandlersXTriggerFulfillment {
+	bool return_partial_responses = 1;
+	string tag = 2;
+	string webhook = 3;
+	repeated DialogflowCxPageXEventHandlersXTriggerFulfillmentXMessages messages = 4;
+}
+
+message DialogflowCxPageXEventHandlers {
+	string event = 1;
+	string name = 2;
+	string target_flow = 3;
+	string target_page = 4;
+	DialogflowCxPageXEventHandlersXTriggerFulfillment trigger_fulfillment = 5;
+}
+
+message DialogflowCxPageXFormXParametersXFillBehaviorXInitialPromptFulfillmentXMessagesXText {
+	bool allow_playback_interruption = 1;
+	repeated string text = 2;
+}
+
+message DialogflowCxPageXFormXParametersXFillBehaviorXInitialPromptFulfillmentXMessages {
+	DialogflowCxPageXFormXParametersXFillBehaviorXInitialPromptFulfillmentXMessagesXText text = 1;
+}
+
+message DialogflowCxPageXFormXParametersXFillBehaviorXInitialPromptFulfillment {
+	bool return_partial_responses = 1;
+	string tag = 2;
+	string webhook = 3;
+	repeated DialogflowCxPageXFormXParametersXFillBehaviorXInitialPromptFulfillmentXMessages messages = 4;
+}
+
+message DialogflowCxPageXFormXParametersXFillBehavior {
+	DialogflowCxPageXFormXParametersXFillBehaviorXInitialPromptFulfillment initial_prompt_fulfillment = 1;
+}
+
+message DialogflowCxPageXFormXParameters {
+	string display_name = 1;
+	string entity_type = 2;
+	bool is_list = 3;
+	bool redact = 4;
+	bool required = 5;
+	DialogflowCxPageXFormXParametersXFillBehavior fill_behavior = 6;
+}
+
+message DialogflowCxPageXForm {
+	repeated DialogflowCxPageXFormXParameters parameters = 1;
+}
+
+message DialogflowCxPageXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxPageXTransitionRoutesXTriggerFulfillmentXMessagesXText {
+	bool allow_playback_interruption = 1;
+	repeated string text = 2;
+}
+
+message DialogflowCxPageXTransitionRoutesXTriggerFulfillmentXMessages {
+	DialogflowCxPageXTransitionRoutesXTriggerFulfillmentXMessagesXText text = 1;
+}
+
+message DialogflowCxPageXTransitionRoutesXTriggerFulfillment {
+	bool return_partial_responses = 1;
+	string tag = 2;
+	string webhook = 3;
+	repeated DialogflowCxPageXTransitionRoutesXTriggerFulfillmentXMessages messages = 4;
+}
+
+message DialogflowCxPageXTransitionRoutes {
+	string condition = 1;
+	string intent = 2;
+	string name = 3;
+	string target_flow = 4;
+	string target_page = 5;
+	DialogflowCxPageXTransitionRoutesXTriggerFulfillment trigger_fulfillment = 6;
+}
+
+message DialogflowCxPage {
+	string display_name = 1;
+	string id = 2;
+	string language_code = 3;
+	string name = 4;
+	string parent = 5;
+	repeated string transition_route_groups = 6;
+	DialogflowCxPageXEntryFulfillment entry_fulfillment = 7;
+	repeated DialogflowCxPageXEventHandlers event_handlers = 8;
+	DialogflowCxPageXForm form = 9;
+	DialogflowCxPageXTimeouts timeouts = 10;
+	repeated DialogflowCxPageXTransitionRoutes transition_routes = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message DialogflowCxVersionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowCxVersion {
+	string create_time = 1;
+	string description = 2;
+	string display_name = 3;
+	string id = 4;
+	string name = 5;
+	map<string, string> nlu_settings = 6;
+	string parent = 7;
+	string state = 8;
+	DialogflowCxVersionXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message DialogflowEntityTypeXEntities {
+	repeated string synonyms = 1;
+	string value = 2;
+}
+
+message DialogflowEntityTypeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowEntityType {
+	string display_name = 1;
+	bool enable_fuzzy_extraction = 2;
+	string id = 3;
+	string kind = 4;
+	string name = 5;
+	string project = 6;
+	repeated DialogflowEntityTypeXEntities entities = 7;
+	DialogflowEntityTypeXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DialogflowFulfillmentXFeatures {
+	string type = 1;
+}
+
+message DialogflowFulfillmentXGenericWebService {
+	string password = 1;
+	map<string, string> request_headers = 2;
+	string uri = 3;
+	string username = 4;
+}
+
+message DialogflowFulfillmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowFulfillment {
+	string display_name = 1;
+	bool enabled = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	repeated DialogflowFulfillmentXFeatures features = 6;
+	DialogflowFulfillmentXGenericWebService generic_web_service = 7;
+	DialogflowFulfillmentXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DialogflowIntentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DialogflowIntent {
+	string action = 1;
+	repeated string default_response_platforms = 2;
+	string display_name = 3;
+	repeated string events = 4;
+	map<string, string> followup_intent_info = 5;
+	string id = 6;
+	repeated string input_context_names = 7;
+	bool is_fallback = 8;
+	bool ml_disabled = 9;
+	string name = 10;
+	string parent_followup_intent_name = 11;
+	double priority = 12;
+	string project = 13;
+	bool reset_contexts = 14;
+	string root_followup_intent_name = 15;
+	string webhook_state = 16;
+	DialogflowIntentXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+

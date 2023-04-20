@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package oak9.tython.aws.managedblockchain;
+
+import "shared/shared.proto";
+
+message MemberMemberFabricConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string admin_username = 2;
+	string admin_password = 3;
+}
+
+message MemberMemberFrameworkConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MemberMemberFabricConfiguration member_fabric_configuration = 2;
+}
+
+message MemberMemberConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	MemberMemberFrameworkConfiguration member_framework_configuration = 3;
+	string name = 4;
+}
+
+message MemberApprovalThresholdPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string threshold_comparator = 2;
+	int32 threshold_percentage = 3;
+	int32 proposal_duration_in_hours = 4;
+}
+
+message MemberVotingPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MemberApprovalThresholdPolicy approval_threshold_policy = 2;
+}
+
+message MemberNetworkFabricConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string edition = 2;
+}
+
+message MemberNetworkFrameworkConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MemberNetworkFabricConfiguration network_fabric_configuration = 2;
+}
+
+message MemberNetworkConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string framework_version = 3;
+	MemberVotingPolicy voting_policy = 4;
+	string framework = 5;
+	string name = 6;
+	MemberNetworkFrameworkConfiguration network_framework_configuration = 7;
+}
+
+message Member {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MemberMemberConfiguration member_configuration = 2;
+	MemberNetworkConfiguration network_configuration = 3;
+	string network_id = 4;
+	string invitation_id = 5;
+}
+
+message ManagedBlockchain {
+	repeated Member member = 1;
+	repeated Node node = 2;
+}
+
+message NodeNodeConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string availability_zone = 2;
+	string instance_type = 3;
+}
+
+message Node {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string member_id = 2;
+	string network_id = 3;
+	NodeNodeConfiguration node_configuration = 4;
+}
+

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package oak9.tython.aws.fms;
+
+import "shared/shared.proto";
+
+message NotificationChannel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string sns_role_name = 2;
+	string sns_topic_arn = 3;
+}
+
+message FMS {
+	repeated NotificationChannel notification_channel = 1;
+	repeated Policy policy = 2;
+}
+
+message PolicyIEMap {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string account = 2;
+	repeated string orgunit = 3;
+}
+
+message PolicyResourceTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message PolicyPolicyTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message Policy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	PolicyIEMap exclude_map = 2;
+	bool exclude_resource_tags = 3;
+	PolicyIEMap include_map = 4;
+	string policy_name = 5;
+	bool remediation_enabled = 6;
+	repeated PolicyResourceTag resource_tags = 7;
+	string resource_type = 8;
+	repeated string resource_type_list = 9;
+	map<string, string> security_service_policy_data = 10;
+	bool delete_all_policy_resources = 11;
+	repeated PolicyPolicyTag tags = 12;
+}
+

@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.resource.v1alpha1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message AllocationResult {
+	oak9.tython.k8s.api.core.v1.NodeSelector available_on_nodes = 1;
+	string resource_handle = 2;
+	bool shareable = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PodScheduling {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PodSchedulingSpec spec = 4;
+	PodSchedulingStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PodSchedulingList {
+	string api_version = 1;
+	repeated PodScheduling items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodSchedulingSpec {
+	repeated string potential_nodes = 1;
+	string selected_node = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodSchedulingStatus {
+	repeated ResourceClaimSchedulingStatus resource_claims = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ResourceClaim {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ResourceClaimSpec spec = 4;
+	ResourceClaimStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ResourceClaimConsumerReference {
+	string api_group = 1;
+	string name = 2;
+	string resource = 3;
+	string uid = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceClaimList {
+	string api_version = 1;
+	repeated ResourceClaim items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceClaimParametersReference {
+	string api_group = 1;
+	string kind = 2;
+	string name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ResourceClaimSchedulingStatus {
+	string name = 1;
+	repeated string unsuitable_nodes = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ResourceClaimSpec {
+	string allocation_mode = 1;
+	ResourceClaimParametersReference parameters_ref = 2;
+	string resource_class_name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ResourceClaimStatus {
+	AllocationResult allocation = 1;
+	bool deallocation_requested = 2;
+	string driver_name = 3;
+	repeated ResourceClaimConsumerReference reserved_for = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceClaimTemplate {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ResourceClaimTemplateSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceClaimTemplateList {
+	string api_version = 1;
+	repeated ResourceClaimTemplate items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceClaimTemplateSpec {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+	ResourceClaimSpec spec = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ResourceClass {
+	string api_version = 1;
+	string driver_name = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 4;
+	ResourceClassParametersReference parameters_ref = 5;
+	oak9.tython.k8s.api.core.v1.NodeSelector suitable_nodes = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ResourceClassList {
+	string api_version = 1;
+	repeated ResourceClass items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceClassParametersReference {
+	string api_group = 1;
+	string kind = 2;
+	string name = 3;
+	string namespace = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

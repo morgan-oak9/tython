@@ -1,0 +1,1020 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.dataproc;
+
+import "shared/shared.proto";
+
+message DataprocAutoscalingPolicyXBasicAlgorithmXYarnConfig {
+	string graceful_decommission_timeout = 1;
+	double scale_down_factor = 2;
+	double scale_down_min_worker_fraction = 3;
+	double scale_up_factor = 4;
+	double scale_up_min_worker_fraction = 5;
+}
+
+message DataprocAutoscalingPolicyXBasicAlgorithm {
+	string cooldown_period = 1;
+	DataprocAutoscalingPolicyXBasicAlgorithmXYarnConfig yarn_config = 2;
+}
+
+message DataprocAutoscalingPolicyXSecondaryWorkerConfig {
+	double max_instances = 1;
+	double min_instances = 2;
+	double weight = 3;
+}
+
+message DataprocAutoscalingPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataprocAutoscalingPolicyXWorkerConfig {
+	double max_instances = 1;
+	double min_instances = 2;
+	double weight = 3;
+}
+
+message DataprocAutoscalingPolicy {
+	string id = 1;
+	string location = 2;
+	string name = 3;
+	string policy_id = 4;
+	string project = 5;
+	DataprocAutoscalingPolicyXBasicAlgorithm basic_algorithm = 6;
+	DataprocAutoscalingPolicyXSecondaryWorkerConfig secondary_worker_config = 7;
+	DataprocAutoscalingPolicyXTimeouts timeouts = 8;
+	DataprocAutoscalingPolicyXWorkerConfig worker_config = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message DataprocAutoscalingPolicyIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocAutoscalingPolicyIamBinding {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	repeated string members = 4;
+	string policy_id = 5;
+	string project = 6;
+	string role = 7;
+	DataprocAutoscalingPolicyIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocAutoscalingPolicyIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocAutoscalingPolicyIamMember {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string member = 4;
+	string policy_id = 5;
+	string project = 6;
+	string role = 7;
+	DataprocAutoscalingPolicyIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocAutoscalingPolicyIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string policy_data = 4;
+	string policy_id = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DataprocClusterXClusterConfigXAutoscalingConfig {
+	string policy_uri = 1;
+}
+
+message DataprocClusterXClusterConfigXEncryptionConfig {
+	string kms_key_name = 1;
+}
+
+message DataprocClusterXClusterConfigXEndpointConfig {
+	bool enable_http_port_access = 1;
+	map<string, string> http_ports = 2;
+}
+
+message DataprocClusterXClusterConfigXGceClusterConfigXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+	bool enable_vtpm = 3;
+}
+
+message DataprocClusterXClusterConfigXGceClusterConfig {
+	bool internal_ip_only = 1;
+	map<string, string> metadata = 2;
+	string network = 3;
+	string service_account = 4;
+	repeated string service_account_scopes = 5;
+	string subnetwork = 6;
+	repeated string tags = 7;
+	string zone = 8;
+	DataprocClusterXClusterConfigXGceClusterConfigXShieldedInstanceConfig shielded_instance_config = 9;
+}
+
+message DataprocClusterXClusterConfigXInitializationAction {
+	string script = 1;
+	double timeout_sec = 2;
+}
+
+message DataprocClusterXClusterConfigXLifecycleConfig {
+	string auto_delete_time = 1;
+	string idle_delete_ttl = 2;
+	string idle_start_time = 3;
+}
+
+message DataprocClusterXClusterConfigXMasterConfigXAccelerators {
+	double accelerator_count = 1;
+	string accelerator_type = 2;
+}
+
+message DataprocClusterXClusterConfigXMasterConfigXDiskConfig {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	double num_local_ssds = 3;
+}
+
+message DataprocClusterXClusterConfigXMasterConfig {
+	string image_uri = 1;
+	repeated string instance_names = 2;
+	string machine_type = 3;
+	string min_cpu_platform = 4;
+	double num_instances = 5;
+	repeated DataprocClusterXClusterConfigXMasterConfigXAccelerators accelerators = 6;
+	DataprocClusterXClusterConfigXMasterConfigXDiskConfig disk_config = 7;
+}
+
+message DataprocClusterXClusterConfigXMetastoreConfig {
+	string dataproc_metastore_service = 1;
+}
+
+message DataprocClusterXClusterConfigXPreemptibleWorkerConfigXDiskConfig {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	double num_local_ssds = 3;
+}
+
+message DataprocClusterXClusterConfigXPreemptibleWorkerConfig {
+	repeated string instance_names = 1;
+	double num_instances = 2;
+	string preemptibility = 3;
+	DataprocClusterXClusterConfigXPreemptibleWorkerConfigXDiskConfig disk_config = 4;
+}
+
+message DataprocClusterXClusterConfigXSecurityConfigXKerberosConfig {
+	string cross_realm_trust_admin_server = 1;
+	string cross_realm_trust_kdc = 2;
+	string cross_realm_trust_realm = 3;
+	string cross_realm_trust_shared_password_uri = 4;
+	bool enable_kerberos = 5;
+	string kdc_db_key_uri = 6;
+	string key_password_uri = 7;
+	string keystore_password_uri = 8;
+	string keystore_uri = 9;
+	string kms_key_uri = 10;
+	string realm = 11;
+	string root_principal_password_uri = 12;
+	double tgt_lifetime_hours = 13;
+	string truststore_password_uri = 14;
+	string truststore_uri = 15;
+}
+
+message DataprocClusterXClusterConfigXSecurityConfig {
+	DataprocClusterXClusterConfigXSecurityConfigXKerberosConfig kerberos_config = 1;
+}
+
+message DataprocClusterXClusterConfigXSoftwareConfig {
+	string image_version = 1;
+	repeated string optional_components = 2;
+	map<string, string> override_properties = 3;
+	map<string, string> properties = 4;
+}
+
+message DataprocClusterXClusterConfigXWorkerConfigXAccelerators {
+	double accelerator_count = 1;
+	string accelerator_type = 2;
+}
+
+message DataprocClusterXClusterConfigXWorkerConfigXDiskConfig {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	double num_local_ssds = 3;
+}
+
+message DataprocClusterXClusterConfigXWorkerConfig {
+	string image_uri = 1;
+	repeated string instance_names = 2;
+	string machine_type = 3;
+	string min_cpu_platform = 4;
+	double num_instances = 5;
+	repeated DataprocClusterXClusterConfigXWorkerConfigXAccelerators accelerators = 6;
+	DataprocClusterXClusterConfigXWorkerConfigXDiskConfig disk_config = 7;
+}
+
+message DataprocClusterXClusterConfig {
+	string bucket = 1;
+	string staging_bucket = 2;
+	string temp_bucket = 3;
+	DataprocClusterXClusterConfigXAutoscalingConfig autoscaling_config = 4;
+	DataprocClusterXClusterConfigXEncryptionConfig encryption_config = 5;
+	DataprocClusterXClusterConfigXEndpointConfig endpoint_config = 6;
+	DataprocClusterXClusterConfigXGceClusterConfig gce_cluster_config = 7;
+	repeated DataprocClusterXClusterConfigXInitializationAction initialization_action = 8;
+	DataprocClusterXClusterConfigXLifecycleConfig lifecycle_config = 9;
+	DataprocClusterXClusterConfigXMasterConfig master_config = 10;
+	DataprocClusterXClusterConfigXMetastoreConfig metastore_config = 11;
+	DataprocClusterXClusterConfigXPreemptibleWorkerConfig preemptible_worker_config = 12;
+	DataprocClusterXClusterConfigXSecurityConfig security_config = 13;
+	DataprocClusterXClusterConfigXSoftwareConfig software_config = 14;
+	DataprocClusterXClusterConfigXWorkerConfig worker_config = 15;
+}
+
+message DataprocClusterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataprocClusterXVirtualClusterConfigXAuxiliaryServicesConfigXMetastoreConfig {
+	string dataproc_metastore_service = 1;
+}
+
+message DataprocClusterXVirtualClusterConfigXAuxiliaryServicesConfigXSparkHistoryServerConfig {
+	string dataproc_cluster = 1;
+}
+
+message DataprocClusterXVirtualClusterConfigXAuxiliaryServicesConfig {
+	DataprocClusterXVirtualClusterConfigXAuxiliaryServicesConfigXMetastoreConfig metastore_config = 1;
+	DataprocClusterXVirtualClusterConfigXAuxiliaryServicesConfigXSparkHistoryServerConfig spark_history_server_config = 2;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTargetXNodePoolConfigXAutoscaling {
+	double max_node_count = 1;
+	double min_node_count = 2;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTargetXNodePoolConfigXConfig {
+	double local_ssd_count = 1;
+	string machine_type = 2;
+	string min_cpu_platform = 3;
+	bool preemptible = 4;
+	bool spot = 5;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTargetXNodePoolConfig {
+	repeated string locations = 1;
+	DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTargetXNodePoolConfigXAutoscaling autoscaling = 2;
+	DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTargetXNodePoolConfigXConfig config = 3;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTarget {
+	string node_pool = 1;
+	repeated string roles = 2;
+	DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTargetXNodePoolConfig node_pool_config = 3;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfig {
+	string gke_cluster_target = 1;
+	repeated DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfigXNodePoolTarget node_pool_target = 2;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXKubernetesSoftwareConfig {
+	map<string, string> component_version = 1;
+	map<string, string> properties = 2;
+}
+
+message DataprocClusterXVirtualClusterConfigXKubernetesClusterConfig {
+	string kubernetes_namespace = 1;
+	DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXGkeClusterConfig gke_cluster_config = 2;
+	DataprocClusterXVirtualClusterConfigXKubernetesClusterConfigXKubernetesSoftwareConfig kubernetes_software_config = 3;
+}
+
+message DataprocClusterXVirtualClusterConfig {
+	string staging_bucket = 1;
+	DataprocClusterXVirtualClusterConfigXAuxiliaryServicesConfig auxiliary_services_config = 2;
+	DataprocClusterXVirtualClusterConfigXKubernetesClusterConfig kubernetes_cluster_config = 3;
+}
+
+message DataprocCluster {
+	string graceful_decommission_timeout = 1;
+	string id = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	DataprocClusterXClusterConfig cluster_config = 7;
+	DataprocClusterXTimeouts timeouts = 8;
+	DataprocClusterXVirtualClusterConfig virtual_cluster_config = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message DataprocClusterIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocClusterIamBinding {
+	string cluster = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	DataprocClusterIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocClusterIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocClusterIamMember {
+	string cluster = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	DataprocClusterIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocClusterIamPolicy {
+	string cluster = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string region = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DataprocJobXHadoopConfigXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocJobXHadoopConfig {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	repeated string jar_file_uris = 4;
+	string main_class = 5;
+	string main_jar_file_uri = 6;
+	map<string, string> properties = 7;
+	DataprocJobXHadoopConfigXLoggingConfig logging_config = 8;
+}
+
+message DataprocJobXHiveConfig {
+	bool continue_on_failure = 1;
+	repeated string jar_file_uris = 2;
+	map<string, string> properties = 3;
+	string query_file_uri = 4;
+	repeated string query_list = 5;
+	map<string, string> script_variables = 6;
+}
+
+message DataprocJobXPigConfigXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocJobXPigConfig {
+	bool continue_on_failure = 1;
+	repeated string jar_file_uris = 2;
+	map<string, string> properties = 3;
+	string query_file_uri = 4;
+	repeated string query_list = 5;
+	map<string, string> script_variables = 6;
+	DataprocJobXPigConfigXLoggingConfig logging_config = 7;
+}
+
+message DataprocJobXPlacement {
+	string cluster_name = 1;
+	string cluster_uuid = 2;
+}
+
+message DataprocJobXPrestoConfigXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocJobXPrestoConfig {
+	repeated string client_tags = 1;
+	bool continue_on_failure = 2;
+	string output_format = 3;
+	map<string, string> properties = 4;
+	string query_file_uri = 5;
+	repeated string query_list = 6;
+	DataprocJobXPrestoConfigXLoggingConfig logging_config = 7;
+}
+
+message DataprocJobXPysparkConfigXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocJobXPysparkConfig {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	repeated string jar_file_uris = 4;
+	string main_python_file_uri = 5;
+	map<string, string> properties = 6;
+	repeated string python_file_uris = 7;
+	DataprocJobXPysparkConfigXLoggingConfig logging_config = 8;
+}
+
+message DataprocJobXReference {
+	string job_id = 1;
+}
+
+message DataprocJobXScheduling {
+	double max_failures_per_hour = 1;
+	double max_failures_total = 2;
+}
+
+message DataprocJobXSparkConfigXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocJobXSparkConfig {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	repeated string jar_file_uris = 4;
+	string main_class = 5;
+	string main_jar_file_uri = 6;
+	map<string, string> properties = 7;
+	DataprocJobXSparkConfigXLoggingConfig logging_config = 8;
+}
+
+message DataprocJobXSparksqlConfigXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocJobXSparksqlConfig {
+	repeated string jar_file_uris = 1;
+	map<string, string> properties = 2;
+	string query_file_uri = 3;
+	repeated string query_list = 4;
+	map<string, string> script_variables = 5;
+	DataprocJobXSparksqlConfigXLoggingConfig logging_config = 6;
+}
+
+message DataprocJobXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message DataprocJob {
+	string driver_controls_files_uri = 1;
+	string driver_output_resource_uri = 2;
+	bool force_delete = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string project = 6;
+	string region = 7;
+	map<string, string> status = 8;
+	DataprocJobXHadoopConfig hadoop_config = 9;
+	DataprocJobXHiveConfig hive_config = 10;
+	DataprocJobXPigConfig pig_config = 11;
+	DataprocJobXPlacement placement = 12;
+	DataprocJobXPrestoConfig presto_config = 13;
+	DataprocJobXPysparkConfig pyspark_config = 14;
+	DataprocJobXReference reference = 15;
+	DataprocJobXScheduling scheduling = 16;
+	DataprocJobXSparkConfig spark_config = 17;
+	DataprocJobXSparksqlConfig sparksql_config = 18;
+	DataprocJobXTimeouts timeouts = 19;
+	oak9.tython.shared.ResourceInfo resource_info = 20;
+}
+
+message DataprocJobIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocJobIamBinding {
+	string etag = 1;
+	string id = 2;
+	string job_id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	DataprocJobIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocJobIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocJobIamMember {
+	string etag = 1;
+	string id = 2;
+	string job_id = 3;
+	string member = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	DataprocJobIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocJobIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string job_id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string region = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DataprocMetastoreServiceXEncryptionConfig {
+	string kms_key = 1;
+}
+
+message DataprocMetastoreServiceXHiveMetastoreConfigXKerberosConfigXKeytab {
+	string cloud_secret = 1;
+}
+
+message DataprocMetastoreServiceXHiveMetastoreConfigXKerberosConfig {
+	string krb5_config_gcs_uri = 1;
+	string principal = 2;
+	DataprocMetastoreServiceXHiveMetastoreConfigXKerberosConfigXKeytab keytab = 3;
+}
+
+message DataprocMetastoreServiceXHiveMetastoreConfig {
+	map<string, string> config_overrides = 1;
+	string version = 2;
+	DataprocMetastoreServiceXHiveMetastoreConfigXKerberosConfig kerberos_config = 3;
+}
+
+message DataprocMetastoreServiceXMaintenanceWindow {
+	string day_of_week = 1;
+	double hour_of_day = 2;
+}
+
+message DataprocMetastoreServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataprocMetastoreService {
+	string artifact_gcs_uri = 1;
+	string database_type = 2;
+	string endpoint_uri = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string location = 6;
+	string name = 7;
+	string network = 8;
+	double port = 9;
+	string project = 10;
+	string release_channel = 11;
+	string service_id = 12;
+	string state = 13;
+	string state_message = 14;
+	string tier = 15;
+	string uid = 16;
+	DataprocMetastoreServiceXEncryptionConfig encryption_config = 17;
+	DataprocMetastoreServiceXHiveMetastoreConfig hive_metastore_config = 18;
+	DataprocMetastoreServiceXMaintenanceWindow maintenance_window = 19;
+	DataprocMetastoreServiceXTimeouts timeouts = 20;
+	oak9.tython.shared.ResourceInfo resource_info = 21;
+}
+
+message DataprocMetastoreServiceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocMetastoreServiceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string service_id = 7;
+	DataprocMetastoreServiceIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocMetastoreServiceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataprocMetastoreServiceIamMember {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string service_id = 7;
+	DataprocMetastoreServiceIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataprocMetastoreServiceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string policy_data = 4;
+	string project = 5;
+	string service_id = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DataprocWorkflowTemplateXJobsXHadoopJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXHadoopJob {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	repeated string jar_file_uris = 4;
+	string main_class = 5;
+	string main_jar_file_uri = 6;
+	map<string, string> properties = 7;
+	DataprocWorkflowTemplateXJobsXHadoopJobXLoggingConfig logging_config = 8;
+}
+
+message DataprocWorkflowTemplateXJobsXHiveJobXQueryList {
+	repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXHiveJob {
+	bool continue_on_failure = 1;
+	repeated string jar_file_uris = 2;
+	map<string, string> properties = 3;
+	string query_file_uri = 4;
+	map<string, string> script_variables = 5;
+	DataprocWorkflowTemplateXJobsXHiveJobXQueryList query_list = 6;
+}
+
+message DataprocWorkflowTemplateXJobsXPigJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXPigJobXQueryList {
+	repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXPigJob {
+	bool continue_on_failure = 1;
+	repeated string jar_file_uris = 2;
+	map<string, string> properties = 3;
+	string query_file_uri = 4;
+	map<string, string> script_variables = 5;
+	DataprocWorkflowTemplateXJobsXPigJobXLoggingConfig logging_config = 6;
+	DataprocWorkflowTemplateXJobsXPigJobXQueryList query_list = 7;
+}
+
+message DataprocWorkflowTemplateXJobsXPrestoJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXPrestoJobXQueryList {
+	repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXPrestoJob {
+	repeated string client_tags = 1;
+	bool continue_on_failure = 2;
+	string output_format = 3;
+	map<string, string> properties = 4;
+	string query_file_uri = 5;
+	DataprocWorkflowTemplateXJobsXPrestoJobXLoggingConfig logging_config = 6;
+	DataprocWorkflowTemplateXJobsXPrestoJobXQueryList query_list = 7;
+}
+
+message DataprocWorkflowTemplateXJobsXPysparkJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXPysparkJob {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	repeated string jar_file_uris = 4;
+	string main_python_file_uri = 5;
+	map<string, string> properties = 6;
+	repeated string python_file_uris = 7;
+	DataprocWorkflowTemplateXJobsXPysparkJobXLoggingConfig logging_config = 8;
+}
+
+message DataprocWorkflowTemplateXJobsXScheduling {
+	double max_failures_per_hour = 1;
+	double max_failures_total = 2;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkJob {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	repeated string jar_file_uris = 4;
+	string main_class = 5;
+	string main_jar_file_uri = 6;
+	map<string, string> properties = 7;
+	DataprocWorkflowTemplateXJobsXSparkJobXLoggingConfig logging_config = 8;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkRJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkRJob {
+	repeated string archive_uris = 1;
+	repeated string args = 2;
+	repeated string file_uris = 3;
+	string main_r_file_uri = 4;
+	map<string, string> properties = 5;
+	DataprocWorkflowTemplateXJobsXSparkRJobXLoggingConfig logging_config = 6;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkSqlJobXLoggingConfig {
+	map<string, string> driver_log_levels = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkSqlJobXQueryList {
+	repeated string queries = 1;
+}
+
+message DataprocWorkflowTemplateXJobsXSparkSqlJob {
+	repeated string jar_file_uris = 1;
+	map<string, string> properties = 2;
+	string query_file_uri = 3;
+	map<string, string> script_variables = 4;
+	DataprocWorkflowTemplateXJobsXSparkSqlJobXLoggingConfig logging_config = 5;
+	DataprocWorkflowTemplateXJobsXSparkSqlJobXQueryList query_list = 6;
+}
+
+message DataprocWorkflowTemplateXJobs {
+	map<string, string> labels = 1;
+	repeated string prerequisite_step_ids = 2;
+	string step_id = 3;
+	DataprocWorkflowTemplateXJobsXHadoopJob hadoop_job = 4;
+	DataprocWorkflowTemplateXJobsXHiveJob hive_job = 5;
+	DataprocWorkflowTemplateXJobsXPigJob pig_job = 6;
+	DataprocWorkflowTemplateXJobsXPrestoJob presto_job = 7;
+	DataprocWorkflowTemplateXJobsXPysparkJob pyspark_job = 8;
+	DataprocWorkflowTemplateXJobsXScheduling scheduling = 9;
+	DataprocWorkflowTemplateXJobsXSparkJob spark_job = 10;
+	DataprocWorkflowTemplateXJobsXSparkRJob spark_r_job = 11;
+	DataprocWorkflowTemplateXJobsXSparkSqlJob spark_sql_job = 12;
+}
+
+message DataprocWorkflowTemplateXParametersXValidationXRegex {
+	repeated string regexes = 1;
+}
+
+message DataprocWorkflowTemplateXParametersXValidationXValues {
+	repeated string values = 1;
+}
+
+message DataprocWorkflowTemplateXParametersXValidation {
+	DataprocWorkflowTemplateXParametersXValidationXRegex regex = 1;
+	DataprocWorkflowTemplateXParametersXValidationXValues values = 2;
+}
+
+message DataprocWorkflowTemplateXParameters {
+	string description = 1;
+	repeated string fields = 2;
+	string name = 3;
+	DataprocWorkflowTemplateXParametersXValidation validation = 4;
+}
+
+message DataprocWorkflowTemplateXPlacementXClusterSelector {
+	map<string, string> cluster_labels = 1;
+	string zone = 2;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXAutoscalingConfig {
+	string policy = 1;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXEncryptionConfig {
+	string gce_pd_kms_key_name = 1;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXEndpointConfig {
+	bool enable_http_port_access = 1;
+	map<string, string> http_ports = 2;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXGceClusterConfigXNodeGroupAffinity {
+	string node_group = 1;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXGceClusterConfigXReservationAffinity {
+	string consume_reservation_type = 1;
+	string key = 2;
+	repeated string values = 3;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXGceClusterConfig {
+	bool internal_ip_only = 1;
+	map<string, string> metadata = 2;
+	string network = 3;
+	string private_ipv6_google_access = 4;
+	string service_account = 5;
+	repeated string service_account_scopes = 6;
+	string subnetwork = 7;
+	repeated string tags = 8;
+	string zone = 9;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXGceClusterConfigXNodeGroupAffinity node_group_affinity = 10;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXGceClusterConfigXReservationAffinity reservation_affinity = 11;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXInitializationActions {
+	string executable_file = 1;
+	string execution_timeout = 2;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXLifecycleConfig {
+	string auto_delete_time = 1;
+	string auto_delete_ttl = 2;
+	string idle_delete_ttl = 3;
+	string idle_start_time = 4;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXMasterConfigXAccelerators {
+	double accelerator_count = 1;
+	string accelerator_type = 2;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXMasterConfigXDiskConfig {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	double num_local_ssds = 3;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXMasterConfig {
+	string image = 1;
+	repeated string instance_names = 2;
+	bool is_preemptible = 3;
+	string machine_type = 4;
+	map<string, string> managed_group_config = 5;
+	string min_cpu_platform = 6;
+	double num_instances = 7;
+	string preemptibility = 8;
+	repeated DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXMasterConfigXAccelerators accelerators = 9;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXMasterConfigXDiskConfig disk_config = 10;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecondaryWorkerConfigXAccelerators {
+	double accelerator_count = 1;
+	string accelerator_type = 2;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecondaryWorkerConfigXDiskConfig {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	double num_local_ssds = 3;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecondaryWorkerConfig {
+	string image = 1;
+	repeated string instance_names = 2;
+	bool is_preemptible = 3;
+	string machine_type = 4;
+	map<string, string> managed_group_config = 5;
+	string min_cpu_platform = 6;
+	double num_instances = 7;
+	string preemptibility = 8;
+	repeated DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecondaryWorkerConfigXAccelerators accelerators = 9;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecondaryWorkerConfigXDiskConfig disk_config = 10;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecurityConfigXKerberosConfig {
+	string cross_realm_trust_admin_server = 1;
+	string cross_realm_trust_kdc = 2;
+	string cross_realm_trust_realm = 3;
+	string cross_realm_trust_shared_password = 4;
+	bool enable_kerberos = 5;
+	string kdc_db_key = 6;
+	string key_password = 7;
+	string keystore = 8;
+	string keystore_password = 9;
+	string kms_key = 10;
+	string realm = 11;
+	string root_principal_password = 12;
+	double tgt_lifetime_hours = 13;
+	string truststore = 14;
+	string truststore_password = 15;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecurityConfig {
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecurityConfigXKerberosConfig kerberos_config = 1;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSoftwareConfig {
+	string image_version = 1;
+	repeated string optional_components = 2;
+	map<string, string> properties = 3;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXWorkerConfigXAccelerators {
+	double accelerator_count = 1;
+	string accelerator_type = 2;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXWorkerConfigXDiskConfig {
+	double boot_disk_size_gb = 1;
+	string boot_disk_type = 2;
+	double num_local_ssds = 3;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXWorkerConfig {
+	string image = 1;
+	repeated string instance_names = 2;
+	bool is_preemptible = 3;
+	string machine_type = 4;
+	map<string, string> managed_group_config = 5;
+	string min_cpu_platform = 6;
+	double num_instances = 7;
+	string preemptibility = 8;
+	repeated DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXWorkerConfigXAccelerators accelerators = 9;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXWorkerConfigXDiskConfig disk_config = 10;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedClusterXConfig {
+	string staging_bucket = 1;
+	string temp_bucket = 2;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXAutoscalingConfig autoscaling_config = 3;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXEncryptionConfig encryption_config = 4;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXEndpointConfig endpoint_config = 5;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXGceClusterConfig gce_cluster_config = 6;
+	repeated DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXInitializationActions initialization_actions = 7;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXLifecycleConfig lifecycle_config = 8;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXMasterConfig master_config = 9;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecondaryWorkerConfig secondary_worker_config = 10;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSecurityConfig security_config = 11;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXSoftwareConfig software_config = 12;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfigXWorkerConfig worker_config = 13;
+}
+
+message DataprocWorkflowTemplateXPlacementXManagedCluster {
+	string cluster_name = 1;
+	map<string, string> labels = 2;
+	DataprocWorkflowTemplateXPlacementXManagedClusterXConfig config = 3;
+}
+
+message DataprocWorkflowTemplateXPlacement {
+	DataprocWorkflowTemplateXPlacementXClusterSelector cluster_selector = 1;
+	DataprocWorkflowTemplateXPlacementXManagedCluster managed_cluster = 2;
+}
+
+message DataprocWorkflowTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message DataprocWorkflowTemplate {
+	string create_time = 1;
+	string dag_timeout = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	string update_time = 8;
+	double version = 9;
+	repeated DataprocWorkflowTemplateXJobs jobs = 10;
+	repeated DataprocWorkflowTemplateXParameters parameters = 11;
+	DataprocWorkflowTemplateXPlacement placement = 12;
+	DataprocWorkflowTemplateXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+

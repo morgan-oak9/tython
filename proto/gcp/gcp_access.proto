@@ -1,0 +1,576 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.access;
+
+import "shared/shared.proto";
+
+message AccessContextManagerAccessLevelXBasicXConditionsXDevicePolicyXOsConstraints {
+	string minimum_version = 1;
+	string os_type = 2;
+	bool require_verified_chrome_os = 3;
+}
+
+message AccessContextManagerAccessLevelXBasicXConditionsXDevicePolicy {
+	repeated string allowed_device_management_levels = 1;
+	repeated string allowed_encryption_statuses = 2;
+	bool require_admin_approval = 3;
+	bool require_corp_owned = 4;
+	bool require_screen_lock = 5;
+	repeated AccessContextManagerAccessLevelXBasicXConditionsXDevicePolicyXOsConstraints os_constraints = 6;
+}
+
+message AccessContextManagerAccessLevelXBasicXConditions {
+	repeated string ip_subnetworks = 1;
+	repeated string members = 2;
+	bool negate = 3;
+	repeated string regions = 4;
+	repeated string required_access_levels = 5;
+	AccessContextManagerAccessLevelXBasicXConditionsXDevicePolicy device_policy = 6;
+}
+
+message AccessContextManagerAccessLevelXBasic {
+	string combining_function = 1;
+	repeated AccessContextManagerAccessLevelXBasicXConditions conditions = 2;
+}
+
+message AccessContextManagerAccessLevelXCustomXExpr {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message AccessContextManagerAccessLevelXCustom {
+	AccessContextManagerAccessLevelXCustomXExpr expr = 1;
+}
+
+message AccessContextManagerAccessLevelXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AccessContextManagerAccessLevel {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string parent = 4;
+	string title = 5;
+	AccessContextManagerAccessLevelXBasic basic = 6;
+	AccessContextManagerAccessLevelXCustom custom = 7;
+	AccessContextManagerAccessLevelXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message AccessContextManagerAccessLevelConditionXDevicePolicyXOsConstraints {
+	string minimum_version = 1;
+	string os_type = 2;
+}
+
+message AccessContextManagerAccessLevelConditionXDevicePolicy {
+	repeated string allowed_device_management_levels = 1;
+	repeated string allowed_encryption_statuses = 2;
+	bool require_admin_approval = 3;
+	bool require_corp_owned = 4;
+	bool require_screen_lock = 5;
+	repeated AccessContextManagerAccessLevelConditionXDevicePolicyXOsConstraints os_constraints = 6;
+}
+
+message AccessContextManagerAccessLevelConditionXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message AccessContextManagerAccessLevelCondition {
+	string access_level = 1;
+	string id = 2;
+	repeated string ip_subnetworks = 3;
+	repeated string members = 4;
+	bool negate = 5;
+	repeated string regions = 6;
+	repeated string required_access_levels = 7;
+	AccessContextManagerAccessLevelConditionXDevicePolicy device_policy = 8;
+	AccessContextManagerAccessLevelConditionXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevelsXBasicXConditionsXDevicePolicyXOsConstraints {
+	string minimum_version = 1;
+	string os_type = 2;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevelsXBasicXConditionsXDevicePolicy {
+	repeated string allowed_device_management_levels = 1;
+	repeated string allowed_encryption_statuses = 2;
+	bool require_admin_approval = 3;
+	bool require_corp_owned = 4;
+	bool require_screen_lock = 5;
+	repeated AccessContextManagerAccessLevelsXAccessLevelsXBasicXConditionsXDevicePolicyXOsConstraints os_constraints = 6;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevelsXBasicXConditions {
+	repeated string ip_subnetworks = 1;
+	repeated string members = 2;
+	bool negate = 3;
+	repeated string regions = 4;
+	repeated string required_access_levels = 5;
+	AccessContextManagerAccessLevelsXAccessLevelsXBasicXConditionsXDevicePolicy device_policy = 6;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevelsXBasic {
+	string combining_function = 1;
+	repeated AccessContextManagerAccessLevelsXAccessLevelsXBasicXConditions conditions = 2;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevelsXCustomXExpr {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevelsXCustom {
+	AccessContextManagerAccessLevelsXAccessLevelsXCustomXExpr expr = 1;
+}
+
+message AccessContextManagerAccessLevelsXAccessLevels {
+	string description = 1;
+	string name = 2;
+	string title = 3;
+	AccessContextManagerAccessLevelsXAccessLevelsXBasic basic = 4;
+	AccessContextManagerAccessLevelsXAccessLevelsXCustom custom = 5;
+}
+
+message AccessContextManagerAccessLevelsXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AccessContextManagerAccessLevels {
+	string id = 1;
+	string parent = 2;
+	repeated AccessContextManagerAccessLevelsXAccessLevels access_levels = 3;
+	AccessContextManagerAccessLevelsXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message AccessContextManagerAccessPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AccessContextManagerAccessPolicy {
+	string create_time = 1;
+	string id = 2;
+	string name = 3;
+	string parent = 4;
+	repeated string scopes = 5;
+	string title = 6;
+	string update_time = 7;
+	AccessContextManagerAccessPolicyXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message AccessContextManagerAccessPolicyIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message AccessContextManagerAccessPolicyIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string name = 4;
+	string role = 5;
+	AccessContextManagerAccessPolicyIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message AccessContextManagerAccessPolicyIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message AccessContextManagerAccessPolicyIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string name = 4;
+	string role = 5;
+	AccessContextManagerAccessPolicyIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message AccessContextManagerAccessPolicyIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string name = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message AccessContextManagerGcpUserAccessBindingXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AccessContextManagerGcpUserAccessBinding {
+	repeated string access_levels = 1;
+	string group_key = 2;
+	string id = 3;
+	string name = 4;
+	string organization_id = 5;
+	AccessContextManagerGcpUserAccessBindingXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressTo {
+	repeated string external_resources = 1;
+	repeated string resources = 2;
+	repeated AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressToXOperations operations = 3;
+}
+
+message AccessContextManagerServicePerimeterXSpecXEgressPolicies {
+	AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressFrom egress_from = 1;
+	AccessContextManagerServicePerimeterXSpecXEgressPoliciesXEgressTo egress_to = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressFromXSources {
+	string access_level = 1;
+	string resource = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+	repeated AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressFromXSources sources = 3;
+}
+
+message AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressTo {
+	repeated string resources = 1;
+	repeated AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressToXOperations operations = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXIngressPolicies {
+	AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressFrom ingress_from = 1;
+	AccessContextManagerServicePerimeterXSpecXIngressPoliciesXIngressTo ingress_to = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpecXVpcAccessibleServices {
+	repeated string allowed_services = 1;
+	bool enable_restriction = 2;
+}
+
+message AccessContextManagerServicePerimeterXSpec {
+	repeated string access_levels = 1;
+	repeated string resources = 2;
+	repeated string restricted_services = 3;
+	repeated AccessContextManagerServicePerimeterXSpecXEgressPolicies egress_policies = 4;
+	repeated AccessContextManagerServicePerimeterXSpecXIngressPolicies ingress_policies = 5;
+	AccessContextManagerServicePerimeterXSpecXVpcAccessibleServices vpc_accessible_services = 6;
+}
+
+message AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressTo {
+	repeated string external_resources = 1;
+	repeated string resources = 2;
+	repeated AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressToXOperations operations = 3;
+}
+
+message AccessContextManagerServicePerimeterXStatusXEgressPolicies {
+	AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressFrom egress_from = 1;
+	AccessContextManagerServicePerimeterXStatusXEgressPoliciesXEgressTo egress_to = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressFromXSources {
+	string access_level = 1;
+	string resource = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+	repeated AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressFromXSources sources = 3;
+}
+
+message AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressTo {
+	repeated string resources = 1;
+	repeated AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressToXOperations operations = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXIngressPolicies {
+	AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressFrom ingress_from = 1;
+	AccessContextManagerServicePerimeterXStatusXIngressPoliciesXIngressTo ingress_to = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatusXVpcAccessibleServices {
+	repeated string allowed_services = 1;
+	bool enable_restriction = 2;
+}
+
+message AccessContextManagerServicePerimeterXStatus {
+	repeated string access_levels = 1;
+	repeated string resources = 2;
+	repeated string restricted_services = 3;
+	repeated AccessContextManagerServicePerimeterXStatusXEgressPolicies egress_policies = 4;
+	repeated AccessContextManagerServicePerimeterXStatusXIngressPolicies ingress_policies = 5;
+	AccessContextManagerServicePerimeterXStatusXVpcAccessibleServices vpc_accessible_services = 6;
+}
+
+message AccessContextManagerServicePerimeterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AccessContextManagerServicePerimeter {
+	string create_time = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string parent = 5;
+	string perimeter_type = 6;
+	string title = 7;
+	string update_time = 8;
+	bool use_explicit_dry_run_spec = 9;
+	AccessContextManagerServicePerimeterXSpec spec = 10;
+	AccessContextManagerServicePerimeterXStatus status = 11;
+	AccessContextManagerServicePerimeterXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message AccessContextManagerServicePerimeterResourceXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message AccessContextManagerServicePerimeterResource {
+	string id = 1;
+	string perimeter_name = 2;
+	string resource = 3;
+	AccessContextManagerServicePerimeterResourceXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressTo {
+	repeated string external_resources = 1;
+	repeated string resources = 2;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressToXOperations operations = 3;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPolicies {
+	AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressFrom egress_from = 1;
+	AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPoliciesXEgressTo egress_to = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressFromXSources {
+	string access_level = 1;
+	string resource = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressFromXSources sources = 3;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressTo {
+	repeated string resources = 1;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressToXOperations operations = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPolicies {
+	AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressFrom ingress_from = 1;
+	AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPoliciesXIngressTo ingress_to = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpecXVpcAccessibleServices {
+	repeated string allowed_services = 1;
+	bool enable_restriction = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXSpec {
+	repeated string access_levels = 1;
+	repeated string resources = 2;
+	repeated string restricted_services = 3;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXEgressPolicies egress_policies = 4;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXSpecXIngressPolicies ingress_policies = 5;
+	AccessContextManagerServicePerimetersXServicePerimetersXSpecXVpcAccessibleServices vpc_accessible_services = 6;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressTo {
+	repeated string external_resources = 1;
+	repeated string resources = 2;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressToXOperations operations = 3;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPolicies {
+	AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressFrom egress_from = 1;
+	AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPoliciesXEgressTo egress_to = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressFromXSources {
+	string access_level = 1;
+	string resource = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressFrom {
+	repeated string identities = 1;
+	string identity_type = 2;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressFromXSources sources = 3;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressToXOperationsXMethodSelectors {
+	string method = 1;
+	string permission = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressToXOperations {
+	string service_name = 1;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressToXOperationsXMethodSelectors method_selectors = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressTo {
+	repeated string resources = 1;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressToXOperations operations = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPolicies {
+	AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressFrom ingress_from = 1;
+	AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPoliciesXIngressTo ingress_to = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatusXVpcAccessibleServices {
+	repeated string allowed_services = 1;
+	bool enable_restriction = 2;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimetersXStatus {
+	repeated string access_levels = 1;
+	repeated string resources = 2;
+	repeated string restricted_services = 3;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXEgressPolicies egress_policies = 4;
+	repeated AccessContextManagerServicePerimetersXServicePerimetersXStatusXIngressPolicies ingress_policies = 5;
+	AccessContextManagerServicePerimetersXServicePerimetersXStatusXVpcAccessibleServices vpc_accessible_services = 6;
+}
+
+message AccessContextManagerServicePerimetersXServicePerimeters {
+	string create_time = 1;
+	string description = 2;
+	string name = 3;
+	string perimeter_type = 4;
+	string title = 5;
+	string update_time = 6;
+	bool use_explicit_dry_run_spec = 7;
+	AccessContextManagerServicePerimetersXServicePerimetersXSpec spec = 8;
+	AccessContextManagerServicePerimetersXServicePerimetersXStatus status = 9;
+}
+
+message AccessContextManagerServicePerimetersXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AccessContextManagerServicePerimeters {
+	string id = 1;
+	string parent = 2;
+	repeated AccessContextManagerServicePerimetersXServicePerimeters service_perimeters = 3;
+	AccessContextManagerServicePerimetersXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

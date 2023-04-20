@@ -1,0 +1,236 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_keyvault;
+
+import "shared/shared.proto";
+
+message Microsoft_KeyVault {
+	Vaults vaults = 1;
+	repeated VaultsAccessPolicies vaults_access_policies = 2;
+	repeated VaultsKeys vaults_keys = 3;
+	repeated VaultsSecrets vaults_secrets = 4;
+	repeated VaultsCertificates vaults_certificates = 5;
+}
+
+message VaultsCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string key_vault_id = 3;
+}
+
+message VaultsSecrets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	SecretAttributes attributes = 3;
+	string content_type = 4;
+	string value = 5;
+	map<string, string> tags = 6;
+}
+
+message SecretAttributes {
+	bool enabled = 1;
+	string exp = 2;
+	string nbf = 3;
+}
+
+message VaultsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string name = 3;
+	PrivateEndpoint private_endpoint = 4;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 5;
+	string provisioning_state = 6;
+}
+
+message PrivateLinkServiceConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string name = 1;
+}
+
+message VaultsKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	KeyAttributes attributes = 3;
+	string curve_name = 4;
+	repeated string key_ops = 5;
+	int32 key_size = 6;
+	string kty = 7;
+	KeyReleasePolicy release_policy = 8;
+	RotationPolicy rotation_policy = 9;
+	map<string, string> tags = 10;
+}
+
+message RotationPolicy {
+	KeyRotationPolicyAttributes attributes = 1;
+	repeated LifetimeAction lifetime_actions = 2;
+}
+
+message LifetimeAction {
+	Action action = 1;
+	Trigger trigger = 2;
+}
+
+message Trigger {
+	string time_after_create = 1;
+	string time_before_expiry = 2;
+}
+
+message Action {
+	string type = 1;
+}
+
+message KeyRotationPolicyAttributes {
+	string expiry_time = 1;
+}
+
+message KeyReleasePolicy {
+	string content_type = 1;
+	string data = 2;
+}
+
+message KeyAttributes {
+	bool enabled = 1;
+	string exp = 2;
+	bool exportable = 3;
+	string nbf = 4;
+}
+
+message VaultsAccessPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated AccessPolicyEntry access_policies = 3;
+}
+
+message Vaults {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	repeated AccessPolicyEntry access_policies = 4;
+	string create_mode = 5;
+	bool enabled_for_deployment = 6;
+	bool enabled_for_disk_encryption = 7;
+	bool enabled_for_template_deployment = 8;
+	bool enable_purge_protection = 9;
+	bool enable_rbac_authorization = 10;
+	bool enable_soft_delete = 11;
+	NetworkRuleSet network_acls = 12;
+	string provisioning_state = 13;
+	string public_network_access = 14;
+	Sku sku = 15;
+	int32 soft_delete_retention_in_days = 16;
+	string tenant_id = 17;
+	string vault_uri = 18;
+	map<string, string> tags = 19;
+	repeated VaultsPrivateEndpointConnections vaults_private_endpoint_connections = 20;
+}
+
+message Sku {
+	string family = 1;
+	string name = 2;
+}
+
+message NetworkRuleSet {
+	string bypass = 1;
+	string default_action = 2;
+	repeated IPRule ip_rules = 3;
+	repeated VirtualNetworkRule virtual_network_rules = 4;
+}
+
+message VirtualNetworkRule {
+	string id = 1;
+	bool ignore_missing_vnet_service_endpoint = 2;
+}
+
+message IPRule {
+	string value = 1;
+}
+
+message AccessPolicyEntry {
+	string application_id = 1;
+	string object_id = 2;
+	Permissions permissions = 3;
+	string tenant_id = 4;
+}
+
+message Permissions {
+	repeated string certificates = 1;
+	repeated string keys = 2;
+	repeated string secrets = 3;
+	repeated string storage = 4;
+}
+
+message ManagedHSMsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string location = 3;
+	string name = 4;
+	MHSMPrivateEndpoint private_endpoint = 5;
+	MHSMPrivateLinkServiceConnectionState private_link_service_connection_state = 6;
+	string provisioning_state = 7;
+	ManagedHsmSku sku = 8;
+	SystemData system_data = 9;
+	map<string, string> tags = 10;
+}
+
+message MHSMPrivateLinkServiceConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message MHSMPrivateEndpoint {
+	string name = 1;
+}
+
+message ManagedHSMs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string create_mode = 4;
+	bool enable_purge_protection = 5;
+	bool enable_soft_delete = 6;
+	repeated string initial_admin_object_ids = 7;
+	MHSMNetworkRuleSet network_acls = 8;
+	string public_network_access = 9;
+	int32 soft_delete_retention_in_days = 10;
+	string tenant_id = 11;
+	ManagedHsmSku sku = 12;
+	SystemData system_data = 13;
+	map<string, string> tags = 14;
+	repeated ManagedHSMsPrivateEndpointConnections managed_h_s_ms_private_endpoint_connections = 15;
+}
+
+message SystemData {
+	string created_at = 1;
+	string created_by = 2;
+	string created_by_type = 3;
+	string last_modified_at = 4;
+	string last_modified_by = 5;
+	string last_modified_by_type = 6;
+}
+
+message ManagedHsmSku {
+	string family = 1;
+	string name = 2;
+}
+
+message MHSMNetworkRuleSet {
+	string bypass = 1;
+	string default_action = 2;
+	repeated MHSMIPRule ip_rules = 3;
+	repeated MHSMVirtualNetworkRule virtual_network_rules = 4;
+}
+
+message MHSMVirtualNetworkRule {
+	string id = 1;
+}
+
+message MHSMIPRule {
+	string value = 1;
+}
+

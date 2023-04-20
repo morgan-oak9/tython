@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_network;
+
+import "shared/shared.proto";
+
+message ComputeNetworkXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeNetwork {
+	bool auto_create_subnetworks = 1;
+	bool delete_default_routes_on_create = 2;
+	string description = 3;
+	bool enable_ula_internal_ipv6 = 4;
+	string gateway_ipv4 = 5;
+	string id = 6;
+	string internal_ipv6_range = 7;
+	double mtu = 8;
+	string name = 9;
+	string project = 10;
+	string routing_mode = 11;
+	string self_link = 12;
+	ComputeNetworkXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message ComputeNetworkEndpointXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeNetworkEndpoint {
+	string id = 1;
+	string instance = 2;
+	string ip_address = 3;
+	string network_endpoint_group = 4;
+	double port = 5;
+	string project = 6;
+	string zone = 7;
+	ComputeNetworkEndpointXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeNetworkEndpointGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeNetworkEndpointGroup {
+	double default_port = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string network = 5;
+	string network_endpoint_type = 6;
+	string project = 7;
+	string self_link = 8;
+	double size = 9;
+	string subnetwork = 10;
+	string zone = 11;
+	ComputeNetworkEndpointGroupXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ComputeNetworkPeeringXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeNetworkPeering {
+	bool export_custom_routes = 1;
+	bool export_subnet_routes_with_public_ip = 2;
+	string id = 3;
+	bool import_custom_routes = 4;
+	bool import_subnet_routes_with_public_ip = 5;
+	string name = 6;
+	string network = 7;
+	string peer_network = 8;
+	string state = 9;
+	string state_details = 10;
+	ComputeNetworkPeeringXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ComputeNetworkPeeringRoutesConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeNetworkPeeringRoutesConfig {
+	bool export_custom_routes = 1;
+	string id = 2;
+	bool import_custom_routes = 3;
+	string network = 4;
+	string peering = 5;
+	string project = 6;
+	ComputeNetworkPeeringRoutesConfigXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

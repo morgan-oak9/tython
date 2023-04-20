@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.apimachinery.pkg.util.intstr;
+
+import "shared/shared.proto";
+
+message IntOrString {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+

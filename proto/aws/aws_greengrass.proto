@@ -1,0 +1,482 @@
+syntax = "proto3";
+
+package oak9.tython.aws.greengrass;
+
+import "shared/shared.proto";
+
+message ConnectorDefinitionConnector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connector_arn = 2;
+	map<string, string> parameters = 3;
+	string id = 4;
+}
+
+message ConnectorDefinitionConnectorDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ConnectorDefinitionConnector connectors = 2;
+}
+
+message ConnectorDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ConnectorDefinitionConnectorDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message Greengrass {
+	repeated ConnectorDefinition connector_definition = 1;
+	repeated ConnectorDefinitionVersion connector_definition_version = 2;
+	repeated CoreDefinition core_definition = 3;
+	repeated CoreDefinitionVersion core_definition_version = 4;
+	repeated DeviceDefinition device_definition = 5;
+	repeated DeviceDefinitionVersion device_definition_version = 6;
+	repeated FunctionDefinition function_definition = 7;
+	repeated FunctionDefinitionVersion function_definition_version = 8;
+	repeated Group group = 9;
+	repeated GroupVersion group_version = 10;
+	repeated LoggerDefinition logger_definition = 11;
+	repeated LoggerDefinitionVersion logger_definition_version = 12;
+	repeated ResourceDefinition resource_definition = 13;
+	repeated ResourceDefinitionVersion resource_definition_version = 14;
+	repeated SubscriptionDefinition subscription_definition = 15;
+	repeated SubscriptionDefinitionVersion subscription_definition_version = 16;
+}
+
+message ConnectorDefinitionVersionConnector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connector_arn = 2;
+	map<string, string> parameters = 3;
+	string id = 4;
+}
+
+message ConnectorDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ConnectorDefinitionVersionConnector connectors = 2;
+	string connector_definition_id = 3;
+}
+
+message CoreDefinitionCore {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool sync_shadow = 2;
+	string thing_arn = 3;
+	string id = 4;
+	string certificate_arn = 5;
+}
+
+message CoreDefinitionCoreDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated CoreDefinitionCore cores = 2;
+}
+
+message CoreDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	CoreDefinitionCoreDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message CoreDefinitionVersionCore {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool sync_shadow = 2;
+	string thing_arn = 3;
+	string id = 4;
+	string certificate_arn = 5;
+}
+
+message CoreDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated CoreDefinitionVersionCore cores = 2;
+	string core_definition_id = 3;
+}
+
+message DeviceDefinitionDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool sync_shadow = 2;
+	string thing_arn = 3;
+	string id = 4;
+	string certificate_arn = 5;
+}
+
+message DeviceDefinitionDeviceDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeviceDefinitionDevice devices = 2;
+}
+
+message DeviceDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DeviceDefinitionDeviceDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message DeviceDefinitionVersionDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool sync_shadow = 2;
+	string thing_arn = 3;
+	string id = 4;
+	string certificate_arn = 5;
+}
+
+message DeviceDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_definition_id = 2;
+	repeated DeviceDefinitionVersionDevice devices = 3;
+}
+
+message FunctionDefinitionRunAs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 uid = 2;
+	int32 gid = 3;
+}
+
+message FunctionDefinitionExecution {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string isolation_mode = 2;
+	FunctionDefinitionRunAs run_as = 3;
+}
+
+message FunctionDefinitionDefaultConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FunctionDefinitionExecution execution = 2;
+}
+
+message FunctionDefinitionResourceAccessPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_id = 2;
+	string permission = 3;
+}
+
+message FunctionDefinitionEnvironment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> variables = 2;
+	FunctionDefinitionExecution execution = 3;
+	repeated FunctionDefinitionResourceAccessPolicy resource_access_policies = 4;
+	bool access_sysfs = 5;
+}
+
+message FunctionDefinitionFunctionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 memory_size = 2;
+	bool pinned = 3;
+	string exec_args = 4;
+	int32 timeout = 5;
+	string encoding_type = 6;
+	FunctionDefinitionEnvironment environment = 7;
+	string executable = 8;
+}
+
+message FunctionDefinitionFunction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string function_arn = 2;
+	FunctionDefinitionFunctionConfiguration function_configuration = 3;
+	string id = 4;
+}
+
+message FunctionDefinitionFunctionDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FunctionDefinitionDefaultConfig default_config = 2;
+	repeated FunctionDefinitionFunction functions = 3;
+}
+
+message FunctionDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FunctionDefinitionFunctionDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message FunctionDefinitionVersionRunAs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 uid = 2;
+	int32 gid = 3;
+}
+
+message FunctionDefinitionVersionExecution {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string isolation_mode = 2;
+	FunctionDefinitionVersionRunAs run_as = 3;
+}
+
+message FunctionDefinitionVersionDefaultConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FunctionDefinitionVersionExecution execution = 2;
+}
+
+message FunctionDefinitionVersionResourceAccessPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_id = 2;
+	string permission = 3;
+}
+
+message FunctionDefinitionVersionEnvironment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> variables = 2;
+	FunctionDefinitionVersionExecution execution = 3;
+	repeated FunctionDefinitionVersionResourceAccessPolicy resource_access_policies = 4;
+	bool access_sysfs = 5;
+}
+
+message FunctionDefinitionVersionFunctionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 memory_size = 2;
+	bool pinned = 3;
+	string exec_args = 4;
+	int32 timeout = 5;
+	string encoding_type = 6;
+	FunctionDefinitionVersionEnvironment environment = 7;
+	string executable = 8;
+}
+
+message FunctionDefinitionVersionFunction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string function_arn = 2;
+	FunctionDefinitionVersionFunctionConfiguration function_configuration = 3;
+	string id = 4;
+}
+
+message FunctionDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FunctionDefinitionVersionDefaultConfig default_config = 2;
+	repeated FunctionDefinitionVersionFunction functions = 3;
+	string function_definition_id = 4;
+}
+
+message GroupGroupVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string logger_definition_version_arn = 2;
+	string device_definition_version_arn = 3;
+	string function_definition_version_arn = 4;
+	string core_definition_version_arn = 5;
+	string resource_definition_version_arn = 6;
+	string connector_definition_version_arn = 7;
+	string subscription_definition_version_arn = 8;
+}
+
+message Group {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GroupGroupVersion initial_version = 2;
+	string role_arn = 3;
+	map<string, string> tags = 4;
+	string name = 5;
+}
+
+message GroupVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string logger_definition_version_arn = 2;
+	string device_definition_version_arn = 3;
+	string function_definition_version_arn = 4;
+	string core_definition_version_arn = 5;
+	string resource_definition_version_arn = 6;
+	string connector_definition_version_arn = 7;
+	string subscription_definition_version_arn = 8;
+	string group_id = 9;
+}
+
+message LoggerDefinitionLogger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 space = 2;
+	string level = 3;
+	string id = 4;
+	string component = 5;
+}
+
+message LoggerDefinitionLoggerDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated LoggerDefinitionLogger loggers = 2;
+}
+
+message LoggerDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LoggerDefinitionLoggerDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message LoggerDefinitionVersionLogger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 space = 2;
+	string level = 3;
+	string id = 4;
+	string component = 5;
+}
+
+message LoggerDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string logger_definition_id = 2;
+	repeated LoggerDefinitionVersionLogger loggers = 3;
+}
+
+message ResourceDefinitionSecretsManagerSecretResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	repeated string additional_staging_labels_to_download = 3;
+}
+
+message ResourceDefinitionResourceDownloadOwnerSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_owner = 2;
+	string group_permission = 3;
+}
+
+message ResourceDefinitionSageMakerMachineLearningModelResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionResourceDownloadOwnerSetting owner_setting = 2;
+	string destination_path = 3;
+	string sage_maker_job_arn = 4;
+}
+
+message ResourceDefinitionGroupOwnerSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool auto_add_group_owner = 2;
+	string group_owner = 3;
+}
+
+message ResourceDefinitionLocalVolumeResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_path = 2;
+	string destination_path = 3;
+	ResourceDefinitionGroupOwnerSetting group_owner_setting = 4;
+}
+
+message ResourceDefinitionLocalDeviceResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_path = 2;
+	ResourceDefinitionGroupOwnerSetting group_owner_setting = 3;
+}
+
+message ResourceDefinitionS3MachineLearningModelResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionResourceDownloadOwnerSetting owner_setting = 2;
+	string destination_path = 3;
+	string s3_uri = 4;
+}
+
+message ResourceDefinitionResourceDataContainer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionSecretsManagerSecretResourceData secrets_manager_secret_resource_data = 2;
+	ResourceDefinitionSageMakerMachineLearningModelResourceData sage_maker_machine_learning_model_resource_data = 3;
+	ResourceDefinitionLocalVolumeResourceData local_volume_resource_data = 4;
+	ResourceDefinitionLocalDeviceResourceData local_device_resource_data = 5;
+	ResourceDefinitionS3MachineLearningModelResourceData s3_machine_learning_model_resource_data = 6;
+}
+
+message ResourceDefinitionResourceInstance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionResourceDataContainer resource_data_container = 2;
+	string id = 3;
+	string name = 4;
+}
+
+message ResourceDefinitionResourceDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ResourceDefinitionResourceInstance resources = 2;
+}
+
+message ResourceDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionResourceDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message ResourceDefinitionVersionSecretsManagerSecretResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	repeated string additional_staging_labels_to_download = 3;
+}
+
+message ResourceDefinitionVersionResourceDownloadOwnerSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_owner = 2;
+	string group_permission = 3;
+}
+
+message ResourceDefinitionVersionSageMakerMachineLearningModelResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionVersionResourceDownloadOwnerSetting owner_setting = 2;
+	string destination_path = 3;
+	string sage_maker_job_arn = 4;
+}
+
+message ResourceDefinitionVersionGroupOwnerSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool auto_add_group_owner = 2;
+	string group_owner = 3;
+}
+
+message ResourceDefinitionVersionLocalVolumeResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_path = 2;
+	string destination_path = 3;
+	ResourceDefinitionVersionGroupOwnerSetting group_owner_setting = 4;
+}
+
+message ResourceDefinitionVersionLocalDeviceResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_path = 2;
+	ResourceDefinitionVersionGroupOwnerSetting group_owner_setting = 3;
+}
+
+message ResourceDefinitionVersionS3MachineLearningModelResourceData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionVersionResourceDownloadOwnerSetting owner_setting = 2;
+	string destination_path = 3;
+	string s3_uri = 4;
+}
+
+message ResourceDefinitionVersionResourceDataContainer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionVersionSecretsManagerSecretResourceData secrets_manager_secret_resource_data = 2;
+	ResourceDefinitionVersionSageMakerMachineLearningModelResourceData sage_maker_machine_learning_model_resource_data = 3;
+	ResourceDefinitionVersionLocalVolumeResourceData local_volume_resource_data = 4;
+	ResourceDefinitionVersionLocalDeviceResourceData local_device_resource_data = 5;
+	ResourceDefinitionVersionS3MachineLearningModelResourceData s3_machine_learning_model_resource_data = 6;
+}
+
+message ResourceDefinitionVersionResourceInstance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceDefinitionVersionResourceDataContainer resource_data_container = 2;
+	string id = 3;
+	string name = 4;
+}
+
+message ResourceDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ResourceDefinitionVersionResourceInstance resources = 2;
+	string resource_definition_id = 3;
+}
+
+message SubscriptionDefinitionSubscription {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target = 2;
+	string id = 3;
+	string source = 4;
+	string subject = 5;
+}
+
+message SubscriptionDefinitionSubscriptionDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated SubscriptionDefinitionSubscription subscriptions = 2;
+}
+
+message SubscriptionDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SubscriptionDefinitionSubscriptionDefinitionVersion initial_version = 2;
+	map<string, string> tags = 3;
+	string name = 4;
+}
+
+message SubscriptionDefinitionVersionSubscription {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target = 2;
+	string id = 3;
+	string source = 4;
+	string subject = 5;
+}
+
+message SubscriptionDefinitionVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string subscription_definition_id = 2;
+	repeated SubscriptionDefinitionVersionSubscription subscriptions = 3;
+}
+

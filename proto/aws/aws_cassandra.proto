@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package oak9.tython.aws.cassandra;
+
+import "shared/shared.proto";
+
+message Keyspace {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string keyspace_name = 2;
+}
+
+message Cassandra {
+	repeated Keyspace keyspace = 1;
+	repeated Table table = 2;
+}
+
+message TableColumn {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string column_name = 2;
+	string column_type = 3;
+}
+
+message TableClusteringKeyColumn {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TableColumn column = 2;
+	string order_by = 3;
+}
+
+message TableProvisionedThroughput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 read_capacity_units = 2;
+	int32 write_capacity_units = 3;
+}
+
+message TableBillingMode {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mode = 2;
+	TableProvisionedThroughput provisioned_throughput = 3;
+}
+
+message Table {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string keyspace_name = 2;
+	string table_name = 3;
+	repeated TableColumn regular_columns = 4;
+	repeated TableColumn partition_key_columns = 5;
+	repeated TableClusteringKeyColumn clustering_key_columns = 6;
+	TableBillingMode billing_mode = 7;
+}
+

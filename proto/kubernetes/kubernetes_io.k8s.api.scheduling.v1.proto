@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.scheduling.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message PriorityClass {
+	string api_version = 1;
+	string description = 2;
+	bool global_default = 3;
+	string kind = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	string preemption_policy = 6;
+	int32 value = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message PriorityClassList {
+	string api_version = 1;
+	repeated PriorityClass items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

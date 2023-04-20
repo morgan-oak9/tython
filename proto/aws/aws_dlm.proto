@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package oak9.tython.aws.dlm;
+
+import "shared/shared.proto";
+
+message LifecyclePolicyCreateRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string interval_unit = 2;
+	repeated string times = 3;
+	string cron_expression = 4;
+	int32 interval = 5;
+}
+
+message LifecyclePolicyFastRestoreRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string interval_unit = 2;
+	repeated string availability_zones = 3;
+	int32 count = 4;
+	int32 interval = 5;
+}
+
+message LifecyclePolicyRetainRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string interval_unit = 2;
+	int32 count = 3;
+	int32 interval = 4;
+}
+
+message LifecyclePolicyCrossRegionCopyRetainRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string interval_unit = 2;
+	int32 interval = 3;
+}
+
+message LifecyclePolicyCrossRegionCopyRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_region = 2;
+	bool encrypted = 3;
+	string cmk_arn = 4;
+	LifecyclePolicyCrossRegionCopyRetainRule retain_rule = 5;
+	bool copy_tags = 6;
+}
+
+message LifecyclePolicySchedule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags_to_add = 2;
+	LifecyclePolicyCreateRule create_rule = 3;
+	map<string, string> variable_tags = 4;
+	LifecyclePolicyFastRestoreRule fast_restore_rule = 5;
+	LifecyclePolicyRetainRule retain_rule = 6;
+	repeated LifecyclePolicyCrossRegionCopyRule cross_region_copy_rules = 7;
+	string name = 8;
+	bool copy_tags = 9;
+}
+
+message LifecyclePolicyParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool exclude_boot_volume = 2;
+}
+
+message LifecyclePolicyPolicyDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string resource_types = 2;
+	repeated LifecyclePolicySchedule schedules = 3;
+	string policy_type = 4;
+	LifecyclePolicyParameters parameters = 5;
+	map<string, string> target_tags = 6;
+}
+
+message LifecyclePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string execution_role_arn = 2;
+	string description = 3;
+	string state = 4;
+	LifecyclePolicyPolicyDetails policy_details = 5;
+}
+
+message DLM {
+	repeated LifecyclePolicy lifecycle_policy = 1;
+}
+

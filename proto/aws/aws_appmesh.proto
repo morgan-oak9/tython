@@ -1,0 +1,602 @@
+syntax = "proto3";
+
+package oak9.tython.aws.appmesh;
+
+import "shared/shared.proto";
+
+message GatewayRouteGatewayRouteVirtualService {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string virtual_service_name = 2;
+}
+
+message GatewayRouteGatewayRouteTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GatewayRouteGatewayRouteVirtualService virtual_service = 2;
+}
+
+message GatewayRouteHttpGatewayRouteAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GatewayRouteGatewayRouteTarget target = 2;
+}
+
+message GatewayRouteHttpGatewayRouteMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string prefix = 2;
+}
+
+message GatewayRouteHttpGatewayRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GatewayRouteHttpGatewayRouteAction action = 2;
+	GatewayRouteHttpGatewayRouteMatch match = 3;
+}
+
+message GatewayRouteGrpcGatewayRouteAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GatewayRouteGatewayRouteTarget target = 2;
+}
+
+message GatewayRouteGrpcGatewayRouteMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string service_name = 2;
+}
+
+message GatewayRouteGrpcGatewayRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GatewayRouteGrpcGatewayRouteAction action = 2;
+	GatewayRouteGrpcGatewayRouteMatch match = 3;
+}
+
+message GatewayRouteGatewayRouteSpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GatewayRouteHttpGatewayRoute http_route = 2;
+	GatewayRouteHttpGatewayRoute http2_route = 3;
+	GatewayRouteGrpcGatewayRoute grpc_route = 4;
+}
+
+message GatewayRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mesh_name = 2;
+	string virtual_gateway_name = 3;
+	string mesh_owner = 4;
+	string gateway_route_name = 5;
+	GatewayRouteGatewayRouteSpec spec = 6;
+	map<string, string> tags = 7;
+}
+
+message AppMesh {
+	repeated GatewayRoute gateway_route = 1;
+	repeated Mesh mesh = 2;
+	repeated Route route = 3;
+	repeated VirtualGateway virtual_gateway = 4;
+	repeated VirtualNode virtual_node = 5;
+	repeated VirtualRouter virtual_router = 6;
+	repeated VirtualService virtual_service = 7;
+}
+
+message MeshEgressFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message MeshMeshSpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MeshEgressFilter egress_filter = 2;
+}
+
+message Mesh {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mesh_name = 2;
+	MeshMeshSpec spec = 3;
+	map<string, string> tags = 4;
+}
+
+message RouteWeightedTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string virtual_node = 2;
+	int32 weight = 3;
+}
+
+message RouteHttpRouteAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RouteWeightedTarget weighted_targets = 2;
+}
+
+message RouteDuration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 value = 2;
+	string unit = 3;
+}
+
+message RouteHttpTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteDuration per_request = 2;
+	RouteDuration idle = 3;
+}
+
+message RouteHttpRetryPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_retries = 2;
+	RouteDuration per_retry_timeout = 3;
+	repeated string http_retry_events = 4;
+	repeated string tcp_retry_events = 5;
+}
+
+message RouteMatchRange {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 start = 2;
+	int32 end = 3;
+}
+
+message RouteHeaderMatchMethod {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string suffix = 2;
+	string regex = 3;
+	string exact = 4;
+	string prefix = 5;
+	RouteMatchRange range = 6;
+}
+
+message RouteHttpRouteHeader {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool invert = 2;
+	string name = 3;
+	RouteHeaderMatchMethod match = 4;
+}
+
+message RouteHttpRouteMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string scheme = 2;
+	repeated RouteHttpRouteHeader headers = 3;
+	string prefix = 4;
+	string method = 5;
+}
+
+message RouteHttpRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteHttpRouteAction action = 2;
+	RouteHttpTimeout timeout = 3;
+	RouteHttpRetryPolicy retry_policy = 4;
+	RouteHttpRouteMatch match = 5;
+}
+
+message RouteGrpcRouteAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RouteWeightedTarget weighted_targets = 2;
+}
+
+message RouteGrpcTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteDuration per_request = 2;
+	RouteDuration idle = 3;
+}
+
+message RouteGrpcRetryPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_retries = 2;
+	RouteDuration per_retry_timeout = 3;
+	repeated string grpc_retry_events = 4;
+	repeated string http_retry_events = 5;
+	repeated string tcp_retry_events = 6;
+}
+
+message RouteGrpcRouteMetadataMatchMethod {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string suffix = 2;
+	string regex = 3;
+	string exact = 4;
+	string prefix = 5;
+	RouteMatchRange range = 6;
+}
+
+message RouteGrpcRouteMetadata {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool invert = 2;
+	string name = 3;
+	RouteGrpcRouteMetadataMatchMethod match = 4;
+}
+
+message RouteGrpcRouteMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string service_name = 2;
+	repeated RouteGrpcRouteMetadata metadata = 3;
+	string method_name = 4;
+}
+
+message RouteGrpcRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteGrpcRouteAction action = 2;
+	RouteGrpcTimeout timeout = 3;
+	RouteGrpcRetryPolicy retry_policy = 4;
+	RouteGrpcRouteMatch match = 5;
+}
+
+message RouteTcpRouteAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RouteWeightedTarget weighted_targets = 2;
+}
+
+message RouteTcpTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteDuration idle = 2;
+}
+
+message RouteTcpRoute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteTcpRouteAction action = 2;
+	RouteTcpTimeout timeout = 3;
+}
+
+message RouteRouteSpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RouteHttpRoute http_route = 2;
+	int32 priority = 3;
+	RouteHttpRoute http2_route = 4;
+	RouteGrpcRoute grpc_route = 5;
+	RouteTcpRoute tcp_route = 6;
+}
+
+message Route {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mesh_name = 2;
+	string virtual_router_name = 3;
+	string mesh_owner = 4;
+	string route_name = 5;
+	RouteRouteSpec spec = 6;
+	map<string, string> tags = 7;
+}
+
+message VirtualGatewayVirtualGatewayFileAccessLog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+}
+
+message VirtualGatewayVirtualGatewayAccessLog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayFileAccessLog file = 2;
+}
+
+message VirtualGatewayVirtualGatewayLogging {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayAccessLog access_log = 2;
+}
+
+message VirtualGatewayVirtualGatewayHealthCheckPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+	int32 unhealthy_threshold = 3;
+	int32 port = 4;
+	int32 healthy_threshold = 5;
+	int32 timeout_millis = 6;
+	string protocol = 7;
+	int32 interval_millis = 8;
+}
+
+message VirtualGatewayVirtualGatewayListenerTlsAcmCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate_arn = 2;
+}
+
+message VirtualGatewayVirtualGatewayListenerTlsFileCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string private_key = 2;
+	string certificate_chain = 3;
+}
+
+message VirtualGatewayVirtualGatewayListenerTlsCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayListenerTlsAcmCertificate acm = 2;
+	VirtualGatewayVirtualGatewayListenerTlsFileCertificate file = 3;
+}
+
+message VirtualGatewayVirtualGatewayListenerTls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mode = 2;
+	VirtualGatewayVirtualGatewayListenerTlsCertificate certificate = 3;
+}
+
+message VirtualGatewayVirtualGatewayPortMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 port = 2;
+	string protocol = 3;
+}
+
+message VirtualGatewayVirtualGatewayListener {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayHealthCheckPolicy health_check = 2;
+	VirtualGatewayVirtualGatewayListenerTls tls = 3;
+	VirtualGatewayVirtualGatewayPortMapping port_mapping = 4;
+}
+
+message VirtualGatewayVirtualGatewayTlsValidationContextAcmTrust {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string certificate_authority_arns = 2;
+}
+
+message VirtualGatewayVirtualGatewayTlsValidationContextFileTrust {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate_chain = 2;
+}
+
+message VirtualGatewayVirtualGatewayTlsValidationContextTrust {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayTlsValidationContextAcmTrust acm = 2;
+	VirtualGatewayVirtualGatewayTlsValidationContextFileTrust file = 3;
+}
+
+message VirtualGatewayVirtualGatewayTlsValidationContext {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayTlsValidationContextTrust trust = 2;
+}
+
+message VirtualGatewayVirtualGatewayClientPolicyTls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayTlsValidationContext validation = 2;
+	bool enforce = 3;
+	repeated int32 ports = 4;
+}
+
+message VirtualGatewayVirtualGatewayClientPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayClientPolicyTls tls = 2;
+}
+
+message VirtualGatewayVirtualGatewayBackendDefaults {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayClientPolicy client_policy = 2;
+}
+
+message VirtualGatewayVirtualGatewaySpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualGatewayVirtualGatewayLogging logging = 2;
+	repeated VirtualGatewayVirtualGatewayListener listeners = 3;
+	VirtualGatewayVirtualGatewayBackendDefaults backend_defaults = 4;
+}
+
+message VirtualGateway {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string virtual_gateway_name = 2;
+	string mesh_name = 3;
+	string mesh_owner = 4;
+	VirtualGatewayVirtualGatewaySpec spec = 5;
+	map<string, string> tags = 6;
+}
+
+message VirtualNodeFileAccessLog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+}
+
+message VirtualNodeAccessLog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeFileAccessLog file = 2;
+}
+
+message VirtualNodeLogging {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeAccessLog access_log = 2;
+}
+
+message VirtualNodeTlsValidationContextAcmTrust {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string certificate_authority_arns = 2;
+}
+
+message VirtualNodeTlsValidationContextFileTrust {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate_chain = 2;
+}
+
+message VirtualNodeTlsValidationContextTrust {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeTlsValidationContextAcmTrust acm = 2;
+	VirtualNodeTlsValidationContextFileTrust file = 3;
+}
+
+message VirtualNodeTlsValidationContext {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeTlsValidationContextTrust trust = 2;
+}
+
+message VirtualNodeClientPolicyTls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeTlsValidationContext validation = 2;
+	bool enforce = 3;
+	repeated int32 ports = 4;
+}
+
+message VirtualNodeClientPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeClientPolicyTls tls = 2;
+}
+
+message VirtualNodeVirtualServiceBackend {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeClientPolicy client_policy = 2;
+	string virtual_service_name = 3;
+}
+
+message VirtualNodeBackend {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeVirtualServiceBackend virtual_service = 2;
+}
+
+message VirtualNodeDuration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 value = 2;
+	string unit = 3;
+}
+
+message VirtualNodeTcpTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeDuration idle = 2;
+}
+
+message VirtualNodeHttpTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeDuration per_request = 2;
+	VirtualNodeDuration idle = 3;
+}
+
+message VirtualNodeGrpcTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeDuration per_request = 2;
+	VirtualNodeDuration idle = 3;
+}
+
+message VirtualNodeListenerTimeout {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeTcpTimeout tcp = 2;
+	VirtualNodeHttpTimeout http2 = 3;
+	VirtualNodeHttpTimeout http = 4;
+	VirtualNodeGrpcTimeout grpc = 5;
+}
+
+message VirtualNodeHealthCheck {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+	int32 unhealthy_threshold = 3;
+	int32 port = 4;
+	int32 healthy_threshold = 5;
+	int32 timeout_millis = 6;
+	string protocol = 7;
+	int32 interval_millis = 8;
+}
+
+message VirtualNodeListenerTlsAcmCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate_arn = 2;
+}
+
+message VirtualNodeListenerTlsFileCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string private_key = 2;
+	string certificate_chain = 3;
+}
+
+message VirtualNodeListenerTlsCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeListenerTlsAcmCertificate acm = 2;
+	VirtualNodeListenerTlsFileCertificate file = 3;
+}
+
+message VirtualNodeListenerTls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mode = 2;
+	VirtualNodeListenerTlsCertificate certificate = 3;
+}
+
+message VirtualNodePortMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 port = 2;
+	string protocol = 3;
+}
+
+message VirtualNodeListener {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeListenerTimeout timeout = 2;
+	VirtualNodeHealthCheck health_check = 3;
+	VirtualNodeListenerTls tls = 4;
+	VirtualNodePortMapping port_mapping = 5;
+}
+
+message VirtualNodeBackendDefaults {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeClientPolicy client_policy = 2;
+}
+
+message VirtualNodeDnsServiceDiscovery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string hostname = 2;
+}
+
+message VirtualNodeAwsCloudMapInstanceAttribute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message VirtualNodeAwsCloudMapServiceDiscovery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string namespace_name = 2;
+	string service_name = 3;
+	repeated VirtualNodeAwsCloudMapInstanceAttribute attributes = 4;
+}
+
+message VirtualNodeServiceDiscovery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeDnsServiceDiscovery dns = 2;
+	VirtualNodeAwsCloudMapServiceDiscovery aws_cloud_map = 3;
+}
+
+message VirtualNodeVirtualNodeSpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualNodeLogging logging = 2;
+	repeated VirtualNodeBackend backends = 3;
+	repeated VirtualNodeListener listeners = 4;
+	VirtualNodeBackendDefaults backend_defaults = 5;
+	VirtualNodeServiceDiscovery service_discovery = 6;
+}
+
+message VirtualNode {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mesh_name = 2;
+	string mesh_owner = 3;
+	VirtualNodeVirtualNodeSpec spec = 4;
+	string virtual_node_name = 5;
+	map<string, string> tags = 6;
+}
+
+message VirtualRouterPortMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 port = 2;
+	string protocol = 3;
+}
+
+message VirtualRouterVirtualRouterListener {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualRouterPortMapping port_mapping = 2;
+}
+
+message VirtualRouterVirtualRouterSpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated VirtualRouterVirtualRouterListener listeners = 2;
+}
+
+message VirtualRouter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mesh_name = 2;
+	string virtual_router_name = 3;
+	string mesh_owner = 4;
+	VirtualRouterVirtualRouterSpec spec = 5;
+	map<string, string> tags = 6;
+}
+
+message VirtualServiceVirtualNodeServiceProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string virtual_node_name = 2;
+}
+
+message VirtualServiceVirtualRouterServiceProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string virtual_router_name = 2;
+}
+
+message VirtualServiceVirtualServiceProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualServiceVirtualNodeServiceProvider virtual_node = 2;
+	VirtualServiceVirtualRouterServiceProvider virtual_router = 3;
+}
+
+message VirtualServiceVirtualServiceSpec {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	VirtualServiceVirtualServiceProvider provider = 2;
+}
+
+message VirtualService {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mesh_name = 2;
+	string mesh_owner = 3;
+	string virtual_service_name = 4;
+	VirtualServiceVirtualServiceSpec spec = 5;
+	map<string, string> tags = 6;
+}
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package oak9.tython.aws.certificatemanager;
+
+import "shared/shared.proto";
+
+message CertificateDomainValidationOption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string domain_name = 2;
+	string hosted_zone_id = 3;
+	string validation_domain = 4;
+}
+
+message Certificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate_authority_arn = 2;
+	string certificate_transparency_logging_preference = 3;
+	string domain_name = 4;
+	repeated CertificateDomainValidationOption domain_validation_options = 5;
+	repeated string subject_alternative_names = 6;
+	map<string, string> tags = 7;
+	string validation_method = 8;
+}
+
+message CertificateManager {
+	Certificate certificate = 1;
+}
+

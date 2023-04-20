@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package oak9.tython.aws.kms;
+
+import "shared/shared.proto";
+
+message Alias {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string alias_name = 2;
+	string target_key_id = 3;
+}
+
+message KMS {
+	repeated Alias alias = 1;
+	Key key = 2;
+	CustomKeyStore custom_key_store = 3;
+	repeated Grant grant = 4;
+}
+
+message CustomKeyStore {
+	string cloud_hsm_cluster_id = 1;
+	string custom_key_store_name = 2;
+	string key_store_password = 3;
+	string trust_anchor_certificate = 4;
+}
+
+message Grant {
+	string grantee_principal = 1;
+	string retiring_principal = 2;
+	repeated string grant_tokens = 3;
+	string key_id = 4;
+	string name = 5;
+	repeated string operations = 6;
+	map<string, string> constraints = 7;
+}
+
+message Key {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	bool enabled = 3;
+	bool enable_key_rotation = 4;
+	string key_usage = 5;
+	int32 pending_window_in_days = 6;
+	map<string, string> tags = 7;
+	string custom_key_store_id = 8;
+	bool bypass_policy_lockout_safety_check = 9;
+	string key_spec = 10;
+	bool multi_region = 11;
+	string origin = 12;
+	string key_policy = 13;
+}
+

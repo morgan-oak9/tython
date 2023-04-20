@@ -1,0 +1,239 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_servicebus;
+
+import "shared/shared.proto";
+
+message Microsoft_ServiceBus {
+	Namespaces namespaces = 1;
+	repeated NamespacesQueues namespaces_queues = 2;
+	repeated NamespacesTopics namespaces_topics = 3;
+}
+
+message NamespacesTopicsSubscriptionsRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	Action action = 3;
+	CorrelationFilter correlation_filter = 4;
+	string filter_type = 5;
+	SqlFilter sql_filter = 6;
+}
+
+message SqlFilter {
+	int32 compatibility_level = 1;
+	bool requires_preprocessing = 2;
+	string sql_expression = 3;
+}
+
+message CorrelationFilter {
+	string content_type = 1;
+	string correlation_id = 2;
+	string label = 3;
+	string message_id = 4;
+	map<string, string> properties = 5;
+	string reply_to = 6;
+	string reply_to_session_id = 7;
+	bool requires_preprocessing = 8;
+	string session_id = 9;
+	string to = 10;
+}
+
+message Action {
+	int32 compatibility_level = 1;
+	bool requires_preprocessing = 2;
+	string sql_expression = 3;
+}
+
+message NamespacesTopicsSubscriptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string auto_delete_on_idle = 3;
+	SBClientAffineProperties client_affine_properties = 4;
+	bool dead_lettering_on_filter_evaluation_exceptions = 5;
+	bool dead_lettering_on_message_expiration = 6;
+	string default_message_time_to_live = 7;
+	string duplicate_detection_history_time_window = 8;
+	bool enable_batched_operations = 9;
+	string forward_dead_lettered_messages_to = 10;
+	string forward_to = 11;
+	bool is_client_affine = 12;
+	string lock_duration = 13;
+	int32 max_delivery_count = 14;
+	bool requires_session = 15;
+	string status = 16;
+	repeated NamespacesTopicsSubscriptionsRules namespaces_topics_subscriptions_rules = 17;
+}
+
+message SBClientAffineProperties {
+	string client_id = 1;
+	bool is_durable = 2;
+	bool is_shared = 3;
+}
+
+message NamespacesTopicsAuthorizationRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string rights = 3;
+}
+
+message NamespacesTopics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string auto_delete_on_idle = 3;
+	string default_message_time_to_live = 4;
+	string duplicate_detection_history_time_window = 5;
+	bool enable_batched_operations = 6;
+	bool enable_express = 7;
+	bool enable_partitioning = 8;
+	int32 max_message_size_in_kilobytes = 9;
+	int32 max_size_in_megabytes = 10;
+	bool requires_duplicate_detection = 11;
+	string status = 12;
+	bool support_ordering = 13;
+	repeated NamespacesTopicsAuthorizationRules namespaces_topics_authorization_rules = 14;
+	repeated NamespacesTopicsSubscriptions namespaces_topics_subscriptions = 15;
+}
+
+message NamespacesQueuesAuthorizationRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string rights = 3;
+}
+
+message NamespacesQueues {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string auto_delete_on_idle = 3;
+	bool dead_lettering_on_message_expiration = 4;
+	string default_message_time_to_live = 5;
+	string duplicate_detection_history_time_window = 6;
+	bool enable_batched_operations = 7;
+	bool enable_express = 8;
+	bool enable_partitioning = 9;
+	string forward_dead_lettered_messages_to = 10;
+	string forward_to = 11;
+	string lock_duration = 12;
+	int32 max_delivery_count = 13;
+	int32 max_message_size_in_kilobytes = 14;
+	int32 max_size_in_megabytes = 15;
+	bool requires_duplicate_detection = 16;
+	bool requires_session = 17;
+	string status = 18;
+	repeated NamespacesQueuesAuthorizationRules namespaces_queues_authorization_rules = 19;
+}
+
+message NamespacesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	ConnectionState private_link_service_connection_state = 4;
+	string provisioning_state = 5;
+}
+
+message NamespacesNetworkRuleSets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string default_action = 3;
+	repeated NWRuleSetIpRules ip_rules = 4;
+	string public_network_access = 5;
+	bool trusted_service_access_enabled = 6;
+	repeated NWRuleSetVirtualNetworkRules virtual_network_rules = 7;
+}
+
+message NWRuleSetVirtualNetworkRules {
+	bool ignore_missing_vnet_service_endpoint = 1;
+	Subnet subnet = 2;
+}
+
+message Subnet {
+	string id = 1;
+}
+
+message NWRuleSetIpRules {
+	string action = 1;
+	string ip_mask = 2;
+}
+
+message NamespacesMigrationConfigurations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string post_migration_name = 3;
+	string target_namespace = 4;
+}
+
+message NamespacesDisasterRecoveryConfigs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string alternate_name = 3;
+	string partner_namespace = 4;
+}
+
+message NamespacesAuthorizationRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string rights = 3;
+}
+
+message Namespaces {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	Identity identity = 2;
+	string location = 3;
+	string name = 4;
+	string alternate_name = 5;
+	bool disable_local_auth = 6;
+	Encryption encryption = 7;
+	repeated PrivateEndpointConnection private_endpoint_connections = 8;
+	bool zone_redundant = 9;
+	SBSku sku = 10;
+	map<string, string> tags = 11;
+	repeated NamespacesNetworkRuleSets namespaces_network_rule_sets = 12;
+	repeated NamespacesAuthorizationRules namespaces__authorization_rules = 13;
+	repeated NamespacesDisasterRecoveryConfigs namespaces_disaster_recovery_configs = 14;
+	repeated NamespacesMigrationConfigurations namespaces_migration_configurations = 15;
+	string minimum_tls_version = 16;
+	string public_network_access = 17;
+}
+
+message SBSku {
+	int32 capacity = 1;
+	string name = 2;
+	string tier = 3;
+}
+
+message PrivateEndpointConnection {
+	PrivateEndpoint private_endpoint = 1;
+	ConnectionState private_link_service_connection_state = 2;
+	string provisioning_state = 3;
+}
+
+message ConnectionState {
+	string description = 1;
+	string status = 2;
+}
+
+message PrivateEndpoint {
+	string id = 1;
+}
+
+message Encryption {
+	string key_source = 1;
+	repeated KeyVaultProperties key_vault_properties = 2;
+	bool require_infrastructure_encryption = 3;
+}
+
+message KeyVaultProperties {
+	UserAssignedIdentityProperties identity = 1;
+	string key_name = 2;
+	string key_vault_uri = 3;
+	string key_version = 4;
+}
+
+message UserAssignedIdentityProperties {
+	string user_assigned_identity = 1;
+}
+
+message Identity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+

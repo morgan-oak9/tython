@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_vpc;
+
+import "shared/shared.proto";
+
+message VPC {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_block = 2;
+	bool enable_dns_hostnames = 3;
+	bool enable_dns_support = 4;
+	string instance_tenancy = 5;
+	map<string, string> tags = 6;
+}
+
+message EC2_VPC {
+	VPC vpc = 1;
+	VPCCidrBlock vpc_cidr_block = 2;
+	VPCDHCPOptionsAssociation vpc_dhcp_options_association = 3;
+	repeated VPCPeeringConnection vpc_peering_connection = 4;
+}
+
+message VPCCidrBlock {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool amazon_provided_ipv6_cidr_block = 2;
+	string cidr_block = 3;
+	string vpc_id = 4;
+}
+
+message VPCDHCPOptionsAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string dhcp_options_id = 2;
+	string vpc_id = 3;
+}
+
+message VPCPeeringConnection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string peer_owner_id = 2;
+	string peer_region = 3;
+	string peer_role_arn = 4;
+	string peer_vpc_id = 5;
+	map<string, string> tags = 6;
+	string vpc_id = 7;
+}
+

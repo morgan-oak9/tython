@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_node;
+
+import "shared/shared.proto";
+
+message ComputeNodeGroupXAutoscalingPolicy {
+	double max_nodes = 1;
+	double min_nodes = 2;
+	string mode = 3;
+}
+
+message ComputeNodeGroupXMaintenanceWindow {
+	string start_time = 1;
+}
+
+message ComputeNodeGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeNodeGroup {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	double initial_size = 4;
+	string maintenance_policy = 5;
+	string name = 6;
+	string node_template = 7;
+	string project = 8;
+	string self_link = 9;
+	double size = 10;
+	string zone = 11;
+	ComputeNodeGroupXAutoscalingPolicy autoscaling_policy = 12;
+	ComputeNodeGroupXMaintenanceWindow maintenance_window = 13;
+	ComputeNodeGroupXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message ComputeNodeTemplateXNodeTypeFlexibility {
+	string cpus = 1;
+	string local_ssd = 2;
+	string memory = 3;
+}
+
+message ComputeNodeTemplateXServerBinding {
+	string type = 1;
+}
+
+message ComputeNodeTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeNodeTemplate {
+	string cpu_overcommit_type = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	string id = 4;
+	string name = 5;
+	map<string, string> node_affinity_labels = 6;
+	string node_type = 7;
+	string project = 8;
+	string region = 9;
+	string self_link = 10;
+	ComputeNodeTemplateXNodeTypeFlexibility node_type_flexibility = 11;
+	ComputeNodeTemplateXServerBinding server_binding = 12;
+	ComputeNodeTemplateXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+

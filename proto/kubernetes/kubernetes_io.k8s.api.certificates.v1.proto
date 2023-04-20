@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.certificates.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message CertificateSigningRequest {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	CertificateSigningRequestSpec spec = 4;
+	CertificateSigningRequestStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message CertificateSigningRequestCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_update_time = 2;
+	string message = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CertificateSigningRequestList {
+	string api_version = 1;
+	repeated CertificateSigningRequest items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CertificateSigningRequestSpec {
+	int32 expiration_seconds = 1;
+	map<string, string> extra = 2;
+	repeated string groups = 3;
+	string request = 4;
+	string signer_name = 5;
+	string uid = 6;
+	repeated string usages = 7;
+	string username = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CertificateSigningRequestStatus {
+	string certificate = 1;
+	repeated CertificateSigningRequestCondition conditions = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

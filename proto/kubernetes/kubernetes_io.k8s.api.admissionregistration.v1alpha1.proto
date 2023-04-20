@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.admissionregistration.v1alpha1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message MatchResources {
+	repeated NamedRuleWithOperations exclude_resource_rules = 1;
+	string match_policy = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector namespace_selector = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector object_selector = 4;
+	repeated NamedRuleWithOperations resource_rules = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NamedRuleWithOperations {
+	repeated string api_groups = 1;
+	repeated string api_versions = 2;
+	repeated string operations = 3;
+	repeated string resource_names = 4;
+	repeated string resources = 5;
+	string scope = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ParamKind {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ParamRef {
+	string name = 1;
+	string namespace = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ValidatingAdmissionPolicy {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ValidatingAdmissionPolicySpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidatingAdmissionPolicyBinding {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ValidatingAdmissionPolicyBindingSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidatingAdmissionPolicyBindingList {
+	string api_version = 1;
+	repeated ValidatingAdmissionPolicyBinding items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidatingAdmissionPolicyBindingSpec {
+	MatchResources match_resources = 1;
+	ParamRef param_ref = 2;
+	string policy_name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ValidatingAdmissionPolicyList {
+	string api_version = 1;
+	repeated ValidatingAdmissionPolicy items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidatingAdmissionPolicySpec {
+	string failure_policy = 1;
+	MatchResources match_constraints = 2;
+	ParamKind param_kind = 3;
+	repeated Validation validations = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Validation {
+	string expression = 1;
+	string message = 2;
+	string reason = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+

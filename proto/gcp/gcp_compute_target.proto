@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_target;
+
+import "shared/shared.proto";
+
+message ComputeTargetGrpcProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeTargetGrpcProxy {
+	string creation_timestamp = 1;
+	string description = 2;
+	string fingerprint = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	string self_link = 7;
+	string self_link_with_id = 8;
+	string url_map = 9;
+	bool validate_for_proxyless = 10;
+	ComputeTargetGrpcProxyXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ComputeTargetHttpProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeTargetHttpProxy {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	bool proxy_bind = 6;
+	double proxy_id = 7;
+	string self_link = 8;
+	string url_map = 9;
+	ComputeTargetHttpProxyXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ComputeTargetHttpsProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeTargetHttpsProxy {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	bool proxy_bind = 6;
+	double proxy_id = 7;
+	string quic_override = 8;
+	string self_link = 9;
+	repeated string ssl_certificates = 10;
+	string ssl_policy = 11;
+	string url_map = 12;
+	ComputeTargetHttpsProxyXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message ComputeTargetInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeTargetInstance {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string instance = 4;
+	string name = 5;
+	string nat_policy = 6;
+	string project = 7;
+	string self_link = 8;
+	string zone = 9;
+	ComputeTargetInstanceXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ComputeTargetPoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeTargetPool {
+	string backup_pool = 1;
+	string description = 2;
+	double failover_ratio = 3;
+	repeated string health_checks = 4;
+	string id = 5;
+	repeated string instances = 6;
+	string name = 7;
+	string project = 8;
+	string region = 9;
+	string self_link = 10;
+	string session_affinity = 11;
+	ComputeTargetPoolXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ComputeTargetSslProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeTargetSslProxy {
+	string backend_service = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	string proxy_header = 7;
+	double proxy_id = 8;
+	string self_link = 9;
+	repeated string ssl_certificates = 10;
+	string ssl_policy = 11;
+	ComputeTargetSslProxyXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ComputeTargetTcpProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeTargetTcpProxy {
+	string backend_service = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	bool proxy_bind = 7;
+	string proxy_header = 8;
+	double proxy_id = 9;
+	string self_link = 10;
+	ComputeTargetTcpProxyXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+

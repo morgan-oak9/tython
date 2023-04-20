@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.service;
+
+import "shared/shared.proto";
+
+message ServiceAccountXTimeouts {
+	string create = 1;
+}
+
+message ServiceAccount {
+	string account_id = 1;
+	string description = 2;
+	bool disabled = 3;
+	string display_name = 4;
+	string email = 5;
+	string id = 6;
+	string name = 7;
+	string project = 8;
+	string unique_id = 9;
+	ServiceAccountXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ServiceAccountIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ServiceAccountIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string role = 4;
+	string service_account_id = 5;
+	ServiceAccountIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ServiceAccountIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ServiceAccountIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string role = 4;
+	string service_account_id = 5;
+	ServiceAccountIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ServiceAccountIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string service_account_id = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ServiceAccountKey {
+	string id = 1;
+	map<string, string> keepers = 2;
+	string key_algorithm = 3;
+	string name = 4;
+	string private_key = 5;
+	string private_key_type = 6;
+	string public_key = 7;
+	string public_key_data = 8;
+	string public_key_type = 9;
+	string service_account_id = 10;
+	string valid_after = 11;
+	string valid_before = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ServiceNetworkingConnectionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ServiceNetworkingConnection {
+	string id = 1;
+	string network = 2;
+	string peering = 3;
+	repeated string reserved_peering_ranges = 4;
+	string service = 5;
+	ServiceNetworkingConnectionXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ServiceNetworkingPeeredDnsDomainXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string read = 3;
+}
+
+message ServiceNetworkingPeeredDnsDomain {
+	string dns_suffix = 1;
+	string id = 2;
+	string name = 3;
+	string network = 4;
+	string parent = 5;
+	string project = 6;
+	string service = 7;
+	ServiceNetworkingPeeredDnsDomainXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.apigee;
+
+import "shared/shared.proto";
+
+message ApigeeEndpointAttachmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ApigeeEndpointAttachment {
+	string endpoint_attachment_id = 1;
+	string host = 2;
+	string id = 3;
+	string location = 4;
+	string name = 5;
+	string org_id = 6;
+	string service_attachment = 7;
+	ApigeeEndpointAttachmentXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ApigeeEnvgroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ApigeeEnvgroup {
+	repeated string hostnames = 1;
+	string id = 2;
+	string name = 3;
+	string org_id = 4;
+	ApigeeEnvgroupXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ApigeeEnvgroupAttachmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ApigeeEnvgroupAttachment {
+	string envgroup_id = 1;
+	string environment = 2;
+	string id = 3;
+	string name = 4;
+	ApigeeEnvgroupAttachmentXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ApigeeEnvironmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ApigeeEnvironment {
+	string api_proxy_type = 1;
+	string deployment_type = 2;
+	string description = 3;
+	string display_name = 4;
+	string id = 5;
+	string name = 6;
+	string org_id = 7;
+	ApigeeEnvironmentXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ApigeeEnvironmentIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ApigeeEnvironmentIamBinding {
+	string env_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string org_id = 5;
+	string role = 6;
+	ApigeeEnvironmentIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ApigeeEnvironmentIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ApigeeEnvironmentIamMember {
+	string env_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string org_id = 5;
+	string role = 6;
+	ApigeeEnvironmentIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ApigeeEnvironmentIamPolicy {
+	string env_id = 1;
+	string etag = 2;
+	string id = 3;
+	string org_id = 4;
+	string policy_data = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ApigeeInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ApigeeInstance {
+	repeated string consumer_accept_list = 1;
+	string description = 2;
+	string disk_encryption_key_name = 3;
+	string display_name = 4;
+	string host = 5;
+	string id = 6;
+	string ip_range = 7;
+	string location = 8;
+	string name = 9;
+	string org_id = 10;
+	string peering_cidr_range = 11;
+	string port = 12;
+	string service_attachment = 13;
+	ApigeeInstanceXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message ApigeeInstanceAttachmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ApigeeInstanceAttachment {
+	string environment = 1;
+	string id = 2;
+	string instance_id = 3;
+	string name = 4;
+	ApigeeInstanceAttachmentXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ApigeeOrganizationXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ApigeeOrganization {
+	string analytics_region = 1;
+	string authorized_network = 2;
+	string billing_type = 3;
+	string ca_certificate = 4;
+	string description = 5;
+	string display_name = 6;
+	string id = 7;
+	string name = 8;
+	string project_id = 9;
+	string runtime_database_encryption_key_name = 10;
+	string runtime_type = 11;
+	string subscription_type = 12;
+	ApigeeOrganizationXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+

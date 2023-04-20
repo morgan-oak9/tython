@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package sac_kubernetes.kubernetes_nonnamespaced_bundle;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.certificates.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.admissionregistration.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.networking.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.node.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.rbac.v1.proto";
+
+message Kubernetes_NonNamespaced {
+	repeated oak9.tython.k8s.api.core.v1.ComponentStatus component_status = 1;
+	repeated oak9.tython.k8s.api.core.v1.Namespace namespace = 2;
+	repeated oak9.tython.k8s.api.core.v1.Node node = 3;
+	repeated oak9.tython.k8s.api.core.v1.PersistentVolume persistent_volume = 4;
+	repeated oak9.tython.k8s.api.certificates.v1.CertificateSigningRequest certificate_signing_request = 5;
+	repeated oak9.tython.k8s.api.admissionregistration.v1.MutatingWebhookConfiguration mutating_webhook_configuration = 6;
+	repeated oak9.tython.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration validating_webhook_configuration = 7;
+	repeated oak9.tython.k8s.api.networking.v1.IngressClass ingress_class = 8;
+	repeated oak9.tython.k8s.api.node.v1.RuntimeClass runtime_class = 9;
+	repeated oak9.tython.k8s.api.rbac.v1.ClusterRoleBinding cluster_role_binding = 10;
+	repeated oak9.tython.k8s.api.rbac.v1.ClusterRole cluster_role = 11;
+}
+

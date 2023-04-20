@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.composer;
+
+import "shared/shared.proto";
+
+message ComposerEnvironmentXConfigXDatabaseConfig {
+	string machine_type = 1;
+}
+
+message ComposerEnvironmentXConfigXEncryptionConfig {
+	string kms_key_name = 1;
+}
+
+message ComposerEnvironmentXConfigXMaintenanceWindow {
+	string end_time = 1;
+	string recurrence = 2;
+	string start_time = 3;
+}
+
+message ComposerEnvironmentXConfigXMasterAuthorizedNetworksConfigXCidrBlocks {
+	string cidr_block = 1;
+	string display_name = 2;
+}
+
+message ComposerEnvironmentXConfigXMasterAuthorizedNetworksConfig {
+	bool enabled = 1;
+	repeated ComposerEnvironmentXConfigXMasterAuthorizedNetworksConfigXCidrBlocks cidr_blocks = 2;
+}
+
+message ComposerEnvironmentXConfigXNodeConfig {
+	double disk_size_gb = 1;
+	bool enable_ip_masq_agent = 2;
+	map<string, string> ip_allocation_policy = 3;
+	string machine_type = 4;
+	string network = 5;
+	repeated string oauth_scopes = 6;
+	string service_account = 7;
+	string subnetwork = 8;
+	repeated string tags = 9;
+	string zone = 10;
+}
+
+message ComposerEnvironmentXConfigXPrivateEnvironmentConfig {
+	string cloud_composer_connection_subnetwork = 1;
+	string cloud_composer_network_ipv4_cidr_block = 2;
+	string cloud_sql_ipv4_cidr_block = 3;
+	bool enable_private_endpoint = 4;
+	bool enable_privately_used_public_ips = 5;
+	string master_ipv4_cidr_block = 6;
+	string web_server_ipv4_cidr_block = 7;
+}
+
+message ComposerEnvironmentXConfigXSoftwareConfig {
+	map<string, string> airflow_config_overrides = 1;
+	map<string, string> env_variables = 2;
+	string image_version = 3;
+	map<string, string> pypi_packages = 4;
+	string python_version = 5;
+	double scheduler_count = 6;
+}
+
+message ComposerEnvironmentXConfigXWebServerConfig {
+	string machine_type = 1;
+}
+
+message ComposerEnvironmentXConfigXWebServerNetworkAccessControlXAllowedIpRange {
+	string description = 1;
+	string value = 2;
+}
+
+message ComposerEnvironmentXConfigXWebServerNetworkAccessControl {
+	repeated ComposerEnvironmentXConfigXWebServerNetworkAccessControlXAllowedIpRange allowed_ip_range = 1;
+}
+
+message ComposerEnvironmentXConfigXWorkloadsConfigXScheduler {
+	double count = 1;
+	double cpu = 2;
+	double memory_gb = 3;
+	double storage_gb = 4;
+}
+
+message ComposerEnvironmentXConfigXWorkloadsConfigXWebServer {
+	double cpu = 1;
+	double memory_gb = 2;
+	double storage_gb = 3;
+}
+
+message ComposerEnvironmentXConfigXWorkloadsConfigXWorker {
+	double cpu = 1;
+	double max_count = 2;
+	double memory_gb = 3;
+	double min_count = 4;
+	double storage_gb = 5;
+}
+
+message ComposerEnvironmentXConfigXWorkloadsConfig {
+	ComposerEnvironmentXConfigXWorkloadsConfigXScheduler scheduler = 1;
+	ComposerEnvironmentXConfigXWorkloadsConfigXWebServer web_server = 2;
+	ComposerEnvironmentXConfigXWorkloadsConfigXWorker worker = 3;
+}
+
+message ComposerEnvironmentXConfig {
+	string airflow_uri = 1;
+	string dag_gcs_prefix = 2;
+	string environment_size = 3;
+	string gke_cluster = 4;
+	double node_count = 5;
+	ComposerEnvironmentXConfigXDatabaseConfig database_config = 6;
+	ComposerEnvironmentXConfigXEncryptionConfig encryption_config = 7;
+	ComposerEnvironmentXConfigXMaintenanceWindow maintenance_window = 8;
+	ComposerEnvironmentXConfigXMasterAuthorizedNetworksConfig master_authorized_networks_config = 9;
+	ComposerEnvironmentXConfigXNodeConfig node_config = 10;
+	ComposerEnvironmentXConfigXPrivateEnvironmentConfig private_environment_config = 11;
+	ComposerEnvironmentXConfigXSoftwareConfig software_config = 12;
+	ComposerEnvironmentXConfigXWebServerConfig web_server_config = 13;
+	ComposerEnvironmentXConfigXWebServerNetworkAccessControl web_server_network_access_control = 14;
+	ComposerEnvironmentXConfigXWorkloadsConfig workloads_config = 15;
+}
+
+message ComposerEnvironmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComposerEnvironment {
+	string id = 1;
+	map<string, string> labels = 2;
+	string name = 3;
+	string project = 4;
+	string region = 5;
+	ComposerEnvironmentXConfig config = 6;
+	ComposerEnvironmentXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

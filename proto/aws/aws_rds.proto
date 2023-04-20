@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package oak9.tython.aws.rds;
+
+import "shared/shared.proto";
+
+message DBClusterDBClusterRole {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string feature_name = 2;
+	string role_arn = 3;
+}
+
+message RDS {
+	repeated DBClusterDBClusterRole db_cluster_db_cluster_role = 1;
+	repeated DBClusterScalingConfiguration db_cluster_scaling_configuration = 2;
+	repeated DBInstanceDBInstanceRole db_instance_db_instance_role = 3;
+	repeated DBInstanceProcessorFeature db_instance_processor_feature = 4;
+	repeated DBProxyAuthFormat db_proxy_auth_format = 5;
+	repeated DBProxyTagFormat db_proxy_tag_format = 6;
+	repeated DBProxyTargetGroupConnectionPoolConfigurationInfoFormat db_proxy_target_group_connection_pool_configuration_info_format = 7;
+	repeated DBSecurityGroupIngress db_security_group_ingress = 8;
+	repeated OptionGroupOptionConfiguration option_group_option_configuration = 9;
+}
+
+message DBClusterScalingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool auto_pause = 2;
+	int32 max_capacity = 3;
+	int32 min_capacity = 4;
+	int32 seconds_until_auto_pause = 5;
+}
+
+message DBInstanceDBInstanceRole {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string feature_name = 2;
+	string role_arn = 3;
+}
+
+message DBInstanceProcessorFeature {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message DBProxyAuthFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auth_scheme = 2;
+	string description = 3;
+	string iam_auth = 4;
+	string secret_arn = 5;
+	string user_name = 6;
+}
+
+message DBProxyTagFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message DBProxyTargetGroupConnectionPoolConfigurationInfoFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_connections_percent = 2;
+	int32 max_idle_connections_percent = 3;
+	int32 connection_borrow_timeout = 4;
+	repeated string session_pinning_filters = 5;
+	string init_query = 6;
+}
+
+message DBSecurityGroupIngress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string e_c2_security_group_id = 3;
+	string e_c2_security_group_name = 4;
+	string e_c2_security_group_owner_id = 5;
+}
+
+message OptionGroupOptionSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message OptionGroupOptionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string db_security_group_memberships = 2;
+	string option_name = 3;
+	repeated OptionGroupOptionSetting option_settings = 4;
+	string option_version = 5;
+	int32 port = 6;
+	repeated string vpc_security_group_memberships = 7;
+}
+

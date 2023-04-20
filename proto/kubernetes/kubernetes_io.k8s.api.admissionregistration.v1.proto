@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.admissionregistration.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message MutatingWebhook {
+	repeated string admission_review_versions = 1;
+	WebhookClientConfig client_config = 2;
+	string failure_policy = 3;
+	string match_policy = 4;
+	string name = 5;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector namespace_selector = 6;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector object_selector = 7;
+	string reinvocation_policy = 8;
+	repeated RuleWithOperations rules = 9;
+	string side_effects = 10;
+	int32 timeout_seconds = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message MutatingWebhookConfiguration {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	repeated MutatingWebhook webhooks = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message MutatingWebhookConfigurationList {
+	string api_version = 1;
+	repeated MutatingWebhookConfiguration items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message RuleWithOperations {
+	repeated string api_groups = 1;
+	repeated string api_versions = 2;
+	repeated string operations = 3;
+	repeated string resources = 4;
+	string scope = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ServiceReference {
+	string name = 1;
+	string namespace = 2;
+	string path = 3;
+	int32 port = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidatingWebhook {
+	repeated string admission_review_versions = 1;
+	WebhookClientConfig client_config = 2;
+	string failure_policy = 3;
+	string match_policy = 4;
+	string name = 5;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector namespace_selector = 6;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector object_selector = 7;
+	repeated RuleWithOperations rules = 8;
+	string side_effects = 9;
+	int32 timeout_seconds = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ValidatingWebhookConfiguration {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	repeated ValidatingWebhook webhooks = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidatingWebhookConfigurationList {
+	string api_version = 1;
+	repeated ValidatingWebhookConfiguration items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message WebhookClientConfig {
+	string ca_bundle = 1;
+	ServiceReference service = 2;
+	string url = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+

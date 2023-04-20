@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.kubeaggregator.pkg.apis.apiregistration.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message APIService {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	APIServiceSpec spec = 4;
+	APIServiceStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message APIServiceCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message APIServiceList {
+	string api_version = 1;
+	repeated APIService items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message APIServiceSpec {
+	string ca_bundle = 1;
+	string group = 2;
+	int32 group_priority_minimum = 3;
+	bool insecure_skip_tls_verify = 4;
+	ServiceReference service = 5;
+	string version = 6;
+	int32 version_priority = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message APIServiceStatus {
+	repeated APIServiceCondition conditions = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ServiceReference {
+	string name = 1;
+	string namespace = 2;
+	int32 port = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+

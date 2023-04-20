@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.discovery.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message Endpoint {
+	repeated string addresses = 1;
+	EndpointConditions conditions = 2;
+	map<string, string> deprecated_topology = 3;
+	EndpointHints hints = 4;
+	string hostname = 5;
+	string node_name = 6;
+	oak9.tython.k8s.api.core.v1.ObjectReference target_ref = 7;
+	string zone = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message EndpointConditions {
+	bool ready = 1;
+	bool serving = 2;
+	bool terminating = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message EndpointHints {
+	repeated ForZone for_zones = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message EndpointPort {
+	string app_protocol = 1;
+	string name = 2;
+	int32 port = 3;
+	string protocol = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EndpointSlice {
+	string address_type = 1;
+	string api_version = 2;
+	repeated Endpoint endpoints = 3;
+	string kind = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	repeated EndpointPort ports = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message EndpointSliceList {
+	string api_version = 1;
+	repeated EndpointSlice items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ForZone {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+

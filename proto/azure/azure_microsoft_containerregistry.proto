@@ -1,0 +1,266 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_containerregistry;
+
+import "shared/shared.proto";
+
+message Microsoft_ContainerRegistry {
+	repeated Registries registries = 1;
+}
+
+message RegistriesWebhooks {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	repeated string actions = 4;
+	map<string, string> custom_headers = 5;
+	string scope = 6;
+	string service_uri = 7;
+	string status = 8;
+	map<string, string> tags = 9;
+}
+
+message RegistriesTokens {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	TokenCredentialsProperties credentials = 3;
+	string scope_map_id = 4;
+	string status = 5;
+}
+
+message TokenCredentialsProperties {
+	repeated TokenCertificate certificates = 1;
+	repeated TokenPassword passwords = 2;
+}
+
+message TokenPassword {
+	string creation_time = 1;
+	string expiry = 2;
+	string name = 3;
+}
+
+message TokenCertificate {
+	string encoded_pem_certificate = 1;
+	string expiry = 2;
+	string name = 3;
+	string thumbprint = 4;
+}
+
+message RegistriesScopeMaps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string actions = 3;
+	string description = 4;
+}
+
+message RegistriesReplications {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	bool region_endpoint_enabled = 4;
+	string zone_redundancy = 5;
+	map<string, string> tags = 6;
+}
+
+message RegistriesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+}
+
+message PrivateLinkServiceConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string id = 1;
+}
+
+message RegistriesPipelineRuns {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string force_update_tag = 3;
+	PipelineRunRequest request = 4;
+}
+
+message PipelineRunRequest {
+	repeated string artifacts = 1;
+	string catalog_digest = 2;
+	string pipeline_resource_id = 3;
+	PipelineRunSourceProperties source = 4;
+	PipelineRunTargetProperties target = 5;
+}
+
+message PipelineRunTargetProperties {
+	string name = 1;
+	string type = 2;
+}
+
+message PipelineRunSourceProperties {
+	string name = 1;
+	string type = 2;
+}
+
+message RegistriesImportPipelines {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityProperties identity = 2;
+	string location = 3;
+	string name = 4;
+	repeated string options = 5;
+	ImportPipelineSourceProperties source = 6;
+	PipelineTriggerProperties trigger = 7;
+}
+
+message PipelineTriggerProperties {
+	PipelineSourceTriggerProperties source_trigger = 1;
+}
+
+message PipelineSourceTriggerProperties {
+	string status = 1;
+}
+
+message ImportPipelineSourceProperties {
+	string key_vault_uri = 1;
+	string type = 2;
+	string uri = 3;
+}
+
+message RegistriesExportPipelines {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityProperties identity = 2;
+	string location = 3;
+	string name = 4;
+	repeated string options = 5;
+	ExportPipelineTargetProperties target = 6;
+}
+
+message ExportPipelineTargetProperties {
+	string key_vault_uri = 1;
+	string type = 2;
+	string uri = 3;
+}
+
+message RegistriesConnectedRegistries {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string client_token_ids = 3;
+	LoggingProperties logging = 4;
+	LoginServerProperties login_server = 5;
+	string mode = 6;
+	repeated string notifications_list = 7;
+	ParentProperties parent = 8;
+}
+
+message ParentProperties {
+	string id = 1;
+	SyncProperties sync_properties = 2;
+}
+
+message SyncProperties {
+	string message_ttl = 1;
+	string schedule = 2;
+	string sync_window = 3;
+	string token_id = 4;
+}
+
+message LoginServerProperties {
+	string name = 1;
+}
+
+message LoggingProperties {
+	string audit_log_status = 1;
+	string log_level = 2;
+}
+
+message Registries {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	IdentityProperties identity = 2;
+	string location = 3;
+	string name = 4;
+	bool admin_user_enabled = 5;
+	bool anonymous_pull_enabled = 6;
+	bool data_endpoint_enabled = 7;
+	EncryptionProperty encryption = 8;
+	string network_rule_bypass_options = 9;
+	NetworkRuleSet network_rule_set = 10;
+	Policies policies = 11;
+	string public_network_access = 12;
+	string zone_redundancy = 13;
+	Sku sku = 14;
+	map<string, string> tags = 15;
+	repeated RegistriesConnectedRegistries registries_connected_registries = 16;
+	repeated RegistriesExportPipelines registries_export_pipelines = 17;
+	repeated RegistriesImportPipelines registries_import_pipelines = 18;
+	repeated RegistriesPipelineRuns registries_pipeline_runs = 19;
+	repeated RegistriesPrivateEndpointConnections registries_private_endpoint_connections = 20;
+	repeated RegistriesReplications registries_replications = 21;
+	repeated RegistriesScopeMaps registries_scope_maps = 22;
+	repeated RegistriesTokens registries_tokens = 23;
+	repeated RegistriesWebhooks registries_webhooks = 24;
+}
+
+message Sku {
+	string name = 1;
+}
+
+message Policies {
+	ExportPolicy export_policy = 1;
+	QuarantinePolicy quarantine_policy = 2;
+	RetentionPolicy retention_policy = 3;
+	TrustPolicy trust_policy = 4;
+}
+
+message TrustPolicy {
+	string status = 1;
+	string type = 2;
+}
+
+message RetentionPolicy {
+	int32 days = 1;
+	string status = 2;
+}
+
+message QuarantinePolicy {
+	string status = 1;
+}
+
+message ExportPolicy {
+	string status = 1;
+}
+
+message NetworkRuleSet {
+	string default_action = 1;
+	repeated IPRule ip_rules = 2;
+	repeated VirtualNetworkRule virtual_network_rules = 3;
+}
+
+message VirtualNetworkRule {
+	string action = 1;
+	string id = 2;
+}
+
+message IPRule {
+	string action = 1;
+	string value = 2;
+}
+
+message EncryptionProperty {
+	KeyVaultProperties key_vault_properties = 1;
+	string status = 2;
+}
+
+message KeyVaultProperties {
+	string identity = 1;
+	string key_identifier = 2;
+}
+
+message IdentityProperties {
+	string principal_id = 1;
+	string tenant_id = 2;
+	string type = 3;
+	map<string, string> user_assigned_identities = 4;
+}
+

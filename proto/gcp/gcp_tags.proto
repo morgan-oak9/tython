@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.tags;
+
+import "shared/shared.proto";
+
+message TagsTagBindingXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message TagsTagBinding {
+	string id = 1;
+	string name = 2;
+	string parent = 3;
+	string tag_value = 4;
+	TagsTagBindingXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message TagsTagKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message TagsTagKey {
+	string create_time = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string namespaced_name = 5;
+	string parent = 6;
+	string short_name = 7;
+	string update_time = 8;
+	TagsTagKeyXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message TagsTagKeyIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message TagsTagKeyIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string role = 4;
+	string tag_key = 5;
+	TagsTagKeyIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message TagsTagKeyIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message TagsTagKeyIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string role = 4;
+	string tag_key = 5;
+	TagsTagKeyIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message TagsTagKeyIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string tag_key = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message TagsTagValueXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message TagsTagValue {
+	string create_time = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string namespaced_name = 5;
+	string parent = 6;
+	string short_name = 7;
+	string update_time = 8;
+	TagsTagValueXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message TagsTagValueIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message TagsTagValueIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string role = 4;
+	string tag_value = 5;
+	TagsTagValueIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message TagsTagValueIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message TagsTagValueIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string role = 4;
+	string tag_value = 5;
+	TagsTagValueIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message TagsTagValueIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string tag_value = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

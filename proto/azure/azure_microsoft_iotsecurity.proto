@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_iotsecurity;
+
+import "shared/shared.proto";
+
+message Microsoft_IoTSecurity {
+}
+

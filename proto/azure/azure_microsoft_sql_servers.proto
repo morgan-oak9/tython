@@ -1,0 +1,366 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_sql_servers;
+
+import "shared/shared.proto";
+
+message Microsoft_Sql_Servers {
+	Servers servers = 1;
+	repeated ServersAdministrators servers_administrators = 2;
+	ServersAuditingSettings servers_auditing_settings = 3;
+	repeated ServersElasticPools servers_elastic_pools = 4;
+	ServersEncryptionProtector servers_encryption_protector = 5;
+	ServersExtendedAuditingSettings servers_extended_auditing_settings = 6;
+	repeated ServersFailoverGroups servers_failover_groups = 7;
+	repeated ServersFirewallRules servers_firewall_rules = 8;
+	repeated ServersJobAgents servers_job_agents = 9;
+	repeated ServersJobAgentsCredentials servers_job_agents_credentials = 10;
+	repeated ServersKeys servers_keys = 11;
+	repeated ServersPrivateEndpointConnections servers_private_endpoint_connections = 12;
+	ServersSecurityAlertPolicies servers_security_alert_policies = 13;
+	repeated ServersVirtualNetworkRules servers_virtual_network_rules = 14;
+	ServersVulnerabilityAssessments servers_vulnerability_assessments = 15;
+}
+
+message ServersVulnerabilityAssessments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	VulnerabilityAssessmentRecurringScansProperties recurring_scans = 3;
+	string storage_account_access_key = 4;
+	string storage_container_path = 5;
+	string storage_container_sas_key = 6;
+}
+
+message VulnerabilityAssessmentRecurringScansProperties {
+	repeated string emails = 1;
+	bool email_subscription_admins = 2;
+	bool is_enabled = 3;
+}
+
+message ServersVirtualNetworkRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool ignore_missing_vnet_service_endpoint = 3;
+	string virtual_network_subnet_id = 4;
+}
+
+message ServersSyncAgents {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string sync_database_id = 3;
+}
+
+message ServersSecurityAlertPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string disabled_alerts = 3;
+	bool email_account_admins = 4;
+	repeated string email_addresses = 5;
+	int32 retention_days = 6;
+	string state = 7;
+	string storage_account_access_key = 8;
+	string storage_endpoint = 9;
+}
+
+message ServersPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpointProperty private_endpoint = 3;
+	PrivateLinkServiceConnectionStateProperty private_link_service_connection_state = 4;
+}
+
+message PrivateLinkServiceConnectionStateProperty {
+	string description = 1;
+	string status = 2;
+}
+
+message PrivateEndpointProperty {
+	string id = 1;
+}
+
+message ServersOutboundFirewallRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServersKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string server_key_type = 3;
+	string uri = 4;
+	string thumbprint = 5;
+	string creation_date = 6;
+	string kind = 7;
+}
+
+message ServersJobAgentsTargetGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated JobTarget members = 3;
+}
+
+message JobTarget {
+	string database_name = 1;
+	string elastic_pool_name = 2;
+	string membership_type = 3;
+	string refresh_credential = 4;
+	string server_name = 5;
+	string shard_map_name = 6;
+	string type = 7;
+}
+
+message ServersJobAgentsJobsSteps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	JobStepAction action = 3;
+	string credential = 4;
+	JobStepExecutionOptions execution_options = 5;
+	JobStepOutput output = 6;
+	int32 step_id = 7;
+	string target_group = 8;
+}
+
+message JobStepOutput {
+	string credential = 1;
+	string database_name = 2;
+	string resource_group_name = 3;
+	string schema_name = 4;
+	string server_name = 5;
+	string subscription_id = 6;
+	string table_name = 7;
+	string type = 8;
+}
+
+message JobStepExecutionOptions {
+	int32 initial_retry_interval_seconds = 1;
+	int32 maximum_retry_interval_seconds = 2;
+	int32 retry_attempts = 3;
+	double retry_interval_backoff_multiplier = 4;
+	int32 timeout_seconds = 5;
+}
+
+message JobStepAction {
+	string source = 1;
+	string type = 2;
+	string value = 3;
+}
+
+message ServersJobAgentsJobsExecutions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServersJobAgentsJobs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	JobSchedule schedule = 4;
+	repeated ServersJobAgentsJobsExecutions servers_job_agents_jobs_executions = 5;
+	repeated ServersJobAgentsJobsSteps servers_job_agents_jobs_steps = 6;
+}
+
+message JobSchedule {
+	bool enabled = 1;
+	string end_time = 2;
+	string interval = 3;
+	string start_time = 4;
+	string type = 5;
+}
+
+message ServersJobAgentsCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string password = 3;
+	string username = 4;
+}
+
+message ServersJobAgents {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string database_id = 4;
+	Sku sku = 5;
+	map<string, string> tags = 6;
+	repeated ServersJobAgentsJobs servers_job_agents_jobs = 7;
+	repeated ServersJobAgentsTargetGroups servers_job_agents_target_groups = 8;
+}
+
+message ServersIpv6FirewallRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string end_ipv6_address = 3;
+	string start_ipv6_address = 4;
+}
+
+message ServersFirewallRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string end_ip_address = 3;
+	string start_ip_address = 4;
+}
+
+message ServersFailoverGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string databases = 3;
+	repeated PartnerInfo partner_servers = 4;
+	FailoverGroupReadOnlyEndpoint read_only_endpoint = 5;
+	FailoverGroupReadWriteEndpoint read_write_endpoint = 6;
+	map<string, string> tags = 7;
+}
+
+message FailoverGroupReadWriteEndpoint {
+	string failover_policy = 1;
+	int32 failover_with_data_loss_grace_period_minutes = 2;
+}
+
+message FailoverGroupReadOnlyEndpoint {
+	string failover_policy = 1;
+}
+
+message PartnerInfo {
+	string id = 1;
+}
+
+message ServersExtendedAuditingSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string audit_actions_and_groups = 3;
+	bool is_azure_monitor_target_enabled = 4;
+	bool is_devops_audit_enabled = 5;
+	bool is_storage_secondary_key_in_use = 6;
+	string predicate_expression = 7;
+	int32 queue_delay_ms = 8;
+	int32 retention_days = 9;
+	string state = 10;
+	string storage_account_access_key = 11;
+	string storage_account_subscription_id = 12;
+	string storage_endpoint = 13;
+}
+
+message ServersEncryptionProtector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool auto_rotation_enabled = 3;
+	string server_key_name = 4;
+	string server_key_type = 5;
+}
+
+message ServersElasticPools {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	int32 high_availability_replica_count = 4;
+	string license_type = 5;
+	string maintenance_configuration_id = 6;
+	int32 max_size_bytes = 7;
+	ElasticPoolPerDatabaseSettings per_database_settings = 8;
+	bool zone_redundant = 9;
+	Sku sku = 10;
+	map<string, string> tags = 11;
+}
+
+message Sku {
+	int32 capacity = 1;
+	string family = 2;
+	string name = 3;
+	string size = 4;
+	string tier = 5;
+}
+
+message ElasticPoolPerDatabaseSettings {
+	double max_capacity = 1;
+	double min_capacity = 2;
+}
+
+message ServersDnsAliases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message ServersDevOpsAuditingSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool is_azure_monitor_target_enabled = 3;
+	string state = 4;
+	string storage_account_access_key = 5;
+	string storage_account_subscription_id = 6;
+	string storage_endpoint = 7;
+}
+
+message ServersConnectionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string connection_type = 3;
+}
+
+message ServersAzureADOnlyAuthentications {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool azure_ad_only_authentication = 3;
+}
+
+message ServersAuditingSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string audit_actions_and_groups = 3;
+	bool is_azure_monitor_target_enabled = 4;
+	bool is_devops_audit_enabled = 5;
+	bool is_storage_secondary_key_in_use = 6;
+	int32 queue_delay_ms = 7;
+	int32 retention_days = 8;
+	string state = 9;
+	string storage_account_access_key = 10;
+	string storage_account_subscription_id = 11;
+	string storage_endpoint = 12;
+}
+
+message ServersAdministrators {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string administrator_type = 3;
+	string login = 4;
+	string sid = 5;
+	string tenant_id = 6;
+	string azure_ad_only_authentication = 7;
+}
+
+message Servers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	string administrator_login = 5;
+	string administrator_login_password = 6;
+	ServerExternalAdministrator administrators = 7;
+	string federated_client_id = 8;
+	string key_id = 9;
+	string minimal_tls_version = 10;
+	string primary_user_assigned_identity_id = 11;
+	string public_network_access = 12;
+	string restrict_outbound_network_access = 13;
+	string version = 14;
+	map<string, string> tags = 15;
+	repeated ServersIpv6FirewallRules servers_ipv6_firewall_rules = 16;
+	repeated ServersOutboundFirewallRules servers_outbound_firewall_rules = 17;
+	repeated ServersAzureADOnlyAuthentications servers_azure_ad_only_authentications = 18;
+	repeated ServersConnectionPolicies servers_connection_policies = 19;
+	repeated ServersDevOpsAuditingSettings servers_dev_ops_auditing_settings = 20;
+	repeated ServersDnsAliases servers_dns_aliases = 21;
+	repeated ServersSyncAgents servers_sync_agents = 22;
+}
+
+message ServerExternalAdministrator {
+	string administrator_type = 1;
+	bool azure_ad_only_authentication = 2;
+	string login = 3;
+	string principal_type = 4;
+	string sid = 5;
+	string tenant_id = 6;
+}
+
+message ResourceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+

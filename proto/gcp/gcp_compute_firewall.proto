@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_firewall;
+
+import "shared/shared.proto";
+
+message ComputeFirewallXAllow {
+	repeated string ports = 1;
+	string protocol = 2;
+}
+
+message ComputeFirewallXDeny {
+	repeated string ports = 1;
+	string protocol = 2;
+}
+
+message ComputeFirewallXLogConfig {
+	string metadata = 1;
+}
+
+message ComputeFirewallXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeFirewall {
+	string creation_timestamp = 1;
+	string description = 2;
+	repeated string destination_ranges = 3;
+	string direction = 4;
+	bool disabled = 5;
+	bool enable_logging = 6;
+	string id = 7;
+	string name = 8;
+	string network = 9;
+	double priority = 10;
+	string project = 11;
+	string self_link = 12;
+	repeated string source_ranges = 13;
+	repeated string source_service_accounts = 14;
+	repeated string source_tags = 15;
+	repeated string target_service_accounts = 16;
+	repeated string target_tags = 17;
+	repeated ComputeFirewallXAllow allow = 18;
+	repeated ComputeFirewallXDeny deny = 19;
+	ComputeFirewallXLogConfig log_config = 20;
+	ComputeFirewallXTimeouts timeouts = 21;
+	oak9.tython.shared.ResourceInfo resource_info = 22;
+}
+
+message ComputeFirewallPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeFirewallPolicy {
+	string creation_timestamp = 1;
+	string description = 2;
+	string fingerprint = 3;
+	string firewall_policy_id = 4;
+	string id = 5;
+	string name = 6;
+	string parent = 7;
+	double rule_tuple_count = 8;
+	string self_link = 9;
+	string self_link_with_id = 10;
+	string short_name = 11;
+	ComputeFirewallPolicyXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ComputeFirewallPolicyAssociationXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeFirewallPolicyAssociation {
+	string attachment_target = 1;
+	string firewall_policy = 2;
+	string id = 3;
+	string name = 4;
+	string short_name = 5;
+	ComputeFirewallPolicyAssociationXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ComputeFirewallPolicyRuleXMatchXLayer4Configs {
+	string ip_protocol = 1;
+	repeated string ports = 2;
+}
+
+message ComputeFirewallPolicyRuleXMatch {
+	repeated string dest_ip_ranges = 1;
+	repeated string src_ip_ranges = 2;
+	repeated ComputeFirewallPolicyRuleXMatchXLayer4Configs layer4_configs = 3;
+}
+
+message ComputeFirewallPolicyRuleXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeFirewallPolicyRule {
+	string action = 1;
+	string description = 2;
+	string direction = 3;
+	bool disabled = 4;
+	bool enable_logging = 5;
+	string firewall_policy = 6;
+	string id = 7;
+	string kind = 8;
+	double priority = 9;
+	double rule_tuple_count = 10;
+	repeated string target_resources = 11;
+	repeated string target_service_accounts = 12;
+	ComputeFirewallPolicyRuleXMatch match = 13;
+	ComputeFirewallPolicyRuleXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

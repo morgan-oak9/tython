@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.document;
+
+import "shared/shared.proto";
+
+message DocumentAiProcessorXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message DocumentAiProcessor {
+	string display_name = 1;
+	string id = 2;
+	string kms_key_name = 3;
+	string location = 4;
+	string name = 5;
+	string project = 6;
+	string type = 7;
+	DocumentAiProcessorXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DocumentAiProcessorDefaultVersionXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message DocumentAiProcessorDefaultVersion {
+	string id = 1;
+	string processor = 2;
+	string version = 3;
+	DocumentAiProcessorDefaultVersionXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.flowcontrol.v1beta2;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message FlowDistinguisherMethod {
+	string type = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message FlowSchema {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	FlowSchemaSpec spec = 4;
+	FlowSchemaStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message FlowSchemaCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message FlowSchemaList {
+	string api_version = 1;
+	repeated FlowSchema items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message FlowSchemaSpec {
+	FlowDistinguisherMethod distinguisher_method = 1;
+	int32 matching_precedence = 2;
+	PriorityLevelConfigurationReference priority_level_configuration = 3;
+	repeated PolicyRulesWithSubjects rules = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message FlowSchemaStatus {
+	repeated FlowSchemaCondition conditions = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message GroupSubject {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message LimitResponse {
+	QueuingConfiguration queuing = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message LimitedPriorityLevelConfiguration {
+	int32 assured_concurrency_shares = 1;
+	int32 borrowing_limit_percent = 2;
+	int32 lendable_percent = 3;
+	LimitResponse limit_response = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message NonResourcePolicyRule {
+	repeated string non_resource_u_r_ls = 1;
+	repeated string verbs = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PolicyRulesWithSubjects {
+	repeated NonResourcePolicyRule non_resource_rules = 1;
+	repeated ResourcePolicyRule resource_rules = 2;
+	repeated Subject subjects = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PriorityLevelConfiguration {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PriorityLevelConfigurationSpec spec = 4;
+	PriorityLevelConfigurationStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PriorityLevelConfigurationCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PriorityLevelConfigurationList {
+	string api_version = 1;
+	repeated PriorityLevelConfiguration items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PriorityLevelConfigurationReference {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message PriorityLevelConfigurationSpec {
+	LimitedPriorityLevelConfiguration limited = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PriorityLevelConfigurationStatus {
+	repeated PriorityLevelConfigurationCondition conditions = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message QueuingConfiguration {
+	int32 hand_size = 1;
+	int32 queue_length_limit = 2;
+	int32 queues = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ResourcePolicyRule {
+	repeated string api_groups = 1;
+	bool cluster_scope = 2;
+	repeated string namespaces = 3;
+	repeated string resources = 4;
+	repeated string verbs = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ServiceAccountSubject {
+	string name = 1;
+	string namespace = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Subject {
+	GroupSubject group = 1;
+	string kind = 2;
+	ServiceAccountSubject service_account = 3;
+	UserSubject user = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message UserSubject {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+

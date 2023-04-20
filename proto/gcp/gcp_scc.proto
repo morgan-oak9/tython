@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.scc;
+
+import "shared/shared.proto";
+
+message SccNotificationConfigXStreamingConfig {
+	string filter = 1;
+}
+
+message SccNotificationConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SccNotificationConfig {
+	string config_id = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string organization = 5;
+	string pubsub_topic = 6;
+	string service_account = 7;
+	SccNotificationConfigXStreamingConfig streaming_config = 8;
+	SccNotificationConfigXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message SccSourceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SccSource {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	string organization = 5;
+	SccSourceXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

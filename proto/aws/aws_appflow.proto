@@ -1,0 +1,464 @@
+syntax = "proto3";
+
+package oak9.tython.aws.appflow;
+
+import "shared/shared.proto";
+
+message ConnectorProfileDatadogConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileDynatraceConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileInforNexusConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileMarketoConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileRedshiftConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string database_url = 2;
+	string bucket_name = 3;
+	string bucket_prefix = 4;
+	string role_arn = 5;
+}
+
+message ConnectorProfileSalesforceConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+	bool is_sandbox_environment = 3;
+}
+
+message ConnectorProfileServiceNowConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileSlackConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileSnowflakeConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string warehouse = 2;
+	string stage = 3;
+	string bucket_name = 4;
+	string bucket_prefix = 5;
+	string private_link_service_name = 6;
+	string account_name = 7;
+	string region = 8;
+}
+
+message ConnectorProfileVeevaConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileZendeskConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_url = 2;
+}
+
+message ConnectorProfileConnectorProfileProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ConnectorProfileDatadogConnectorProfileProperties datadog = 2;
+	ConnectorProfileDynatraceConnectorProfileProperties dynatrace = 3;
+	ConnectorProfileInforNexusConnectorProfileProperties infor_nexus = 4;
+	ConnectorProfileMarketoConnectorProfileProperties marketo = 5;
+	ConnectorProfileRedshiftConnectorProfileProperties redshift = 6;
+	ConnectorProfileSalesforceConnectorProfileProperties salesforce = 7;
+	ConnectorProfileServiceNowConnectorProfileProperties service_now = 8;
+	ConnectorProfileSlackConnectorProfileProperties slack = 9;
+	ConnectorProfileSnowflakeConnectorProfileProperties snowflake = 10;
+	ConnectorProfileVeevaConnectorProfileProperties veeva = 11;
+	ConnectorProfileZendeskConnectorProfileProperties zendesk = 12;
+}
+
+message ConnectorProfileAmplitudeConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_key = 2;
+	string secret_key = 3;
+}
+
+message ConnectorProfileDatadogConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_key = 2;
+	string application_key = 3;
+}
+
+message ConnectorProfileDynatraceConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_token = 2;
+}
+
+message ConnectorProfileConnectorOAuthRequest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auth_code = 2;
+	string redirect_uri = 3;
+}
+
+message ConnectorProfileGoogleAnalyticsConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_id = 2;
+	string client_secret = 3;
+	string access_token = 4;
+	string refresh_token = 5;
+	ConnectorProfileConnectorOAuthRequest connector_o_auth_request = 6;
+}
+
+message ConnectorProfileInforNexusConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string access_key_id = 2;
+	string user_id = 3;
+	string secret_access_key = 4;
+	string datakey = 5;
+}
+
+message ConnectorProfileMarketoConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_id = 2;
+	string client_secret = 3;
+	string access_token = 4;
+	ConnectorProfileConnectorOAuthRequest connector_o_auth_request = 5;
+}
+
+message ConnectorProfileRedshiftConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message ConnectorProfileSalesforceConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string access_token = 2;
+	string refresh_token = 3;
+	ConnectorProfileConnectorOAuthRequest connector_o_auth_request = 4;
+}
+
+message ConnectorProfileServiceNowConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message ConnectorProfileSingularConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_key = 2;
+}
+
+message ConnectorProfileSlackConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_id = 2;
+	string client_secret = 3;
+	string access_token = 4;
+	ConnectorProfileConnectorOAuthRequest connector_o_auth_request = 5;
+}
+
+message ConnectorProfileSnowflakeConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message ConnectorProfileTrendmicroConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_secret_key = 2;
+}
+
+message ConnectorProfileVeevaConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string username = 2;
+	string password = 3;
+}
+
+message ConnectorProfileZendeskConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_id = 2;
+	string client_secret = 3;
+	string access_token = 4;
+	ConnectorProfileConnectorOAuthRequest connector_o_auth_request = 5;
+}
+
+message ConnectorProfileConnectorProfileCredentials {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ConnectorProfileAmplitudeConnectorProfileCredentials amplitude = 2;
+	ConnectorProfileDatadogConnectorProfileCredentials datadog = 3;
+	ConnectorProfileDynatraceConnectorProfileCredentials dynatrace = 4;
+	ConnectorProfileGoogleAnalyticsConnectorProfileCredentials google_analytics = 5;
+	ConnectorProfileInforNexusConnectorProfileCredentials infor_nexus = 6;
+	ConnectorProfileMarketoConnectorProfileCredentials marketo = 7;
+	ConnectorProfileRedshiftConnectorProfileCredentials redshift = 8;
+	ConnectorProfileSalesforceConnectorProfileCredentials salesforce = 9;
+	ConnectorProfileServiceNowConnectorProfileCredentials service_now = 10;
+	ConnectorProfileSingularConnectorProfileCredentials singular = 11;
+	ConnectorProfileSlackConnectorProfileCredentials slack = 12;
+	ConnectorProfileSnowflakeConnectorProfileCredentials snowflake = 13;
+	ConnectorProfileTrendmicroConnectorProfileCredentials trendmicro = 14;
+	ConnectorProfileVeevaConnectorProfileCredentials veeva = 15;
+	ConnectorProfileZendeskConnectorProfileCredentials zendesk = 16;
+}
+
+message ConnectorProfileConnectorProfileConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ConnectorProfileConnectorProfileProperties connector_profile_properties = 2;
+	ConnectorProfileConnectorProfileCredentials connector_profile_credentials = 3;
+}
+
+message ConnectorProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connector_profile_name = 2;
+	string kms_arn = 3;
+	string connector_type = 4;
+	string connection_mode = 5;
+	ConnectorProfileConnectorProfileConfig connector_profile_config = 6;
+}
+
+message AppFlow {
+	repeated ConnectorProfile connector_profile = 1;
+	repeated Flow flow = 2;
+}
+
+message FlowScheduledTriggerProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string schedule_expression = 2;
+	string data_pull_mode = 3;
+	double schedule_start_time = 4;
+	double schedule_end_time = 5;
+	string time_zone = 6;
+}
+
+message FlowTriggerConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string trigger_type = 2;
+	FlowScheduledTriggerProperties trigger_properties = 3;
+}
+
+message FlowAmplitudeSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowDatadogSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowDynatraceSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowGoogleAnalyticsSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowInforNexusSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowMarketoSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowS3SourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket_name = 2;
+	string bucket_prefix = 3;
+}
+
+message FlowSalesforceSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+	bool enable_dynamic_field_update = 3;
+	bool include_deleted_records = 4;
+}
+
+message FlowServiceNowSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowSingularSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowSlackSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowTrendmicroSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowVeevaSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowZendeskSourceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+}
+
+message FlowSourceConnectorProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FlowAmplitudeSourceProperties amplitude = 2;
+	FlowDatadogSourceProperties datadog = 3;
+	FlowDynatraceSourceProperties dynatrace = 4;
+	FlowGoogleAnalyticsSourceProperties google_analytics = 5;
+	FlowInforNexusSourceProperties infor_nexus = 6;
+	FlowMarketoSourceProperties marketo = 7;
+	FlowS3SourceProperties s3 = 8;
+	FlowSalesforceSourceProperties salesforce = 9;
+	FlowServiceNowSourceProperties service_now = 10;
+	FlowSingularSourceProperties singular = 11;
+	FlowSlackSourceProperties slack = 12;
+	FlowTrendmicroSourceProperties trendmicro = 13;
+	FlowVeevaSourceProperties veeva = 14;
+	FlowZendeskSourceProperties zendesk = 15;
+}
+
+message FlowSourceFlowConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connector_type = 2;
+	string connector_profile_name = 3;
+	FlowSourceConnectorProperties source_connector_properties = 4;
+}
+
+message FlowErrorHandlingConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool fail_on_first_error = 2;
+	string bucket_prefix = 3;
+	string bucket_name = 4;
+}
+
+message FlowRedshiftDestinationProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+	string intermediate_bucket_name = 3;
+	string bucket_prefix = 4;
+	FlowErrorHandlingConfig error_handling_config = 5;
+}
+
+message FlowPrefixConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string prefix_type = 2;
+	string prefix_format = 3;
+}
+
+message FlowAggregationConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string aggregation_type = 2;
+}
+
+message FlowS3OutputFormatConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string file_type = 2;
+	FlowPrefixConfig prefix_config = 3;
+	FlowAggregationConfig aggregation_config = 4;
+}
+
+message FlowS3DestinationProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket_name = 2;
+	string bucket_prefix = 3;
+	FlowS3OutputFormatConfig s3_output_format_config = 4;
+}
+
+message FlowSalesforceDestinationProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+	FlowErrorHandlingConfig error_handling_config = 3;
+}
+
+message FlowSnowflakeDestinationProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+	string intermediate_bucket_name = 3;
+	string bucket_prefix = 4;
+	FlowErrorHandlingConfig error_handling_config = 5;
+}
+
+message FlowEventBridgeDestinationProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object = 2;
+	FlowErrorHandlingConfig error_handling_config = 3;
+}
+
+message FlowDestinationConnectorProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FlowRedshiftDestinationProperties redshift = 2;
+	FlowS3DestinationProperties s3 = 3;
+	FlowSalesforceDestinationProperties salesforce = 4;
+	FlowSnowflakeDestinationProperties snowflake = 5;
+	FlowEventBridgeDestinationProperties event_bridge = 6;
+}
+
+message FlowDestinationFlowConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connector_type = 2;
+	string connector_profile_name = 3;
+	FlowDestinationConnectorProperties destination_connector_properties = 4;
+}
+
+message FlowConnectorOperator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string amplitude = 2;
+	string datadog = 3;
+	string dynatrace = 4;
+	string google_analytics = 5;
+	string infor_nexus = 6;
+	string marketo = 7;
+	string s3 = 8;
+	string salesforce = 9;
+	string service_now = 10;
+	string singular = 11;
+	string slack = 12;
+	string trendmicro = 13;
+	string veeva = 14;
+	string zendesk = 15;
+}
+
+message FlowTaskPropertiesObject {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message FlowTask {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string source_fields = 2;
+	FlowConnectorOperator connector_operator = 3;
+	string destination_field = 4;
+	string task_type = 5;
+	repeated FlowTaskPropertiesObject task_properties = 6;
+}
+
+message Flow {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string flow_name = 2;
+	string description = 3;
+	string kms_arn = 4;
+	FlowTriggerConfig trigger_config = 5;
+	FlowSourceFlowConfig source_flow_config = 6;
+	repeated FlowDestinationFlowConfig destination_flow_config_list = 7;
+	repeated FlowTask tasks = 8;
+	map<string, string> tags = 9;
+}
+

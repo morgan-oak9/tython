@@ -1,0 +1,391 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_compute_virtualmachines;
+
+import "shared/shared.proto";
+
+message VirtualMachinesExtensions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	map<string, string> properties = 4;
+	map<string, string> tags = 5;
+}
+
+message AvailabilitySet {
+	string id = 1;
+}
+
+message Microsoft_Compute_VirtualMachines {
+	VirtualMachines virtual_machines = 1;
+}
+
+message VirtualMachinesRunCommands {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	bool async_execution = 4;
+	string error_blob_uri = 5;
+	string output_blob_uri = 6;
+	repeated RunCommandInputParameter parameters = 7;
+	repeated RunCommandInputParameter protected_parameters = 8;
+	string run_as_password = 9;
+	string run_as_user = 10;
+	VirtualMachineRunCommandScriptSource source = 11;
+	int32 timeout_in_seconds = 12;
+	map<string, string> tags = 13;
+}
+
+message VirtualMachineRunCommandScriptSource {
+	string command_id = 1;
+	string script = 2;
+	string script_uri = 3;
+}
+
+message RunCommandInputParameter {
+	string name = 1;
+	string value = 2;
+}
+
+message VirtualMachines {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	VirtualMachineIdentity identity = 3;
+	string location = 4;
+	string name = 5;
+	Plan plan = 6;
+	AdditionalCapabilities additional_capabilities = 7;
+	ApplicationProfile application_profile = 8;
+	BillingProfile billing_profile = 9;
+	CapacityReservationProfile capacity_reservation = 10;
+	DiagnosticsProfile diagnostics_profile = 11;
+	string eviction_policy = 12;
+	string extensions_time_budget = 13;
+	HardwareProfile hardware_profile = 14;
+	string host = 15;
+	string host_group = 16;
+	string license_type = 17;
+	NetworkProfile network_profile = 18;
+	OSProfile os_profile = 19;
+	int32 platform_fault_domain = 20;
+	string priority = 21;
+	string proximity_placement_group = 22;
+	ScheduledEventsProfile scheduled_events_profile = 23;
+	SecurityProfile security_profile = 24;
+	StorageProfile storage_profile = 25;
+	string user_data = 26;
+	string virtual_machine_scale_set = 27;
+	map<string, string> tags = 28;
+	repeated string zones = 29;
+	repeated VirtualMachinesExtensions virtual_machines_extensions = 30;
+	repeated VirtualMachinesRunCommands virtual_machines_run_commands = 31;
+	AvailabilitySet availability_set = 32;
+}
+
+message StorageProfile {
+	repeated DataDisk data_disks = 1;
+	ImageReference image_reference = 2;
+	OSDisk os_disk = 3;
+}
+
+message OSDisk {
+	string caching = 1;
+	string create_option = 2;
+	string delete_option = 3;
+	DiffDiskSettings diff_disk_settings = 4;
+	int32 disk_size_gb = 5;
+	DiskEncryptionSettings encryption_settings = 6;
+	VirtualHardDisk image = 7;
+	ManagedDiskParameters managed_disk = 8;
+	string name = 9;
+	string os_type = 10;
+	VirtualHardDisk vhd = 11;
+	bool write_accelerator_enabled = 12;
+}
+
+message DiskEncryptionSettings {
+	KeyVaultSecretReference disk_encryption_key = 1;
+	bool enabled = 2;
+	KeyVaultKeyReference key_encryption_key = 3;
+}
+
+message KeyVaultKeyReference {
+	string key_url = 1;
+	string source_vault = 2;
+}
+
+message KeyVaultSecretReference {
+	string secret_url = 1;
+	string source_vault = 2;
+}
+
+message DiffDiskSettings {
+	string option = 1;
+	string placement = 2;
+}
+
+message ImageReference {
+	string community_gallery_image_id = 1;
+	string id = 2;
+	string offer = 3;
+	string publisher = 4;
+	string shared_gallery_image_id = 5;
+	string sku = 6;
+	string version = 7;
+}
+
+message DataDisk {
+	string caching = 1;
+	string create_option = 2;
+	string delete_option = 3;
+	string detach_option = 4;
+	int32 disk_size_gb = 5;
+	VirtualHardDisk image = 6;
+	int32 lun = 7;
+	ManagedDiskParameters managed_disk = 8;
+	string name = 9;
+	bool to_be_detached = 10;
+	VirtualHardDisk vhd = 11;
+	bool write_accelerator_enabled = 12;
+}
+
+message ManagedDiskParameters {
+	DiskEncryptionSetParameters disk_encryption_set = 1;
+	string id = 2;
+	VMDiskSecurityProfile security_profile = 3;
+	string storage_account_type = 4;
+}
+
+message VMDiskSecurityProfile {
+	DiskEncryptionSetParameters disk_encryption_set = 1;
+	string security_encryption_type = 2;
+}
+
+message DiskEncryptionSetParameters {
+	string id = 1;
+}
+
+message VirtualHardDisk {
+	string uri = 1;
+}
+
+message SecurityProfile {
+	bool encryption_at_host = 1;
+	string security_type = 2;
+	UefiSettings uefi_settings = 3;
+}
+
+message UefiSettings {
+	bool secure_boot_enabled = 1;
+	bool v_tpm_enabled = 2;
+}
+
+message ScheduledEventsProfile {
+	TerminateNotificationProfile terminate_notification_profile = 1;
+}
+
+message TerminateNotificationProfile {
+	bool enable = 1;
+	string not_before_timeout = 2;
+}
+
+message OSProfile {
+	string admin_password = 1;
+	string admin_username = 2;
+	bool allow_extension_operations = 3;
+	string computer_name = 4;
+	string custom_data = 5;
+	LinuxConfiguration linux_configuration = 6;
+	bool require_guest_provision_signal = 7;
+	repeated VaultSecretGroup secrets = 8;
+	WindowsConfiguration windows_configuration = 9;
+}
+
+message WindowsConfiguration {
+	repeated AdditionalUnattendContent additional_unattend_content = 1;
+	bool enable_automatic_updates = 2;
+	PatchSettings patch_settings = 3;
+	bool provision_v_m_agent = 4;
+	string time_zone = 5;
+	WinRMConfiguration win_r_m = 6;
+}
+
+message WinRMConfiguration {
+	repeated WinRMListener listeners = 1;
+}
+
+message WinRMListener {
+	string certificate_url = 1;
+	string protocol = 2;
+}
+
+message PatchSettings {
+	string assessment_mode = 1;
+	bool enable_hotpatching = 2;
+	string patch_mode = 3;
+}
+
+message AdditionalUnattendContent {
+	string component_name = 1;
+	string content = 2;
+	string pass_name = 3;
+	string setting_name = 4;
+}
+
+message VaultSecretGroup {
+	string source_vault = 1;
+	repeated VaultCertificate vault_certificates = 2;
+}
+
+message VaultCertificate {
+	string certificate_store = 1;
+	string certificate_url = 2;
+}
+
+message LinuxConfiguration {
+	bool disable_password_authentication = 1;
+	LinuxPatchSettings patch_settings = 2;
+	bool provision_v_m_agent = 3;
+	SshConfiguration ssh = 4;
+}
+
+message SshConfiguration {
+	repeated SshPublicKey public_keys = 1;
+}
+
+message SshPublicKey {
+	string key_data = 1;
+	string path = 2;
+}
+
+message LinuxPatchSettings {
+	string assessment_mode = 1;
+	string patch_mode = 2;
+}
+
+message NetworkProfile {
+	string network_api_version = 1;
+	repeated VirtualMachineNetworkInterfaceConfiguration network_interface_configurations = 2;
+	repeated NetworkInterfaceReference network_interfaces = 3;
+}
+
+message NetworkInterfaceReference {
+	string id = 1;
+	string delete_option = 2;
+	bool primary = 3;
+}
+
+message VirtualMachineNetworkInterfaceConfiguration {
+	string name = 1;
+	string delete_option = 2;
+	VirtualMachineNetworkInterfaceDnsSettingsConfiguration dns_settings = 3;
+	string dscp_configuration = 4;
+	bool enable_accelerated_networking = 5;
+	bool enable_fpga = 6;
+	bool enable_ip_forwarding = 7;
+	repeated VirtualMachineNetworkInterfaceIPConfiguration ip_configurations = 8;
+	string network_security_group = 9;
+	bool primary = 10;
+}
+
+message VirtualMachineNetworkInterfaceIPConfiguration {
+	string name = 1;
+	repeated string application_gateway_backend_address_pools = 2;
+	repeated string application_security_groups = 3;
+	repeated string load_balancer_backend_address_pools = 4;
+	bool primary = 5;
+	string private_ip_address_version = 6;
+	VirtualMachinePublicIPAddressConfiguration public_ip_address_configuration = 7;
+	string subnet = 8;
+}
+
+message VirtualMachinePublicIPAddressConfiguration {
+	string name = 1;
+	string delete_option = 2;
+	VirtualMachinePublicIPAddressDnsSettingsConfiguration dns_settings = 3;
+	int32 idle_timeout_in_minutes = 4;
+	repeated VirtualMachineIpTag ip_tags = 5;
+	string public_ip_address_version = 6;
+	string public_ip_allocation_method = 7;
+	string public_ip_prefix = 8;
+	PublicIPAddressSku sku = 9;
+}
+
+message PublicIPAddressSku {
+	string name = 1;
+	string tier = 2;
+}
+
+message VirtualMachineIpTag {
+	string ip_tag_type = 1;
+	string tag = 2;
+}
+
+message VirtualMachinePublicIPAddressDnsSettingsConfiguration {
+	string domain_name_label = 1;
+}
+
+message VirtualMachineNetworkInterfaceDnsSettingsConfiguration {
+	repeated string dns_servers = 1;
+}
+
+message HardwareProfile {
+	string vm_size = 1;
+	VMSizeProperties vm_size_properties = 2;
+}
+
+message VMSizeProperties {
+	int32 v_cpus_available = 1;
+	int32 v_cpus_per_core = 2;
+}
+
+message DiagnosticsProfile {
+	BootDiagnostics boot_diagnostics = 1;
+}
+
+message BootDiagnostics {
+	bool enabled = 1;
+	string storage_uri = 2;
+}
+
+message CapacityReservationProfile {
+	string capacity_reservation_group = 1;
+}
+
+message BillingProfile {
+	double max_price = 1;
+}
+
+message ApplicationProfile {
+	repeated VMGalleryApplication gallery_applications = 1;
+}
+
+message VMGalleryApplication {
+	string configuration_reference = 1;
+	int32 order = 2;
+	string package_reference_id = 3;
+	string tags = 4;
+}
+
+message AdditionalCapabilities {
+	bool hibernation_enabled = 1;
+	bool ultra_ssd_enabled = 2;
+}
+
+message Plan {
+	string name = 1;
+	string product = 2;
+	string promotion_code = 3;
+	string publisher = 4;
+}
+
+message VirtualMachineIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

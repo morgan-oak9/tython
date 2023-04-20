@@ -1,0 +1,737 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.data;
+
+import "shared/shared.proto";
+
+message DataCatalogEntryXGcsFilesetSpec {
+	repeated string file_patterns = 1;
+	map<string, string> sample_gcs_file_specs = 2;
+}
+
+message DataCatalogEntryXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataCatalogEntry {
+	map<string, string> bigquery_date_sharded_spec = 1;
+	map<string, string> bigquery_table_spec = 2;
+	string description = 3;
+	string display_name = 4;
+	string entry_group = 5;
+	string entry_id = 6;
+	string id = 7;
+	string integrated_system = 8;
+	string linked_resource = 9;
+	string name = 10;
+	string schema = 11;
+	string type = 12;
+	string user_specified_system = 13;
+	string user_specified_type = 14;
+	DataCatalogEntryXGcsFilesetSpec gcs_fileset_spec = 15;
+	DataCatalogEntryXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message DataCatalogEntryGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataCatalogEntryGroup {
+	string description = 1;
+	string display_name = 2;
+	string entry_group_id = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	string region = 7;
+	DataCatalogEntryGroupXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataCatalogEntryGroupIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataCatalogEntryGroupIamBinding {
+	string entry_group = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	DataCatalogEntryGroupIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataCatalogEntryGroupIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataCatalogEntryGroupIamMember {
+	string entry_group = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	DataCatalogEntryGroupIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataCatalogEntryGroupIamPolicy {
+	string entry_group = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string region = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DataCatalogTagXFields {
+	bool bool_value = 1;
+	string display_name = 2;
+	double double_value = 3;
+	string enum_value = 4;
+	string field_name = 5;
+	double order = 6;
+	string string_value = 7;
+	string timestamp_value = 8;
+}
+
+message DataCatalogTagXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataCatalogTag {
+	string column = 1;
+	string id = 2;
+	string name = 3;
+	string parent = 4;
+	string template = 5;
+	string template_displayname = 6;
+	repeated DataCatalogTagXFields fields = 7;
+	DataCatalogTagXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataCatalogTagTemplateXFieldsXTypeXEnumTypeXAllowedValues {
+	string display_name = 1;
+}
+
+message DataCatalogTagTemplateXFieldsXTypeXEnumType {
+	repeated DataCatalogTagTemplateXFieldsXTypeXEnumTypeXAllowedValues allowed_values = 1;
+}
+
+message DataCatalogTagTemplateXFieldsXType {
+	string primitive_type = 1;
+	DataCatalogTagTemplateXFieldsXTypeXEnumType enum_type = 2;
+}
+
+message DataCatalogTagTemplateXFields {
+	string description = 1;
+	string display_name = 2;
+	string field_id = 3;
+	bool is_required = 4;
+	string name = 5;
+	double order = 6;
+	DataCatalogTagTemplateXFieldsXType type = 7;
+}
+
+message DataCatalogTagTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataCatalogTagTemplate {
+	string display_name = 1;
+	bool force_delete = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string tag_template_id = 7;
+	repeated DataCatalogTagTemplateXFields fields = 8;
+	DataCatalogTagTemplateXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message DataCatalogTagTemplateIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataCatalogTagTemplateIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string region = 5;
+	string role = 6;
+	string tag_template = 7;
+	DataCatalogTagTemplateIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataCatalogTagTemplateIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message DataCatalogTagTemplateIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string region = 5;
+	string role = 6;
+	string tag_template = 7;
+	DataCatalogTagTemplateIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message DataCatalogTagTemplateIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	string region = 5;
+	string tag_template = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message DataFusionInstanceXNetworkConfig {
+	string ip_allocation = 1;
+	string network = 2;
+}
+
+message DataFusionInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataFusionInstance {
+	string create_time = 1;
+	string dataproc_service_account = 2;
+	string description = 3;
+	bool enable_stackdriver_logging = 4;
+	bool enable_stackdriver_monitoring = 5;
+	string gcs_bucket = 6;
+	string id = 7;
+	map<string, string> labels = 8;
+	string name = 9;
+	map<string, string> options = 10;
+	bool private_instance = 11;
+	string project = 12;
+	string region = 13;
+	string service_endpoint = 14;
+	string state = 15;
+	string state_message = 16;
+	string tenant_project_id = 17;
+	string type = 18;
+	string update_time = 19;
+	string version = 20;
+	DataFusionInstanceXNetworkConfig network_config = 21;
+	DataFusionInstanceXTimeouts timeouts = 22;
+	oak9.tython.shared.ResourceInfo resource_info = 23;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXInfoTypes {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCharacterMaskConfigXCharactersToIgnore {
+	string characters_to_skip = 1;
+	string common_characters_to_ignore = 2;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCharacterMaskConfig {
+	string masking_character = 1;
+	double number_to_mask = 2;
+	bool reverse_order = 3;
+	repeated DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCharacterMaskConfigXCharactersToIgnore characters_to_ignore = 4;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXContext {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKeyXKmsWrapped {
+	string crypto_key_name = 1;
+	string wrapped_key = 2;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKeyXTransient {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKeyXUnwrapped {
+	string key = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKey {
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKeyXKmsWrapped kms_wrapped = 1;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKeyXTransient transient = 2;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKeyXUnwrapped unwrapped = 3;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXSurrogateInfoType {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfig {
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXContext context = 1;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXCryptoKey crypto_key = 2;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfigXSurrogateInfoType surrogate_info_type = 3;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXContext {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKeyXKmsWrapped {
+	string crypto_key_name = 1;
+	string wrapped_key = 2;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKeyXTransient {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKeyXUnwrapped {
+	string key = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKey {
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKeyXKmsWrapped kms_wrapped = 1;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKeyXTransient transient = 2;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKeyXUnwrapped unwrapped = 3;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXSurrogateInfoType {
+	string name = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfig {
+	string common_alphabet = 1;
+	string custom_alphabet = 2;
+	double radix = 3;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXContext context = 4;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXCryptoKey crypto_key = 5;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfigXSurrogateInfoType surrogate_info_type = 6;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfigXNewValueXDateValue {
+	double day = 1;
+	double month = 2;
+	double year = 3;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfigXNewValueXTimeValue {
+	double hours = 1;
+	double minutes = 2;
+	double nanos = 3;
+	double seconds = 4;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfigXNewValue {
+	bool boolean_value = 1;
+	string day_of_week_value = 2;
+	double float_value = 3;
+	double integer_value = 4;
+	string string_value = 5;
+	string timestamp_value = 6;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfigXNewValueXDateValue date_value = 7;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfigXNewValueXTimeValue time_value = 8;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfig {
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfigXNewValue new_value = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformation {
+	bool replace_with_info_type_config = 1;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCharacterMaskConfig character_mask_config = 2;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoDeterministicConfig crypto_deterministic_config = 3;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXCryptoReplaceFfxFpeConfig crypto_replace_ffx_fpe_config = 4;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformationXReplaceConfig replace_config = 5;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformations {
+	repeated DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXInfoTypes info_types = 1;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformationsXPrimitiveTransformation primitive_transformation = 2;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformations {
+	repeated DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformationsXTransformations transformations = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXDeidentifyConfig {
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfigXInfoTypeTransformations info_type_transformations = 1;
+}
+
+message DataLossPreventionDeidentifyTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataLossPreventionDeidentifyTemplate {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	string parent = 5;
+	DataLossPreventionDeidentifyTemplateXDeidentifyConfig deidentify_config = 6;
+	DataLossPreventionDeidentifyTemplateXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXDictionaryXCloudStoragePath {
+	string path = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXDictionaryXWordList {
+	repeated string words = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXDictionary {
+	DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXDictionaryXCloudStoragePath cloud_storage_path = 1;
+	DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXDictionaryXWordList word_list = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXInfoType {
+	string name = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXRegex {
+	repeated double group_indexes = 1;
+	string pattern = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXStoredType {
+	string name = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypes {
+	string exclusion_type = 1;
+	string likelihood = 2;
+	DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXDictionary dictionary = 3;
+	DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXInfoType info_type = 4;
+	DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXRegex regex = 5;
+	DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypesXStoredType stored_type = 6;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXInfoTypes {
+	string name = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXLimitsXMaxFindingsPerInfoTypeXInfoType {
+	string name = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXLimitsXMaxFindingsPerInfoType {
+	double max_findings = 1;
+	DataLossPreventionInspectTemplateXInspectConfigXLimitsXMaxFindingsPerInfoTypeXInfoType info_type = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXLimits {
+	double max_findings_per_item = 1;
+	double max_findings_per_request = 2;
+	repeated DataLossPreventionInspectTemplateXInspectConfigXLimitsXMaxFindingsPerInfoType max_findings_per_info_type = 3;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXInfoTypes {
+	string name = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXDictionaryXCloudStoragePath {
+	string path = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXDictionaryXWordList {
+	repeated string words = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXDictionary {
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXDictionaryXCloudStoragePath cloud_storage_path = 1;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXDictionaryXWordList word_list = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXExcludeInfoTypesXInfoTypes {
+	string name = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXExcludeInfoTypes {
+	repeated DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXExcludeInfoTypesXInfoTypes info_types = 1;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXRegex {
+	repeated double group_indexes = 1;
+	string pattern = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRule {
+	string matching_type = 1;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXDictionary dictionary = 2;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXExcludeInfoTypes exclude_info_types = 3;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRuleXRegex regex = 4;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRuleXHotwordRegex {
+	repeated double group_indexes = 1;
+	string pattern = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRuleXLikelihoodAdjustment {
+	string fixed_likelihood = 1;
+	double relative_likelihood = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRuleXProximity {
+	double window_after = 1;
+	double window_before = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRule {
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRuleXHotwordRegex hotword_regex = 1;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRuleXLikelihoodAdjustment likelihood_adjustment = 2;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRuleXProximity proximity = 3;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRules {
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXExclusionRule exclusion_rule = 1;
+	DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRulesXHotwordRule hotword_rule = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfigXRuleSet {
+	repeated DataLossPreventionInspectTemplateXInspectConfigXRuleSetXInfoTypes info_types = 1;
+	repeated DataLossPreventionInspectTemplateXInspectConfigXRuleSetXRules rules = 2;
+}
+
+message DataLossPreventionInspectTemplateXInspectConfig {
+	repeated string content_options = 1;
+	bool exclude_info_types = 2;
+	bool include_quote = 3;
+	string min_likelihood = 4;
+	repeated DataLossPreventionInspectTemplateXInspectConfigXCustomInfoTypes custom_info_types = 5;
+	repeated DataLossPreventionInspectTemplateXInspectConfigXInfoTypes info_types = 6;
+	DataLossPreventionInspectTemplateXInspectConfigXLimits limits = 7;
+	repeated DataLossPreventionInspectTemplateXInspectConfigXRuleSet rule_set = 8;
+}
+
+message DataLossPreventionInspectTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataLossPreventionInspectTemplate {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	string parent = 5;
+	DataLossPreventionInspectTemplateXInspectConfig inspect_config = 6;
+	DataLossPreventionInspectTemplateXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXActionsXSaveFindingsXOutputConfigXTable {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXActionsXSaveFindingsXOutputConfig {
+	string output_schema = 1;
+	DataLossPreventionJobTriggerXInspectJobXActionsXSaveFindingsXOutputConfigXTable table = 2;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXActionsXSaveFindings {
+	DataLossPreventionJobTriggerXInspectJobXActionsXSaveFindingsXOutputConfig output_config = 1;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXActions {
+	DataLossPreventionJobTriggerXInspectJobXActionsXSaveFindings save_findings = 1;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXBigQueryOptionsXTableReference {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXBigQueryOptions {
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXBigQueryOptionsXTableReference table_reference = 1;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXCloudStorageOptionsXFileSetXRegexFileSet {
+	string bucket_name = 1;
+	repeated string exclude_regex = 2;
+	repeated string include_regex = 3;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXCloudStorageOptionsXFileSet {
+	string url = 1;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXCloudStorageOptionsXFileSetXRegexFileSet regex_file_set = 2;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXCloudStorageOptions {
+	double bytes_limit_per_file = 1;
+	double bytes_limit_per_file_percent = 2;
+	repeated string file_types = 3;
+	double files_limit_percent = 4;
+	string sample_method = 5;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXCloudStorageOptionsXFileSet file_set = 6;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXDatastoreOptionsXKind {
+	string name = 1;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXDatastoreOptionsXPartitionId {
+	string namespace_id = 1;
+	string project_id = 2;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXDatastoreOptions {
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXDatastoreOptionsXKind kind = 1;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXDatastoreOptionsXPartitionId partition_id = 2;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXTimespanConfigXTimestampField {
+	string name = 1;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfigXTimespanConfig {
+	bool enable_auto_population_of_timespan_config = 1;
+	string end_time = 2;
+	string start_time = 3;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXTimespanConfigXTimestampField timestamp_field = 4;
+}
+
+message DataLossPreventionJobTriggerXInspectJobXStorageConfig {
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXBigQueryOptions big_query_options = 1;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXCloudStorageOptions cloud_storage_options = 2;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXDatastoreOptions datastore_options = 3;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfigXTimespanConfig timespan_config = 4;
+}
+
+message DataLossPreventionJobTriggerXInspectJob {
+	string inspect_template_name = 1;
+	repeated DataLossPreventionJobTriggerXInspectJobXActions actions = 2;
+	DataLossPreventionJobTriggerXInspectJobXStorageConfig storage_config = 3;
+}
+
+message DataLossPreventionJobTriggerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataLossPreventionJobTriggerXTriggersXSchedule {
+	string recurrence_period_duration = 1;
+}
+
+message DataLossPreventionJobTriggerXTriggers {
+	DataLossPreventionJobTriggerXTriggersXSchedule schedule = 1;
+}
+
+message DataLossPreventionJobTrigger {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string last_run_time = 4;
+	string name = 5;
+	string parent = 6;
+	string status = 7;
+	DataLossPreventionJobTriggerXInspectJob inspect_job = 8;
+	DataLossPreventionJobTriggerXTimeouts timeouts = 9;
+	repeated DataLossPreventionJobTriggerXTriggers triggers = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message DataLossPreventionStoredInfoTypeXDictionaryXCloudStoragePath {
+	string path = 1;
+}
+
+message DataLossPreventionStoredInfoTypeXDictionaryXWordList {
+	repeated string words = 1;
+}
+
+message DataLossPreventionStoredInfoTypeXDictionary {
+	DataLossPreventionStoredInfoTypeXDictionaryXCloudStoragePath cloud_storage_path = 1;
+	DataLossPreventionStoredInfoTypeXDictionaryXWordList word_list = 2;
+}
+
+message DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXBigQueryFieldXField {
+	string name = 1;
+}
+
+message DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXBigQueryFieldXTable {
+	string dataset_id = 1;
+	string project_id = 2;
+	string table_id = 3;
+}
+
+message DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXBigQueryField {
+	DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXBigQueryFieldXField field = 1;
+	DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXBigQueryFieldXTable table = 2;
+}
+
+message DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXCloudStorageFileSet {
+	string url = 1;
+}
+
+message DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXOutputPath {
+	string path = 1;
+}
+
+message DataLossPreventionStoredInfoTypeXLargeCustomDictionary {
+	DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXBigQueryField big_query_field = 1;
+	DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXCloudStorageFileSet cloud_storage_file_set = 2;
+	DataLossPreventionStoredInfoTypeXLargeCustomDictionaryXOutputPath output_path = 3;
+}
+
+message DataLossPreventionStoredInfoTypeXRegex {
+	repeated double group_indexes = 1;
+	string pattern = 2;
+}
+
+message DataLossPreventionStoredInfoTypeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataLossPreventionStoredInfoType {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	string parent = 5;
+	DataLossPreventionStoredInfoTypeXDictionary dictionary = 6;
+	DataLossPreventionStoredInfoTypeXLargeCustomDictionary large_custom_dictionary = 7;
+	DataLossPreventionStoredInfoTypeXRegex regex = 8;
+	DataLossPreventionStoredInfoTypeXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+

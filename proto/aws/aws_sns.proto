@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package oak9.tython.aws.sns;
+
+import "shared/shared.proto";
+
+message Subscription {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> delivery_policy = 2;
+	string endpoint = 3;
+	map<string, string> filter_policy = 4;
+	string protocol = 5;
+	bool raw_message_delivery = 6;
+	map<string, string> redrive_policy = 7;
+	string region = 8;
+	string topic_arn = 9;
+}
+
+message SNS {
+	repeated Subscription subscription = 1;
+	Topic topic = 2;
+	TopicPolicy topic_policy = 3;
+}
+
+message TopicSubscription {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string endpoint = 2;
+	string protocol = 3;
+}
+
+message Topic {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool content_based_deduplication = 2;
+	string display_name = 3;
+	string kms_master_key_id = 4;
+	repeated TopicSubscription subscription = 5;
+	map<string, string> tags = 6;
+	string topic_name = 7;
+}
+
+message TopicPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string policy_document = 2;
+	repeated string topics = 3;
+}
+

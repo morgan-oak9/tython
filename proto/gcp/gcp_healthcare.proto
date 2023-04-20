@@ -1,0 +1,341 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.healthcare;
+
+import "shared/shared.proto";
+
+message HealthcareConsentStoreXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message HealthcareConsentStore {
+	string dataset = 1;
+	string default_consent_ttl = 2;
+	bool enable_consent_create_on_update = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	HealthcareConsentStoreXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message HealthcareConsentStoreIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareConsentStoreIamBinding {
+	string consent_store_id = 1;
+	string dataset = 2;
+	string etag = 3;
+	string id = 4;
+	repeated string members = 5;
+	string role = 6;
+	HealthcareConsentStoreIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message HealthcareConsentStoreIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareConsentStoreIamMember {
+	string consent_store_id = 1;
+	string dataset = 2;
+	string etag = 3;
+	string id = 4;
+	string member = 5;
+	string role = 6;
+	HealthcareConsentStoreIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message HealthcareConsentStoreIamPolicy {
+	string consent_store_id = 1;
+	string dataset = 2;
+	string etag = 3;
+	string id = 4;
+	string policy_data = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message HealthcareDatasetXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message HealthcareDataset {
+	string id = 1;
+	string location = 2;
+	string name = 3;
+	string project = 4;
+	string self_link = 5;
+	string time_zone = 6;
+	HealthcareDatasetXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message HealthcareDatasetIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareDatasetIamBinding {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	HealthcareDatasetIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareDatasetIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareDatasetIamMember {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	HealthcareDatasetIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareDatasetIamPolicy {
+	string dataset_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message HealthcareDicomStoreXNotificationConfig {
+	string pubsub_topic = 1;
+}
+
+message HealthcareDicomStoreXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message HealthcareDicomStore {
+	string dataset = 1;
+	string id = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string self_link = 5;
+	HealthcareDicomStoreXNotificationConfig notification_config = 6;
+	HealthcareDicomStoreXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message HealthcareDicomStoreIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareDicomStoreIamBinding {
+	string dicom_store_id = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	HealthcareDicomStoreIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareDicomStoreIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareDicomStoreIamMember {
+	string dicom_store_id = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	HealthcareDicomStoreIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareDicomStoreIamPolicy {
+	string dicom_store_id = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message HealthcareFhirStoreXNotificationConfig {
+	string pubsub_topic = 1;
+}
+
+message HealthcareFhirStoreXStreamConfigsXBigqueryDestinationXSchemaConfig {
+	double recursive_structure_depth = 1;
+	string schema_type = 2;
+}
+
+message HealthcareFhirStoreXStreamConfigsXBigqueryDestination {
+	string dataset_uri = 1;
+	HealthcareFhirStoreXStreamConfigsXBigqueryDestinationXSchemaConfig schema_config = 2;
+}
+
+message HealthcareFhirStoreXStreamConfigs {
+	repeated string resource_types = 1;
+	HealthcareFhirStoreXStreamConfigsXBigqueryDestination bigquery_destination = 2;
+}
+
+message HealthcareFhirStoreXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message HealthcareFhirStore {
+	string dataset = 1;
+	bool disable_referential_integrity = 2;
+	bool disable_resource_versioning = 3;
+	bool enable_history_import = 4;
+	bool enable_update_create = 5;
+	string id = 6;
+	map<string, string> labels = 7;
+	string name = 8;
+	string self_link = 9;
+	string version = 10;
+	HealthcareFhirStoreXNotificationConfig notification_config = 11;
+	repeated HealthcareFhirStoreXStreamConfigs stream_configs = 12;
+	HealthcareFhirStoreXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message HealthcareFhirStoreIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareFhirStoreIamBinding {
+	string etag = 1;
+	string fhir_store_id = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	HealthcareFhirStoreIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareFhirStoreIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareFhirStoreIamMember {
+	string etag = 1;
+	string fhir_store_id = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	HealthcareFhirStoreIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareFhirStoreIamPolicy {
+	string etag = 1;
+	string fhir_store_id = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message HealthcareHl7V2StoreXNotificationConfig {
+	string pubsub_topic = 1;
+}
+
+message HealthcareHl7V2StoreXNotificationConfigs {
+	string filter = 1;
+	string pubsub_topic = 2;
+}
+
+message HealthcareHl7V2StoreXParserConfig {
+	bool allow_null_header = 1;
+	string schema = 2;
+	string segment_terminator = 3;
+	string version = 4;
+}
+
+message HealthcareHl7V2StoreXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message HealthcareHl7V2Store {
+	string dataset = 1;
+	string id = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string self_link = 5;
+	HealthcareHl7V2StoreXNotificationConfig notification_config = 6;
+	repeated HealthcareHl7V2StoreXNotificationConfigs notification_configs = 7;
+	HealthcareHl7V2StoreXParserConfig parser_config = 8;
+	HealthcareHl7V2StoreXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message HealthcareHl7V2StoreIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareHl7V2StoreIamBinding {
+	string etag = 1;
+	string hl7_v2_store_id = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	HealthcareHl7V2StoreIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareHl7V2StoreIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message HealthcareHl7V2StoreIamMember {
+	string etag = 1;
+	string hl7_v2_store_id = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	HealthcareHl7V2StoreIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message HealthcareHl7V2StoreIamPolicy {
+	string etag = 1;
+	string hl7_v2_store_id = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

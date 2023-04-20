@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codedeploy;
+
+import "shared/shared.proto";
+
+message Application {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	string compute_platform = 3;
+}
+
+message CodeDeploy {
+	repeated Application application = 1;
+	repeated DeploymentConfig deployment_config = 2;
+	repeated DeploymentGroup deployment_group = 3;
+}
+
+message DeploymentConfigMinimumHealthyHosts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 value = 2;
+}
+
+message DeploymentConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string deployment_config_name = 2;
+	DeploymentConfigMinimumHealthyHosts minimum_healthy_hosts = 3;
+}
+
+message DeploymentGroupAlarm {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message DeploymentGroupAlarmConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeploymentGroupAlarm alarms = 2;
+	bool enabled = 3;
+	bool ignore_poll_alarm_failure = 4;
+}
+
+message DeploymentGroupAutoRollbackConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	repeated string events = 3;
+}
+
+message DeploymentGroupGitHubLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string commit_id = 2;
+	string repository = 3;
+}
+
+message DeploymentGroupS3Location {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	string bundle_type = 3;
+	string e_tag = 4;
+	string key = 5;
+	string version = 6;
+}
+
+message DeploymentGroupRevisionLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DeploymentGroupGitHubLocation git_hub_location = 2;
+	string revision_type = 3;
+	DeploymentGroupS3Location s3_location = 4;
+}
+
+message DeploymentGroupDeployment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	bool ignore_application_stop_failures = 3;
+	DeploymentGroupRevisionLocation revision = 4;
+}
+
+message DeploymentGroupDeploymentStyle {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string deployment_option = 2;
+	string deployment_type = 3;
+}
+
+message DeploymentGroupEC2TagFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message DeploymentGroupEC2TagSetListObject {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeploymentGroupEC2TagFilter ec2_tag_group = 2;
+}
+
+message DeploymentGroupEC2TagSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeploymentGroupEC2TagSetListObject ec2_tag_set_list = 2;
+}
+
+message DeploymentGroupELBInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message DeploymentGroupTargetGroupInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message DeploymentGroupLoadBalancerInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeploymentGroupELBInfo elb_info_list = 2;
+	repeated DeploymentGroupTargetGroupInfo target_group_info_list = 3;
+}
+
+message DeploymentGroupTagFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message DeploymentGroupOnPremisesTagSetListObject {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeploymentGroupTagFilter on_premises_tag_group = 2;
+}
+
+message DeploymentGroupOnPremisesTagSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DeploymentGroupOnPremisesTagSetListObject on_premises_tag_set_list = 2;
+}
+
+message DeploymentGroupTriggerConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string trigger_events = 2;
+	string trigger_name = 3;
+	string trigger_target_arn = 4;
+}
+
+message DeploymentGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DeploymentGroupAlarmConfiguration alarm_configuration = 2;
+	string application_name = 3;
+	DeploymentGroupAutoRollbackConfiguration auto_rollback_configuration = 4;
+	repeated string auto_scaling_groups = 5;
+	DeploymentGroupDeployment deployment = 6;
+	string deployment_config_name = 7;
+	string deployment_group_name = 8;
+	DeploymentGroupDeploymentStyle deployment_style = 9;
+	repeated DeploymentGroupEC2TagFilter ec2_tag_filters = 10;
+	DeploymentGroupEC2TagSet ec2_tag_set = 11;
+	DeploymentGroupLoadBalancerInfo load_balancer_info = 12;
+	repeated DeploymentGroupTagFilter on_premises_instance_tag_filters = 13;
+	DeploymentGroupOnPremisesTagSet on_premises_tag_set = 14;
+	string service_role_arn = 15;
+	repeated DeploymentGroupTriggerConfig trigger_configurations = 16;
+}
+

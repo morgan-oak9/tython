@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package oak9.tython.aws.macie;
+
+import "shared/shared.proto";
+
+message CustomDataIdentifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string regex = 4;
+	int32 maximum_match_distance = 5;
+	repeated string keywords = 6;
+	repeated string ignore_words = 7;
+}
+
+message Macie {
+	repeated CustomDataIdentifier custom_data_identifier = 1;
+	repeated FindingsFilter findings_filter = 2;
+	repeated Session session = 3;
+	repeated FindingsFilterFindingsFilterListItem findings_filter_findings_filter_list_item = 4;
+}
+
+message FindingsFilterCriterion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message FindingsFilterFindingCriteria {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FindingsFilterCriterion criterion = 2;
+}
+
+message FindingsFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	FindingsFilterFindingCriteria finding_criteria = 4;
+	string action = 5;
+	int32 position = 6;
+}
+
+message Session {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+	string finding_publishing_frequency = 3;
+}
+
+message FindingsFilterFindingsFilterListItem {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string name = 3;
+}
+

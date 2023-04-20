@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package oak9.tython.aws.budgets;
+
+import "shared/shared.proto";
+
+message BudgetSubscriber {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string subscription_type = 2;
+	string address = 3;
+}
+
+message BudgetNotification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comparison_operator = 2;
+	string notification_type = 3;
+	double threshold = 4;
+	string threshold_type = 5;
+}
+
+message BudgetNotificationWithSubscribers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BudgetSubscriber subscribers = 2;
+	BudgetNotification notification = 3;
+}
+
+message BudgetSpend {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double amount = 2;
+	string unit = 3;
+}
+
+message BudgetTimePeriod {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string start = 2;
+	string end = 3;
+}
+
+message BudgetCostTypes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool include_support = 2;
+	bool include_other_subscription = 3;
+	bool include_tax = 4;
+	bool include_subscription = 5;
+	bool use_blended = 6;
+	bool include_upfront = 7;
+	bool include_discount = 8;
+	bool include_credit = 9;
+	bool include_recurring = 10;
+	bool use_amortized = 11;
+	bool include_refund = 12;
+}
+
+message BudgetBudgetData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BudgetSpend budget_limit = 2;
+	BudgetTimePeriod time_period = 3;
+	string time_unit = 4;
+	map<string, string> planned_budget_limits = 5;
+	map<string, string> cost_filters = 6;
+	string budget_name = 7;
+	BudgetCostTypes cost_types = 8;
+	string budget_type = 9;
+}
+
+message Budget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BudgetNotificationWithSubscribers notifications_with_subscribers = 2;
+	BudgetBudgetData budget = 3;
+}
+
+message Budgets {
+	repeated Budget budget = 1;
+}
+

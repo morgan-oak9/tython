@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_cloudarmor_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_compute_security.proto";
+
+message GoogleCloudarmor {
+	oak9.tython.gcp.compute_security.ComputeSecurityPolicy compute_security_policy = 1;
+}
+

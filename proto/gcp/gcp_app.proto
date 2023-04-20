@@ -1,0 +1,452 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.app;
+
+import "shared/shared.proto";
+
+message AppEngineApplicationXFeatureSettings {
+	bool split_health_checks = 1;
+}
+
+message AppEngineApplicationXIap {
+	bool enabled = 1;
+	string oauth2_client_id = 2;
+	string oauth2_client_secret = 3;
+	string oauth2_client_secret_sha256 = 4;
+}
+
+message AppEngineApplicationXTimeouts {
+	string create = 1;
+	string update = 2;
+}
+
+message AppEngineApplication {
+	string app_id = 1;
+	string auth_domain = 2;
+	string code_bucket = 3;
+	string database_type = 4;
+	string default_bucket = 5;
+	string default_hostname = 6;
+	string gcr_domain = 7;
+	string id = 8;
+	string location_id = 9;
+	string name = 10;
+	string project = 11;
+	string serving_status = 12;
+	map<string, string> url_dispatch_rule = 13;
+	AppEngineApplicationXFeatureSettings feature_settings = 14;
+	AppEngineApplicationXIap iap = 15;
+	AppEngineApplicationXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message AppEngineApplicationUrlDispatchRulesXDispatchRules {
+	string domain = 1;
+	string path = 2;
+	string service = 3;
+}
+
+message AppEngineApplicationUrlDispatchRulesXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineApplicationUrlDispatchRules {
+	string id = 1;
+	string project = 2;
+	repeated AppEngineApplicationUrlDispatchRulesXDispatchRules dispatch_rules = 3;
+	AppEngineApplicationUrlDispatchRulesXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message AppEngineDomainMappingXSslSettings {
+	string certificate_id = 1;
+	string pending_managed_certificate_id = 2;
+	string ssl_management_type = 3;
+}
+
+message AppEngineDomainMappingXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineDomainMapping {
+	string domain_name = 1;
+	string id = 2;
+	string name = 3;
+	string override_strategy = 4;
+	string project = 5;
+	map<string, string> resource_records = 6;
+	AppEngineDomainMappingXSslSettings ssl_settings = 7;
+	AppEngineDomainMappingXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message AppEngineFirewallRuleXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineFirewallRule {
+	string action = 1;
+	string description = 2;
+	string id = 3;
+	double priority = 4;
+	string project = 5;
+	string source_range = 6;
+	AppEngineFirewallRuleXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message AppEngineFlexibleAppVersionXApiConfig {
+	string auth_fail_action = 1;
+	string login = 2;
+	string script = 3;
+	string security_level = 4;
+	string url = 5;
+}
+
+message AppEngineFlexibleAppVersionXAutomaticScalingXCpuUtilization {
+	string aggregation_window_length = 1;
+	double target_utilization = 2;
+}
+
+message AppEngineFlexibleAppVersionXAutomaticScalingXDiskUtilization {
+	double target_read_bytes_per_second = 1;
+	double target_read_ops_per_second = 2;
+	double target_write_bytes_per_second = 3;
+	double target_write_ops_per_second = 4;
+}
+
+message AppEngineFlexibleAppVersionXAutomaticScalingXNetworkUtilization {
+	double target_received_bytes_per_second = 1;
+	double target_received_packets_per_second = 2;
+	double target_sent_bytes_per_second = 3;
+	double target_sent_packets_per_second = 4;
+}
+
+message AppEngineFlexibleAppVersionXAutomaticScalingXRequestUtilization {
+	double target_concurrent_requests = 1;
+	string target_request_count_per_second = 2;
+}
+
+message AppEngineFlexibleAppVersionXAutomaticScaling {
+	string cool_down_period = 1;
+	double max_concurrent_requests = 2;
+	double max_idle_instances = 3;
+	string max_pending_latency = 4;
+	double max_total_instances = 5;
+	double min_idle_instances = 6;
+	string min_pending_latency = 7;
+	double min_total_instances = 8;
+	AppEngineFlexibleAppVersionXAutomaticScalingXCpuUtilization cpu_utilization = 9;
+	AppEngineFlexibleAppVersionXAutomaticScalingXDiskUtilization disk_utilization = 10;
+	AppEngineFlexibleAppVersionXAutomaticScalingXNetworkUtilization network_utilization = 11;
+	AppEngineFlexibleAppVersionXAutomaticScalingXRequestUtilization request_utilization = 12;
+}
+
+message AppEngineFlexibleAppVersionXDeploymentXCloudBuildOptions {
+	string app_yaml_path = 1;
+	string cloud_build_timeout = 2;
+}
+
+message AppEngineFlexibleAppVersionXDeploymentXContainer {
+	string image = 1;
+}
+
+message AppEngineFlexibleAppVersionXDeploymentXFiles {
+	string name = 1;
+	string sha1_sum = 2;
+	string source_url = 3;
+}
+
+message AppEngineFlexibleAppVersionXDeploymentXZip {
+	double files_count = 1;
+	string source_url = 2;
+}
+
+message AppEngineFlexibleAppVersionXDeployment {
+	AppEngineFlexibleAppVersionXDeploymentXCloudBuildOptions cloud_build_options = 1;
+	AppEngineFlexibleAppVersionXDeploymentXContainer container = 2;
+	repeated AppEngineFlexibleAppVersionXDeploymentXFiles files = 3;
+	AppEngineFlexibleAppVersionXDeploymentXZip zip = 4;
+}
+
+message AppEngineFlexibleAppVersionXEndpointsApiService {
+	string config_id = 1;
+	bool disable_trace_sampling = 2;
+	string name = 3;
+	string rollout_strategy = 4;
+}
+
+message AppEngineFlexibleAppVersionXEntrypoint {
+	string shell = 1;
+}
+
+message AppEngineFlexibleAppVersionXHandlersXScript {
+	string script_path = 1;
+}
+
+message AppEngineFlexibleAppVersionXHandlersXStaticFiles {
+	bool application_readable = 1;
+	string expiration = 2;
+	map<string, string> http_headers = 3;
+	string mime_type = 4;
+	string path = 5;
+	bool require_matching_file = 6;
+	string upload_path_regex = 7;
+}
+
+message AppEngineFlexibleAppVersionXHandlers {
+	string auth_fail_action = 1;
+	string login = 2;
+	string redirect_http_response_code = 3;
+	string security_level = 4;
+	string url_regex = 5;
+	AppEngineFlexibleAppVersionXHandlersXScript script = 6;
+	AppEngineFlexibleAppVersionXHandlersXStaticFiles static_files = 7;
+}
+
+message AppEngineFlexibleAppVersionXLivenessCheck {
+	string check_interval = 1;
+	double failure_threshold = 2;
+	string host = 3;
+	string initial_delay = 4;
+	string path = 5;
+	double success_threshold = 6;
+	string timeout = 7;
+}
+
+message AppEngineFlexibleAppVersionXManualScaling {
+	double instances = 1;
+}
+
+message AppEngineFlexibleAppVersionXNetwork {
+	repeated string forwarded_ports = 1;
+	string instance_tag = 2;
+	string name = 3;
+	bool session_affinity = 4;
+	string subnetwork = 5;
+}
+
+message AppEngineFlexibleAppVersionXReadinessCheck {
+	string app_start_timeout = 1;
+	string check_interval = 2;
+	double failure_threshold = 3;
+	string host = 4;
+	string path = 5;
+	double success_threshold = 6;
+	string timeout = 7;
+}
+
+message AppEngineFlexibleAppVersionXResourcesXVolumes {
+	string name = 1;
+	double size_gb = 2;
+	string volume_type = 3;
+}
+
+message AppEngineFlexibleAppVersionXResources {
+	double cpu = 1;
+	double disk_gb = 2;
+	double memory_gb = 3;
+	repeated AppEngineFlexibleAppVersionXResourcesXVolumes volumes = 4;
+}
+
+message AppEngineFlexibleAppVersionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineFlexibleAppVersionXVpcAccessConnector {
+	string name = 1;
+}
+
+message AppEngineFlexibleAppVersion {
+	map<string, string> beta_settings = 1;
+	string default_expiration = 2;
+	bool delete_service_on_destroy = 3;
+	map<string, string> env_variables = 4;
+	string id = 5;
+	repeated string inbound_services = 6;
+	string instance_class = 7;
+	string name = 8;
+	string nobuild_files_regex = 9;
+	bool noop_on_destroy = 10;
+	string project = 11;
+	string runtime = 12;
+	string runtime_api_version = 13;
+	string runtime_channel = 14;
+	string runtime_main_executable_path = 15;
+	string service = 16;
+	string serving_status = 17;
+	string version_id = 18;
+	AppEngineFlexibleAppVersionXApiConfig api_config = 19;
+	AppEngineFlexibleAppVersionXAutomaticScaling automatic_scaling = 20;
+	AppEngineFlexibleAppVersionXDeployment deployment = 21;
+	AppEngineFlexibleAppVersionXEndpointsApiService endpoints_api_service = 22;
+	AppEngineFlexibleAppVersionXEntrypoint entrypoint = 23;
+	repeated AppEngineFlexibleAppVersionXHandlers handlers = 24;
+	AppEngineFlexibleAppVersionXLivenessCheck liveness_check = 25;
+	AppEngineFlexibleAppVersionXManualScaling manual_scaling = 26;
+	AppEngineFlexibleAppVersionXNetwork network = 27;
+	AppEngineFlexibleAppVersionXReadinessCheck readiness_check = 28;
+	AppEngineFlexibleAppVersionXResources resources = 29;
+	AppEngineFlexibleAppVersionXTimeouts timeouts = 30;
+	AppEngineFlexibleAppVersionXVpcAccessConnector vpc_access_connector = 31;
+	oak9.tython.shared.ResourceInfo resource_info = 32;
+}
+
+message AppEngineServiceNetworkSettingsXNetworkSettings {
+	string ingress_traffic_allowed = 1;
+}
+
+message AppEngineServiceNetworkSettingsXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineServiceNetworkSettings {
+	string id = 1;
+	string project = 2;
+	string service = 3;
+	AppEngineServiceNetworkSettingsXNetworkSettings network_settings = 4;
+	AppEngineServiceNetworkSettingsXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message AppEngineServiceSplitTrafficXSplit {
+	map<string, string> allocations = 1;
+	string shard_by = 2;
+}
+
+message AppEngineServiceSplitTrafficXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineServiceSplitTraffic {
+	string id = 1;
+	bool migrate_traffic = 2;
+	string project = 3;
+	string service = 4;
+	AppEngineServiceSplitTrafficXSplit split = 5;
+	AppEngineServiceSplitTrafficXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message AppEngineStandardAppVersionXAutomaticScalingXStandardSchedulerSettings {
+	double max_instances = 1;
+	double min_instances = 2;
+	double target_cpu_utilization = 3;
+	double target_throughput_utilization = 4;
+}
+
+message AppEngineStandardAppVersionXAutomaticScaling {
+	double max_concurrent_requests = 1;
+	double max_idle_instances = 2;
+	string max_pending_latency = 3;
+	double min_idle_instances = 4;
+	string min_pending_latency = 5;
+	AppEngineStandardAppVersionXAutomaticScalingXStandardSchedulerSettings standard_scheduler_settings = 6;
+}
+
+message AppEngineStandardAppVersionXBasicScaling {
+	string idle_timeout = 1;
+	double max_instances = 2;
+}
+
+message AppEngineStandardAppVersionXDeploymentXFiles {
+	string name = 1;
+	string sha1_sum = 2;
+	string source_url = 3;
+}
+
+message AppEngineStandardAppVersionXDeploymentXZip {
+	double files_count = 1;
+	string source_url = 2;
+}
+
+message AppEngineStandardAppVersionXDeployment {
+	repeated AppEngineStandardAppVersionXDeploymentXFiles files = 1;
+	AppEngineStandardAppVersionXDeploymentXZip zip = 2;
+}
+
+message AppEngineStandardAppVersionXEntrypoint {
+	string shell = 1;
+}
+
+message AppEngineStandardAppVersionXHandlersXScript {
+	string script_path = 1;
+}
+
+message AppEngineStandardAppVersionXHandlersXStaticFiles {
+	bool application_readable = 1;
+	string expiration = 2;
+	map<string, string> http_headers = 3;
+	string mime_type = 4;
+	string path = 5;
+	bool require_matching_file = 6;
+	string upload_path_regex = 7;
+}
+
+message AppEngineStandardAppVersionXHandlers {
+	string auth_fail_action = 1;
+	string login = 2;
+	string redirect_http_response_code = 3;
+	string security_level = 4;
+	string url_regex = 5;
+	AppEngineStandardAppVersionXHandlersXScript script = 6;
+	AppEngineStandardAppVersionXHandlersXStaticFiles static_files = 7;
+}
+
+message AppEngineStandardAppVersionXLibraries {
+	string name = 1;
+	string version = 2;
+}
+
+message AppEngineStandardAppVersionXManualScaling {
+	double instances = 1;
+}
+
+message AppEngineStandardAppVersionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AppEngineStandardAppVersionXVpcAccessConnector {
+	string name = 1;
+}
+
+message AppEngineStandardAppVersion {
+	bool delete_service_on_destroy = 1;
+	map<string, string> env_variables = 2;
+	string id = 3;
+	repeated string inbound_services = 4;
+	string instance_class = 5;
+	string name = 6;
+	bool noop_on_destroy = 7;
+	string project = 8;
+	string runtime = 9;
+	string runtime_api_version = 10;
+	string service = 11;
+	bool threadsafe = 12;
+	string version_id = 13;
+	AppEngineStandardAppVersionXAutomaticScaling automatic_scaling = 14;
+	AppEngineStandardAppVersionXBasicScaling basic_scaling = 15;
+	AppEngineStandardAppVersionXDeployment deployment = 16;
+	AppEngineStandardAppVersionXEntrypoint entrypoint = 17;
+	repeated AppEngineStandardAppVersionXHandlers handlers = 18;
+	repeated AppEngineStandardAppVersionXLibraries libraries = 19;
+	AppEngineStandardAppVersionXManualScaling manual_scaling = 20;
+	AppEngineStandardAppVersionXTimeouts timeouts = 21;
+	AppEngineStandardAppVersionXVpcAccessConnector vpc_access_connector = 22;
+	oak9.tython.shared.ResourceInfo resource_info = 23;
+}
+

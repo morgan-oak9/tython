@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.gke;
+
+import "shared/shared.proto";
+
+message GkeHubMembershipXAuthority {
+	string issuer = 1;
+}
+
+message GkeHubMembershipXEndpointXGkeCluster {
+	string resource_link = 1;
+}
+
+message GkeHubMembershipXEndpoint {
+	GkeHubMembershipXEndpointXGkeCluster gke_cluster = 1;
+}
+
+message GkeHubMembershipXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message GkeHubMembership {
+	string id = 1;
+	map<string, string> labels = 2;
+	string membership_id = 3;
+	string name = 4;
+	string project = 5;
+	GkeHubMembershipXAuthority authority = 6;
+	GkeHubMembershipXEndpoint endpoint = 7;
+	GkeHubMembershipXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

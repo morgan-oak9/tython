@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package oak9.tython.aws.qldb;
+
+import "shared/shared.proto";
+
+message Ledger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string permissions_mode = 2;
+	bool deletion_protection = 3;
+	map<string, string> tags = 4;
+	string name = 5;
+}
+
+message QLDB {
+	Ledger ledger = 1;
+	repeated Stream stream = 2;
+}
+
+message StreamKinesisConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string stream_arn = 2;
+	bool aggregation_enabled = 3;
+}
+
+message Stream {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ledger_name = 2;
+	string stream_name = 3;
+	string role_arn = 4;
+	string inclusive_start_time = 5;
+	string exclusive_end_time = 6;
+	StreamKinesisConfiguration kinesis_configuration = 7;
+	map<string, string> tags = 8;
+}
+

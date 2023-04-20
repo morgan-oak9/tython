@@ -1,0 +1,337 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_instance;
+
+import "shared/shared.proto";
+
+message InstanceEbs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_on_termination = 2;
+	bool encrypted = 3;
+	int32 iops = 4;
+	string kms_key_id = 5;
+	string snapshot_id = 6;
+	int32 volume_size = 7;
+	string volume_type = 8;
+}
+
+message InstanceNoDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message InstanceBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	InstanceEbs ebs = 3;
+	InstanceNoDevice no_device = 4;
+	string virtual_name = 5;
+}
+
+message InstanceCpuOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 core_count = 2;
+	int32 threads_per_core = 3;
+}
+
+message InstanceCreditSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cpu_credits = 2;
+}
+
+message InstanceElasticGpuSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message InstanceElasticInferenceAccelerator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 count = 2;
+}
+
+message InstanceHibernationOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool configured = 2;
+}
+
+message InstanceInstanceIpv6Address {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_address = 2;
+}
+
+message InstanceLaunchTemplateSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string launch_template_id = 2;
+	string launch_template_name = 3;
+	string version = 4;
+}
+
+message InstanceLicenseSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string license_configuration_arn = 2;
+}
+
+message InstancePrivateIpAddressSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool primary = 2;
+	string private_ip_address = 3;
+}
+
+message InstanceNetworkInterface {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool associate_public_ip_address = 2;
+	bool delete_on_termination = 3;
+	string description = 4;
+	string device_index = 5;
+	repeated string group_set = 6;
+	int32 ipv6_address_count = 7;
+	repeated InstanceInstanceIpv6Address ipv6_addresses = 8;
+	string network_interface_id = 9;
+	string private_ip_address = 10;
+	repeated InstancePrivateIpAddressSpecification private_ip_addresses = 11;
+	int32 secondary_private_ip_address_count = 12;
+	string subnet_id = 13;
+}
+
+message InstanceAssociationParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	repeated string value = 3;
+}
+
+message InstanceSsmAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated InstanceAssociationParameter association_parameters = 2;
+	string document_name = 3;
+}
+
+message InstanceVolume {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device = 2;
+	string volume_id = 3;
+}
+
+message Instance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string additional_info = 2;
+	string affinity = 3;
+	string availability_zone = 4;
+	repeated InstanceBlockDeviceMapping block_device_mappings = 5;
+	InstanceCpuOptions cpu_options = 6;
+	InstanceCreditSpecification credit_specification = 7;
+	bool disable_api_termination = 8;
+	bool ebs_optimized = 9;
+	repeated InstanceElasticGpuSpecification elastic_gpu_specifications = 10;
+	repeated InstanceElasticInferenceAccelerator elastic_inference_accelerators = 11;
+	InstanceHibernationOptions hibernation_options = 12;
+	string host_id = 13;
+	string host_resource_group_arn = 14;
+	string iam_instance_profile = 15;
+	string image_id = 16;
+	string instance_initiated_shutdown_behavior = 17;
+	string instance_type = 18;
+	int32 ipv6_address_count = 19;
+	repeated InstanceInstanceIpv6Address ipv6_addresses = 20;
+	string kernel_id = 21;
+	string key_name = 22;
+	InstanceLaunchTemplateSpecification launch_template = 23;
+	repeated InstanceLicenseSpecification license_specifications = 24;
+	bool monitoring = 25;
+	repeated InstanceNetworkInterface network_interfaces = 26;
+	string placement_group_name = 27;
+	string private_ip_address = 28;
+	string ramdisk_id = 29;
+	repeated string security_group_ids = 30;
+	repeated string security_groups = 31;
+	bool source_dest_check = 32;
+	repeated InstanceSsmAssociation ssm_associations = 33;
+	string subnet_id = 34;
+	map<string, string> tags = 35;
+	string tenancy = 36;
+	string user_data = 37;
+	repeated InstanceVolume volumes = 38;
+	Placement placement = 39;
+}
+
+message EC2_Instance {
+	Instance instance = 1;
+	LaunchTemplate launch_template = 2;
+}
+
+message LaunchTemplateTagSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_type = 2;
+	map<string, string> tags = 3;
+}
+
+message LaunchTemplateEbs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string snapshot_id = 2;
+	string volume_type = 3;
+	string kms_key_id = 4;
+	bool encrypted = 5;
+	int32 iops = 6;
+	int32 volume_size = 7;
+	bool delete_on_termination = 8;
+}
+
+message LaunchTemplateBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LaunchTemplateEbs ebs = 2;
+	string no_device = 3;
+	string virtual_name = 4;
+	string device_name = 5;
+}
+
+message LaunchTemplateIamInstanceProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	string name = 3;
+}
+
+message LaunchTemplateElasticGpuSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message LaunchTemplateLaunchTemplateElasticInferenceAccelerator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 count = 2;
+}
+
+message LaunchTemplatePlacement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string group_name = 2;
+	string tenancy = 3;
+	string spread_domain = 4;
+	int32 partition_number = 5;
+	string availability_zone = 6;
+	string affinity = 7;
+	string host_id = 8;
+	string host_resource_group_arn = 9;
+}
+
+message LaunchTemplatePrivateIpAdd {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string private_ip_address = 2;
+	bool primary = 3;
+}
+
+message LaunchTemplateIpv6Add {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_address = 2;
+}
+
+message LaunchTemplateNetworkInterface {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string private_ip_address = 3;
+	repeated LaunchTemplatePrivateIpAdd private_ip_addresses = 4;
+	int32 secondary_private_ip_address_count = 5;
+	int32 device_index = 6;
+	string subnet_id = 7;
+	repeated LaunchTemplateIpv6Add ipv6_addresses = 8;
+	bool associate_public_ip_address = 9;
+	string network_interface_id = 10;
+	string interface_type = 11;
+	int32 ipv6_address_count = 12;
+	repeated string groups = 13;
+	bool delete_on_termination = 14;
+}
+
+message LaunchTemplateMonitoring {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+}
+
+message LaunchTemplateHibernationOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool configured = 2;
+}
+
+message LaunchTemplateMetadataOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 http_put_response_hop_limit = 2;
+	string http_tokens = 3;
+	string http_endpoint = 4;
+}
+
+message LaunchTemplateLicenseSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string license_configuration_arn = 2;
+}
+
+message LaunchTemplateCpuOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 threads_per_core = 2;
+	int32 core_count = 3;
+}
+
+message LaunchTemplateSpotOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string spot_instance_type = 2;
+	string instance_interruption_behavior = 3;
+	string max_price = 4;
+	int32 block_duration_minutes = 5;
+	string valid_until = 6;
+}
+
+message LaunchTemplateInstanceMarketOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LaunchTemplateSpotOptions spot_options = 2;
+	string market_type = 3;
+}
+
+message LaunchTemplateCapacityReservationTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string capacity_reservation_id = 2;
+}
+
+message LaunchTemplateCapacityReservationSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string capacity_reservation_preference = 2;
+	LaunchTemplateCapacityReservationTarget capacity_reservation_target = 3;
+}
+
+message LaunchTemplateCreditSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cpu_credits = 2;
+}
+
+message LaunchTemplateLaunchTemplateData {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_groups = 2;
+	repeated LaunchTemplateTagSpecification tag_specifications = 3;
+	string user_data = 4;
+	repeated LaunchTemplateBlockDeviceMapping block_device_mappings = 5;
+	LaunchTemplateIamInstanceProfile iam_instance_profile = 6;
+	string kernel_id = 7;
+	bool ebs_optimized = 8;
+	repeated LaunchTemplateElasticGpuSpecification elastic_gpu_specifications = 9;
+	repeated LaunchTemplateLaunchTemplateElasticInferenceAccelerator elastic_inference_accelerators = 10;
+	LaunchTemplatePlacement placement = 11;
+	repeated LaunchTemplateNetworkInterface network_interfaces = 12;
+	string image_id = 13;
+	string instance_type = 14;
+	LaunchTemplateMonitoring monitoring = 15;
+	LaunchTemplateHibernationOptions hibernation_options = 16;
+	LaunchTemplateMetadataOptions metadata_options = 17;
+	repeated LaunchTemplateLicenseSpecification license_specifications = 18;
+	string instance_initiated_shutdown_behavior = 19;
+	LaunchTemplateCpuOptions cpu_options = 20;
+	repeated string security_group_ids = 21;
+	string key_name = 22;
+	bool disable_api_termination = 23;
+	LaunchTemplateInstanceMarketOptions instance_market_options = 24;
+	string ram_disk_id = 25;
+	LaunchTemplateCapacityReservationSpecification capacity_reservation_specification = 26;
+	LaunchTemplateCreditSpecification credit_specification = 27;
+}
+
+message Placement {
+	string availability_zone = 1;
+}
+
+message LaunchTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string launch_template_name = 2;
+	LaunchTemplateLaunchTemplateData launch_template_data = 3;
+}
+
