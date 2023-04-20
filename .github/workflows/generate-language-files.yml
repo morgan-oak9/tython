@@ -3,7 +3,7 @@ name: Generate Language Files From Protos
 on:
   push:
     branches:
-    - master
+    - main
     paths:
       - 'proto/**' # trigger workflow only for changes in proto directory
 
