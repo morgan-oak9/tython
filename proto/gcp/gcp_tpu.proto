@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.tpu;
+
+import "shared/shared.proto";
+
+message TpuNodeXSchedulingConfig {
+	bool preemptible = 1;
+}
+
+message TpuNodeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message TpuNode {
+	string accelerator_type = 1;
+	string cidr_block = 2;
+	string description = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	string network = 7;
+	map<string, string> network_endpoints = 8;
+	string project = 9;
+	string service_account = 10;
+	string tensorflow_version = 11;
+	bool use_service_networking = 12;
+	string zone = 13;
+	TpuNodeXSchedulingConfig scheduling_config = 14;
+	TpuNodeXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+

@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_aad;
+
+import "shared/shared.proto";
+
+message Microsoft_AAD {
+	repeated DomainServices domain_services = 1;
+}
+
+message DomainServicesOuContainer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string account_name = 2;
+	string name = 3;
+	string password = 4;
+	string spn = 5;
+}
+
+message DomainServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string location = 3;
+	string name = 4;
+	string domain_configuration_type = 5;
+	string domain_name = 6;
+	DomainSecuritySettings domain_security_settings = 7;
+	string filtered_sync = 8;
+	LdapsSettings ldaps_settings = 9;
+	NotificationSettings notification_settings = 10;
+	repeated ReplicaSet replica_sets = 11;
+	ResourceForestSettings resource_forest_settings = 12;
+	string sku = 13;
+	map<string, string> tags = 14;
+	repeated DomainServicesOuContainer domain_services_ou_container = 15;
+}
+
+message ResourceForestSettings {
+	string resource_forest = 1;
+	repeated ForestTrust settings = 2;
+}
+
+message ForestTrust {
+	string friendly_name = 1;
+	string remote_dns_ips = 2;
+	string trust_direction = 3;
+	string trusted_domain_fqdn = 4;
+	string trust_password = 5;
+}
+
+message ReplicaSet {
+	string location = 1;
+	string subnet_id = 2;
+}
+
+message NotificationSettings {
+	repeated string additional_recipients = 1;
+	string notify_dc_admins = 2;
+	string notify_global_admins = 3;
+}
+
+message LdapsSettings {
+	string external_access = 1;
+	string ldaps = 2;
+	string pfx_certificate = 3;
+	string pfx_certificate_password = 4;
+}
+
+message DomainSecuritySettings {
+	string kerberos_armoring = 1;
+	string kerberos_rc4_encryption = 2;
+	string ntlm_v1 = 3;
+	string sync_kerberos_passwords = 4;
+	string sync_ntlm_passwords = 5;
+	string sync_on_prem_passwords = 6;
+	string tls_v1 = 7;
+}
+

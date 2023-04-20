@@ -1,0 +1,224 @@
+syntax = "proto3";
+
+package oak9.tython.aws.appsync;
+
+import "shared/shared.proto";
+
+message ApiCache {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string type = 2;
+	bool transit_encryption_enabled = 3;
+	bool at_rest_encryption_enabled = 4;
+	string api_id = 5;
+	string api_caching_behavior = 6;
+	double ttl = 7;
+}
+
+message AppSync {
+	repeated ApiCache api_cache = 1;
+	repeated ApiKey api_key = 2;
+	repeated DataSource data_source = 3;
+	repeated FunctionConfiguration function_configuration = 4;
+	repeated GraphQLApi graph_q_l_api = 5;
+	repeated GraphQLSchema graph_q_l_schema = 6;
+	repeated Resolver resolver = 7;
+	repeated GraphQLApiAdditionalAuthenticationProvider graph_q_l_api_additional_authentication_provider = 8;
+}
+
+message ApiKey {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	double expires = 3;
+	string api_id = 4;
+}
+
+message DataSourceAwsIamConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string signing_region = 2;
+	string signing_service_name = 3;
+}
+
+message DataSourceAuthorizationConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DataSourceAwsIamConfig aws_iam_config = 2;
+	string authorization_type = 3;
+}
+
+message DataSourceHttpConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string endpoint = 2;
+	DataSourceAuthorizationConfig authorization_config = 3;
+}
+
+message DataSourceRdsHttpEndpointConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string aws_region = 2;
+	string schema = 3;
+	string database_name = 4;
+	string db_cluster_identifier = 5;
+	string aws_secret_store_arn = 6;
+}
+
+message DataSourceRelationalDatabaseConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DataSourceRdsHttpEndpointConfig rds_http_endpoint_config = 2;
+	string relational_database_source_type = 3;
+}
+
+message DataSourceLambdaConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string lambda_function_arn = 2;
+}
+
+message DataSourceDeltaSyncConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string base_table_ttl = 2;
+	string delta_sync_table_ttl = 3;
+	string delta_sync_table_name = 4;
+}
+
+message DataSourceDynamoDBConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string table_name = 2;
+	string aws_region = 3;
+	bool versioned = 4;
+	DataSourceDeltaSyncConfig delta_sync_config = 5;
+	bool use_caller_credentials = 6;
+}
+
+message DataSourceElasticsearchConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string aws_region = 2;
+	string endpoint = 3;
+}
+
+message DataSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string type = 2;
+	string description = 3;
+	string service_role_arn = 4;
+	DataSourceHttpConfig http_config = 5;
+	DataSourceRelationalDatabaseConfig relational_database_config = 6;
+	DataSourceLambdaConfig lambda_config = 7;
+	string api_id = 8;
+	string name = 9;
+	DataSourceDynamoDBConfig dynamo_db_config = 10;
+	DataSourceElasticsearchConfig elasticsearch_config = 11;
+}
+
+message FunctionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string response_mapping_template_s3_location = 2;
+	string description = 3;
+	string data_source_name = 4;
+	string request_mapping_template = 5;
+	string response_mapping_template = 6;
+	string function_version = 7;
+	string request_mapping_template_s3_location = 8;
+	string api_id = 9;
+	string name = 10;
+}
+
+message GraphQLApiOpenIDConnectConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string issuer = 2;
+	string client_id = 3;
+	double auth_ttl = 4;
+	double iat_ttl = 5;
+}
+
+message GraphQLApiUserPoolConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string app_id_client_regex = 2;
+	string user_pool_id = 3;
+	string aws_region = 4;
+	string default_action = 5;
+}
+
+message GraphQLApiTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message GraphQLApiLogConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cloud_watch_logs_role_arn = 2;
+	bool exclude_verbose_content = 3;
+	string field_log_level = 4;
+}
+
+message GraphQLApiAdditionalAuthenticationProviders {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message GraphQLApi {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GraphQLApiOpenIDConnectConfig open_id_connect_config = 2;
+	bool xray_enabled = 3;
+	GraphQLApiUserPoolConfig user_pool_config = 4;
+	GraphQLApiTags tags = 5;
+	string name = 6;
+	string authentication_type = 7;
+	GraphQLApiLogConfig log_config = 8;
+	GraphQLApiAdditionalAuthenticationProviders additional_authentication_providers = 9;
+}
+
+message GraphQLSchema {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string definition = 2;
+	string definition_s3_location = 3;
+	string api_id = 4;
+}
+
+message ResolverPipelineConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string functions = 2;
+}
+
+message ResolverCachingConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string caching_keys = 2;
+	double ttl = 3;
+}
+
+message ResolverLambdaConflictHandlerConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string lambda_conflict_handler_arn = 2;
+}
+
+message ResolverSyncConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string conflict_handler = 2;
+	string conflict_detection = 3;
+	ResolverLambdaConflictHandlerConfig lambda_conflict_handler_config = 4;
+}
+
+message Resolver {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string response_mapping_template_s3_location = 2;
+	string type_name = 3;
+	ResolverPipelineConfig pipeline_config = 4;
+	string data_source_name = 5;
+	string request_mapping_template = 6;
+	string response_mapping_template = 7;
+	string kind = 8;
+	ResolverCachingConfig caching_config = 9;
+	ResolverSyncConfig sync_config = 10;
+	string request_mapping_template_s3_location = 11;
+	string api_id = 12;
+	string field_name = 13;
+}
+
+message GraphQLApiCognitoUserPoolConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string app_id_client_regex = 2;
+	string user_pool_id = 3;
+	string aws_region = 4;
+}
+
+message GraphQLApiAdditionalAuthenticationProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GraphQLApiOpenIDConnectConfig open_id_connect_config = 2;
+	GraphQLApiCognitoUserPoolConfig user_pool_config = 3;
+	string authentication_type = 4;
+}
+

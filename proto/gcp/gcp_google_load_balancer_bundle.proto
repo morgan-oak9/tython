@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_load_balancer_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_compute_backend.proto";
+import "gcp/gcp_compute_forwarding.proto";
+import "gcp/gcp_compute_global.proto";
+import "gcp/gcp_compute_health.proto";
+import "gcp/gcp_compute_http.proto";
+import "gcp/gcp_compute_https.proto";
+import "gcp/gcp_compute_region.proto";
+import "gcp/gcp_compute_ssl.proto";
+import "gcp/gcp_compute_target.proto";
+import "gcp/gcp_compute_url.proto";
+
+message GoogleLoadBalancer {
+	oak9.tython.gcp.compute_backend.ComputeBackendBucket compute_backend_bucket = 1;
+	oak9.tython.gcp.compute_backend.ComputeBackendBucketSignedUrlKey compute_backend_bucket_signed_url_key = 2;
+	oak9.tython.gcp.compute_backend.ComputeBackendService compute_backend_service = 3;
+	oak9.tython.gcp.compute_backend.ComputeBackendServiceSignedUrlKey compute_backend_service_signed_url_key = 4;
+	oak9.tython.gcp.compute_forwarding.ComputeForwardingRule compute_forwarding_rule = 5;
+	oak9.tython.gcp.compute_global.ComputeGlobalForwardingRule compute_global_forwarding_rule = 6;
+	oak9.tython.gcp.compute_health.ComputeHealthCheck compute_health_check = 7;
+	oak9.tython.gcp.compute_http.ComputeHttpHealthCheck compute_http_health_check = 8;
+	oak9.tython.gcp.compute_https.ComputeHttpsHealthCheck compute_https_health_check = 9;
+	oak9.tython.gcp.compute_region.ComputeRegionBackendService compute_region_backend_service = 10;
+	oak9.tython.gcp.compute_region.ComputeRegionHealthCheck compute_region_health_check = 11;
+	oak9.tython.gcp.compute_region.ComputeRegionSslCertificate compute_region_ssl_certificate = 12;
+	oak9.tython.gcp.compute_region.ComputeRegionTargetHttpProxy compute_region_target_http_proxy = 13;
+	oak9.tython.gcp.compute_region.ComputeRegionTargetHttpsProxy compute_region_target_https_proxy = 14;
+	oak9.tython.gcp.compute_region.ComputeRegionUrlMap compute_region_url_map = 15;
+	oak9.tython.gcp.compute_ssl.ComputeSslCertificate compute_ssl_certificate = 16;
+	oak9.tython.gcp.compute_ssl.ComputeSslPolicy compute_ssl_policy = 17;
+	oak9.tython.gcp.compute_target.ComputeTargetGrpcProxy compute_target_grpc_proxy = 18;
+	oak9.tython.gcp.compute_target.ComputeTargetHttpProxy compute_target_http_proxy = 19;
+	oak9.tython.gcp.compute_target.ComputeTargetHttpsProxy compute_target_https_proxy = 20;
+	oak9.tython.gcp.compute_target.ComputeTargetPool compute_target_pool = 21;
+	oak9.tython.gcp.compute_target.ComputeTargetSslProxy compute_target_ssl_proxy = 22;
+	oak9.tython.gcp.compute_target.ComputeTargetTcpProxy compute_target_tcp_proxy = 23;
+	oak9.tython.gcp.compute_url.ComputeUrlMap compute_url_map = 24;
+}
+

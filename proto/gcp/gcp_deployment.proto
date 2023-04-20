@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.deployment;
+
+import "shared/shared.proto";
+
+message DeploymentManagerDeploymentXLabels {
+	string key = 1;
+	string value = 2;
+}
+
+message DeploymentManagerDeploymentXTargetXConfig {
+	string content = 1;
+}
+
+message DeploymentManagerDeploymentXTargetXImports {
+	string content = 1;
+	string name = 2;
+}
+
+message DeploymentManagerDeploymentXTarget {
+	DeploymentManagerDeploymentXTargetXConfig config = 1;
+	repeated DeploymentManagerDeploymentXTargetXImports imports = 2;
+}
+
+message DeploymentManagerDeploymentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DeploymentManagerDeployment {
+	string create_policy = 1;
+	string delete_policy = 2;
+	string deployment_id = 3;
+	string description = 4;
+	string id = 5;
+	string manifest = 6;
+	string name = 7;
+	bool preview = 8;
+	string project = 9;
+	string self_link = 10;
+	repeated DeploymentManagerDeploymentXLabels labels = 11;
+	DeploymentManagerDeploymentXTarget target = 12;
+	DeploymentManagerDeploymentXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+

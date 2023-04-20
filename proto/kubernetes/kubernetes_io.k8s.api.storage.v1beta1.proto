@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.storage.v1beta1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.api.resource.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message CSIStorageCapacity {
+	string api_version = 1;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity capacity = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity maximum_volume_size = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector node_topology = 6;
+	string storage_class_name = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message CSIStorageCapacityList {
+	string api_version = 1;
+	repeated CSIStorageCapacity items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

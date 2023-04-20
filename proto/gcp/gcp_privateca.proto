@@ -1,0 +1,583 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.privateca;
+
+import "shared/shared.proto";
+
+message PrivatecaCaPoolXIssuancePolicyXAllowedIssuanceModes {
+	bool allow_config_based_issuance = 1;
+	bool allow_csr_based_issuance = 2;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXAllowedKeyTypesXEllipticCurve {
+	string signature_algorithm = 1;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXAllowedKeyTypesXRsa {
+	string max_modulus_size = 1;
+	string min_modulus_size = 2;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXAllowedKeyTypes {
+	PrivatecaCaPoolXIssuancePolicyXAllowedKeyTypesXEllipticCurve elliptic_curve = 1;
+	PrivatecaCaPoolXIssuancePolicyXAllowedKeyTypesXRsa rsa = 2;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXAdditionalExtensionsXObjectId {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXAdditionalExtensions {
+	bool critical = 1;
+	string value = 2;
+	PrivatecaCaPoolXIssuancePolicyXBaselineValuesXAdditionalExtensionsXObjectId object_id = 3;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXCaOptions {
+	bool is_ca = 1;
+	double max_issuer_path_length = 2;
+	bool non_ca = 3;
+	bool zero_max_issuer_path_length = 4;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsageXBaseKeyUsage {
+	bool cert_sign = 1;
+	bool content_commitment = 2;
+	bool crl_sign = 3;
+	bool data_encipherment = 4;
+	bool decipher_only = 5;
+	bool digital_signature = 6;
+	bool encipher_only = 7;
+	bool key_agreement = 8;
+	bool key_encipherment = 9;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsageXExtendedKeyUsage {
+	bool client_auth = 1;
+	bool code_signing = 2;
+	bool email_protection = 3;
+	bool ocsp_signing = 4;
+	bool server_auth = 5;
+	bool time_stamping = 6;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsageXUnknownExtendedKeyUsages {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsage {
+	PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsageXBaseKeyUsage base_key_usage = 1;
+	PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsageXExtendedKeyUsage extended_key_usage = 2;
+	repeated PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsageXUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValuesXPolicyIds {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXBaselineValues {
+	repeated string aia_ocsp_servers = 1;
+	repeated PrivatecaCaPoolXIssuancePolicyXBaselineValuesXAdditionalExtensions additional_extensions = 2;
+	PrivatecaCaPoolXIssuancePolicyXBaselineValuesXCaOptions ca_options = 3;
+	PrivatecaCaPoolXIssuancePolicyXBaselineValuesXKeyUsage key_usage = 4;
+	repeated PrivatecaCaPoolXIssuancePolicyXBaselineValuesXPolicyIds policy_ids = 5;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXIdentityConstraintsXCelExpression {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message PrivatecaCaPoolXIssuancePolicyXIdentityConstraints {
+	bool allow_subject_alt_names_passthrough = 1;
+	bool allow_subject_passthrough = 2;
+	PrivatecaCaPoolXIssuancePolicyXIdentityConstraintsXCelExpression cel_expression = 3;
+}
+
+message PrivatecaCaPoolXIssuancePolicy {
+	string maximum_lifetime = 1;
+	PrivatecaCaPoolXIssuancePolicyXAllowedIssuanceModes allowed_issuance_modes = 2;
+	repeated PrivatecaCaPoolXIssuancePolicyXAllowedKeyTypes allowed_key_types = 3;
+	PrivatecaCaPoolXIssuancePolicyXBaselineValues baseline_values = 4;
+	PrivatecaCaPoolXIssuancePolicyXIdentityConstraints identity_constraints = 5;
+}
+
+message PrivatecaCaPoolXPublishingOptions {
+	bool publish_ca_cert = 1;
+	bool publish_crl = 2;
+}
+
+message PrivatecaCaPoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PrivatecaCaPool {
+	string id = 1;
+	map<string, string> labels = 2;
+	string location = 3;
+	string name = 4;
+	string project = 5;
+	string tier = 6;
+	PrivatecaCaPoolXIssuancePolicy issuance_policy = 7;
+	PrivatecaCaPoolXPublishingOptions publishing_options = 8;
+	PrivatecaCaPoolXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message PrivatecaCaPoolIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PrivatecaCaPoolIamBinding {
+	string ca_pool = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	repeated string members = 5;
+	string project = 6;
+	string role = 7;
+	PrivatecaCaPoolIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message PrivatecaCaPoolIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PrivatecaCaPoolIamMember {
+	string ca_pool = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	string member = 5;
+	string project = 6;
+	string role = 7;
+	PrivatecaCaPoolIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message PrivatecaCaPoolIamPolicy {
+	string ca_pool = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	string policy_data = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message PrivatecaCertificateXConfigXPublicKey {
+	string format = 1;
+	string key = 2;
+}
+
+message PrivatecaCertificateXConfigXSubjectConfigXSubject {
+	string common_name = 1;
+	string country_code = 2;
+	string locality = 3;
+	string organization = 4;
+	string organizational_unit = 5;
+	string postal_code = 6;
+	string province = 7;
+	string street_address = 8;
+}
+
+message PrivatecaCertificateXConfigXSubjectConfigXSubjectAltName {
+	repeated string dns_names = 1;
+	repeated string email_addresses = 2;
+	repeated string ip_addresses = 3;
+	repeated string uris = 4;
+}
+
+message PrivatecaCertificateXConfigXSubjectConfig {
+	PrivatecaCertificateXConfigXSubjectConfigXSubject subject = 1;
+	PrivatecaCertificateXConfigXSubjectConfigXSubjectAltName subject_alt_name = 2;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXAdditionalExtensionsXObjectId {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXAdditionalExtensions {
+	bool critical = 1;
+	string value = 2;
+	PrivatecaCertificateXConfigXX509ConfigXAdditionalExtensionsXObjectId object_id = 3;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXCaOptions {
+	bool is_ca = 1;
+	double max_issuer_path_length = 2;
+	bool non_ca = 3;
+	bool zero_max_issuer_path_length = 4;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXKeyUsageXBaseKeyUsage {
+	bool cert_sign = 1;
+	bool content_commitment = 2;
+	bool crl_sign = 3;
+	bool data_encipherment = 4;
+	bool decipher_only = 5;
+	bool digital_signature = 6;
+	bool encipher_only = 7;
+	bool key_agreement = 8;
+	bool key_encipherment = 9;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXKeyUsageXExtendedKeyUsage {
+	bool client_auth = 1;
+	bool code_signing = 2;
+	bool email_protection = 3;
+	bool ocsp_signing = 4;
+	bool server_auth = 5;
+	bool time_stamping = 6;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXKeyUsageXUnknownExtendedKeyUsages {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXKeyUsage {
+	PrivatecaCertificateXConfigXX509ConfigXKeyUsageXBaseKeyUsage base_key_usage = 1;
+	PrivatecaCertificateXConfigXX509ConfigXKeyUsageXExtendedKeyUsage extended_key_usage = 2;
+	repeated PrivatecaCertificateXConfigXX509ConfigXKeyUsageXUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
+}
+
+message PrivatecaCertificateXConfigXX509ConfigXPolicyIds {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateXConfigXX509Config {
+	repeated string aia_ocsp_servers = 1;
+	repeated PrivatecaCertificateXConfigXX509ConfigXAdditionalExtensions additional_extensions = 2;
+	PrivatecaCertificateXConfigXX509ConfigXCaOptions ca_options = 3;
+	PrivatecaCertificateXConfigXX509ConfigXKeyUsage key_usage = 4;
+	repeated PrivatecaCertificateXConfigXX509ConfigXPolicyIds policy_ids = 5;
+}
+
+message PrivatecaCertificateXConfig {
+	PrivatecaCertificateXConfigXPublicKey public_key = 1;
+	PrivatecaCertificateXConfigXSubjectConfig subject_config = 2;
+	PrivatecaCertificateXConfigXX509Config x509_config = 3;
+}
+
+message PrivatecaCertificateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PrivatecaCertificate {
+	string certificate_authority = 1;
+	map<string, string> certificate_description = 2;
+	string certificate_template = 3;
+	string create_time = 4;
+	string id = 5;
+	string issuer_certificate_authority = 6;
+	map<string, string> labels = 7;
+	string lifetime = 8;
+	string location = 9;
+	string name = 10;
+	string pem_certificate = 11;
+	repeated string pem_certificate_chain = 12;
+	repeated string pem_certificates = 13;
+	string pem_csr = 14;
+	string pool = 15;
+	string project = 16;
+	map<string, string> revocation_details = 17;
+	string update_time = 18;
+	PrivatecaCertificateXConfig config = 19;
+	PrivatecaCertificateXTimeouts timeouts = 20;
+	oak9.tython.shared.ResourceInfo resource_info = 21;
+}
+
+message PrivatecaCertificateAuthorityXConfigXSubjectConfigXSubject {
+	string common_name = 1;
+	string country_code = 2;
+	string locality = 3;
+	string organization = 4;
+	string organizational_unit = 5;
+	string postal_code = 6;
+	string province = 7;
+	string street_address = 8;
+}
+
+message PrivatecaCertificateAuthorityXConfigXSubjectConfigXSubjectAltName {
+	repeated string dns_names = 1;
+	repeated string email_addresses = 2;
+	repeated string ip_addresses = 3;
+	repeated string uris = 4;
+}
+
+message PrivatecaCertificateAuthorityXConfigXSubjectConfig {
+	PrivatecaCertificateAuthorityXConfigXSubjectConfigXSubject subject = 1;
+	PrivatecaCertificateAuthorityXConfigXSubjectConfigXSubjectAltName subject_alt_name = 2;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXAdditionalExtensionsXObjectId {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXAdditionalExtensions {
+	bool critical = 1;
+	string value = 2;
+	PrivatecaCertificateAuthorityXConfigXX509ConfigXAdditionalExtensionsXObjectId object_id = 3;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXCaOptions {
+	bool is_ca = 1;
+	double max_issuer_path_length = 2;
+	bool non_ca = 3;
+	bool zero_max_issuer_path_length = 4;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsageXBaseKeyUsage {
+	bool cert_sign = 1;
+	bool content_commitment = 2;
+	bool crl_sign = 3;
+	bool data_encipherment = 4;
+	bool decipher_only = 5;
+	bool digital_signature = 6;
+	bool encipher_only = 7;
+	bool key_agreement = 8;
+	bool key_encipherment = 9;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsageXExtendedKeyUsage {
+	bool client_auth = 1;
+	bool code_signing = 2;
+	bool email_protection = 3;
+	bool ocsp_signing = 4;
+	bool server_auth = 5;
+	bool time_stamping = 6;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsageXUnknownExtendedKeyUsages {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsage {
+	PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsageXBaseKeyUsage base_key_usage = 1;
+	PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsageXExtendedKeyUsage extended_key_usage = 2;
+	repeated PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsageXUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509ConfigXPolicyIds {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateAuthorityXConfigXX509Config {
+	repeated string aia_ocsp_servers = 1;
+	repeated PrivatecaCertificateAuthorityXConfigXX509ConfigXAdditionalExtensions additional_extensions = 2;
+	PrivatecaCertificateAuthorityXConfigXX509ConfigXCaOptions ca_options = 3;
+	PrivatecaCertificateAuthorityXConfigXX509ConfigXKeyUsage key_usage = 4;
+	repeated PrivatecaCertificateAuthorityXConfigXX509ConfigXPolicyIds policy_ids = 5;
+}
+
+message PrivatecaCertificateAuthorityXConfig {
+	PrivatecaCertificateAuthorityXConfigXSubjectConfig subject_config = 1;
+	PrivatecaCertificateAuthorityXConfigXX509Config x509_config = 2;
+}
+
+message PrivatecaCertificateAuthorityXKeySpec {
+	string algorithm = 1;
+	string cloud_kms_key_version = 2;
+}
+
+message PrivatecaCertificateAuthorityXSubordinateConfigXPemIssuerChain {
+	repeated string pem_certificates = 1;
+}
+
+message PrivatecaCertificateAuthorityXSubordinateConfig {
+	string certificate_authority = 1;
+	PrivatecaCertificateAuthorityXSubordinateConfigXPemIssuerChain pem_issuer_chain = 2;
+}
+
+message PrivatecaCertificateAuthorityXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PrivatecaCertificateAuthority {
+	map<string, string> access_urls = 1;
+	string certificate_authority_id = 2;
+	string create_time = 3;
+	bool deletion_protection = 4;
+	string desired_state = 5;
+	string gcs_bucket = 6;
+	string id = 7;
+	bool ignore_active_certificates_on_deletion = 8;
+	map<string, string> labels = 9;
+	string lifetime = 10;
+	string location = 11;
+	string name = 12;
+	string pem_ca_certificate = 13;
+	repeated string pem_ca_certificates = 14;
+	string pool = 15;
+	string project = 16;
+	string state = 17;
+	string type = 18;
+	string update_time = 19;
+	PrivatecaCertificateAuthorityXConfig config = 20;
+	PrivatecaCertificateAuthorityXKeySpec key_spec = 21;
+	PrivatecaCertificateAuthorityXSubordinateConfig subordinate_config = 22;
+	PrivatecaCertificateAuthorityXTimeouts timeouts = 23;
+	oak9.tython.shared.ResourceInfo resource_info = 24;
+}
+
+message PrivatecaCertificateTemplateXIdentityConstraintsXCelExpression {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message PrivatecaCertificateTemplateXIdentityConstraints {
+	bool allow_subject_alt_names_passthrough = 1;
+	bool allow_subject_passthrough = 2;
+	PrivatecaCertificateTemplateXIdentityConstraintsXCelExpression cel_expression = 3;
+}
+
+message PrivatecaCertificateTemplateXPassthroughExtensionsXAdditionalExtensions {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateTemplateXPassthroughExtensions {
+	repeated string known_extensions = 1;
+	repeated PrivatecaCertificateTemplateXPassthroughExtensionsXAdditionalExtensions additional_extensions = 2;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXAdditionalExtensionsXObjectId {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXAdditionalExtensions {
+	bool critical = 1;
+	string value = 2;
+	PrivatecaCertificateTemplateXPredefinedValuesXAdditionalExtensionsXObjectId object_id = 3;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXCaOptions {
+	bool is_ca = 1;
+	double max_issuer_path_length = 2;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXKeyUsageXBaseKeyUsage {
+	bool cert_sign = 1;
+	bool content_commitment = 2;
+	bool crl_sign = 3;
+	bool data_encipherment = 4;
+	bool decipher_only = 5;
+	bool digital_signature = 6;
+	bool encipher_only = 7;
+	bool key_agreement = 8;
+	bool key_encipherment = 9;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXKeyUsageXExtendedKeyUsage {
+	bool client_auth = 1;
+	bool code_signing = 2;
+	bool email_protection = 3;
+	bool ocsp_signing = 4;
+	bool server_auth = 5;
+	bool time_stamping = 6;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXKeyUsageXUnknownExtendedKeyUsages {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXKeyUsage {
+	PrivatecaCertificateTemplateXPredefinedValuesXKeyUsageXBaseKeyUsage base_key_usage = 1;
+	PrivatecaCertificateTemplateXPredefinedValuesXKeyUsageXExtendedKeyUsage extended_key_usage = 2;
+	repeated PrivatecaCertificateTemplateXPredefinedValuesXKeyUsageXUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValuesXPolicyIds {
+	repeated double object_id_path = 1;
+}
+
+message PrivatecaCertificateTemplateXPredefinedValues {
+	repeated string aia_ocsp_servers = 1;
+	repeated PrivatecaCertificateTemplateXPredefinedValuesXAdditionalExtensions additional_extensions = 2;
+	PrivatecaCertificateTemplateXPredefinedValuesXCaOptions ca_options = 3;
+	PrivatecaCertificateTemplateXPredefinedValuesXKeyUsage key_usage = 4;
+	repeated PrivatecaCertificateTemplateXPredefinedValuesXPolicyIds policy_ids = 5;
+}
+
+message PrivatecaCertificateTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PrivatecaCertificateTemplate {
+	string create_time = 1;
+	string description = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	string update_time = 8;
+	PrivatecaCertificateTemplateXIdentityConstraints identity_constraints = 9;
+	PrivatecaCertificateTemplateXPassthroughExtensions passthrough_extensions = 10;
+	PrivatecaCertificateTemplateXPredefinedValues predefined_values = 11;
+	PrivatecaCertificateTemplateXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message PrivatecaCertificateTemplateIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PrivatecaCertificateTemplateIamBinding {
+	string certificate_template = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	repeated string members = 5;
+	string project = 6;
+	string role = 7;
+	PrivatecaCertificateTemplateIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message PrivatecaCertificateTemplateIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PrivatecaCertificateTemplateIamMember {
+	string certificate_template = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	string member = 5;
+	string project = 6;
+	string role = 7;
+	PrivatecaCertificateTemplateIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message PrivatecaCertificateTemplateIamPolicy {
+	string certificate_template = 1;
+	string etag = 2;
+	string id = 3;
+	string location = 4;
+	string policy_data = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package oak9.tython.aws.sqs;
+
+import "shared/shared.proto";
+
+message Queue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool content_based_deduplication = 2;
+	int32 delay_seconds = 3;
+	bool fifo_queue = 4;
+	int32 kms_data_key_reuse_period_seconds = 5;
+	string kms_master_key_id = 6;
+	int32 maximum_message_size = 7;
+	int32 message_retention_period = 8;
+	string queue_name = 9;
+	int32 receive_message_wait_time_seconds = 10;
+	map<string, string> redrive_policy = 11;
+	map<string, string> tags = 12;
+	int32 visibility_timeout = 13;
+}
+
+message SQS {
+	Queue queue = 1;
+	QueuePolicy queue_policy = 2;
+}
+
+message QueuePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string queues = 2;
+	string policy_document = 3;
+}
+

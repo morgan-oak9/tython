@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package oak9.tython.aws.elasticloadbalancing;
+
+import "shared/shared.proto";
+
+message LoadBalancerAccessLoggingPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 emit_interval = 2;
+	bool enabled = 3;
+	string s3_bucket_name = 4;
+	string s3_bucket_prefix = 5;
+}
+
+message LoadBalancerAppCookieStickinessPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cookie_name = 2;
+	string policy_name = 3;
+}
+
+message LoadBalancerConnectionDrainingPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	int32 timeout = 3;
+}
+
+message LoadBalancerConnectionSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 idle_timeout = 2;
+}
+
+message LoadBalancerHealthCheck {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string healthy_threshold = 2;
+	string interval = 3;
+	string target = 4;
+	string timeout = 5;
+	string unhealthy_threshold = 6;
+}
+
+message LoadBalancerLBCookieStickinessPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cookie_expiration_period = 2;
+	string policy_name = 3;
+}
+
+message LoadBalancerListeners {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_port = 2;
+	string instance_protocol = 3;
+	string load_balancer_port = 4;
+	repeated string policy_names = 5;
+	string protocol = 6;
+	string ssl_certificate_id = 7;
+}
+
+message LoadBalancerPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> attributes = 2;
+	repeated string instance_ports = 3;
+	repeated string load_balancer_ports = 4;
+	string policy_name = 5;
+	string policy_type = 6;
+}
+
+message LoadBalancer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LoadBalancerAccessLoggingPolicy access_logging_policy = 2;
+	repeated LoadBalancerAppCookieStickinessPolicy app_cookie_stickiness_policy = 3;
+	repeated string availability_zones = 4;
+	LoadBalancerConnectionDrainingPolicy connection_draining_policy = 5;
+	LoadBalancerConnectionSettings connection_settings = 6;
+	bool cross_zone = 7;
+	LoadBalancerHealthCheck health_check = 8;
+	repeated string instances = 9;
+	repeated LoadBalancerLBCookieStickinessPolicy lb_cookie_stickiness_policy = 10;
+	repeated LoadBalancerListeners listeners = 11;
+	string load_balancer_name = 12;
+	repeated LoadBalancerPolicies policies = 13;
+	string scheme = 14;
+	repeated string security_groups = 15;
+	repeated string subnets = 16;
+	map<string, string> tags = 17;
+}
+
+message ElasticLoadBalancing {
+	LoadBalancer load_balancer = 1;
+}
+

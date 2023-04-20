@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_ssl;
+
+import "shared/shared.proto";
+
+message ComputeSslCertificateXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeSslCertificate {
+	string certificate = 1;
+	double certificate_id = 2;
+	string creation_timestamp = 3;
+	string description = 4;
+	string id = 5;
+	string name = 6;
+	string name_prefix = 7;
+	string private_key = 8;
+	string project = 9;
+	string self_link = 10;
+	ComputeSslCertificateXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ComputeSslPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeSslPolicy {
+	string creation_timestamp = 1;
+	repeated string custom_features = 2;
+	string description = 3;
+	repeated string enabled_features = 4;
+	string fingerprint = 5;
+	string id = 6;
+	string min_tls_version = 7;
+	string name = 8;
+	string profile = 9;
+	string project = 10;
+	string self_link = 11;
+	ComputeSslPolicyXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+

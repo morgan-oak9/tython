@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.resource;
+
+import "shared/shared.proto";
+
+message ResourceManagerLienXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ResourceManagerLien {
+	string create_time = 1;
+	string id = 2;
+	string name = 3;
+	string origin = 4;
+	string parent = 5;
+	string reason = 6;
+	repeated string restrictions = 7;
+	ResourceManagerLienXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

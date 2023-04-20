@@ -1,0 +1,572 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_url;
+
+import "shared/shared.proto";
+
+message ComputeUrlMapXDefaultRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origin_regexes = 4;
+	repeated string allow_origins = 5;
+	bool disabled = 6;
+	repeated string expose_headers = 7;
+	double max_age = 8;
+}
+
+message ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicyXAbort {
+	double http_status = 1;
+	double percentage = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicyXDelayXFixedDelay {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicyXDelay {
+	double percentage = 1;
+	ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicyXDelayXFixedDelay fixed_delay = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicy {
+	ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicyXAbort abort = 1;
+	ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicyXDelay delay = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXRequestMirrorPolicy {
+	string backend_service = 1;
+}
+
+message ComputeUrlMapXDefaultRouteActionXRetryPolicyXPerTryTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXRetryPolicy {
+	double num_retries = 1;
+	repeated string retry_conditions = 2;
+	ComputeUrlMapXDefaultRouteActionXRetryPolicyXPerTryTimeout per_try_timeout = 3;
+}
+
+message ComputeUrlMapXDefaultRouteActionXTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+}
+
+message ComputeUrlMapXDefaultRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXDefaultRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXDefaultRouteActionXWeightedBackendServicesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXDefaultRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXDefaultRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXDefaultRouteActionXWeightedBackendServices {
+	string backend_service = 1;
+	double weight = 2;
+	ComputeUrlMapXDefaultRouteActionXWeightedBackendServicesXHeaderAction header_action = 3;
+}
+
+message ComputeUrlMapXDefaultRouteAction {
+	ComputeUrlMapXDefaultRouteActionXCorsPolicy cors_policy = 1;
+	ComputeUrlMapXDefaultRouteActionXFaultInjectionPolicy fault_injection_policy = 2;
+	ComputeUrlMapXDefaultRouteActionXRequestMirrorPolicy request_mirror_policy = 3;
+	ComputeUrlMapXDefaultRouteActionXRetryPolicy retry_policy = 4;
+	ComputeUrlMapXDefaultRouteActionXTimeout timeout = 5;
+	ComputeUrlMapXDefaultRouteActionXUrlRewrite url_rewrite = 6;
+	repeated ComputeUrlMapXDefaultRouteActionXWeightedBackendServices weighted_backend_services = 7;
+}
+
+message ComputeUrlMapXDefaultUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeUrlMapXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXHostRule {
+	string description = 1;
+	repeated string hosts = 2;
+	string path_matcher = 3;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origin_regexes = 4;
+	repeated string allow_origins = 5;
+	bool disabled = 6;
+	repeated string expose_headers = 7;
+	double max_age = 8;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicyXAbort {
+	double http_status = 1;
+	double percentage = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicyXDelayXFixedDelay {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicyXDelay {
+	double percentage = 1;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicyXDelayXFixedDelay fixed_delay = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicy {
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicyXAbort abort = 1;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicyXDelay delay = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXRequestMirrorPolicy {
+	string backend_service = 1;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXRetryPolicyXPerTryTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXRetryPolicy {
+	double num_retries = 1;
+	repeated string retry_conditions = 2;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXRetryPolicyXPerTryTimeout per_try_timeout = 3;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServicesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServices {
+	string backend_service = 1;
+	double weight = 2;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServicesXHeaderAction header_action = 3;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultRouteAction {
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXCorsPolicy cors_policy = 1;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXFaultInjectionPolicy fault_injection_policy = 2;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXRequestMirrorPolicy request_mirror_policy = 3;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXRetryPolicy retry_policy = 4;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXTimeout timeout = 5;
+	ComputeUrlMapXPathMatcherXDefaultRouteActionXUrlRewrite url_rewrite = 6;
+	repeated ComputeUrlMapXPathMatcherXDefaultRouteActionXWeightedBackendServices weighted_backend_services = 7;
+}
+
+message ComputeUrlMapXPathMatcherXDefaultUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeUrlMapXPathMatcherXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXPathMatcherXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXPathMatcherXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origin_regexes = 4;
+	repeated string allow_origins = 5;
+	bool disabled = 6;
+	repeated string expose_headers = 7;
+	double max_age = 8;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXAbort {
+	double http_status = 1;
+	double percentage = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelayXFixedDelay {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelay {
+	double percentage = 1;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelayXFixedDelay fixed_delay = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicy {
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXAbort abort = 1;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelay delay = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXRequestMirrorPolicy {
+	string backend_service = 1;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicyXPerTryTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicy {
+	double num_retries = 1;
+	repeated string retry_conditions = 2;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicyXPerTryTimeout per_try_timeout = 3;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServices {
+	string backend_service = 1;
+	double weight = 2;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderAction header_action = 3;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXRouteAction {
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXCorsPolicy cors_policy = 1;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicy fault_injection_policy = 2;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXRequestMirrorPolicy request_mirror_policy = 3;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicy retry_policy = 4;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXTimeout timeout = 5;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteActionXUrlRewrite url_rewrite = 6;
+	repeated ComputeUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServices weighted_backend_services = 7;
+}
+
+message ComputeUrlMapXPathMatcherXPathRuleXUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeUrlMapXPathMatcherXPathRule {
+	repeated string paths = 1;
+	string service = 2;
+	ComputeUrlMapXPathMatcherXPathRuleXRouteAction route_action = 3;
+	ComputeUrlMapXPathMatcherXPathRuleXUrlRedirect url_redirect = 4;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatchesXRangeMatch {
+	double range_end = 1;
+	double range_start = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatches {
+	string exact_match = 1;
+	string header_name = 2;
+	bool invert_match = 3;
+	string prefix_match = 4;
+	bool present_match = 5;
+	string regex_match = 6;
+	string suffix_match = 7;
+	ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatchesXRangeMatch range_match = 8;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFiltersXFilterLabels {
+	string name = 1;
+	string value = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFilters {
+	string filter_match_criteria = 1;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFiltersXFilterLabels filter_labels = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXQueryParameterMatches {
+	string exact_match = 1;
+	string name = 2;
+	bool present_match = 3;
+	string regex_match = 4;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXMatchRules {
+	string full_path_match = 1;
+	bool ignore_case = 2;
+	string prefix_match = 3;
+	string regex_match = 4;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatches header_matches = 5;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFilters metadata_filters = 6;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXMatchRulesXQueryParameterMatches query_parameter_matches = 7;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origin_regexes = 4;
+	repeated string allow_origins = 5;
+	bool disabled = 6;
+	repeated string expose_headers = 7;
+	double max_age = 8;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXAbort {
+	double http_status = 1;
+	double percentage = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelayXFixedDelay {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelay {
+	double percentage = 1;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelayXFixedDelay fixed_delay = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicy {
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXAbort abort = 1;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelay delay = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXRequestMirrorPolicy {
+	string backend_service = 1;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicyXPerTryTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicy {
+	double num_retries = 1;
+	repeated string retry_conditions = 2;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicyXPerTryTimeout per_try_timeout = 3;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServices {
+	string backend_service = 1;
+	double weight = 2;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderAction header_action = 3;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXRouteAction {
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXCorsPolicy cors_policy = 1;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicy fault_injection_policy = 2;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXRequestMirrorPolicy request_mirror_policy = 3;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicy retry_policy = 4;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXTimeout timeout = 5;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXUrlRewrite url_rewrite = 6;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServices weighted_backend_services = 7;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRulesXUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeUrlMapXPathMatcherXRouteRules {
+	double priority = 1;
+	string service = 2;
+	ComputeUrlMapXPathMatcherXRouteRulesXHeaderAction header_action = 3;
+	repeated ComputeUrlMapXPathMatcherXRouteRulesXMatchRules match_rules = 4;
+	ComputeUrlMapXPathMatcherXRouteRulesXRouteAction route_action = 5;
+	ComputeUrlMapXPathMatcherXRouteRulesXUrlRedirect url_redirect = 6;
+}
+
+message ComputeUrlMapXPathMatcher {
+	string default_service = 1;
+	string description = 2;
+	string name = 3;
+	ComputeUrlMapXPathMatcherXDefaultRouteAction default_route_action = 4;
+	ComputeUrlMapXPathMatcherXDefaultUrlRedirect default_url_redirect = 5;
+	ComputeUrlMapXPathMatcherXHeaderAction header_action = 6;
+	repeated ComputeUrlMapXPathMatcherXPathRule path_rule = 7;
+	repeated ComputeUrlMapXPathMatcherXRouteRules route_rules = 8;
+}
+
+message ComputeUrlMapXTest {
+	string description = 1;
+	string host = 2;
+	string path = 3;
+	string service = 4;
+}
+
+message ComputeUrlMapXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeUrlMap {
+	string creation_timestamp = 1;
+	string default_service = 2;
+	string description = 3;
+	string fingerprint = 4;
+	string id = 5;
+	double map_id = 6;
+	string name = 7;
+	string project = 8;
+	string self_link = 9;
+	ComputeUrlMapXDefaultRouteAction default_route_action = 10;
+	ComputeUrlMapXDefaultUrlRedirect default_url_redirect = 11;
+	ComputeUrlMapXHeaderAction header_action = 12;
+	repeated ComputeUrlMapXHostRule host_rule = 13;
+	repeated ComputeUrlMapXPathMatcher path_matcher = 14;
+	repeated ComputeUrlMapXTest test = 15;
+	ComputeUrlMapXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+

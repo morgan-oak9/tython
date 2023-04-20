@@ -1,0 +1,407 @@
+syntax = "proto3";
+
+package oak9.tython.aws.s3;
+
+import "shared/shared.proto";
+
+message AccessPointVpcConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string vpc_id = 2;
+}
+
+message AccessPointPublicAccessBlockConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool block_public_acls = 2;
+	bool ignore_public_acls = 3;
+	bool block_public_policy = 4;
+	bool restrict_public_buckets = 5;
+}
+
+message AccessPoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string bucket = 3;
+	AccessPointVpcConfiguration vpc_configuration = 4;
+	AccessPointPublicAccessBlockConfiguration public_access_block_configuration = 5;
+	map<string, string> policy = 6;
+	map<string, string> policy_status = 7;
+	string network_origin = 8;
+	string creation_date = 9;
+}
+
+message S3 {
+	AccessPoint access_point = 1;
+	Bucket bucket = 2;
+	BucketPolicy bucket_policy = 3;
+}
+
+message BucketAccelerateConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string acceleration_status = 2;
+}
+
+message BucketDestination {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket_account_id = 2;
+	string bucket_arn = 3;
+	string format = 4;
+	string prefix = 5;
+}
+
+message BucketDataExport {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketDestination destination = 2;
+	string output_schema_version = 3;
+}
+
+message BucketStorageClassAnalysis {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketDataExport data_export = 2;
+}
+
+message BucketTagFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message BucketAnalyticsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string prefix = 3;
+	BucketStorageClassAnalysis storage_class_analysis = 4;
+	repeated BucketTagFilter tag_filters = 5;
+}
+
+message BucketServerSideEncryptionByDefault {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_master_key_id = 2;
+	string sse_algorithm = 3;
+}
+
+message BucketServerSideEncryptionRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketServerSideEncryptionByDefault server_side_encryption_by_default = 2;
+}
+
+message BucketBucketEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BucketServerSideEncryptionRule server_side_encryption_configuration = 2;
+}
+
+message BucketCorsRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string allowed_headers = 2;
+	repeated string allowed_methods = 3;
+	repeated string allowed_origins = 4;
+	repeated string exposed_headers = 5;
+	string id = 6;
+	int32 max_age = 7;
+}
+
+message BucketCorsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BucketCorsRule cors_rules = 2;
+}
+
+message BucketInventoryConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketDestination destination = 2;
+	bool enabled = 3;
+	string id = 4;
+	string included_object_versions = 5;
+	repeated string optional_fields = 6;
+	string prefix = 7;
+	string schedule_frequency = 8;
+}
+
+message BucketAbortIncompleteMultipartUpload {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 days_after_initiation = 2;
+}
+
+message BucketNoncurrentVersionTransition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string storage_class = 2;
+	int32 transition_in_days = 3;
+}
+
+message BucketTransition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string storage_class = 2;
+	string transition_date = 3;
+	int32 transition_in_days = 4;
+}
+
+message BucketRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketAbortIncompleteMultipartUpload abort_incomplete_multipart_upload = 2;
+	string expiration_date = 3;
+	int32 expiration_in_days = 4;
+	string id = 5;
+	int32 noncurrent_version_expiration_in_days = 6;
+	BucketNoncurrentVersionTransition noncurrent_version_transition = 7;
+	repeated BucketNoncurrentVersionTransition noncurrent_version_transitions = 8;
+	string prefix = 9;
+	string status = 10;
+	repeated BucketTagFilter tag_filters = 11;
+	BucketTransition transition = 12;
+	repeated BucketTransition transitions = 13;
+}
+
+message BucketLifecycleConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BucketRule rules = 2;
+}
+
+message BucketLoggingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_bucket_name = 2;
+	string log_file_prefix = 3;
+}
+
+message BucketMetricsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string prefix = 3;
+	repeated BucketTagFilter tag_filters = 4;
+}
+
+message BucketFilterRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message BucketS3KeyFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BucketFilterRule rules = 2;
+}
+
+message BucketNotificationFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketS3KeyFilter s3_key = 2;
+}
+
+message BucketLambdaConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string event = 2;
+	BucketNotificationFilter filter = 3;
+	string function = 4;
+}
+
+message BucketQueueConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string event = 2;
+	BucketNotificationFilter filter = 3;
+	string queue = 4;
+}
+
+message BucketTopicConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string event = 2;
+	BucketNotificationFilter filter = 3;
+	string topic = 4;
+}
+
+message BucketNotificationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BucketLambdaConfiguration lambda_configurations = 2;
+	repeated BucketQueueConfiguration queue_configurations = 3;
+	repeated BucketTopicConfiguration topic_configurations = 4;
+}
+
+message BucketDefaultRetention {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 days = 2;
+	string mode = 3;
+	int32 years = 4;
+}
+
+message BucketObjectLockRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketDefaultRetention default_retention = 2;
+}
+
+message BucketObjectLockConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object_lock_enabled = 2;
+	BucketObjectLockRule rule = 3;
+}
+
+message BucketPublicAccessBlockConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool block_public_acls = 2;
+	bool block_public_policy = 3;
+	bool ignore_public_acls = 4;
+	bool restrict_public_buckets = 5;
+}
+
+message BucketDeleteMarkerReplication {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+}
+
+message BucketAccessControlTranslation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string owner = 2;
+}
+
+message BucketEncryptionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string replica_kms_key_id = 2;
+}
+
+message BucketReplicationTimeValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 minutes = 2;
+}
+
+message BucketMetrics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketReplicationTimeValue event_threshold = 2;
+	string status = 3;
+}
+
+message BucketReplicationTime {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+	BucketReplicationTimeValue time = 3;
+}
+
+message BucketReplicationDestination {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketAccessControlTranslation access_control_translation = 2;
+	string account = 3;
+	string bucket = 4;
+	BucketEncryptionConfiguration encryption_configuration = 5;
+	BucketMetrics metrics = 6;
+	BucketReplicationTime replication_time = 7;
+	string storage_class = 8;
+}
+
+message BucketReplicationRuleAndOperator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string prefix = 2;
+	repeated BucketTagFilter tag_filters = 3;
+}
+
+message BucketReplicationRuleFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketReplicationRuleAndOperator and = 2;
+	string prefix = 3;
+	BucketTagFilter tag_filter = 4;
+}
+
+message BucketSseKmsEncryptedObjects {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+}
+
+message BucketSourceSelectionCriteria {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketSseKmsEncryptedObjects sse_kms_encrypted_objects = 2;
+}
+
+message BucketReplicationRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketDeleteMarkerReplication delete_marker_replication = 2;
+	BucketReplicationDestination destination = 3;
+	BucketReplicationRuleFilter filter = 4;
+	string id = 5;
+	string prefix = 6;
+	int32 priority = 7;
+	BucketSourceSelectionCriteria source_selection_criteria = 8;
+	string status = 9;
+}
+
+message BucketReplicationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string role = 2;
+	repeated BucketReplicationRule rules = 3;
+}
+
+message BucketVersioningConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+}
+
+message BucketRedirectAllRequestsTo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string host_name = 2;
+	string protocol = 3;
+}
+
+message BucketRedirectRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string host_name = 2;
+	string http_redirect_code = 3;
+	string protocol = 4;
+	string replace_key_prefix_with = 5;
+	string replace_key_with = 6;
+}
+
+message BucketRoutingRuleCondition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string http_error_code_returned_equals = 2;
+	string key_prefix_equals = 3;
+}
+
+message BucketRoutingRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketRedirectRule redirect_rule = 2;
+	BucketRoutingRuleCondition routing_rule_condition = 3;
+}
+
+message BucketWebsiteConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string error_document = 2;
+	string index_document = 3;
+	BucketRedirectAllRequestsTo redirect_all_requests_to = 4;
+	repeated BucketRoutingRule routing_rules = 5;
+}
+
+message Bucket {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	BucketAccelerateConfiguration accelerate_configuration = 2;
+	string access_control = 3;
+	repeated BucketAnalyticsConfiguration analytics_configurations = 4;
+	BucketBucketEncryption bucket_encryption = 5;
+	string bucket_name = 6;
+	BucketCorsConfiguration cors_configuration = 7;
+	repeated BucketInventoryConfiguration inventory_configurations = 8;
+	BucketLifecycleConfiguration lifecycle_configuration = 9;
+	BucketLoggingConfiguration logging_configuration = 10;
+	repeated BucketMetricsConfiguration metrics_configurations = 11;
+	BucketNotificationConfiguration notification_configuration = 12;
+	BucketObjectLockConfiguration object_lock_configuration = 13;
+	bool object_lock_enabled = 14;
+	BucketPublicAccessBlockConfiguration public_access_block_configuration = 15;
+	BucketReplicationConfiguration replication_configuration = 16;
+	map<string, string> tags = 17;
+	BucketVersioningConfiguration versioning_configuration = 18;
+	BucketWebsiteConfiguration website_configuration = 19;
+	BucketVersioning versioning = 20;
+	BucketOwnershipControls ownership_controls = 21;
+}
+
+message BucketVersioning {
+	bool enabled = 1;
+}
+
+message BucketOwnershipControlsRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string object_ownership = 2;
+}
+
+message BucketOwnershipControls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated BucketOwnershipControlsRule rules = 2;
+}
+
+message BucketPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	string policy_document = 3;
+}
+

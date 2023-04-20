@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_per;
+
+import "shared/shared.proto";
+
+message ComputePerInstanceConfigXPreservedStateXDisk {
+	string delete_rule = 1;
+	string device_name = 2;
+	string mode = 3;
+	string source = 4;
+}
+
+message ComputePerInstanceConfigXPreservedState {
+	map<string, string> metadata = 1;
+	repeated ComputePerInstanceConfigXPreservedStateXDisk disk = 2;
+}
+
+message ComputePerInstanceConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputePerInstanceConfig {
+	string id = 1;
+	string instance_group_manager = 2;
+	string minimal_action = 3;
+	string most_disruptive_allowed_action = 4;
+	string name = 5;
+	string project = 6;
+	bool remove_instance_state_on_destroy = 7;
+	string zone = 8;
+	ComputePerInstanceConfigXPreservedState preserved_state = 9;
+	ComputePerInstanceConfigXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

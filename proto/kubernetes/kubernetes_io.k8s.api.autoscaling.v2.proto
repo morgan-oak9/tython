@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.autoscaling.v2;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.api.resource.proto";
+
+message ContainerResourceMetricSource {
+	string container = 1;
+	string name = 2;
+	MetricTarget target = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ContainerResourceMetricStatus {
+	string container = 1;
+	MetricValueStatus current = 2;
+	string name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message CrossVersionObjectReference {
+	string api_version = 1;
+	string kind = 2;
+	string name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ExternalMetricSource {
+	MetricIdentifier metric = 1;
+	MetricTarget target = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ExternalMetricStatus {
+	MetricValueStatus current = 1;
+	MetricIdentifier metric = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message HPAScalingPolicy {
+	int32 period_seconds = 1;
+	string type = 2;
+	int32 value = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message HPAScalingRules {
+	repeated HPAScalingPolicy policies = 1;
+	string select_policy = 2;
+	int32 stabilization_window_seconds = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message HorizontalPodAutoscaler {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	HorizontalPodAutoscalerSpec spec = 4;
+	HorizontalPodAutoscalerStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message HorizontalPodAutoscalerBehavior {
+	HPAScalingRules scale_down = 1;
+	HPAScalingRules scale_up = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message HorizontalPodAutoscalerCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message HorizontalPodAutoscalerList {
+	string api_version = 1;
+	repeated HorizontalPodAutoscaler items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message HorizontalPodAutoscalerSpec {
+	HorizontalPodAutoscalerBehavior behavior = 1;
+	int32 max_replicas = 2;
+	repeated MetricSpec metrics = 3;
+	int32 min_replicas = 4;
+	CrossVersionObjectReference scale_target_ref = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message HorizontalPodAutoscalerStatus {
+	repeated HorizontalPodAutoscalerCondition conditions = 1;
+	repeated MetricStatus current_metrics = 2;
+	int32 current_replicas = 3;
+	int32 desired_replicas = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_scale_time = 5;
+	int32 observed_generation = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message MetricIdentifier {
+	string name = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message MetricSpec {
+	ContainerResourceMetricSource container_resource = 1;
+	ExternalMetricSource external = 2;
+	ObjectMetricSource object = 3;
+	PodsMetricSource pods = 4;
+	ResourceMetricSource resource = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message MetricStatus {
+	ContainerResourceMetricStatus container_resource = 1;
+	ExternalMetricStatus external = 2;
+	ObjectMetricStatus object = 3;
+	PodsMetricStatus pods = 4;
+	ResourceMetricStatus resource = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message MetricTarget {
+	int32 average_utilization = 1;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity average_value = 2;
+	string type = 3;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity value = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message MetricValueStatus {
+	int32 average_utilization = 1;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity average_value = 2;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity value = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ObjectMetricSource {
+	CrossVersionObjectReference described_object = 1;
+	MetricIdentifier metric = 2;
+	MetricTarget target = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ObjectMetricStatus {
+	MetricValueStatus current = 1;
+	CrossVersionObjectReference described_object = 2;
+	MetricIdentifier metric = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PodsMetricSource {
+	MetricIdentifier metric = 1;
+	MetricTarget target = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodsMetricStatus {
+	MetricValueStatus current = 1;
+	MetricIdentifier metric = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ResourceMetricSource {
+	string name = 1;
+	MetricTarget target = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ResourceMetricStatus {
+	MetricValueStatus current = 1;
+	string name = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

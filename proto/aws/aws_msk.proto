@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+package oak9.tython.aws.msk;
+
+import "shared/shared.proto";
+
+message ClusterEBSStorageInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 volume_size = 2;
+}
+
+message ClusterStorageInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterEBSStorageInfo ebs_storage_info = 2;
+}
+
+message ClusterBrokerNodeGroupInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_groups = 2;
+	repeated string client_subnets = 3;
+	ClusterStorageInfo storage_info = 4;
+	string broker_az_distribution = 5;
+	string instance_type = 6;
+}
+
+message ClusterEncryptionAtRest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data_volume_kms_key_id = 2;
+}
+
+message ClusterEncryptionInTransit {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_broker = 2;
+	bool in_cluster = 3;
+}
+
+message ClusterEncryptionInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterEncryptionAtRest encryption_at_rest = 2;
+	ClusterEncryptionInTransit encryption_in_transit = 3;
+}
+
+message ClusterJmxExporter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled_in_broker = 2;
+}
+
+message ClusterNodeExporter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled_in_broker = 2;
+}
+
+message ClusterPrometheus {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterJmxExporter jmx_exporter = 2;
+	ClusterNodeExporter node_exporter = 3;
+}
+
+message ClusterOpenMonitoring {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterPrometheus prometheus = 2;
+}
+
+message ClusterScram {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+}
+
+message ClusterSasl {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterScram scram = 2;
+}
+
+message ClusterTls {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string certificate_authority_arn_list = 2;
+}
+
+message ClusterClientAuthentication {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterSasl sasl = 2;
+	ClusterTls tls = 3;
+}
+
+message ClusterS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	bool enabled = 3;
+	string prefix = 4;
+}
+
+message ClusterFirehose {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string delivery_stream = 2;
+	bool enabled = 3;
+}
+
+message ClusterCloudWatchLogs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_group = 2;
+	bool enabled = 3;
+}
+
+message ClusterBrokerLogs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterS3 s3 = 2;
+	ClusterFirehose firehose = 3;
+	ClusterCloudWatchLogs cloud_watch_logs = 4;
+}
+
+message ClusterLoggingInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterBrokerLogs broker_logs = 2;
+}
+
+message ClusterConfigurationInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 revision = 2;
+	string arn = 3;
+}
+
+message Cluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClusterBrokerNodeGroupInfo broker_node_group_info = 2;
+	string enhanced_monitoring = 3;
+	string kafka_version = 4;
+	int32 number_of_broker_nodes = 5;
+	ClusterEncryptionInfo encryption_info = 6;
+	ClusterOpenMonitoring open_monitoring = 7;
+	string cluster_name = 8;
+	ClusterClientAuthentication client_authentication = 9;
+	ClusterLoggingInfo logging_info = 10;
+	map<string, string> tags = 11;
+	ClusterConfigurationInfo configuration_info = 12;
+}
+
+message MSK {
+	repeated Cluster cluster = 1;
+}
+

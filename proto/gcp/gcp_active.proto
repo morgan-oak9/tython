@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.active;
+
+import "shared/shared.proto";
+
+message ActiveDirectoryDomainXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ActiveDirectoryDomain {
+	string admin = 1;
+	repeated string authorized_networks = 2;
+	string domain_name = 3;
+	string fqdn = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	repeated string locations = 7;
+	string name = 8;
+	string project = 9;
+	string reserved_ip_range = 10;
+	ActiveDirectoryDomainXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ActiveDirectoryDomainTrustXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ActiveDirectoryDomainTrust {
+	string domain = 1;
+	string id = 2;
+	string project = 3;
+	bool selective_authentication = 4;
+	repeated string target_dns_ip_addresses = 5;
+	string target_domain_name = 6;
+	string trust_direction = 7;
+	string trust_handshake_secret = 8;
+	string trust_type = 9;
+	ActiveDirectoryDomainTrustXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

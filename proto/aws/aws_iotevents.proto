@@ -1,0 +1,218 @@
+syntax = "proto3";
+
+package oak9.tython.aws.iotevents;
+
+import "shared/shared.proto";
+
+message DetectorModelPayload {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string content_expression = 2;
+}
+
+message DetectorModelIotEvents {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string input_name = 2;
+	DetectorModelPayload payload = 3;
+}
+
+message DetectorModelFirehose {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string delivery_stream_name = 2;
+	DetectorModelPayload payload = 3;
+	string separator = 4;
+}
+
+message DetectorModelIotTopicPublish {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mqtt_topic = 2;
+	DetectorModelPayload payload = 3;
+}
+
+message DetectorModelDynamoDB {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string table_name = 2;
+	string payload_field = 3;
+	string range_key_field = 4;
+	string hash_key_field = 5;
+	string range_key_value = 6;
+	string range_key_type = 7;
+	string hash_key_type = 8;
+	string hash_key_value = 9;
+	DetectorModelPayload payload = 10;
+	string operation = 11;
+}
+
+message DetectorModelDynamoDBv2 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string table_name = 2;
+	DetectorModelPayload payload = 3;
+}
+
+message DetectorModelAssetPropertyVariant {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string double_value = 2;
+	string integer_value = 3;
+	string boolean_value = 4;
+	string string_value = 5;
+}
+
+message DetectorModelAssetPropertyTimestamp {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string time_in_seconds = 2;
+	string offset_in_nanos = 3;
+}
+
+message DetectorModelAssetPropertyValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string quality = 2;
+	DetectorModelAssetPropertyVariant value = 3;
+	DetectorModelAssetPropertyTimestamp timestamp = 4;
+}
+
+message DetectorModelIotSiteWise {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string entry_id = 2;
+	string property_alias = 3;
+	DetectorModelAssetPropertyValue property_value = 4;
+	string asset_id = 5;
+	string property_id = 6;
+}
+
+message DetectorModelResetTimer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string timer_name = 2;
+}
+
+message DetectorModelSqs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool use_base64 = 2;
+	DetectorModelPayload payload = 3;
+	string queue_url = 4;
+}
+
+message DetectorModelSns {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_arn = 2;
+	DetectorModelPayload payload = 3;
+}
+
+message DetectorModelSetTimer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 seconds = 2;
+	string timer_name = 3;
+	string duration_expression = 4;
+}
+
+message DetectorModelClearTimer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string timer_name = 2;
+}
+
+message DetectorModelLambda {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string function_arn = 2;
+	DetectorModelPayload payload = 3;
+}
+
+message DetectorModelSetVariable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string variable_name = 2;
+	string value = 3;
+}
+
+message DetectorModelAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DetectorModelIotEvents iot_events = 2;
+	DetectorModelFirehose firehose = 3;
+	DetectorModelIotTopicPublish iot_topic_publish = 4;
+	DetectorModelDynamoDB dynamo_db = 5;
+	DetectorModelDynamoDBv2 dynamo_dbv2 = 6;
+	DetectorModelIotSiteWise iot_site_wise = 7;
+	DetectorModelResetTimer reset_timer = 8;
+	DetectorModelSqs sqs = 9;
+	DetectorModelSns sns = 10;
+	DetectorModelSetTimer set_timer = 11;
+	DetectorModelClearTimer clear_timer = 12;
+	DetectorModelLambda lambda = 13;
+	DetectorModelSetVariable set_variable = 14;
+}
+
+message DetectorModelEvent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string condition = 2;
+	repeated DetectorModelAction actions = 3;
+	string event_name = 4;
+}
+
+message DetectorModelTransitionEvent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string condition = 2;
+	repeated DetectorModelAction actions = 3;
+	string next_state = 4;
+	string event_name = 5;
+}
+
+message DetectorModelOnInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DetectorModelEvent events = 2;
+	repeated DetectorModelTransitionEvent transition_events = 3;
+}
+
+message DetectorModelOnExit {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DetectorModelEvent events = 2;
+}
+
+message DetectorModelOnEnter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DetectorModelEvent events = 2;
+}
+
+message DetectorModelState {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DetectorModelOnInput on_input = 2;
+	DetectorModelOnExit on_exit = 3;
+	string state_name = 4;
+	DetectorModelOnEnter on_enter = 5;
+}
+
+message DetectorModelDetectorModelDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DetectorModelState states = 2;
+	string initial_state_name = 3;
+}
+
+message DetectorModel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DetectorModelDetectorModelDefinition detector_model_definition = 2;
+	string evaluation_method = 3;
+	string detector_model_name = 4;
+	string detector_model_description = 5;
+	string key = 6;
+	string role_arn = 7;
+	map<string, string> tags = 8;
+}
+
+message IoTEvents {
+	repeated DetectorModel detector_model = 1;
+	repeated Input input = 2;
+}
+
+message InputAttribute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string json_path = 2;
+}
+
+message InputInputDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated InputAttribute attributes = 2;
+}
+
+message Input {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InputInputDefinition input_definition = 2;
+	string input_name = 3;
+	string input_description = 4;
+	map<string, string> tags = 5;
+}
+

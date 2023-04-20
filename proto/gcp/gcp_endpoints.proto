@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.endpoints;
+
+import "shared/shared.proto";
+
+message EndpointsServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message EndpointsService {
+	map<string, string> apis = 1;
+	string config_id = 2;
+	string dns_address = 3;
+	map<string, string> endpoints = 4;
+	string grpc_config = 5;
+	string id = 6;
+	string openapi_config = 7;
+	string project = 8;
+	string protoc_output_base64 = 9;
+	string service_name = 10;
+	EndpointsServiceXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message EndpointsServiceConsumersIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message EndpointsServiceConsumersIamBinding {
+	string consumer_project = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	string service_name = 6;
+	EndpointsServiceConsumersIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message EndpointsServiceConsumersIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message EndpointsServiceConsumersIamMember {
+	string consumer_project = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	string service_name = 6;
+	EndpointsServiceConsumersIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message EndpointsServiceConsumersIamPolicy {
+	string consumer_project = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string service_name = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message EndpointsServiceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message EndpointsServiceIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string role = 4;
+	string service_name = 5;
+	EndpointsServiceIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message EndpointsServiceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message EndpointsServiceIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string role = 4;
+	string service_name = 5;
+	EndpointsServiceIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message EndpointsServiceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string service_name = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

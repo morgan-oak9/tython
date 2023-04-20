@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package oak9.tython.aws.groundstation;
+
+import "shared/shared.proto";
+
+message Config {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	map<string, string> tags = 3;
+	map<string, string> config_data = 4;
+}
+
+message GroundStation {
+	repeated Config config = 1;
+	repeated DataflowEndpointGroup dataflow_endpoint_group = 2;
+	repeated MissionProfile mission_profile = 3;
+}
+
+message DataflowEndpointGroupSecurityDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string subnet_ids = 2;
+	repeated string security_group_ids = 3;
+	string role_arn = 4;
+}
+
+message DataflowEndpointGroupSocketAddress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 port = 3;
+}
+
+message DataflowEndpointGroupDataflowEndpoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	DataflowEndpointGroupSocketAddress address = 3;
+	string status = 4;
+	int32 mtu = 5;
+}
+
+message DataflowEndpointGroupEndpointDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DataflowEndpointGroupSecurityDetails security_details = 2;
+	DataflowEndpointGroupDataflowEndpoint endpoint = 3;
+}
+
+message DataflowEndpointGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DataflowEndpointGroupEndpointDetails endpoint_details = 2;
+	map<string, string> tags = 3;
+}
+
+message MissionProfileDataflowEdge {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source = 2;
+	string destination = 3;
+}
+
+message MissionProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 contact_pre_pass_duration_seconds = 3;
+	int32 contact_post_pass_duration_seconds = 4;
+	int32 minimum_viable_contact_duration_seconds = 5;
+	repeated MissionProfileDataflowEdge dataflow_edges = 6;
+	string tracking_config_arn = 7;
+	map<string, string> tags = 8;
+}
+

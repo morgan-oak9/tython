@@ -1,0 +1,393 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.storage;
+
+import "shared/shared.proto";
+
+message StorageBucketXCors {
+	double max_age_seconds = 1;
+	repeated string method = 2;
+	repeated string origin = 3;
+	repeated string response_header = 4;
+}
+
+message StorageBucketXEncryption {
+	string default_kms_key_name = 1;
+}
+
+message StorageBucketXLifecycleRuleXAction {
+	string storage_class = 1;
+	string type = 2;
+}
+
+message StorageBucketXLifecycleRuleXCondition {
+	double age = 1;
+	string created_before = 2;
+	string custom_time_before = 3;
+	double days_since_custom_time = 4;
+	double days_since_noncurrent_time = 5;
+	repeated string matches_prefix = 6;
+	repeated string matches_storage_class = 7;
+	repeated string matches_suffix = 8;
+	string noncurrent_time_before = 9;
+	double num_newer_versions = 10;
+	string with_state = 11;
+}
+
+message StorageBucketXLifecycleRule {
+	StorageBucketXLifecycleRuleXAction action = 1;
+	StorageBucketXLifecycleRuleXCondition condition = 2;
+}
+
+message StorageBucketXLogging {
+	string log_bucket = 1;
+	string log_object_prefix = 2;
+}
+
+message StorageBucketXRetentionPolicy {
+	bool is_locked = 1;
+	double retention_period = 2;
+}
+
+message StorageBucketXTimeouts {
+	string create = 1;
+	string read = 2;
+	string update = 3;
+}
+
+message StorageBucketXVersioning {
+	bool enabled = 1;
+}
+
+message StorageBucketXWebsite {
+	string main_page_suffix = 1;
+	string not_found_page = 2;
+}
+
+message StorageBucket {
+	bool default_event_based_hold = 1;
+	bool force_destroy = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	bool requester_pays = 8;
+	string self_link = 9;
+	string storage_class = 10;
+	bool uniform_bucket_level_access = 11;
+	string url = 12;
+	repeated StorageBucketXCors cors = 13;
+	StorageBucketXEncryption encryption = 14;
+	repeated StorageBucketXLifecycleRule lifecycle_rule = 15;
+	StorageBucketXLogging logging = 16;
+	StorageBucketXRetentionPolicy retention_policy = 17;
+	StorageBucketXTimeouts timeouts = 18;
+	StorageBucketXVersioning versioning = 19;
+	StorageBucketXWebsite website = 20;
+	oak9.tython.shared.ResourceInfo resource_info = 21;
+}
+
+message StorageBucketAccessControlXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message StorageBucketAccessControl {
+	string bucket = 1;
+	string domain = 2;
+	string email = 3;
+	string entity = 4;
+	string id = 5;
+	string role = 6;
+	StorageBucketAccessControlXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message StorageBucketAcl {
+	string bucket = 1;
+	string default_acl = 2;
+	string id = 3;
+	string predefined_acl = 4;
+	repeated string role_entity = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message StorageBucketIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message StorageBucketIamBinding {
+	string bucket = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string role = 5;
+	StorageBucketIamBindingXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message StorageBucketIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message StorageBucketIamMember {
+	string bucket = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string role = 5;
+	StorageBucketIamMemberXCondition condition = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message StorageBucketIamPolicy {
+	string bucket = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message StorageBucketObjectXCustomerEncryption {
+	string encryption_algorithm = 1;
+	string encryption_key = 2;
+}
+
+message StorageBucketObjectXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message StorageBucketObject {
+	string bucket = 1;
+	string cache_control = 2;
+	string content = 3;
+	string content_disposition = 4;
+	string content_encoding = 5;
+	string content_language = 6;
+	string content_type = 7;
+	string crc32c = 8;
+	string detect_md5hash = 9;
+	bool event_based_hold = 10;
+	string id = 11;
+	string kms_key_name = 12;
+	string md5hash = 13;
+	string media_link = 14;
+	map<string, string> metadata = 15;
+	string name = 16;
+	string output_name = 17;
+	string self_link = 18;
+	string source = 19;
+	string storage_class = 20;
+	bool temporary_hold = 21;
+	StorageBucketObjectXCustomerEncryption customer_encryption = 22;
+	StorageBucketObjectXTimeouts timeouts = 23;
+	oak9.tython.shared.ResourceInfo resource_info = 24;
+}
+
+message StorageDefaultObjectAccessControlXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message StorageDefaultObjectAccessControl {
+	string bucket = 1;
+	string domain = 2;
+	string email = 3;
+	string entity = 4;
+	string entity_id = 5;
+	double generation = 6;
+	string id = 7;
+	string object = 8;
+	map<string, string> project_team = 9;
+	string role = 10;
+	StorageDefaultObjectAccessControlXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message StorageDefaultObjectAcl {
+	string bucket = 1;
+	string id = 2;
+	repeated string role_entity = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message StorageHmacKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message StorageHmacKey {
+	string access_id = 1;
+	string id = 2;
+	string project = 3;
+	string secret = 4;
+	string service_account_email = 5;
+	string state = 6;
+	string time_created = 7;
+	string updated = 8;
+	StorageHmacKeyXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message StorageNotification {
+	string bucket = 1;
+	map<string, string> custom_attributes = 2;
+	repeated string event_types = 3;
+	string id = 4;
+	string notification_id = 5;
+	string object_name_prefix = 6;
+	string payload_format = 7;
+	string self_link = 8;
+	string topic = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message StorageObjectAccessControlXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message StorageObjectAccessControl {
+	string bucket = 1;
+	string domain = 2;
+	string email = 3;
+	string entity = 4;
+	string entity_id = 5;
+	double generation = 6;
+	string id = 7;
+	string object = 8;
+	map<string, string> project_team = 9;
+	string role = 10;
+	StorageObjectAccessControlXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message StorageObjectAcl {
+	string bucket = 1;
+	string id = 2;
+	string object = 3;
+	string predefined_acl = 4;
+	repeated string role_entity = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message StorageTransferJobXScheduleXScheduleEndDate {
+	double day = 1;
+	double month = 2;
+	double year = 3;
+}
+
+message StorageTransferJobXScheduleXScheduleStartDate {
+	double day = 1;
+	double month = 2;
+	double year = 3;
+}
+
+message StorageTransferJobXScheduleXStartTimeOfDay {
+	double hours = 1;
+	double minutes = 2;
+	double nanos = 3;
+	double seconds = 4;
+}
+
+message StorageTransferJobXSchedule {
+	string repeat_interval = 1;
+	StorageTransferJobXScheduleXScheduleEndDate schedule_end_date = 2;
+	StorageTransferJobXScheduleXScheduleStartDate schedule_start_date = 3;
+	StorageTransferJobXScheduleXStartTimeOfDay start_time_of_day = 4;
+}
+
+message StorageTransferJobXTransferSpecXAwsS3DataSourceXAwsAccessKey {
+	string access_key_id = 1;
+	string secret_access_key = 2;
+}
+
+message StorageTransferJobXTransferSpecXAwsS3DataSource {
+	string bucket_name = 1;
+	string role_arn = 2;
+	StorageTransferJobXTransferSpecXAwsS3DataSourceXAwsAccessKey aws_access_key = 3;
+}
+
+message StorageTransferJobXTransferSpecXAzureBlobStorageDataSourceXAzureCredentials {
+	string sas_token = 1;
+}
+
+message StorageTransferJobXTransferSpecXAzureBlobStorageDataSource {
+	string container = 1;
+	string path = 2;
+	string storage_account = 3;
+	StorageTransferJobXTransferSpecXAzureBlobStorageDataSourceXAzureCredentials azure_credentials = 4;
+}
+
+message StorageTransferJobXTransferSpecXGcsDataSink {
+	string bucket_name = 1;
+	string path = 2;
+}
+
+message StorageTransferJobXTransferSpecXGcsDataSource {
+	string bucket_name = 1;
+	string path = 2;
+}
+
+message StorageTransferJobXTransferSpecXHttpDataSource {
+	string list_url = 1;
+}
+
+message StorageTransferJobXTransferSpecXObjectConditions {
+	repeated string exclude_prefixes = 1;
+	repeated string include_prefixes = 2;
+	string max_time_elapsed_since_last_modification = 3;
+	string min_time_elapsed_since_last_modification = 4;
+}
+
+message StorageTransferJobXTransferSpecXPosixDataSink {
+	string root_directory = 1;
+}
+
+message StorageTransferJobXTransferSpecXPosixDataSource {
+	string root_directory = 1;
+}
+
+message StorageTransferJobXTransferSpecXTransferOptions {
+	bool delete_objects_from_source_after_transfer = 1;
+	bool delete_objects_unique_in_sink = 2;
+	bool overwrite_objects_already_existing_in_sink = 3;
+}
+
+message StorageTransferJobXTransferSpec {
+	StorageTransferJobXTransferSpecXAwsS3DataSource aws_s3_data_source = 1;
+	StorageTransferJobXTransferSpecXAzureBlobStorageDataSource azure_blob_storage_data_source = 2;
+	StorageTransferJobXTransferSpecXGcsDataSink gcs_data_sink = 3;
+	StorageTransferJobXTransferSpecXGcsDataSource gcs_data_source = 4;
+	StorageTransferJobXTransferSpecXHttpDataSource http_data_source = 5;
+	StorageTransferJobXTransferSpecXObjectConditions object_conditions = 6;
+	StorageTransferJobXTransferSpecXPosixDataSink posix_data_sink = 7;
+	StorageTransferJobXTransferSpecXPosixDataSource posix_data_source = 8;
+	StorageTransferJobXTransferSpecXTransferOptions transfer_options = 9;
+}
+
+message StorageTransferJob {
+	string creation_time = 1;
+	string deletion_time = 2;
+	string description = 3;
+	string id = 4;
+	string last_modification_time = 5;
+	string name = 6;
+	string project = 7;
+	string status = 8;
+	StorageTransferJobXSchedule schedule = 9;
+	StorageTransferJobXTransferSpec transfer_spec = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

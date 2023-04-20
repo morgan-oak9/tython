@@ -1,0 +1,130 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.dns;
+
+import "shared/shared.proto";
+
+message DnsManagedZoneXDnssecConfigXDefaultKeySpecs {
+	string algorithm = 1;
+	double key_length = 2;
+	string key_type = 3;
+	string kind = 4;
+}
+
+message DnsManagedZoneXDnssecConfig {
+	string kind = 1;
+	string non_existence = 2;
+	string state = 3;
+	repeated DnsManagedZoneXDnssecConfigXDefaultKeySpecs default_key_specs = 4;
+}
+
+message DnsManagedZoneXForwardingConfigXTargetNameServers {
+	string forwarding_path = 1;
+	string ipv4_address = 2;
+}
+
+message DnsManagedZoneXForwardingConfig {
+	repeated DnsManagedZoneXForwardingConfigXTargetNameServers target_name_servers = 1;
+}
+
+message DnsManagedZoneXPeeringConfigXTargetNetwork {
+	string network_url = 1;
+}
+
+message DnsManagedZoneXPeeringConfig {
+	DnsManagedZoneXPeeringConfigXTargetNetwork target_network = 1;
+}
+
+message DnsManagedZoneXPrivateVisibilityConfigXNetworks {
+	string network_url = 1;
+}
+
+message DnsManagedZoneXPrivateVisibilityConfig {
+	repeated DnsManagedZoneXPrivateVisibilityConfigXNetworks networks = 1;
+}
+
+message DnsManagedZoneXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DnsManagedZone {
+	string creation_time = 1;
+	string description = 2;
+	string dns_name = 3;
+	bool force_destroy = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	double managed_zone_id = 7;
+	string name = 8;
+	repeated string name_servers = 9;
+	string project = 10;
+	string visibility = 11;
+	DnsManagedZoneXDnssecConfig dnssec_config = 12;
+	DnsManagedZoneXForwardingConfig forwarding_config = 13;
+	DnsManagedZoneXPeeringConfig peering_config = 14;
+	DnsManagedZoneXPrivateVisibilityConfig private_visibility_config = 15;
+	DnsManagedZoneXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message DnsPolicyXAlternativeNameServerConfigXTargetNameServers {
+	string forwarding_path = 1;
+	string ipv4_address = 2;
+}
+
+message DnsPolicyXAlternativeNameServerConfig {
+	repeated DnsPolicyXAlternativeNameServerConfigXTargetNameServers target_name_servers = 1;
+}
+
+message DnsPolicyXNetworks {
+	string network_url = 1;
+}
+
+message DnsPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DnsPolicy {
+	string description = 1;
+	bool enable_inbound_forwarding = 2;
+	bool enable_logging = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	DnsPolicyXAlternativeNameServerConfig alternative_name_server_config = 7;
+	repeated DnsPolicyXNetworks networks = 8;
+	DnsPolicyXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message DnsRecordSetXRoutingPolicyXGeo {
+	string location = 1;
+	repeated string rrdatas = 2;
+}
+
+message DnsRecordSetXRoutingPolicyXWrr {
+	repeated string rrdatas = 1;
+	double weight = 2;
+}
+
+message DnsRecordSetXRoutingPolicy {
+	repeated DnsRecordSetXRoutingPolicyXGeo geo = 1;
+	repeated DnsRecordSetXRoutingPolicyXWrr wrr = 2;
+}
+
+message DnsRecordSet {
+	string id = 1;
+	string managed_zone = 2;
+	string name = 3;
+	string project = 4;
+	repeated string rrdatas = 5;
+	double ttl = 6;
+	string type = 7;
+	DnsRecordSetXRoutingPolicy routing_policy = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

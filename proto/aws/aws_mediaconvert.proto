@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package oak9.tython.aws.mediaconvert;
+
+import "shared/shared.proto";
+
+message JobTemplateAccelerationSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mode = 2;
+}
+
+message JobTemplateHopDestination {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 wait_minutes = 2;
+	int32 priority = 3;
+	string queue = 4;
+}
+
+message JobTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string category = 2;
+	string description = 3;
+	JobTemplateAccelerationSettings acceleration_settings = 4;
+	int32 priority = 5;
+	string status_update_interval = 6;
+	map<string, string> settings_json = 7;
+	string queue = 8;
+	repeated JobTemplateHopDestination hop_destinations = 9;
+	map<string, string> tags = 10;
+	string name = 11;
+}
+
+message MediaConvert {
+	repeated JobTemplate job_template = 1;
+	repeated Preset preset = 2;
+	repeated Queue queue = 3;
+}
+
+message Preset {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string category = 2;
+	string description = 3;
+	map<string, string> settings_json = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message Queue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+	string description = 3;
+	string pricing_plan = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+

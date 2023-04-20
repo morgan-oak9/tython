@@ -1,0 +1,450 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.monitoring;
+
+import "shared/shared.proto";
+
+message MonitoringAlertPolicyXAlertStrategyXNotificationRateLimit {
+	string period = 1;
+}
+
+message MonitoringAlertPolicyXAlertStrategy {
+	string auto_close = 1;
+	MonitoringAlertPolicyXAlertStrategyXNotificationRateLimit notification_rate_limit = 2;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionAbsentXAggregations {
+	string alignment_period = 1;
+	string cross_series_reducer = 2;
+	repeated string group_by_fields = 3;
+	string per_series_aligner = 4;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionAbsentXTrigger {
+	double count = 1;
+	double percent = 2;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionAbsent {
+	string duration = 1;
+	string filter = 2;
+	repeated MonitoringAlertPolicyXConditionsXConditionAbsentXAggregations aggregations = 3;
+	MonitoringAlertPolicyXConditionsXConditionAbsentXTrigger trigger = 4;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionMatchedLog {
+	string filter = 1;
+	map<string, string> label_extractors = 2;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionMonitoringQueryLanguageXTrigger {
+	double count = 1;
+	double percent = 2;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionMonitoringQueryLanguage {
+	string duration = 1;
+	string evaluation_missing_data = 2;
+	string query = 3;
+	MonitoringAlertPolicyXConditionsXConditionMonitoringQueryLanguageXTrigger trigger = 4;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionThresholdXAggregations {
+	string alignment_period = 1;
+	string cross_series_reducer = 2;
+	repeated string group_by_fields = 3;
+	string per_series_aligner = 4;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionThresholdXDenominatorAggregations {
+	string alignment_period = 1;
+	string cross_series_reducer = 2;
+	repeated string group_by_fields = 3;
+	string per_series_aligner = 4;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionThresholdXTrigger {
+	double count = 1;
+	double percent = 2;
+}
+
+message MonitoringAlertPolicyXConditionsXConditionThreshold {
+	string comparison = 1;
+	string denominator_filter = 2;
+	string duration = 3;
+	string evaluation_missing_data = 4;
+	string filter = 5;
+	double threshold_value = 6;
+	repeated MonitoringAlertPolicyXConditionsXConditionThresholdXAggregations aggregations = 7;
+	repeated MonitoringAlertPolicyXConditionsXConditionThresholdXDenominatorAggregations denominator_aggregations = 8;
+	MonitoringAlertPolicyXConditionsXConditionThresholdXTrigger trigger = 9;
+}
+
+message MonitoringAlertPolicyXConditions {
+	string display_name = 1;
+	string name = 2;
+	MonitoringAlertPolicyXConditionsXConditionAbsent condition_absent = 3;
+	MonitoringAlertPolicyXConditionsXConditionMatchedLog condition_matched_log = 4;
+	MonitoringAlertPolicyXConditionsXConditionMonitoringQueryLanguage condition_monitoring_query_language = 5;
+	MonitoringAlertPolicyXConditionsXConditionThreshold condition_threshold = 6;
+}
+
+message MonitoringAlertPolicyXDocumentation {
+	string content = 1;
+	string mime_type = 2;
+}
+
+message MonitoringAlertPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringAlertPolicy {
+	string combiner = 1;
+	map<string, string> creation_record = 2;
+	string display_name = 3;
+	bool enabled = 4;
+	string id = 5;
+	string name = 6;
+	repeated string notification_channels = 7;
+	string project = 8;
+	map<string, string> user_labels = 9;
+	MonitoringAlertPolicyXAlertStrategy alert_strategy = 10;
+	repeated MonitoringAlertPolicyXConditions conditions = 11;
+	MonitoringAlertPolicyXDocumentation documentation = 12;
+	MonitoringAlertPolicyXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message MonitoringCustomServiceXTelemetry {
+	string resource_name = 1;
+}
+
+message MonitoringCustomServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringCustomService {
+	string display_name = 1;
+	string id = 2;
+	string name = 3;
+	string project = 4;
+	string service_id = 5;
+	map<string, string> user_labels = 6;
+	MonitoringCustomServiceXTelemetry telemetry = 7;
+	MonitoringCustomServiceXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message MonitoringDashboardXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringDashboard {
+	string dashboard_json = 1;
+	string id = 2;
+	string project = 3;
+	MonitoringDashboardXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message MonitoringGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringGroup {
+	string display_name = 1;
+	string filter = 2;
+	string id = 3;
+	bool is_cluster = 4;
+	string name = 5;
+	string parent_name = 6;
+	string project = 7;
+	MonitoringGroupXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message MonitoringMetricDescriptorXLabels {
+	string description = 1;
+	string key = 2;
+	string value_type = 3;
+}
+
+message MonitoringMetricDescriptorXMetadata {
+	string ingest_delay = 1;
+	string sample_period = 2;
+}
+
+message MonitoringMetricDescriptorXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringMetricDescriptor {
+	string description = 1;
+	string display_name = 2;
+	string id = 3;
+	string launch_stage = 4;
+	string metric_kind = 5;
+	repeated string monitored_resource_types = 6;
+	string name = 7;
+	string project = 8;
+	string type = 9;
+	string unit = 10;
+	string value_type = 11;
+	repeated MonitoringMetricDescriptorXLabels labels = 12;
+	MonitoringMetricDescriptorXMetadata metadata = 13;
+	MonitoringMetricDescriptorXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message MonitoringMonitoredProjectXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message MonitoringMonitoredProject {
+	string create_time = 1;
+	string id = 2;
+	string metrics_scope = 3;
+	string name = 4;
+	MonitoringMonitoredProjectXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message MonitoringNotificationChannelXSensitiveLabels {
+	string auth_token = 1;
+	string password = 2;
+	string service_key = 3;
+}
+
+message MonitoringNotificationChannelXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringNotificationChannel {
+	string description = 1;
+	string display_name = 2;
+	bool enabled = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	string project = 7;
+	string type = 8;
+	map<string, string> user_labels = 9;
+	string verification_status = 10;
+	MonitoringNotificationChannelXSensitiveLabels sensitive_labels = 11;
+	MonitoringNotificationChannelXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message MonitoringSloXBasicSliXAvailability {
+	bool enabled = 1;
+}
+
+message MonitoringSloXBasicSliXLatency {
+	string threshold = 1;
+}
+
+message MonitoringSloXBasicSli {
+	repeated string location = 1;
+	repeated string method = 2;
+	repeated string version = 3;
+	MonitoringSloXBasicSliXAvailability availability = 4;
+	MonitoringSloXBasicSliXLatency latency = 5;
+}
+
+message MonitoringSloXRequestBasedSliXDistributionCutXRange {
+	double max = 1;
+	double min = 2;
+}
+
+message MonitoringSloXRequestBasedSliXDistributionCut {
+	string distribution_filter = 1;
+	MonitoringSloXRequestBasedSliXDistributionCutXRange range = 2;
+}
+
+message MonitoringSloXRequestBasedSliXGoodTotalRatio {
+	string bad_service_filter = 1;
+	string good_service_filter = 2;
+	string total_service_filter = 3;
+}
+
+message MonitoringSloXRequestBasedSli {
+	MonitoringSloXRequestBasedSliXDistributionCut distribution_cut = 1;
+	MonitoringSloXRequestBasedSliXGoodTotalRatio good_total_ratio = 2;
+}
+
+message MonitoringSloXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXBasicSliPerformanceXAvailability {
+	bool enabled = 1;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXBasicSliPerformanceXLatency {
+	string threshold = 1;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXBasicSliPerformance {
+	repeated string location = 1;
+	repeated string method = 2;
+	repeated string version = 3;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXBasicSliPerformanceXAvailability availability = 4;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXBasicSliPerformanceXLatency latency = 5;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformanceXDistributionCutXRange {
+	double max = 1;
+	double min = 2;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformanceXDistributionCut {
+	string distribution_filter = 1;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformanceXDistributionCutXRange range = 2;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformanceXGoodTotalRatio {
+	string bad_service_filter = 1;
+	string good_service_filter = 2;
+	string total_service_filter = 3;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformance {
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformanceXDistributionCut distribution_cut = 1;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformanceXGoodTotalRatio good_total_ratio = 2;
+}
+
+message MonitoringSloXWindowsBasedSliXGoodTotalRatioThreshold {
+	double threshold = 1;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXBasicSliPerformance basic_sli_performance = 2;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThresholdXPerformance performance = 3;
+}
+
+message MonitoringSloXWindowsBasedSliXMetricMeanInRangeXRange {
+	double max = 1;
+	double min = 2;
+}
+
+message MonitoringSloXWindowsBasedSliXMetricMeanInRange {
+	string time_series = 1;
+	MonitoringSloXWindowsBasedSliXMetricMeanInRangeXRange range = 2;
+}
+
+message MonitoringSloXWindowsBasedSliXMetricSumInRangeXRange {
+	double max = 1;
+	double min = 2;
+}
+
+message MonitoringSloXWindowsBasedSliXMetricSumInRange {
+	string time_series = 1;
+	MonitoringSloXWindowsBasedSliXMetricSumInRangeXRange range = 2;
+}
+
+message MonitoringSloXWindowsBasedSli {
+	string good_bad_metric_filter = 1;
+	string window_period = 2;
+	MonitoringSloXWindowsBasedSliXGoodTotalRatioThreshold good_total_ratio_threshold = 3;
+	MonitoringSloXWindowsBasedSliXMetricMeanInRange metric_mean_in_range = 4;
+	MonitoringSloXWindowsBasedSliXMetricSumInRange metric_sum_in_range = 5;
+}
+
+message MonitoringSlo {
+	string calendar_period = 1;
+	string display_name = 2;
+	double goal = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	double rolling_period_days = 7;
+	string service = 8;
+	string slo_id = 9;
+	map<string, string> user_labels = 10;
+	MonitoringSloXBasicSli basic_sli = 11;
+	MonitoringSloXRequestBasedSli request_based_sli = 12;
+	MonitoringSloXTimeouts timeouts = 13;
+	MonitoringSloXWindowsBasedSli windows_based_sli = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message MonitoringUptimeCheckConfigXContentMatchersXJsonPathMatcher {
+	string json_matcher = 1;
+	string json_path = 2;
+}
+
+message MonitoringUptimeCheckConfigXContentMatchers {
+	string content = 1;
+	string matcher = 2;
+	MonitoringUptimeCheckConfigXContentMatchersXJsonPathMatcher json_path_matcher = 3;
+}
+
+message MonitoringUptimeCheckConfigXHttpCheckXAuthInfo {
+	string password = 1;
+	string username = 2;
+}
+
+message MonitoringUptimeCheckConfigXHttpCheck {
+	string body = 1;
+	string content_type = 2;
+	map<string, string> headers = 3;
+	bool mask_headers = 4;
+	string path = 5;
+	double port = 6;
+	string request_method = 7;
+	bool use_ssl = 8;
+	bool validate_ssl = 9;
+	MonitoringUptimeCheckConfigXHttpCheckXAuthInfo auth_info = 10;
+}
+
+message MonitoringUptimeCheckConfigXMonitoredResource {
+	map<string, string> labels = 1;
+	string type = 2;
+}
+
+message MonitoringUptimeCheckConfigXResourceGroup {
+	string group_id = 1;
+	string resource_type = 2;
+}
+
+message MonitoringUptimeCheckConfigXTcpCheck {
+	double port = 1;
+}
+
+message MonitoringUptimeCheckConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message MonitoringUptimeCheckConfig {
+	string checker_type = 1;
+	string display_name = 2;
+	string id = 3;
+	string name = 4;
+	string period = 5;
+	string project = 6;
+	repeated string selected_regions = 7;
+	string timeout = 8;
+	string uptime_check_id = 9;
+	repeated MonitoringUptimeCheckConfigXContentMatchers content_matchers = 10;
+	MonitoringUptimeCheckConfigXHttpCheck http_check = 11;
+	MonitoringUptimeCheckConfigXMonitoredResource monitored_resource = 12;
+	MonitoringUptimeCheckConfigXResourceGroup resource_group = 13;
+	MonitoringUptimeCheckConfigXTcpCheck tcp_check = 14;
+	MonitoringUptimeCheckConfigXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+

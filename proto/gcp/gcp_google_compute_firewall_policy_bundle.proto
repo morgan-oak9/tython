@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_compute_firewall_policy_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_compute_firewall.proto";
+
+message GoogleComputeFirewallPolicy {
+	oak9.tython.gcp.compute_firewall.ComputeFirewallPolicy compute_firewall_policy = 1;
+	repeated oak9.tython.gcp.compute_firewall.ComputeFirewallPolicyAssociation compute_firewall_policy_association = 2;
+	repeated oak9.tython.gcp.compute_firewall.ComputeFirewallPolicyRule compute_firewall_policy_rule = 3;
+}
+

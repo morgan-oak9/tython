@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package oak9.tython.aws.sso;
+
+import "shared/shared.proto";
+
+message Assignment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string instance_arn = 2;
+	string target_id = 3;
+	string target_type = 4;
+	string permission_set_arn = 5;
+	string principal_type = 6;
+	string principal_id = 7;
+}
+
+message SSO {
+	repeated Assignment assignment = 1;
+	repeated PermissionSet permission_set = 2;
+}
+
+message PermissionSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string instance_arn = 4;
+	string session_duration = 5;
+	string relay_state_type = 6;
+	repeated string managed_policies = 7;
+	string inline_policy = 8;
+	map<string, string> tags = 9;
+}
+

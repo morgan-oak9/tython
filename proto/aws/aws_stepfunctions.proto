@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package oak9.tython.aws.stepfunctions;
+
+import "shared/shared.proto";
+
+message ActivityTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message Activity {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	repeated ActivityTagsEntry tags = 3;
+}
+
+message StepFunctions {
+	repeated Activity activity = 1;
+	repeated StateMachine state_machine = 2;
+}
+
+message StateMachineCloudWatchLogsLogGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_group_arn = 2;
+}
+
+message StateMachineLogDestination {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	StateMachineCloudWatchLogsLogGroup cloud_watch_logs_log_group = 2;
+}
+
+message StateMachineLoggingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string level = 2;
+	bool include_execution_data = 3;
+	repeated StateMachineLogDestination destinations = 4;
+}
+
+message StateMachineTracingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+}
+
+message StateMachineS3Location {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	string key = 3;
+	string version = 4;
+}
+
+message StateMachineDefinitionSubstitutions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message StateMachineTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message StateMachine {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string definition_string = 2;
+	string role_arn = 3;
+	string state_machine_name = 4;
+	string state_machine_type = 5;
+	StateMachineLoggingConfiguration logging_configuration = 6;
+	StateMachineTracingConfiguration tracing_configuration = 7;
+	StateMachineS3Location definition_s3_location = 8;
+	StateMachineDefinitionSubstitutions definition_substitutions = 9;
+	repeated StateMachineTagsEntry tags = 10;
+}
+

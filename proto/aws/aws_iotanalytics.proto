@@ -1,0 +1,299 @@
+syntax = "proto3";
+
+package oak9.tython.aws.iotanalytics;
+
+import "shared/shared.proto";
+
+message ChannelCustomerManagedS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	string role_arn = 3;
+	string key_prefix = 4;
+}
+
+message ChannelServiceManagedS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ChannelChannelStorage {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ChannelCustomerManagedS3 customer_managed_s3 = 2;
+	ChannelServiceManagedS3 service_managed_s3 = 3;
+}
+
+message ChannelRetentionPeriod {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 number_of_days = 2;
+	bool unlimited = 3;
+}
+
+message Channel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string channel_name = 2;
+	ChannelChannelStorage channel_storage = 3;
+	ChannelRetentionPeriod retention_period = 4;
+	map<string, string> tags = 5;
+}
+
+message IoTAnalytics {
+	repeated Channel channel = 1;
+	repeated Dataset dataset = 2;
+	repeated Datastore datastore = 3;
+	repeated Pipeline pipeline = 4;
+}
+
+message DatasetDatasetContentVersionValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string dataset_name = 2;
+}
+
+message DatasetOutputFileUriValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string file_name = 2;
+}
+
+message DatasetVariable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatasetDatasetContentVersionValue dataset_content_version_value = 2;
+	double double_value = 3;
+	DatasetOutputFileUriValue output_file_uri_value = 4;
+	string variable_name = 5;
+	string string_value = 6;
+}
+
+message DatasetResourceConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 volume_size_in_gb = 2;
+	string compute_type = 3;
+}
+
+message DatasetContainerAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DatasetVariable variables = 2;
+	string execution_role_arn = 3;
+	string image = 4;
+	DatasetResourceConfiguration resource_configuration = 5;
+}
+
+message DatasetDeltaTime {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string time_expression = 2;
+	int32 offset_seconds = 3;
+}
+
+message DatasetFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatasetDeltaTime delta_time = 2;
+}
+
+message DatasetQueryAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DatasetFilter filters = 2;
+	string sql_query = 3;
+}
+
+message DatasetAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string action_name = 2;
+	DatasetContainerAction container_action = 3;
+	DatasetQueryAction query_action = 4;
+}
+
+message DatasetIotEventsDestinationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string input_name = 2;
+	string role_arn = 3;
+}
+
+message DatasetGlueConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string table_name = 2;
+	string database_name = 3;
+}
+
+message DatasetS3DestinationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatasetGlueConfiguration glue_configuration = 2;
+	string bucket = 3;
+	string key = 4;
+	string role_arn = 5;
+}
+
+message DatasetDatasetContentDeliveryRuleDestination {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatasetIotEventsDestinationConfiguration iot_events_destination_configuration = 2;
+	DatasetS3DestinationConfiguration s3_destination_configuration = 3;
+}
+
+message DatasetDatasetContentDeliveryRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatasetDatasetContentDeliveryRuleDestination destination = 2;
+	string entry_name = 3;
+}
+
+message DatasetSchedule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string schedule_expression = 2;
+}
+
+message DatasetTriggeringDataset {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string dataset_name = 2;
+}
+
+message DatasetTrigger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatasetSchedule schedule = 2;
+	DatasetTriggeringDataset triggering_dataset = 3;
+}
+
+message DatasetVersioningConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_versions = 2;
+	bool unlimited = 3;
+}
+
+message DatasetRetentionPeriod {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 number_of_days = 2;
+	bool unlimited = 3;
+}
+
+message Dataset {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DatasetAction actions = 2;
+	string dataset_name = 3;
+	repeated DatasetDatasetContentDeliveryRule content_delivery_rules = 4;
+	repeated DatasetTrigger triggers = 5;
+	DatasetVersioningConfiguration versioning_configuration = 6;
+	DatasetRetentionPeriod retention_period = 7;
+	map<string, string> tags = 8;
+}
+
+message DatastoreCustomerManagedS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	string role_arn = 3;
+	string key_prefix = 4;
+}
+
+message DatastoreServiceManagedS3 {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message DatastoreDatastoreStorage {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatastoreCustomerManagedS3 customer_managed_s3 = 2;
+	DatastoreServiceManagedS3 service_managed_s3 = 3;
+}
+
+message DatastoreRetentionPeriod {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 number_of_days = 2;
+	bool unlimited = 3;
+}
+
+message Datastore {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatastoreDatastoreStorage datastore_storage = 2;
+	string datastore_name = 3;
+	DatastoreRetentionPeriod retention_period = 4;
+	map<string, string> tags = 5;
+}
+
+message PipelineSelectAttributes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string next = 2;
+	repeated string attributes = 3;
+	string name = 4;
+}
+
+message PipelineDatastore {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string datastore_name = 2;
+	string name = 3;
+}
+
+message PipelineFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string filter = 2;
+	string next = 3;
+	string name = 4;
+}
+
+message PipelineAddAttributes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string next = 2;
+	map<string, string> attributes = 3;
+	string name = 4;
+}
+
+message PipelineChannel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string channel_name = 2;
+	string next = 3;
+	string name = 4;
+}
+
+message PipelineDeviceShadowEnrich {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string attribute = 2;
+	string next = 3;
+	string thing_name = 4;
+	string role_arn = 5;
+	string name = 6;
+}
+
+message PipelineMath {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string attribute = 2;
+	string next = 3;
+	string math = 4;
+	string name = 5;
+}
+
+message PipelineLambda {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 batch_size = 2;
+	string next = 3;
+	string lambda_name = 4;
+	string name = 5;
+}
+
+message PipelineDeviceRegistryEnrich {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string attribute = 2;
+	string next = 3;
+	string thing_name = 4;
+	string role_arn = 5;
+	string name = 6;
+}
+
+message PipelineRemoveAttributes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string next = 2;
+	repeated string attributes = 3;
+	string name = 4;
+}
+
+message PipelineActivity {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	PipelineSelectAttributes select_attributes = 2;
+	PipelineDatastore datastore = 3;
+	PipelineFilter filter = 4;
+	PipelineAddAttributes add_attributes = 5;
+	PipelineChannel channel = 6;
+	PipelineDeviceShadowEnrich device_shadow_enrich = 7;
+	PipelineMath math = 8;
+	PipelineLambda lambda = 9;
+	PipelineDeviceRegistryEnrich device_registry_enrich = 10;
+	PipelineRemoveAttributes remove_attributes = 11;
+}
+
+message Pipeline {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string pipeline_name = 2;
+	map<string, string> tags = 3;
+	repeated PipelineActivity pipeline_activities = 4;
+}
+

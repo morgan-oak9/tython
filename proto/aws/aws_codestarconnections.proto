@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package oak9.tython.aws.codestarconnections;
+
+import "shared/shared.proto";
+
+message Connection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connection_name = 2;
+	string provider_type = 3;
+	string host_arn = 4;
+	map<string, string> tags = 5;
+}
+
+message CodeStarConnections {
+	repeated Connection connection = 1;
+}
+

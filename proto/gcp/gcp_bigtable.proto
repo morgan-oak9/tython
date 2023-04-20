@@ -1,0 +1,184 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.bigtable;
+
+import "shared/shared.proto";
+
+message BigtableAppProfileXSingleClusterRouting {
+	bool allow_transactional_writes = 1;
+	string cluster_id = 2;
+}
+
+message BigtableAppProfileXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message BigtableAppProfile {
+	string app_profile_id = 1;
+	string description = 2;
+	string id = 3;
+	bool ignore_warnings = 4;
+	string instance = 5;
+	repeated string multi_cluster_routing_cluster_ids = 6;
+	bool multi_cluster_routing_use_any = 7;
+	string name = 8;
+	string project = 9;
+	BigtableAppProfileXSingleClusterRouting single_cluster_routing = 10;
+	BigtableAppProfileXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message BigtableGcPolicyXMaxAge {
+	double days = 1;
+	string duration = 2;
+}
+
+message BigtableGcPolicyXMaxVersion {
+	double number = 1;
+}
+
+message BigtableGcPolicy {
+	string column_family = 1;
+	string gc_rules = 2;
+	string id = 3;
+	string instance_name = 4;
+	string mode = 5;
+	string project = 6;
+	string table = 7;
+	BigtableGcPolicyXMaxAge max_age = 8;
+	repeated BigtableGcPolicyXMaxVersion max_version = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message BigtableInstanceXClusterXAutoscalingConfig {
+	double cpu_target = 1;
+	double max_nodes = 2;
+	double min_nodes = 3;
+}
+
+message BigtableInstanceXCluster {
+	string cluster_id = 1;
+	string kms_key_name = 2;
+	double num_nodes = 3;
+	string storage_type = 4;
+	string zone = 5;
+	BigtableInstanceXClusterXAutoscalingConfig autoscaling_config = 6;
+}
+
+message BigtableInstance {
+	bool deletion_protection = 1;
+	string display_name = 2;
+	string id = 3;
+	string instance_type = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	string project = 7;
+	repeated BigtableInstanceXCluster cluster = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigtableInstanceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigtableInstanceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	BigtableInstanceIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BigtableInstanceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigtableInstanceIamMember {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	BigtableInstanceIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message BigtableInstanceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string policy_data = 4;
+	string project = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message BigtableTableXColumnFamily {
+	string family = 1;
+}
+
+message BigtableTable {
+	string id = 1;
+	string instance_name = 2;
+	string name = 3;
+	string project = 4;
+	repeated string split_keys = 5;
+	repeated BigtableTableXColumnFamily column_family = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message BigtableTableIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigtableTableIamBinding {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string table = 7;
+	BigtableTableIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigtableTableIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message BigtableTableIamMember {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string table = 7;
+	BigtableTableIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message BigtableTableIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string policy_data = 4;
+	string project = 5;
+	string table = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

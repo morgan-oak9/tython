@@ -1,0 +1,769 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_documentdb;
+
+import "shared/shared.proto";
+
+message Microsoft_DocumentDB {
+	DatabaseAccounts database_accounts = 1;
+	repeated DatabaseAccountsCassandraKeyspaces database_accounts_cassandra_keyspaces = 2;
+	repeated DatabaseAccountsCassandraKeyspacesTables database_accounts_cassandra_keyspaces_tables = 3;
+	repeated DatabaseAccountsGremlinDatabasesGraphs database_accounts_gremlin_databases_graphs = 4;
+	DatabaseAccountsSqlDatabases database_accounts_sql_databases = 5;
+	repeated DatabaseAccountsSqlDatabasesContainers database_accounts_sql_databases_containers = 6;
+	repeated DatabaseAccountsSqlDatabasesContainersStoredProcedures database_accounts_sql_databases_containers_stored_procedures = 7;
+}
+
+message DatabaseAccountsTablesThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	TableResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsTablesThroughputSettings database_accounts_tables_throughput_settings = 8;
+}
+
+message TableResource {
+	string id = 1;
+}
+
+message DatabaseAccountsSqlRoleDefinitions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string assignable_scopes = 3;
+	repeated Permission permissions = 4;
+	string role_name = 5;
+	string type = 6;
+}
+
+message Permission {
+	repeated string data_actions = 1;
+	repeated string not_data_actions = 2;
+}
+
+message DatabaseAccountsSqlRoleAssignments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string principal_id = 3;
+	string role_definition_id = 4;
+	string scope = 5;
+}
+
+message DatabaseAccountsSqlDatabasesThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsSqlDatabasesContainersUserDefinedFunctions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	SqlUserDefinedFunctionResource resource = 6;
+	map<string, string> tags = 7;
+}
+
+message SqlUserDefinedFunctionResource {
+	string body = 1;
+	string id = 2;
+}
+
+message DatabaseAccountsSqlDatabasesContainersTriggers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	SqlTriggerResource resource = 6;
+	map<string, string> tags = 7;
+}
+
+message SqlTriggerResource {
+	string body = 1;
+	string id = 2;
+	string trigger_operation = 3;
+	string trigger_type = 4;
+}
+
+message DatabaseAccountsSqlDatabasesContainersThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsSqlDatabasesContainersStoredProcedures {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	SqlStoredProcedureResource resource = 6;
+	map<string, string> tags = 7;
+}
+
+message SqlStoredProcedureResource {
+	string body = 1;
+	string id = 2;
+}
+
+message DatabaseAccountsSqlDatabasesContainers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	SqlContainerResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsSqlDatabasesContainersThroughputSettings database_accounts_sql_databases_containers_throughput_settings = 8;
+	repeated DatabaseAccountsSqlDatabasesContainersUserDefinedFunctions database_accounts_sql_databases_containers_user_defined_functions = 9;
+	repeated DatabaseAccountsSqlDatabasesContainersTriggers database_accounts_sql_databases_containers_triggers = 10;
+}
+
+message SqlContainerResource {
+	int32 analytical_storage_ttl = 1;
+	ConflictResolutionPolicy conflict_resolution_policy = 2;
+	int32 default_ttl = 3;
+	string id = 4;
+	IndexingPolicy indexing_policy = 5;
+	ContainerPartitionKey partition_key = 6;
+	UniqueKeyPolicy unique_key_policy = 7;
+}
+
+message DatabaseAccountsSqlDatabasesClientEncryptionKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ClientEncryptionKeyResource resource = 3;
+}
+
+message ClientEncryptionKeyResource {
+	string encryption_algorithm = 1;
+	string id = 2;
+	KeyWrapMetadata key_wrap_metadata = 3;
+	string wrapped_data_encryption_key = 4;
+}
+
+message KeyWrapMetadata {
+	string algorithm = 1;
+	string name = 2;
+	string type = 3;
+	string value = 4;
+}
+
+message DatabaseAccountsSqlDatabases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	SqlDatabaseResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsSqlDatabasesThroughputSettings database_accounts_sql_databases_throughput_settings = 8;
+	repeated DatabaseAccountsSqlDatabasesClientEncryptionKeys database_accounts_sql_databases_client_encryption_keys = 9;
+}
+
+message SqlDatabaseResource {
+	string id = 1;
+}
+
+message DatabaseAccountsServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 instance_count = 3;
+	string instance_size = 4;
+	string service_type = 5;
+}
+
+message DatabaseAccountsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string group_id = 3;
+	PrivateEndpointProperty private_endpoint = 4;
+	PrivateLinkServiceConnectionStateProperty private_link_service_connection_state = 5;
+	string provisioning_state = 6;
+}
+
+message PrivateLinkServiceConnectionStateProperty {
+	string description = 1;
+	string status = 2;
+}
+
+message PrivateEndpointProperty {
+	string id = 1;
+}
+
+message DatabaseAccountsNotebookWorkspaces {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message DatabaseAccountsMongodbUserDefinitions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string custom_data = 3;
+	string database_name = 4;
+	string mechanisms = 5;
+	string password = 6;
+	repeated Role roles = 7;
+	string user_name = 8;
+}
+
+message DatabaseAccountsMongodbRoleDefinitions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string database_name = 3;
+	repeated Privilege privileges = 4;
+	string role_name = 5;
+	repeated Role roles = 6;
+	string type = 7;
+}
+
+message Role {
+	string db = 1;
+	string role = 2;
+}
+
+message Privilege {
+	repeated string actions = 1;
+	PrivilegeResource resource = 2;
+}
+
+message PrivilegeResource {
+	string collection = 1;
+	string db = 2;
+}
+
+message DatabaseAccountsMongodbDatabasesThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsMongodbDatabasesCollectionsThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsMongodbDatabasesCollections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	MongoDBCollectionResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsMongodbDatabasesCollectionsThroughputSettings database_accounts_mongodb_databases_collections_throughput_settings = 8;
+}
+
+message MongoDBCollectionResource {
+	int32 analytical_storage_ttl = 1;
+	string id = 2;
+	repeated MongoIndex indexes = 3;
+	map<string, string> shard_key = 4;
+}
+
+message MongoIndex {
+	MongoIndexKeys key = 1;
+	MongoIndexOptions options = 2;
+}
+
+message MongoIndexOptions {
+	int32 expire_after_seconds = 1;
+	bool unique = 2;
+}
+
+message MongoIndexKeys {
+	repeated string keys = 1;
+}
+
+message DatabaseAccountsMongodbDatabases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	MongoDBDatabaseResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsMongodbDatabasesThroughputSettings database_accounts_mongodb_databases_throughput_settings = 8;
+	repeated DatabaseAccountsMongodbDatabasesCollections database_accounts_mongodb_databases_collections = 9;
+}
+
+message MongoDBDatabaseResource {
+	string id = 1;
+}
+
+message DatabaseAccountsGremlinDatabasesThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsGremlinDatabasesGraphsThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsGremlinDatabasesGraphs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	GremlinGraphResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsGremlinDatabasesGraphsThroughputSettings database_accounts_gremlin_databases_graphs_throughput_settings = 8;
+}
+
+message GremlinGraphResource {
+	ConflictResolutionPolicy conflict_resolution_policy = 1;
+	int32 default_ttl = 2;
+	string id = 3;
+	IndexingPolicy indexing_policy = 4;
+	ContainerPartitionKey partition_key = 5;
+	UniqueKeyPolicy unique_key_policy = 6;
+}
+
+message UniqueKeyPolicy {
+	repeated UniqueKey unique_keys = 1;
+}
+
+message UniqueKey {
+	repeated string paths = 1;
+}
+
+message ContainerPartitionKey {
+	string kind = 1;
+	repeated string paths = 2;
+	int32 version = 3;
+}
+
+message IndexingPolicy {
+	bool automatic = 1;
+	map<string, string> composite_indexes = 2;
+	repeated ExcludedPath excluded_paths = 3;
+	repeated IncludedPath included_paths = 4;
+	string indexing_mode = 5;
+	repeated SpatialSpec spatial_indexes = 6;
+}
+
+message SpatialSpec {
+	string path = 1;
+	repeated string types = 2;
+}
+
+message IncludedPath {
+	repeated Indexes indexes = 1;
+	string path = 2;
+}
+
+message Indexes {
+	string data_type = 1;
+	string kind = 2;
+	int32 precision = 3;
+}
+
+message ExcludedPath {
+	string path = 1;
+}
+
+message ConflictResolutionPolicy {
+	string conflict_resolution_path = 1;
+	string conflict_resolution_procedure = 2;
+	string mode = 3;
+}
+
+message DatabaseAccountsGremlinDatabases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	GremlinDatabaseResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsGremlinDatabasesThroughputSettings database_accounts_gremlin_databases_throughput_settings = 8;
+}
+
+message GremlinDatabaseResource {
+	string id = 1;
+}
+
+message DatabaseAccountsGraphs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	GraphResource resource = 6;
+	map<string, string> tags = 7;
+}
+
+message GraphResource {
+	string id = 1;
+}
+
+message DatabaseAccountsDataTransferJobs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	DataTransferDataSourceSink destination = 3;
+	DataTransferDataSourceSink source = 4;
+	int32 worker_count = 5;
+}
+
+message DataTransferDataSourceSink {
+	string name = 1;
+}
+
+message DatabaseAccountsCassandraKeyspacesViewsThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsCassandraKeyspacesViews {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	CassandraViewResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsCassandraKeyspacesViewsThroughputSettings database_accounts_cassandra_keyspaces_views_throughput_settings = 8;
+}
+
+message CassandraViewResource {
+	string id = 1;
+	string view_definition = 2;
+}
+
+message DatabaseAccountsCassandraKeyspacesThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message DatabaseAccountsCassandraKeyspacesTablesThroughputSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	ThroughputSettingsResource resource = 5;
+	map<string, string> tags = 6;
+}
+
+message ThroughputSettingsResource {
+	AutoscaleSettingsResource autoscale_settings = 1;
+	int32 throughput = 2;
+}
+
+message AutoscaleSettingsResource {
+	AutoUpgradePolicyResource auto_upgrade_policy = 1;
+	int32 max_throughput = 2;
+}
+
+message AutoUpgradePolicyResource {
+	ThroughputPolicyResource throughput_policy = 1;
+}
+
+message ThroughputPolicyResource {
+	int32 increment_percent = 1;
+	bool is_enabled = 2;
+}
+
+message DatabaseAccountsCassandraKeyspacesTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	CassandraTableResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsCassandraKeyspacesTablesThroughputSettings database_accounts_cassandra_keyspaces_tables_throughput_settings = 8;
+}
+
+message CassandraTableResource {
+	int32 analytical_storage_ttl = 1;
+	int32 default_ttl = 2;
+	string id = 3;
+	CassandraSchema schema = 4;
+}
+
+message CassandraSchema {
+	repeated ClusterKey cluster_keys = 1;
+	repeated Column columns = 2;
+	repeated CassandraPartitionKey partition_keys = 3;
+}
+
+message CassandraPartitionKey {
+	string name = 1;
+}
+
+message Column {
+	string name = 1;
+	string type = 2;
+}
+
+message ClusterKey {
+	string name = 1;
+	string order_by = 2;
+}
+
+message DatabaseAccountsCassandraKeyspaces {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	CreateUpdateOptions options = 5;
+	CassandraKeyspaceResource resource = 6;
+	map<string, string> tags = 7;
+	repeated DatabaseAccountsCassandraKeyspacesThroughputSettings database_accounts_cassandra_keyspaces_throughput_settings = 8;
+	repeated DatabaseAccountsCassandraKeyspacesViews database_accounts_cassandra_keyspaces_views = 9;
+}
+
+message CassandraKeyspaceResource {
+	string id = 1;
+}
+
+message CreateUpdateOptions {
+	AutoscaleSettings autoscale_settings = 1;
+	int32 throughput = 2;
+}
+
+message AutoscaleSettings {
+	int32 max_throughput = 1;
+}
+
+message DatabaseAccounts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string kind = 3;
+	string location = 4;
+	string name = 5;
+	AnalyticalStorageConfiguration analytical_storage_configuration = 6;
+	ApiProperties api_properties = 7;
+	BackupPolicy backup_policy = 8;
+	repeated Capability capabilities = 9;
+	Capacity capacity = 10;
+	string connector_offer = 11;
+	ConsistencyPolicy consistency_policy = 12;
+	repeated CorsPolicy cors = 13;
+	string create_mode = 14;
+	string database_account_offer_type = 15;
+	string default_identity = 16;
+	DiagnosticLogSettings diagnostic_log_settings = 17;
+	bool disable_key_based_metadata_write_access = 18;
+	bool disable_local_auth = 19;
+	bool enable_analytical_storage = 20;
+	bool enable_automatic_failover = 21;
+	bool enable_cassandra_connector = 22;
+	bool enable_free_tier = 23;
+	bool enable_materialized_views = 24;
+	bool enable_multiple_write_locations = 25;
+	repeated IpAddressOrRange ip_rules = 26;
+	bool is_virtual_network_filter_enabled = 27;
+	string key_vault_key_uri = 28;
+	repeated Location locations = 29;
+	string network_acl_bypass = 30;
+	repeated string network_acl_bypass_resource_ids = 31;
+	string public_network_access = 32;
+	RestoreParameters restore_parameters = 33;
+	repeated VirtualNetworkRule virtual_network_rules = 34;
+	map<string, string> tags = 35;
+	repeated DatabaseAccountsGraphs database_accounts_graphs = 36;
+	repeated DatabaseAccountsSqlRoleDefinitions database_accounts_sql_role_definitions = 37;
+	repeated DatabaseAccountsSqlRoleAssignments database_accounts_sql_role_assignments = 38;
+	repeated DatabaseAccountsMongodbDatabases database_accounts_mongodb_databases = 39;
+	repeated DatabaseAccountsMongodbRoleDefinitions database_accounts_mongodb_role_definitions = 40;
+	repeated DatabaseAccountsMongodbUserDefinitions database_accounts_mongodb_user_definitions = 41;
+	repeated DatabaseAccountsTables database_accounts_tables = 42;
+	repeated DatabaseAccountsGremlinDatabases database_accounts_gremlin_databases = 43;
+	repeated DatabaseAccountsDataTransferJobs database_accounts_data_transfer_jobs = 44;
+	repeated DatabaseAccountsNotebookWorkspaces database_accounts_notebook_workspaces = 45;
+	repeated DatabaseAccountsPrivateEndpointConnections database_accounts_private_endpoint_connections = 46;
+	repeated DatabaseAccountsServices database_accounts_services = 47;
+}
+
+message VirtualNetworkRule {
+	string id = 1;
+	bool ignore_missing_v_net_service_endpoint = 2;
+}
+
+message RestoreParameters {
+	repeated DatabaseRestoreResource databases_to_restore = 1;
+	repeated GremlinDatabaseRestoreResource gremlin_databases_to_restore = 2;
+	string restore_mode = 3;
+	string restore_source = 4;
+	string restore_timestamp_in_utc = 5;
+	repeated string tables_to_restore = 6;
+}
+
+message GremlinDatabaseRestoreResource {
+	string database_name = 1;
+	repeated string graph_names = 2;
+}
+
+message DatabaseRestoreResource {
+	repeated string collection_names = 1;
+	string database_name = 2;
+}
+
+message Location {
+	int32 failover_priority = 1;
+	bool is_zone_redundant = 2;
+	string location_name = 3;
+	string provisioning_state = 4;
+}
+
+message IpAddressOrRange {
+	string ip_address_or_range = 1;
+}
+
+message DiagnosticLogSettings {
+	string enable_full_text_query = 1;
+}
+
+message CorsPolicy {
+	string allowed_headers = 1;
+	string allowed_methods = 2;
+	string allowed_origins = 3;
+	string exposed_headers = 4;
+	int32 max_age_in_seconds = 5;
+}
+
+message ConsistencyPolicy {
+	string default_consistency_level = 1;
+	int32 max_interval_in_seconds = 2;
+	int32 max_staleness_prefix = 3;
+}
+
+message Capacity {
+	int32 total_throughput_limit = 1;
+}
+
+message Capability {
+	string name = 1;
+}
+
+message BackupPolicy {
+	BackupPolicyMigrationState migration_state = 1;
+}
+
+message BackupPolicyMigrationState {
+	string start_time = 1;
+	string status = 2;
+	string target_type = 3;
+}
+
+message ApiProperties {
+	string server_version = 1;
+}
+
+message AnalyticalStorageConfiguration {
+	string schema_type = 1;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message CassandraClustersDataCenters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	AuthenticationMethodLdapProperties authentication_method_ldap_properties = 3;
+	bool availability_zone = 4;
+	string backup_storage_customer_key_uri = 5;
+	string base64_encoded_cassandra_yaml_fragment = 6;
+	string data_center_location = 7;
+	string delegated_subnet_id = 8;
+	int32 disk_capacity = 9;
+	string disk_sku = 10;
+	string managed_disk_customer_key_uri = 11;
+	int32 node_count = 12;
+	string provisioning_state = 13;
+	string sku = 14;
+}
+
+message AuthenticationMethodLdapProperties {
+	string search_base_distinguished_name = 1;
+	string search_filter_template = 2;
+	repeated Certificate server_certificates = 3;
+	string server_hostname = 4;
+	int32 server_port = 5;
+	string service_user_distinguished_name = 6;
+	string service_user_password = 7;
+}
+
+message CassandraClusters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedCassandraManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	string authentication_method = 5;
+	bool cassandra_audit_logging_enabled = 6;
+	string cassandra_version = 7;
+	repeated Certificate client_certificates = 8;
+	string cluster_name_override = 9;
+	bool deallocated = 10;
+	string delegated_management_subnet_id = 11;
+	repeated Certificate external_gossip_certificates = 12;
+	repeated SeedNode external_seed_nodes = 13;
+	int32 hours_between_backups = 14;
+	string initial_cassandra_admin_password = 15;
+	SeedNode prometheus_endpoint = 16;
+	string provisioning_state = 17;
+	bool repair_enabled = 18;
+	string restore_from_backup_id = 19;
+	map<string, string> tags = 20;
+	repeated CassandraClustersDataCenters cassandra_clusters_data_centers = 21;
+}
+
+message SeedNode {
+	string ip_address = 1;
+}
+
+message Certificate {
+	string pem = 1;
+}
+
+message ManagedCassandraManagedServiceIdentity {
+	string type = 1;
+}
+

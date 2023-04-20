@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_ha;
+
+import "shared/shared.proto";
+
+message ComputeHaVpnGatewayXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeHaVpnGatewayXVpnInterfaces {
+	double id = 1;
+	string interconnect_attachment = 2;
+	string ip_address = 3;
+}
+
+message ComputeHaVpnGateway {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string network = 4;
+	string project = 5;
+	string region = 6;
+	string self_link = 7;
+	ComputeHaVpnGatewayXTimeouts timeouts = 8;
+	repeated ComputeHaVpnGatewayXVpnInterfaces vpn_interfaces = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+

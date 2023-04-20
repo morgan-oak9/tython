@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.assured;
+
+import "shared/shared.proto";
+
+message AssuredWorkloadsWorkloadXKmsSettings {
+	string next_rotation_time = 1;
+	string rotation_period = 2;
+}
+
+message AssuredWorkloadsWorkloadXResourceSettings {
+	string resource_id = 1;
+	string resource_type = 2;
+}
+
+message AssuredWorkloadsWorkloadXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message AssuredWorkloadsWorkload {
+	string billing_account = 1;
+	string compliance_regime = 2;
+	string create_time = 3;
+	string display_name = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	string location = 7;
+	string name = 8;
+	string organization = 9;
+	string provisioned_resources_parent = 10;
+	map<string, string> resources = 11;
+	AssuredWorkloadsWorkloadXKmsSettings kms_settings = 12;
+	repeated AssuredWorkloadsWorkloadXResourceSettings resource_settings = 13;
+	AssuredWorkloadsWorkloadXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

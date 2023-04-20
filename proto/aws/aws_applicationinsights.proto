@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package oak9.tython.aws.applicationinsights;
+
+import "shared/shared.proto";
+
+message ApplicationCustomComponent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string component_name = 2;
+	repeated string resource_list = 3;
+}
+
+message ApplicationLogPattern {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string pattern_name = 2;
+	string pattern = 3;
+	int32 rank = 4;
+}
+
+message ApplicationLogPatternSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string pattern_set_name = 2;
+	repeated ApplicationLogPattern log_patterns = 3;
+}
+
+message ApplicationAlarmMetric {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string alarm_metric_name = 2;
+}
+
+message ApplicationLog {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_group_name = 2;
+	string log_path = 3;
+	string log_type = 4;
+	string encoding = 5;
+	string pattern_set = 6;
+}
+
+message ApplicationWindowsEvent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_group_name = 2;
+	string event_name = 3;
+	repeated string event_levels = 4;
+	string pattern_set = 5;
+}
+
+message ApplicationAlarm {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string alarm_name = 2;
+	string severity = 3;
+}
+
+message ApplicationConfigurationDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ApplicationAlarmMetric alarm_metrics = 2;
+	repeated ApplicationLog logs = 3;
+	repeated ApplicationWindowsEvent windows_events = 4;
+	repeated ApplicationAlarm alarms = 5;
+}
+
+message ApplicationSubComponentConfigurationDetails {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ApplicationAlarmMetric alarm_metrics = 2;
+	repeated ApplicationLog logs = 3;
+	repeated ApplicationWindowsEvent windows_events = 4;
+}
+
+message ApplicationSubComponentTypeConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string sub_component_type = 2;
+	ApplicationSubComponentConfigurationDetails sub_component_configuration_details = 3;
+}
+
+message ApplicationComponentConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationConfigurationDetails configuration_details = 2;
+	repeated ApplicationSubComponentTypeConfiguration sub_component_type_configurations = 3;
+}
+
+message ApplicationComponentMonitoringSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string component_name = 2;
+	string component_arn = 3;
+	string tier = 4;
+	string component_configuration_mode = 5;
+	ApplicationComponentConfiguration default_overwrite_component_configuration = 6;
+	ApplicationComponentConfiguration custom_component_configuration = 7;
+}
+
+message Application {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_group_name = 2;
+	bool cwe_monitor_enabled = 3;
+	bool ops_center_enabled = 4;
+	string ops_item_sns_topic_arn = 5;
+	map<string, string> tags = 6;
+	repeated ApplicationCustomComponent custom_components = 7;
+	repeated ApplicationLogPatternSet log_pattern_sets = 8;
+	bool auto_configuration_enabled = 9;
+	repeated ApplicationComponentMonitoringSetting component_monitoring_settings = 10;
+}
+
+message ApplicationInsights {
+	repeated Application application = 1;
+}
+

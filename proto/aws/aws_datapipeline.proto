@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package oak9.tython.aws.datapipeline;
+
+import "shared/shared.proto";
+
+message PipelineParameterAttribute {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string string_value = 3;
+}
+
+message PipelineParameterObject {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated PipelineParameterAttribute attributes = 2;
+	string id = 3;
+}
+
+message PipelineParameterValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	string string_value = 3;
+}
+
+message PipelineField {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string ref_value = 3;
+	string string_value = 4;
+}
+
+message PipelinePipelineObject {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated PipelineField fields = 2;
+	string id = 3;
+	string name = 4;
+}
+
+message PipelinePipelineTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message Pipeline {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool activate = 2;
+	string description = 3;
+	string name = 4;
+	repeated PipelineParameterObject parameter_objects = 5;
+	repeated PipelineParameterValue parameter_values = 6;
+	repeated PipelinePipelineObject pipeline_objects = 7;
+	repeated PipelinePipelineTag pipeline_tags = 8;
+}
+
+message DataPipeline {
+	repeated Pipeline pipeline = 1;
+}
+

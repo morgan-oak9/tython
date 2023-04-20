@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_loadbalancers;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_loadBalancers {
+	LoadBalancers load_balancers = 1;
+	repeated LoadBalancersBackendAddressPools load_balancers_backend_address_pools = 2;
+	repeated LoadBalancersInboundNatRules load_balancers_inbound_nat_rules = 3;
+}
+
+message LoadBalancersInboundNatRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string frontend_ip_configuration = 3;
+	string protocol = 4;
+	int32 frontend_port = 5;
+	int32 backend_port = 6;
+	int32 idle_timeout_in_minutes = 7;
+	bool enable_floating_ip = 8;
+	bool enable_tcp_reset = 9;
+}
+
+message LoadBalancersBackendAddressPools {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	repeated LoadBalancerBackendAddress load_balancer_backend_addresses = 4;
+}
+
+message LoadBalancers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	LoadBalancerSku sku = 6;
+	repeated FrontendIPConfiguration frontend_ip_configurations = 7;
+	repeated BackendAddressPool backend_address_pools = 8;
+	repeated LoadBalancingRule load_balancing_rules = 9;
+	repeated Probe probes = 10;
+	repeated InboundNatRule inbound_nat_rules = 11;
+	repeated InboundNatPool inbound_nat_pools = 12;
+	repeated OutboundRule outbound_rules = 13;
+}
+
+message OutboundRule {
+	int32 allocated_outbound_ports = 1;
+	repeated string frontend_ip_configurations = 2;
+	string backend_address_pool = 3;
+	string protocol = 4;
+	bool enable_tcp_reset = 5;
+	int32 idle_timeout_in_minutes = 6;
+	string name = 7;
+}
+
+message InboundNatPool {
+	string frontend_ip_configuration = 1;
+	string protocol = 2;
+	int32 frontend_port_range_start = 3;
+	int32 frontend_port_range_end = 4;
+	int32 backend_port = 5;
+	int32 idle_timeout_in_minutes = 6;
+	bool enable_floating_ip = 7;
+	bool enable_tcp_reset = 8;
+	string name = 9;
+}
+
+message InboundNatRule {
+	string frontend_ip_configuration = 1;
+	string protocol = 2;
+	int32 frontend_port = 3;
+	int32 backend_port = 4;
+	int32 idle_timeout_in_minutes = 5;
+	bool enable_floating_ip = 6;
+	bool enable_tcp_reset = 7;
+	string name = 8;
+}
+
+message Probe {
+	string protocol = 1;
+	int32 port = 2;
+	int32 interval_in_seconds = 3;
+	int32 number_of_probes = 4;
+	string request_path = 5;
+	string name = 6;
+}
+
+message LoadBalancingRule {
+	string frontend_ip_configuration = 1;
+	string backend_address_pool = 2;
+	string probe = 3;
+	string protocol = 4;
+	string load_distribution = 5;
+	int32 frontend_port = 6;
+	int32 backend_port = 7;
+	int32 idle_timeout_in_minutes = 8;
+	bool enable_floating_ip = 9;
+	bool enable_tcp_reset = 10;
+	bool disable_outbound_snat = 11;
+	string name = 12;
+}
+
+message BackendAddressPool {
+	string location = 1;
+	repeated LoadBalancerBackendAddress load_balancer_backend_addresses = 2;
+	string name = 3;
+}
+
+message LoadBalancerBackendAddress {
+	string virtual_network = 1;
+	string ip_address = 2;
+	string load_balancer_frontend_ip_configuration = 3;
+	string name = 4;
+}
+
+message FrontendIPConfiguration {
+	string private_ip_address = 1;
+	string private_ip_allocation_method = 2;
+	string private_ip_address_version = 3;
+	string subnet = 4;
+	string public_ip_address = 5;
+	string public_ip_prefix = 6;
+	string name = 7;
+	repeated string zones = 8;
+}
+
+message LoadBalancerSku {
+	string name = 1;
+	string tier = 2;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

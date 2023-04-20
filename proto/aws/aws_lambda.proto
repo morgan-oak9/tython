@@ -1,0 +1,213 @@
+syntax = "proto3";
+
+package oak9.tython.aws.lambda;
+
+import "shared/shared.proto";
+
+message AliasProvisionedConcurrencyConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 provisioned_concurrent_executions = 2;
+}
+
+message AliasVersionWeight {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string function_version = 2;
+	double function_weight = 3;
+}
+
+message AliasAliasRoutingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated AliasVersionWeight additional_version_weights = 2;
+}
+
+message Alias {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string function_name = 3;
+	string function_version = 4;
+	string name = 5;
+	AliasProvisionedConcurrencyConfiguration provisioned_concurrency_config = 6;
+	AliasAliasRoutingConfiguration routing_config = 7;
+}
+
+message Lambda {
+	Alias alias = 1;
+	EventInvokeConfig event_invoke_config = 2;
+	EventSourceMapping event_source_mapping = 3;
+	Function function = 4;
+	LayerVersion layer_version = 5;
+	LayerVersionPermission layer_version_permission = 6;
+	Permission permission = 7;
+	Version version = 8;
+}
+
+message EventInvokeConfigOnSuccess {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination = 2;
+}
+
+message EventInvokeConfigOnFailure {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination = 2;
+}
+
+message EventInvokeConfigDestinationConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	EventInvokeConfigOnSuccess on_success = 2;
+	EventInvokeConfigOnFailure on_failure = 3;
+}
+
+message EventInvokeConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string function_name = 2;
+	int32 maximum_retry_attempts = 3;
+	EventInvokeConfigDestinationConfig destination_config = 4;
+	string qualifier = 5;
+	int32 maximum_event_age_in_seconds = 6;
+}
+
+message EventSourceMappingOnFailure {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination = 2;
+}
+
+message EventSourceMappingDestinationConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	EventSourceMappingOnFailure on_failure = 2;
+}
+
+message EventSourceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 batch_size = 2;
+	bool bisect_batch_on_function_error = 3;
+	EventSourceMappingDestinationConfig destination_config = 4;
+	bool enabled = 5;
+	string event_source_arn = 6;
+	string function_name = 7;
+	int32 maximum_batching_window_in_seconds = 8;
+	int32 maximum_record_age_in_seconds = 9;
+	int32 maximum_retry_attempts = 10;
+	int32 parallelization_factor = 11;
+	string starting_position = 12;
+	repeated string topics = 13;
+}
+
+message FunctionCode {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_bucket = 2;
+	string s3_key = 3;
+	string s3_object_version = 4;
+	string zip_file = 5;
+	string image_uri = 6;
+}
+
+message FunctionDeadLetterConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_arn = 2;
+}
+
+message FunctionEnvironment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> variables = 2;
+	string error = 3;
+}
+
+message FunctionFileSystemConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	string local_mount_path = 3;
+}
+
+message FunctionTracingConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mode = 2;
+}
+
+message FunctionVpcConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_group_ids = 2;
+	repeated string subnet_ids = 3;
+	string vpc_id = 4;
+}
+
+message Function {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	FunctionCode code = 2;
+	FunctionDeadLetterConfig dead_letter_config = 3;
+	string description = 4;
+	FunctionEnvironment environment = 5;
+	repeated FunctionFileSystemConfig file_system_configs = 6;
+	string function_name = 7;
+	string handler = 8;
+	string kms_key_arn = 9;
+	repeated string layers = 10;
+	int32 memory_size = 11;
+	int32 reserved_concurrent_executions = 12;
+	string role = 13;
+	string runtime = 14;
+	map<string, string> tags = 15;
+	int32 timeout = 16;
+	FunctionTracingConfig tracing_config = 17;
+	FunctionVpcConfig vpc_config = 18;
+	string revision_id = 19;
+	string master_arn = 20;
+	string version = 21;
+	string last_modified = 22;
+	string code_size = 23;
+	string code_sha256 = 24;
+}
+
+message LayerVersionContent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_object_version = 2;
+	string s3_bucket = 3;
+	string s3_key = 4;
+	string code_sha256 = 5;
+	string code_size = 6;
+	string location = 7;
+}
+
+message LayerVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string compatible_runtimes = 2;
+	string license_info = 3;
+	string description = 4;
+	string layer_name = 5;
+	LayerVersionContent content = 6;
+	string layer_arn = 7;
+	string layer_version_arn = 8;
+	string version = 9;
+	string created_date = 10;
+}
+
+message LayerVersionPermission {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string action = 2;
+	string layer_version_arn = 3;
+	string organization_id = 4;
+	string principal = 5;
+}
+
+message Permission {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string action = 2;
+	string event_source_token = 3;
+	string function_name = 4;
+	string principal = 5;
+	string source_account = 6;
+	string source_arn = 7;
+}
+
+message VersionProvisionedConcurrencyConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 provisioned_concurrent_executions = 2;
+}
+
+message Version {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string code_sha256 = 2;
+	string description = 3;
+	string function_name = 4;
+	VersionProvisionedConcurrencyConfiguration provisioned_concurrency_config = 5;
+}
+

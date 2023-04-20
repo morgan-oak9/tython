@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package oak9.tython.aws.globalaccelerator;
+
+import "shared/shared.proto";
+
+message Accelerator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string ip_address_type = 3;
+	repeated string ip_addresses = 4;
+	bool enabled = 5;
+	map<string, string> tags = 6;
+}
+
+message GlobalAccelerator {
+	repeated Accelerator accelerator = 1;
+	repeated EndpointGroup endpoint_group = 2;
+	repeated Listener listener = 3;
+}
+
+message EndpointGroupEndpointConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string endpoint_id = 2;
+	int32 weight = 3;
+	bool client_ip_preservation_enabled = 4;
+}
+
+message EndpointGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string listener_arn = 2;
+	string endpoint_group_region = 3;
+	repeated EndpointGroupEndpointConfiguration endpoint_configurations = 4;
+	double traffic_dial_percentage = 5;
+	int32 health_check_port = 6;
+	string health_check_protocol = 7;
+	string health_check_path = 8;
+	int32 health_check_interval_seconds = 9;
+	int32 threshold_count = 10;
+}
+
+message ListenerPortRange {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 from_port = 2;
+	int32 to_port = 3;
+}
+
+message Listener {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string accelerator_arn = 2;
+	repeated ListenerPortRange port_ranges = 3;
+	string protocol = 4;
+	string client_affinity = 5;
+}
+

@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package oak9.tython.aws.appconfig;
+
+import "shared/shared.proto";
+
+message ApplicationTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Application {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated ApplicationTags tags = 3;
+	string name = 4;
+}
+
+message AppConfig {
+	repeated Application application = 1;
+	repeated ConfigurationProfile configuration_profile = 2;
+	repeated Deployment deployment = 3;
+	repeated DeploymentStrategy deployment_strategy = 4;
+	repeated Environment environment = 5;
+	repeated HostedConfigurationVersion hosted_configuration_version = 6;
+}
+
+message ConfigurationProfileValidators {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string content = 2;
+}
+
+message ConfigurationProfileTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message ConfigurationProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location_uri = 2;
+	string description = 3;
+	repeated ConfigurationProfileValidators validators = 4;
+	string retrieval_role_arn = 5;
+	string application_id = 6;
+	repeated ConfigurationProfileTags tags = 7;
+	string name = 8;
+}
+
+message DeploymentTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Deployment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string deployment_strategy_id = 2;
+	string configuration_profile_id = 3;
+	string environment_id = 4;
+	string description = 5;
+	string configuration_version = 6;
+	string application_id = 7;
+	repeated DeploymentTags tags = 8;
+}
+
+message DeploymentStrategyTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message DeploymentStrategy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string replicate_to = 2;
+	string growth_type = 3;
+	string description = 4;
+	double deployment_duration_in_minutes = 5;
+	double growth_factor = 6;
+	double final_bake_time_in_minutes = 7;
+	repeated DeploymentStrategyTags tags = 8;
+	string name = 9;
+}
+
+message EnvironmentMonitors {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string alarm_arn = 2;
+	string alarm_role_arn = 3;
+}
+
+message EnvironmentTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Environment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated EnvironmentMonitors monitors = 3;
+	string application_id = 4;
+	repeated EnvironmentTags tags = 5;
+	string name = 6;
+}
+
+message HostedConfigurationVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string configuration_profile_id = 2;
+	string description = 3;
+	string content_type = 4;
+	double latest_version_number = 5;
+	string content = 6;
+	string application_id = 7;
+}
+

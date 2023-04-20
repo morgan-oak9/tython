@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package oak9.tython.aws.iot1click;
+
+import "shared/shared.proto";
+
+message Device {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_id = 2;
+	bool enabled = 3;
+}
+
+message IoT1Click {
+	repeated Device device = 1;
+	repeated Placement placement = 2;
+	repeated Project project = 3;
+	repeated ProjectDeviceTemplate project_device_template = 4;
+}
+
+message Placement {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string placement_name = 2;
+	string project_name = 3;
+	map<string, string> associated_devices = 4;
+	map<string, string> attributes = 5;
+}
+
+message ProjectPlacementTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> device_templates = 2;
+	map<string, string> default_attributes = 3;
+}
+
+message Project {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	ProjectPlacementTemplate placement_template = 3;
+	string project_name = 4;
+}
+
+message ProjectDeviceTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_type = 2;
+	map<string, string> callback_overrides = 3;
+}
+

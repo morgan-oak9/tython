@@ -1,0 +1,346 @@
+syntax = "proto3";
+
+package oak9.tython.aws.cloudfront;
+
+import "shared/shared.proto";
+
+message CachePolicyCookiesConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cookie_behavior = 2;
+	repeated string cookies = 3;
+}
+
+message CachePolicyHeadersConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_behavior = 2;
+	repeated string headers = 3;
+}
+
+message CachePolicyQueryStringsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string query_string_behavior = 2;
+	repeated string query_strings = 3;
+}
+
+message CachePolicyParametersInCacheKeyAndForwardedToOrigin {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	CachePolicyCookiesConfig cookies_config = 2;
+	bool enable_accept_encoding_gzip = 3;
+	CachePolicyHeadersConfig headers_config = 4;
+	CachePolicyQueryStringsConfig query_strings_config = 5;
+}
+
+message CachePolicyCachePolicyConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+	double default_ttl = 3;
+	double max_ttl = 4;
+	double min_ttl = 5;
+	string name = 6;
+	CachePolicyParametersInCacheKeyAndForwardedToOrigin parameters_in_cache_key_and_forwarded_to_origin = 7;
+}
+
+message CachePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	CachePolicyCachePolicyConfig cache_policy_config = 2;
+}
+
+message CloudFront {
+	repeated CachePolicy cache_policy = 1;
+	Distribution distribution = 2;
+	repeated OriginRequestPolicy origin_request_policy = 3;
+	repeated RealtimeLogConfig realtime_log_config = 4;
+	StreamingDistribution streaming_distribution = 5;
+}
+
+message CloudFrontOriginAccessIdentityCloudFrontOriginAccessIdentityConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+}
+
+message CloudFrontOriginAccessIdentity {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	CloudFrontOriginAccessIdentityCloudFrontOriginAccessIdentityConfig cloud_front_origin_access_identity_config = 2;
+}
+
+message DistributionLogging {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool include_cookies = 2;
+	string bucket = 3;
+	string prefix = 4;
+}
+
+message DistributionOriginCustomHeader {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_value = 2;
+	string header_name = 3;
+}
+
+message DistributionS3OriginConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string origin_access_identity = 2;
+}
+
+message DistributionCustomOriginConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 origin_read_timeout = 2;
+	int32 http_s_port = 3;
+	int32 origin_keepalive_timeout = 4;
+	repeated string origin_ssl_protocols = 5;
+	int32 http_port = 6;
+	string origin_protocol_policy = 7;
+}
+
+message DistributionOrigin {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 connection_timeout = 2;
+	repeated DistributionOriginCustomHeader origin_custom_headers = 3;
+	int32 connection_attempts = 4;
+	string domain_name = 5;
+	DistributionS3OriginConfig s3_origin_config = 6;
+	string origin_path = 7;
+	string id = 8;
+	DistributionCustomOriginConfig custom_origin_config = 9;
+	DistributionDistributionConfig distribution_config = 10;
+	string custom_headers = 11;
+}
+
+message DistributionViewerCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string iam_certificate_id = 2;
+	string ssl_support_method = 3;
+	string minimum_protocol_version = 4;
+	bool cloud_front_default_certificate = 5;
+	string acm_certificate_arn = 6;
+}
+
+message DistributionLambdaFunctionAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool include_body = 2;
+	string event_type = 3;
+	string lambda_function_arn = 4;
+}
+
+message DistributionCookies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string whitelisted_names = 2;
+	string forward = 3;
+}
+
+message DistributionForwardedValues {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DistributionCookies cookies = 2;
+	repeated string headers = 3;
+	bool query_string = 4;
+	repeated string query_string_cache_keys = 5;
+}
+
+message DistributionDefaultCacheBehavior {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool compress = 2;
+	repeated DistributionLambdaFunctionAssociation lambda_function_associations = 3;
+	string target_origin_id = 4;
+	string viewer_protocol_policy = 5;
+	string realtime_log_config_arn = 6;
+	repeated string trusted_signers = 7;
+	double default_ttl = 8;
+	string field_level_encryption_id = 9;
+	repeated string allowed_methods = 10;
+	repeated string cached_methods = 11;
+	bool smooth_streaming = 12;
+	DistributionForwardedValues forwarded_values = 13;
+	string origin_request_policy_id = 14;
+	double min_ttl = 15;
+	string cache_policy_id = 16;
+	double max_ttl = 17;
+}
+
+message DistributionCustomErrorResponse {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 response_code = 2;
+	double error_caching_min_ttl = 3;
+	int32 error_code = 4;
+	string response_page_path = 5;
+}
+
+message DistributionStatusCodes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 quantity = 2;
+	repeated int32 items = 3;
+}
+
+message DistributionOriginGroupFailoverCriteria {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DistributionStatusCodes status_codes = 2;
+}
+
+message DistributionOriginGroupMember {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string origin_id = 2;
+}
+
+message DistributionOriginGroupMembers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 quantity = 2;
+	repeated DistributionOriginGroupMember items = 3;
+}
+
+message DistributionOriginGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string id = 2;
+	DistributionOriginGroupFailoverCriteria failover_criteria = 3;
+	DistributionOriginGroupMembers members = 4;
+}
+
+message DistributionOriginGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 quantity = 2;
+	repeated DistributionOriginGroup items = 3;
+}
+
+message DistributionGeoRestriction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string locations = 2;
+	string restriction_type = 3;
+}
+
+message DistributionRestrictions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DistributionGeoRestriction geo_restriction = 2;
+}
+
+message DistributionCacheBehavior {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool compress = 2;
+	repeated DistributionLambdaFunctionAssociation lambda_function_associations = 3;
+	string target_origin_id = 4;
+	string viewer_protocol_policy = 5;
+	string realtime_log_config_arn = 6;
+	repeated string trusted_signers = 7;
+	double default_ttl = 8;
+	string field_level_encryption_id = 9;
+	repeated string allowed_methods = 10;
+	string path_pattern = 11;
+	repeated string cached_methods = 12;
+	bool smooth_streaming = 13;
+	DistributionForwardedValues forwarded_values = 14;
+	string origin_request_policy_id = 15;
+	double min_ttl = 16;
+	string cache_policy_id = 17;
+	double max_ttl = 18;
+}
+
+message DistributionDistributionConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DistributionLogging logging = 2;
+	string comment = 3;
+	string default_root_object = 4;
+	repeated DistributionOrigin origins = 5;
+	DistributionViewerCertificate viewer_certificate = 6;
+	string price_class = 7;
+	DistributionDefaultCacheBehavior default_cache_behavior = 8;
+	repeated DistributionCustomErrorResponse custom_error_responses = 9;
+	DistributionOriginGroups origin_groups = 10;
+	bool enabled = 11;
+	repeated string aliases = 12;
+	bool ip_v6_enabled = 13;
+	string web_a_c_l_id = 14;
+	string http_version = 15;
+	DistributionRestrictions restrictions = 16;
+	repeated DistributionCacheBehavior cache_behaviors = 17;
+}
+
+message Distribution {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DistributionDistributionConfig distribution_config = 2;
+	map<string, string> tags = 3;
+}
+
+message OriginRequestPolicyCookiesConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cookie_behavior = 2;
+	repeated string cookies = 3;
+}
+
+message OriginRequestPolicyHeadersConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string header_behavior = 2;
+	repeated string headers = 3;
+}
+
+message OriginRequestPolicyQueryStringsConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string query_string_behavior = 2;
+	repeated string query_strings = 3;
+}
+
+message OriginRequestPolicyOriginRequestPolicyConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+	OriginRequestPolicyCookiesConfig cookies_config = 3;
+	OriginRequestPolicyHeadersConfig headers_config = 4;
+	string name = 5;
+	OriginRequestPolicyQueryStringsConfig query_strings_config = 6;
+}
+
+message OriginRequestPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	OriginRequestPolicyOriginRequestPolicyConfig origin_request_policy_config = 2;
+}
+
+message RealtimeLogConfigKinesisStreamConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string role_arn = 2;
+	string stream_arn = 3;
+}
+
+message RealtimeLogConfigEndPoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	RealtimeLogConfigKinesisStreamConfig kinesis_stream_config = 2;
+	string stream_type = 3;
+}
+
+message RealtimeLogConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated RealtimeLogConfigEndPoint end_points = 2;
+	repeated string fields = 3;
+	string name = 4;
+	double sampling_rate = 5;
+}
+
+message StreamingDistributionLogging {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	bool enabled = 3;
+	string prefix = 4;
+}
+
+message StreamingDistributionS3Origin {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string domain_name = 2;
+	string origin_access_identity = 3;
+}
+
+message StreamingDistributionTrustedSigners {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	repeated string aws_account_numbers = 3;
+}
+
+message StreamingDistributionStreamingDistributionConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	StreamingDistributionLogging logging = 2;
+	string comment = 3;
+	string price_class = 4;
+	StreamingDistributionS3Origin s3_origin = 5;
+	bool enabled = 6;
+	repeated string aliases = 7;
+	StreamingDistributionTrustedSigners trusted_signers = 8;
+}
+
+message StreamingDistribution {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	StreamingDistributionStreamingDistributionConfig streaming_distribution_config = 2;
+	map<string, string> tags = 3;
+}
+

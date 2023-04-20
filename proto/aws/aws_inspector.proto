@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package oak9.tython.aws.inspector;
+
+import "shared/shared.proto";
+
+message AssessmentTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string assessment_target_name = 2;
+	string resource_group_arn = 3;
+}
+
+message Inspector {
+	repeated AssessmentTarget assessment_target = 1;
+	repeated AssessmentTemplate assessment_template = 2;
+	repeated ResourceGroup resource_group = 3;
+}
+
+message AssessmentTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string assessment_target_arn = 2;
+	int32 duration_in_seconds = 3;
+	string assessment_template_name = 4;
+	repeated string rules_package_arns = 5;
+	map<string, string> user_attributes_for_findings = 6;
+}
+
+message ResourceGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> resource_group_tags = 2;
+}
+

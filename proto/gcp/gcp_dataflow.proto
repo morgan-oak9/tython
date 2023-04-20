@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.dataflow;
+
+import "shared/shared.proto";
+
+message DataflowJobXTimeouts {
+	string update = 1;
+}
+
+message DataflowJob {
+	repeated string additional_experiments = 1;
+	bool enable_streaming_engine = 2;
+	string id = 3;
+	string ip_configuration = 4;
+	string job_id = 5;
+	string kms_key_name = 6;
+	map<string, string> labels = 7;
+	string machine_type = 8;
+	double max_workers = 9;
+	string name = 10;
+	string network = 11;
+	string on_delete = 12;
+	map<string, string> parameters = 13;
+	string project = 14;
+	string region = 15;
+	string service_account_email = 16;
+	bool skip_wait_on_job_termination = 17;
+	string state = 18;
+	string subnetwork = 19;
+	string temp_gcs_location = 20;
+	string template_gcs_path = 21;
+	map<string, string> transform_name_mapping = 22;
+	string type = 23;
+	string zone = 24;
+	DataflowJobXTimeouts timeouts = 25;
+	oak9.tython.shared.ResourceInfo resource_info = 26;
+}
+

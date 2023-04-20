@@ -1,0 +1,503 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_storage;
+
+import "shared/shared.proto";
+
+message Microsoft_Storage {
+	StorageAccounts storage_accounts = 1;
+	repeated StorageAccountsBlobServices storage_accounts_blob_services = 2;
+	repeated StorageAccountsBlobServicesContainers storage_accounts_blob_services_containers = 3;
+	repeated StorageAccountsFileServices storage_accounts_file_services = 4;
+	repeated StorageAccountsManagementPolicies storage_accounts_management_policies = 5;
+	repeated StorageAccountsPrivateEndpointConnections storage_accounts_private_endpoint_connections = 6;
+	repeated StorageAccountsQueueServices storage_accounts_queue_services = 7;
+	repeated StorageAccountsTableServices storage_accounts_table_services = 8;
+}
+
+message StorageAccountsTableServicesTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+}
+
+message StorageAccountsTableServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	CorsRules cors = 3;
+	repeated StorageAccountsTableServicesTables storage_accounts_table_services_tables = 4;
+}
+
+message StorageAccountsQueueServicesQueues {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	map<string, string> metadata = 3;
+}
+
+message StorageAccountsQueueServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	CorsRules cors = 3;
+	repeated StorageAccountsQueueServicesQueues storage_accounts_queue_services_queues = 4;
+}
+
+message StorageAccountsPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+	string provisioning_state = 5;
+}
+
+message PrivateLinkServiceConnectionState {
+	string action_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string name = 1;
+}
+
+message StorageAccountsObjectReplicationPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string destination_account = 3;
+	repeated ObjectReplicationPolicyRule rules = 4;
+	string source_account = 5;
+}
+
+message ObjectReplicationPolicyRule {
+	string destination_container = 1;
+	ObjectReplicationPolicyFilter filters = 2;
+	string rule_id = 3;
+	string source_container = 4;
+}
+
+message ObjectReplicationPolicyFilter {
+	string min_creation_time = 1;
+	repeated string prefix_match = 2;
+}
+
+message StorageAccountsManagementPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ManagementPolicySchema policy = 3;
+}
+
+message ManagementPolicySchema {
+	repeated ManagementPolicyRule rules = 1;
+}
+
+message ManagementPolicyRule {
+	ManagementPolicyDefinition definition = 1;
+	bool enabled = 2;
+	string name = 3;
+	string type = 4;
+}
+
+message ManagementPolicyDefinition {
+	ManagementPolicyAction actions = 1;
+	ManagementPolicyFilter filters = 2;
+}
+
+message ManagementPolicyFilter {
+	repeated TagFilter blob_index_match = 1;
+	repeated string blob_types = 2;
+	repeated string prefix_match = 3;
+}
+
+message TagFilter {
+	string name = 1;
+	string op = 2;
+	string value = 3;
+}
+
+message ManagementPolicyAction {
+	ManagementPolicyBaseBlob base_blob = 1;
+	ManagementPolicySnapShot snapshot = 2;
+	ManagementPolicyVersion version = 3;
+}
+
+message ManagementPolicyVersion {
+	DateAfterCreation delete = 1;
+	DateAfterCreation tier_to_archive = 2;
+	DateAfterCreation tier_to_cool = 3;
+}
+
+message ManagementPolicySnapShot {
+	DateAfterCreation delete = 1;
+	DateAfterCreation tier_to_archive = 2;
+	DateAfterCreation tier_to_cool = 3;
+}
+
+message DateAfterCreation {
+	double days_after_creation_greater_than = 1;
+}
+
+message ManagementPolicyBaseBlob {
+	DateAfterModification delete = 1;
+	bool enable_auto_tier_to_hot_from_cool = 2;
+	DateAfterModification tier_to_archive = 3;
+	DateAfterModification tier_to_cool = 4;
+}
+
+message DateAfterModification {
+	double days_after_last_access_time_greater_than = 1;
+	double days_after_modification_greater_than = 2;
+}
+
+message StorageAccountsLocalUsers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool has_shared_key = 3;
+	bool has_ssh_key = 4;
+	bool has_ssh_password = 5;
+	string home_directory = 6;
+	repeated PermissionScope permission_scopes = 7;
+	repeated SshPublicKey ssh_authorized_keys = 8;
+	SystemData system_data = 9;
+}
+
+message SshPublicKey {
+	string description = 1;
+	string key = 2;
+}
+
+message PermissionScope {
+	string permissions = 1;
+	string resource_name = 2;
+	string service = 3;
+}
+
+message StorageAccountsInventoryPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	BlobInventoryPolicySchema policy = 3;
+	SystemData system_data = 4;
+}
+
+message SystemData {
+	string created_at = 1;
+	string created_by = 2;
+	string created_by_type = 3;
+	string last_modified_at = 4;
+	string last_modified_by = 5;
+	string last_modified_by_type = 6;
+}
+
+message BlobInventoryPolicySchema {
+	bool enabled = 1;
+	repeated BlobInventoryPolicyRule rules = 2;
+	string type = 3;
+}
+
+message BlobInventoryPolicyRule {
+	BlobInventoryPolicyDefinition definition = 1;
+	string destination = 2;
+	bool enabled = 3;
+	string name = 4;
+}
+
+message BlobInventoryPolicyDefinition {
+	BlobInventoryPolicyFilter filters = 1;
+	string format = 2;
+	string object_type = 3;
+	string schedule = 4;
+	repeated string schema_fields = 5;
+}
+
+message BlobInventoryPolicyFilter {
+	repeated string blob_types = 1;
+	bool include_blob_versions = 2;
+	bool include_snapshots = 3;
+	repeated string prefix_match = 4;
+}
+
+message StorageAccountsFileServicesShares {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string access_tier = 3;
+	string enabled_protocols = 4;
+	map<string, string> metadata = 5;
+	string root_squash = 6;
+	int32 share_quota = 7;
+	repeated SignedIdentifier signed_identifiers = 8;
+}
+
+message SignedIdentifier {
+	AccessPolicy access_policy = 1;
+	string id = 2;
+}
+
+message AccessPolicy {
+	string expiry_time = 1;
+	string permission = 2;
+	string start_time = 3;
+}
+
+message StorageAccountsFileServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	CorsRules cors = 3;
+	ProtocolSettings protocol_settings = 4;
+	DeleteRetentionPolicy share_delete_retention_policy = 5;
+	repeated StorageAccountsFileServicesShares storage_accounts_file_services_shares = 6;
+}
+
+message ProtocolSettings {
+	SmbSetting smb = 1;
+}
+
+message SmbSetting {
+	string authentication_methods = 1;
+	string channel_encryption = 2;
+	string kerberos_ticket_encryption = 3;
+	Multichannel multichannel = 4;
+	string versions = 5;
+}
+
+message Multichannel {
+	bool enabled = 1;
+}
+
+message StorageAccountsEncryptionScopes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	EncryptionScopeKeyVaultProperties key_vault_properties = 3;
+	bool require_infrastructure_encryption = 4;
+	string source = 5;
+	string state = 6;
+}
+
+message EncryptionScopeKeyVaultProperties {
+	string key_uri = 1;
+}
+
+message StorageAccountsBlobServicesContainersImmutabilityPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool allow_protected_append_writes = 3;
+	bool allow_protected_append_writes_all = 4;
+	int32 immutability_period_since_creation_in_days = 5;
+}
+
+message StorageAccountsBlobServicesContainers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string default_encryption_scope = 3;
+	bool deny_encryption_scope_override = 4;
+	bool enable_nfs_v3_all_squash = 5;
+	bool enable_nfs_v3_root_squash = 6;
+	ImmutableStorageWithVersioning immutable_storage_with_versioning = 7;
+	map<string, string> metadata = 8;
+	string public_access = 9;
+	repeated StorageAccountsBlobServicesContainersImmutabilityPolicies storage_accounts_blob_services_containers_immutability_policies = 10;
+}
+
+message ImmutableStorageWithVersioning {
+	bool enabled = 1;
+}
+
+message StorageAccountsBlobServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool automatic_snapshot_policy_enabled = 3;
+	ChangeFeed change_feed = 4;
+	DeleteRetentionPolicy container_delete_retention_policy = 5;
+	CorsRules cors = 6;
+	string default_service_version = 7;
+	DeleteRetentionPolicy delete_retention_policy = 8;
+	bool is_versioning_enabled = 9;
+	LastAccessTimeTrackingPolicy last_access_time_tracking_policy = 10;
+	RestorePolicyProperties restore_policy = 11;
+}
+
+message RestorePolicyProperties {
+	int32 days = 1;
+	bool enabled = 2;
+}
+
+message LastAccessTimeTrackingPolicy {
+	repeated string blob_type = 1;
+	bool enable = 2;
+	string name = 3;
+	int32 tracking_granularity_in_days = 4;
+}
+
+message CorsRules {
+	repeated CorsRule cors_rules = 1;
+}
+
+message CorsRule {
+	repeated string allowed_headers = 1;
+	repeated string allowed_methods = 2;
+	repeated string allowed_origins = 3;
+	repeated string exposed_headers = 4;
+	int32 max_age_in_seconds = 5;
+}
+
+message DeleteRetentionPolicy {
+	int32 days = 1;
+	bool enabled = 2;
+}
+
+message ChangeFeed {
+	bool enabled = 1;
+	int32 retention_in_days = 2;
+}
+
+message StorageAccounts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	Identity identity = 3;
+	string kind = 4;
+	string location = 5;
+	string name = 6;
+	string access_tier = 7;
+	bool allow_blob_public_access = 8;
+	bool allow_cross_tenant_replication = 9;
+	string allowed_copy_scope = 10;
+	bool allow_shared_key_access = 11;
+	AzureFilesIdentityBasedAuthentication azure_files_identity_based_authentication = 12;
+	CustomDomain custom_domain = 13;
+	bool default_to_o_auth_authentication = 14;
+	Encryption encryption = 15;
+	ImmutableStorageAccount immutable_storage_with_versioning = 16;
+	bool is_hns_enabled = 17;
+	bool is_local_user_enabled = 18;
+	bool is_nfs_v3_enabled = 19;
+	bool is_sftp_enabled = 20;
+	KeyPolicy key_policy = 21;
+	string large_file_shares_state = 22;
+	string minimum_tls_version = 23;
+	NetworkRuleSet network_acls = 24;
+	string public_network_access = 25;
+	RoutingPreference routing_preference = 26;
+	SasPolicy sas_policy = 27;
+	bool supports_https_traffic_only = 28;
+	Sku sku = 29;
+	map<string, string> tags = 30;
+	repeated StorageAccountsInventoryPolicies storage_accounts_inventory_policies = 31;
+	repeated StorageAccountsObjectReplicationPolicies storage_accounts_object_replication_policies = 32;
+	repeated StorageAccountsLocalUsers storage_accounts_local_users = 33;
+	repeated StorageAccountsEncryptionScopes storage_accounts_encryption_scopes = 34;
+}
+
+message Sku {
+	string name = 1;
+	string tier = 2;
+}
+
+message SasPolicy {
+	string expiration_action = 1;
+	string sas_expiration_period = 2;
+}
+
+message RoutingPreference {
+	bool publish_internet_endpoints = 1;
+	bool publish_microsoft_endpoints = 2;
+	string routing_choice = 3;
+}
+
+message NetworkRuleSet {
+	string bypass = 1;
+	string default_action = 2;
+	repeated IPRule ip_rules = 3;
+	repeated ResourceAccessRule resource_access_rules = 4;
+	repeated VirtualNetworkRule virtual_network_rules = 5;
+}
+
+message VirtualNetworkRule {
+	string action = 1;
+	string id = 2;
+	string state = 3;
+}
+
+message ResourceAccessRule {
+	string resource_id = 1;
+	string tenant_id = 2;
+}
+
+message IPRule {
+	string action = 1;
+	string value = 2;
+}
+
+message KeyPolicy {
+	int32 key_expiration_period_in_days = 1;
+}
+
+message ImmutableStorageAccount {
+	bool enabled = 1;
+	AccountImmutabilityPolicyProperties immutability_policy = 2;
+}
+
+message AccountImmutabilityPolicyProperties {
+	bool allow_protected_append_writes = 1;
+	int32 immutability_period_since_creation_in_days = 2;
+	string state = 3;
+}
+
+message Encryption {
+	EncryptionIdentity identity = 1;
+	string key_source = 2;
+	KeyVaultProperties keyvaultproperties = 3;
+	bool require_infrastructure_encryption = 4;
+	EncryptionServices services = 5;
+}
+
+message EncryptionServices {
+	EncryptionService blob = 1;
+	EncryptionService file = 2;
+	EncryptionService queue = 3;
+	EncryptionService table = 4;
+}
+
+message EncryptionService {
+	bool enabled = 1;
+	string key_type = 2;
+}
+
+message KeyVaultProperties {
+	string keyname = 1;
+	string keyvaulturi = 2;
+	string keyversion = 3;
+}
+
+message EncryptionIdentity {
+	string federated_identity_client_id = 1;
+	string user_assigned_identity = 2;
+}
+
+message CustomDomain {
+	string name = 1;
+	bool use_sub_domain_name = 2;
+}
+
+message AzureFilesIdentityBasedAuthentication {
+	ActiveDirectoryProperties active_directory_properties = 1;
+	string default_share_permission = 2;
+	string directory_service_options = 3;
+}
+
+message ActiveDirectoryProperties {
+	string account_type = 1;
+	string azure_storage_sid = 2;
+	string domain_guid = 3;
+	string domain_name = 4;
+	string domain_sid = 5;
+	string forest_name = 6;
+	string net_bios_domain_name = 7;
+	string sam_account_name = 8;
+}
+
+message Identity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

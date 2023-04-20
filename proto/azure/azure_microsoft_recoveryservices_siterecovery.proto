@@ -1,0 +1,197 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_recoveryservices_siterecovery;
+
+import "shared/shared.proto";
+
+message Microsoft_RecoveryServices_SiteRecovery {
+	repeated VaultsReplicationAlertSettings vaults_replication_alert_settings = 1;
+	repeated VaultsReplicationFabrics vaults_replication_fabrics = 2;
+	repeated VaultsReplicationFabricsReplicationNetworksReplicationNetworkMappings vaults_replication_fabrics_replication_networks_replication_network_mappings = 3;
+	repeated VaultsReplicationFabricsReplicationStorageClassificationsReplicationStorageClassificationMappings vaults_replication_fabrics_replication_storage_classifications_replication_storage_classification_mappings = 4;
+	repeated VaultsReplicationPolicies vaults_replication_policies = 5;
+	repeated VaultsReplicationProtectionIntents vaults_replication_protection_intents = 6;
+	repeated VaultsReplicationRecoveryPlans vaults_replication_recovery_plans = 7;
+	repeated VaultsReplicationVaultSettings vaults_replication_vault_settings = 8;
+}
+
+message VaultsReplicationVaultSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string migration_solution_id = 3;
+	string vmware_to_azure_provider_type = 4;
+}
+
+message VaultsReplicationRecoveryPlans {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string failover_deployment_model = 3;
+	repeated RecoveryPlanGroup groups = 4;
+	string primary_fabric_id = 5;
+	repeated RecoveryPlanProviderSpecificInput provider_specific_input = 6;
+	string recovery_fabric_id = 7;
+}
+
+message RecoveryPlanProviderSpecificInput {
+	string name = 1;
+}
+
+message RecoveryPlanGroup {
+	repeated RecoveryPlanAction end_group_actions = 1;
+	string group_type = 2;
+	repeated RecoveryPlanProtectedItem replication_protected_items = 3;
+	repeated RecoveryPlanAction start_group_actions = 4;
+}
+
+message RecoveryPlanProtectedItem {
+	string id = 1;
+	string virtual_machine_id = 2;
+}
+
+message RecoveryPlanAction {
+	string action_name = 1;
+	RecoveryPlanActionDetails custom_details = 2;
+	repeated string failover_directions = 3;
+	repeated string failover_types = 4;
+}
+
+message RecoveryPlanActionDetails {
+	string name = 1;
+}
+
+message VaultsReplicationProtectionIntents {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	CreateProtectionIntentProviderSpecificDetails provider_specific_details = 3;
+}
+
+message CreateProtectionIntentProviderSpecificDetails {
+	string name = 1;
+}
+
+message VaultsReplicationPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PolicyProviderSpecificInput provider_specific_input = 3;
+}
+
+message PolicyProviderSpecificInput {
+	string name = 1;
+}
+
+message VaultsReplicationFabricsReplicationvCenters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string friendly_name = 3;
+	string ip_address = 4;
+	string port = 5;
+	string process_server_id = 6;
+	string run_as_account_id = 7;
+}
+
+message VaultsReplicationFabricsReplicationStorageClassificationsReplicationStorageClassificationMappings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string target_storage_classification_id = 3;
+}
+
+message VaultsReplicationFabricsReplicationRecoveryServicesProviders {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	IdentityProviderInput authentication_identity_input = 3;
+	string bios_id = 4;
+	IdentityProviderInput data_plane_authentication_identity_input = 5;
+	string machine_id = 6;
+	string machine_name = 7;
+	IdentityProviderInput resource_access_identity_input = 8;
+}
+
+message IdentityProviderInput {
+	string aad_authority = 1;
+	string application_id = 2;
+	string audience = 3;
+	string object_id = 4;
+	string tenant_id = 5;
+}
+
+message VaultsReplicationFabricsReplicationProtectionContainersReplicationProtectionContainerMappings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string policy_id = 3;
+	ReplicationProviderSpecificContainerMappingInput provider_specific_input = 4;
+	string target_protection_container_id = 5;
+}
+
+message ReplicationProviderSpecificContainerMappingInput {
+	string name = 1;
+}
+
+message VaultsReplicationFabricsReplicationProtectionContainersReplicationProtectedItems {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string policy_id = 3;
+	string protectable_item_id = 4;
+	EnableProtectionProviderSpecificInput provider_specific_details = 5;
+}
+
+message EnableProtectionProviderSpecificInput {
+	string name = 1;
+}
+
+message VaultsReplicationFabricsReplicationProtectionContainersReplicationMigrationItems {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string policy_id = 3;
+	EnableMigrationProviderSpecificInput provider_specific_details = 4;
+}
+
+message EnableMigrationProviderSpecificInput {
+	string name = 1;
+}
+
+message VaultsReplicationFabricsReplicationProtectionContainers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ReplicationProviderSpecificContainerCreationInput provider_specific_input = 3;
+	repeated VaultsReplicationFabricsReplicationProtectionContainersReplicationMigrationItems vaults_replication_fabrics_replication_protection_containers_replication_migration_items = 4;
+	repeated VaultsReplicationFabricsReplicationProtectionContainersReplicationProtectedItems vaults_replication_fabrics_replication_protection_containers_replication_protected_items = 5;
+	repeated VaultsReplicationFabricsReplicationProtectionContainersReplicationProtectionContainerMappings vaults_replication_fabrics_replication_protection_containers_replication_protection_container_mappings = 6;
+}
+
+message ReplicationProviderSpecificContainerCreationInput {
+	string name = 1;
+}
+
+message VaultsReplicationFabricsReplicationNetworksReplicationNetworkMappings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	FabricSpecificCreateNetworkMappingInput fabric_specific_details = 3;
+	string recovery_fabric_name = 4;
+	string recovery_network_id = 5;
+}
+
+message FabricSpecificCreateNetworkMappingInput {
+	string name = 1;
+}
+
+message VaultsReplicationFabrics {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	FabricSpecificCreationInput custom_details = 3;
+	repeated VaultsReplicationFabricsReplicationProtectionContainers vaults_replication_fabrics_replication_protection_containers = 4;
+	repeated VaultsReplicationFabricsReplicationRecoveryServicesProviders vaults_replication_fabrics_replication_recovery_services_providers = 5;
+	repeated VaultsReplicationFabricsReplicationvCenters vaults_replication_fabrics_replicationv_centers = 6;
+}
+
+message FabricSpecificCreationInput {
+	string name = 1;
+}
+
+message VaultsReplicationAlertSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string custom_email_addresses = 3;
+	string locale = 4;
+	string send_to_owners = 5;
+}
+

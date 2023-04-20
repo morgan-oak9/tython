@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_iotcentral;
+
+import "shared/shared.proto";
+
+message Microsoft_IotCentral {
+	repeated IotApps iot_apps = 1;
+}
+
+message IotApps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SystemAssignedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	string display_name = 5;
+	string state = 6;
+	string subdomain = 7;
+	string template = 8;
+	AppSkuInfo sku = 9;
+	map<string, string> tags = 10;
+}
+
+message AppSkuInfo {
+	string name = 1;
+}
+
+message SystemAssignedServiceIdentity {
+	string type = 1;
+}
+

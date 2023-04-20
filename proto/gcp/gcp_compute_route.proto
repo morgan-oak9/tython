@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_route;
+
+import "shared/shared.proto";
+
+message ComputeRouteXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeRoute {
+	string description = 1;
+	string dest_range = 2;
+	string id = 3;
+	string name = 4;
+	string network = 5;
+	string next_hop_gateway = 6;
+	string next_hop_ilb = 7;
+	string next_hop_instance = 8;
+	string next_hop_instance_zone = 9;
+	string next_hop_ip = 10;
+	string next_hop_network = 11;
+	string next_hop_vpn_tunnel = 12;
+	double priority = 13;
+	string project = 14;
+	string self_link = 15;
+	repeated string tags = 16;
+	ComputeRouteXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_compute_subnetwork_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_compute_subnetwork.proto";
+
+message GoogleComputeSubnetwork {
+	oak9.tython.gcp.compute_subnetwork.ComputeSubnetwork compute_subnetwork = 1;
+	repeated oak9.tython.gcp.compute_subnetwork.ComputeSubnetworkIamBinding compute_subnetwork_iam_binding = 2;
+	repeated oak9.tython.gcp.compute_subnetwork.ComputeSubnetworkIamMember compute_subnetwork_iam_member = 3;
+	repeated oak9.tython.gcp.compute_subnetwork.ComputeSubnetworkIamPolicy compute_subnetwork_iam_policy = 4;
+}
+

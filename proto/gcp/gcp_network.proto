@@ -1,0 +1,323 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.network;
+
+import "shared/shared.proto";
+
+message NetworkConnectivityHubXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NetworkConnectivityHub {
+	string create_time = 1;
+	string description = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string name = 5;
+	string project = 6;
+	map<string, string> routing_vpcs = 7;
+	string state = 8;
+	string unique_id = 9;
+	string update_time = 10;
+	NetworkConnectivityHubXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message NetworkConnectivitySpokeXLinkedInterconnectAttachments {
+	bool site_to_site_data_transfer = 1;
+	repeated string uris = 2;
+}
+
+message NetworkConnectivitySpokeXLinkedRouterApplianceInstancesXInstances {
+	string ip_address = 1;
+	string virtual_machine = 2;
+}
+
+message NetworkConnectivitySpokeXLinkedRouterApplianceInstances {
+	bool site_to_site_data_transfer = 1;
+	repeated NetworkConnectivitySpokeXLinkedRouterApplianceInstancesXInstances instances = 2;
+}
+
+message NetworkConnectivitySpokeXLinkedVpnTunnels {
+	bool site_to_site_data_transfer = 1;
+	repeated string uris = 2;
+}
+
+message NetworkConnectivitySpokeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NetworkConnectivitySpoke {
+	string create_time = 1;
+	string description = 2;
+	string hub = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string location = 6;
+	string name = 7;
+	string project = 8;
+	string state = 9;
+	string unique_id = 10;
+	string update_time = 11;
+	NetworkConnectivitySpokeXLinkedInterconnectAttachments linked_interconnect_attachments = 12;
+	NetworkConnectivitySpokeXLinkedRouterApplianceInstances linked_router_appliance_instances = 13;
+	NetworkConnectivitySpokeXLinkedVpnTunnels linked_vpn_tunnels = 14;
+	NetworkConnectivitySpokeXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+
+message NetworkManagementConnectivityTestXDestination {
+	string instance = 1;
+	string ip_address = 2;
+	string network = 3;
+	double port = 4;
+	string project_id = 5;
+}
+
+message NetworkManagementConnectivityTestXSource {
+	string instance = 1;
+	string ip_address = 2;
+	string network = 3;
+	string network_type = 4;
+	double port = 5;
+	string project_id = 6;
+}
+
+message NetworkManagementConnectivityTestXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NetworkManagementConnectivityTest {
+	string description = 1;
+	string id = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string project = 5;
+	string protocol = 6;
+	repeated string related_projects = 7;
+	NetworkManagementConnectivityTestXDestination destination = 8;
+	NetworkManagementConnectivityTestXSource source = 9;
+	NetworkManagementConnectivityTestXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message NetworkServicesEdgeCacheKeysetXPublicKey {
+	string id = 1;
+	string value = 2;
+}
+
+message NetworkServicesEdgeCacheKeysetXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NetworkServicesEdgeCacheKeyset {
+	string description = 1;
+	string id = 2;
+	map<string, string> labels = 3;
+	string name = 4;
+	string project = 5;
+	repeated NetworkServicesEdgeCacheKeysetXPublicKey public_key = 6;
+	NetworkServicesEdgeCacheKeysetXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message NetworkServicesEdgeCacheOriginXTimeout {
+	string connect_timeout = 1;
+	string max_attempts_timeout = 2;
+	string read_timeout = 3;
+	string response_timeout = 4;
+}
+
+message NetworkServicesEdgeCacheOriginXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NetworkServicesEdgeCacheOrigin {
+	string description = 1;
+	string failover_origin = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	double max_attempts = 5;
+	string name = 6;
+	string origin_address = 7;
+	double port = 8;
+	string project = 9;
+	string protocol = 10;
+	repeated string retry_conditions = 11;
+	NetworkServicesEdgeCacheOriginXTimeout timeout = 12;
+	NetworkServicesEdgeCacheOriginXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message NetworkServicesEdgeCacheServiceXLogConfig {
+	bool enable = 1;
+	double sample_rate = 2;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXHostRule {
+	string description = 1;
+	repeated string hosts = 2;
+	string path_matcher = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXRequestHeaderToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXRequestHeaderToRemove {
+	string header_name = 1;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXResponseHeaderToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXResponseHeaderToRemove {
+	string header_name = 1;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderAction {
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXRequestHeaderToAdd request_header_to_add = 1;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXRequestHeaderToRemove request_header_to_remove = 2;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXResponseHeaderToAdd response_header_to_add = 3;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderActionXResponseHeaderToRemove response_header_to_remove = 4;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXMatchRuleXHeaderMatch {
+	string exact_match = 1;
+	string header_name = 2;
+	bool invert_match = 3;
+	string prefix_match = 4;
+	bool present_match = 5;
+	string suffix_match = 6;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXMatchRuleXQueryParameterMatch {
+	string exact_match = 1;
+	string name = 2;
+	bool present_match = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXMatchRule {
+	string full_path_match = 1;
+	bool ignore_case = 2;
+	string path_template_match = 3;
+	string prefix_match = 4;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXMatchRuleXHeaderMatch header_match = 5;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXMatchRuleXQueryParameterMatch query_parameter_match = 6;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXCdnPolicyXCacheKeyPolicy {
+	bool exclude_host = 1;
+	bool exclude_query_string = 2;
+	repeated string excluded_query_parameters = 3;
+	bool include_protocol = 4;
+	repeated string included_cookie_names = 5;
+	repeated string included_header_names = 6;
+	repeated string included_query_parameters = 7;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXCdnPolicy {
+	string cache_mode = 1;
+	string client_ttl = 2;
+	string default_ttl = 3;
+	string max_ttl = 4;
+	bool negative_caching = 5;
+	map<string, string> negative_caching_policy = 6;
+	string signed_request_keyset = 7;
+	string signed_request_mode = 8;
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXCdnPolicyXCacheKeyPolicy cache_key_policy = 9;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origins = 4;
+	bool disabled = 5;
+	repeated string expose_headers = 6;
+	string max_age = 7;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+	string path_template_rewrite = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteAction {
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXCdnPolicy cdn_policy = 1;
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXCorsPolicy cors_policy = 2;
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteActionXUrlRewrite url_rewrite = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRule {
+	string description = 1;
+	string origin = 2;
+	string priority = 3;
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXHeaderAction header_action = 4;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXMatchRule match_rule = 5;
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXRouteAction route_action = 6;
+	NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRuleXUrlRedirect url_redirect = 7;
+}
+
+message NetworkServicesEdgeCacheServiceXRoutingXPathMatcher {
+	string description = 1;
+	string name = 2;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcherXRouteRule route_rule = 3;
+}
+
+message NetworkServicesEdgeCacheServiceXRouting {
+	repeated NetworkServicesEdgeCacheServiceXRoutingXHostRule host_rule = 1;
+	repeated NetworkServicesEdgeCacheServiceXRoutingXPathMatcher path_matcher = 2;
+}
+
+message NetworkServicesEdgeCacheServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message NetworkServicesEdgeCacheService {
+	string description = 1;
+	bool disable_http2 = 2;
+	bool disable_quic = 3;
+	string edge_security_policy = 4;
+	repeated string edge_ssl_certificates = 5;
+	string id = 6;
+	repeated string ipv4_addresses = 7;
+	repeated string ipv6_addresses = 8;
+	map<string, string> labels = 9;
+	string name = 10;
+	string project = 11;
+	bool require_tls = 12;
+	string ssl_policy = 13;
+	NetworkServicesEdgeCacheServiceXLogConfig log_config = 14;
+	NetworkServicesEdgeCacheServiceXRouting routing = 15;
+	NetworkServicesEdgeCacheServiceXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+

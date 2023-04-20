@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.artifact;
+
+import "shared/shared.proto";
+
+message ArtifactRegistryRepositoryXMavenConfig {
+	bool allow_snapshot_overwrites = 1;
+	string version_policy = 2;
+}
+
+message ArtifactRegistryRepositoryXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ArtifactRegistryRepository {
+	string create_time = 1;
+	string description = 2;
+	string format = 3;
+	string id = 4;
+	string kms_key_name = 5;
+	map<string, string> labels = 6;
+	string location = 7;
+	string name = 8;
+	string project = 9;
+	string repository_id = 10;
+	string update_time = 11;
+	ArtifactRegistryRepositoryXMavenConfig maven_config = 12;
+	ArtifactRegistryRepositoryXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message ArtifactRegistryRepositoryIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ArtifactRegistryRepositoryIamBinding {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	repeated string members = 4;
+	string project = 5;
+	string repository = 6;
+	string role = 7;
+	ArtifactRegistryRepositoryIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ArtifactRegistryRepositoryIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ArtifactRegistryRepositoryIamMember {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string member = 4;
+	string project = 5;
+	string repository = 6;
+	string role = 7;
+	ArtifactRegistryRepositoryIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ArtifactRegistryRepositoryIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string location = 3;
+	string policy_data = 4;
+	string project = 5;
+	string repository = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

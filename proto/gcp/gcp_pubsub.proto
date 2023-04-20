@@ -1,0 +1,262 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.pubsub;
+
+import "shared/shared.proto";
+
+message PubsubLiteReservationXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PubsubLiteReservation {
+	string id = 1;
+	string name = 2;
+	string project = 3;
+	string region = 4;
+	double throughput_capacity = 5;
+	PubsubLiteReservationXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message PubsubLiteSubscriptionXDeliveryConfig {
+	string delivery_requirement = 1;
+}
+
+message PubsubLiteSubscriptionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PubsubLiteSubscription {
+	string id = 1;
+	string name = 2;
+	string project = 3;
+	string region = 4;
+	string topic = 5;
+	string zone = 6;
+	PubsubLiteSubscriptionXDeliveryConfig delivery_config = 7;
+	PubsubLiteSubscriptionXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message PubsubLiteTopicXPartitionConfigXCapacity {
+	double publish_mib_per_sec = 1;
+	double subscribe_mib_per_sec = 2;
+}
+
+message PubsubLiteTopicXPartitionConfig {
+	double count = 1;
+	PubsubLiteTopicXPartitionConfigXCapacity capacity = 2;
+}
+
+message PubsubLiteTopicXReservationConfig {
+	string throughput_reservation = 1;
+}
+
+message PubsubLiteTopicXRetentionConfig {
+	string per_partition_bytes = 1;
+	string period = 2;
+}
+
+message PubsubLiteTopicXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PubsubLiteTopic {
+	string id = 1;
+	string name = 2;
+	string project = 3;
+	string region = 4;
+	string zone = 5;
+	PubsubLiteTopicXPartitionConfig partition_config = 6;
+	PubsubLiteTopicXReservationConfig reservation_config = 7;
+	PubsubLiteTopicXRetentionConfig retention_config = 8;
+	PubsubLiteTopicXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message PubsubSchemaXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message PubsubSchema {
+	string definition = 1;
+	string id = 2;
+	string name = 3;
+	string project = 4;
+	string type = 5;
+	PubsubSchemaXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message PubsubSubscriptionXDeadLetterPolicy {
+	string dead_letter_topic = 1;
+	double max_delivery_attempts = 2;
+}
+
+message PubsubSubscriptionXExpirationPolicy {
+	string ttl = 1;
+}
+
+message PubsubSubscriptionXPushConfigXOidcToken {
+	string audience = 1;
+	string service_account_email = 2;
+}
+
+message PubsubSubscriptionXPushConfig {
+	map<string, string> attributes = 1;
+	string push_endpoint = 2;
+	PubsubSubscriptionXPushConfigXOidcToken oidc_token = 3;
+}
+
+message PubsubSubscriptionXRetryPolicy {
+	string maximum_backoff = 1;
+	string minimum_backoff = 2;
+}
+
+message PubsubSubscriptionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PubsubSubscription {
+	double ack_deadline_seconds = 1;
+	bool enable_exactly_once_delivery = 2;
+	bool enable_message_ordering = 3;
+	string filter = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	string message_retention_duration = 7;
+	string name = 8;
+	string project = 9;
+	bool retain_acked_messages = 10;
+	string topic = 11;
+	PubsubSubscriptionXDeadLetterPolicy dead_letter_policy = 12;
+	PubsubSubscriptionXExpirationPolicy expiration_policy = 13;
+	PubsubSubscriptionXPushConfig push_config = 14;
+	PubsubSubscriptionXRetryPolicy retry_policy = 15;
+	PubsubSubscriptionXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message PubsubSubscriptionIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PubsubSubscriptionIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string role = 5;
+	string subscription = 6;
+	PubsubSubscriptionIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message PubsubSubscriptionIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PubsubSubscriptionIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string role = 5;
+	string subscription = 6;
+	PubsubSubscriptionIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message PubsubSubscriptionIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	string subscription = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PubsubTopicXMessageStoragePolicy {
+	repeated string allowed_persistence_regions = 1;
+}
+
+message PubsubTopicXSchemaSettings {
+	string encoding = 1;
+	string schema = 2;
+}
+
+message PubsubTopicXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message PubsubTopic {
+	string id = 1;
+	string kms_key_name = 2;
+	map<string, string> labels = 3;
+	string message_retention_duration = 4;
+	string name = 5;
+	string project = 6;
+	PubsubTopicXMessageStoragePolicy message_storage_policy = 7;
+	PubsubTopicXSchemaSettings schema_settings = 8;
+	PubsubTopicXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message PubsubTopicIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PubsubTopicIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string project = 4;
+	string role = 5;
+	string topic = 6;
+	PubsubTopicIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message PubsubTopicIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message PubsubTopicIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string project = 4;
+	string role = 5;
+	string topic = 6;
+	PubsubTopicIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message PubsubTopicIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string policy_data = 3;
+	string project = 4;
+	string topic = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

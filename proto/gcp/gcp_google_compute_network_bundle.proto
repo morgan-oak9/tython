@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_compute_network_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_compute_network.proto";
+
+message GoogleComputeNetwork {
+	oak9.tython.gcp.compute_network.ComputeNetwork compute_network = 1;
+	repeated oak9.tython.gcp.compute_network.ComputeNetworkPeering compute_network_peering = 2;
+	repeated oak9.tython.gcp.compute_network.ComputeNetworkPeeringRoutesConfig compute_network_peering_routes_config = 3;
+}
+

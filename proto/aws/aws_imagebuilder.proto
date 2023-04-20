@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package oak9.tython.aws.imagebuilder;
+
+import "shared/shared.proto";
+
+message Component {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string version = 3;
+	string description = 4;
+	string change_description = 5;
+	string platform = 6;
+	string data = 7;
+	string kms_key_id = 8;
+	map<string, string> tags = 9;
+	string uri = 10;
+	repeated string supported_os_versions = 11;
+}
+
+message ImageBuilder {
+	repeated Component component = 1;
+	repeated DistributionConfiguration distribution_configuration = 2;
+	repeated Image image = 3;
+	repeated ImagePipeline image_pipeline = 4;
+	repeated ImageRecipe image_recipe = 5;
+	repeated InfrastructureConfiguration infrastructure_configuration = 6;
+	repeated InfrastructureConfigurationLogging infrastructure_configuration_logging = 7;
+}
+
+message DistributionConfigurationDistribution {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string region = 2;
+	map<string, string> ami_distribution_configuration = 3;
+	repeated string license_configuration_arns = 4;
+}
+
+message DistributionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	repeated DistributionConfigurationDistribution distributions = 4;
+	map<string, string> tags = 5;
+}
+
+message ImageImageTestsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool image_tests_enabled = 2;
+	int32 timeout_minutes = 3;
+}
+
+message Image {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ImageImageTestsConfiguration image_tests_configuration = 2;
+	string image_recipe_arn = 3;
+	string distribution_configuration_arn = 4;
+	string infrastructure_configuration_arn = 5;
+	bool enhanced_image_metadata_enabled = 6;
+	map<string, string> tags = 7;
+}
+
+message ImagePipelineImageTestsConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool image_tests_enabled = 2;
+	int32 timeout_minutes = 3;
+}
+
+message ImagePipelineSchedule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string schedule_expression = 2;
+	string pipeline_execution_start_condition = 3;
+}
+
+message ImagePipeline {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	ImagePipelineImageTestsConfiguration image_tests_configuration = 4;
+	string status = 5;
+	ImagePipelineSchedule schedule = 6;
+	string image_recipe_arn = 7;
+	string distribution_configuration_arn = 8;
+	string infrastructure_configuration_arn = 9;
+	bool enhanced_image_metadata_enabled = 10;
+	map<string, string> tags = 11;
+}
+
+message ImageRecipeComponentConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string component_arn = 2;
+}
+
+message ImageRecipeEbsInstanceBlockDeviceSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool encrypted = 2;
+	bool delete_on_termination = 3;
+	int32 iops = 4;
+	string kms_key_id = 5;
+	string snapshot_id = 6;
+	int32 volume_size = 7;
+	string volume_type = 8;
+}
+
+message ImageRecipeInstanceBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	string virtual_name = 3;
+	string no_device = 4;
+	ImageRecipeEbsInstanceBlockDeviceSpecification ebs = 5;
+}
+
+message ImageRecipe {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string version = 4;
+	repeated ImageRecipeComponentConfiguration components = 5;
+	repeated ImageRecipeInstanceBlockDeviceMapping block_device_mappings = 6;
+	string parent_image = 7;
+	string working_directory = 8;
+	map<string, string> tags = 9;
+}
+
+message InfrastructureConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	repeated string instance_types = 4;
+	repeated string security_group_ids = 5;
+	map<string, string> logging = 6;
+	string subnet_id = 7;
+	string key_pair = 8;
+	bool terminate_instance_on_failure = 9;
+	string instance_profile_name = 10;
+	string sns_topic_arn = 11;
+	map<string, string> resource_tags = 12;
+	map<string, string> tags = 13;
+}
+
+message InfrastructureConfigurationS3Logs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_bucket_name = 2;
+	string s3_key_prefix = 3;
+}
+
+message InfrastructureConfigurationLogging {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	InfrastructureConfigurationS3Logs s3_logs = 2;
+}
+

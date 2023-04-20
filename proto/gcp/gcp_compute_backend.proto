@@ -1,0 +1,230 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_backend;
+
+import "shared/shared.proto";
+
+message ComputeBackendBucketXCdnPolicyXBypassCacheOnRequestHeaders {
+	string header_name = 1;
+}
+
+message ComputeBackendBucketXCdnPolicyXCacheKeyPolicy {
+	repeated string include_http_headers = 1;
+	repeated string query_string_whitelist = 2;
+}
+
+message ComputeBackendBucketXCdnPolicyXNegativeCachingPolicy {
+	double code = 1;
+	double ttl = 2;
+}
+
+message ComputeBackendBucketXCdnPolicy {
+	string cache_mode = 1;
+	double client_ttl = 2;
+	double default_ttl = 3;
+	double max_ttl = 4;
+	bool negative_caching = 5;
+	bool request_coalescing = 6;
+	double serve_while_stale = 7;
+	double signed_url_cache_max_age_sec = 8;
+	repeated ComputeBackendBucketXCdnPolicyXBypassCacheOnRequestHeaders bypass_cache_on_request_headers = 9;
+	ComputeBackendBucketXCdnPolicyXCacheKeyPolicy cache_key_policy = 10;
+	repeated ComputeBackendBucketXCdnPolicyXNegativeCachingPolicy negative_caching_policy = 11;
+}
+
+message ComputeBackendBucketXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeBackendBucket {
+	string bucket_name = 1;
+	string creation_timestamp = 2;
+	repeated string custom_response_headers = 3;
+	string description = 4;
+	string edge_security_policy = 5;
+	bool enable_cdn = 6;
+	string id = 7;
+	string name = 8;
+	string project = 9;
+	string self_link = 10;
+	ComputeBackendBucketXCdnPolicy cdn_policy = 11;
+	ComputeBackendBucketXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ComputeBackendBucketSignedUrlKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeBackendBucketSignedUrlKey {
+	string backend_bucket = 1;
+	string id = 2;
+	string key_value = 3;
+	string name = 4;
+	string project = 5;
+	ComputeBackendBucketSignedUrlKeyXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ComputeBackendServiceXBackend {
+	string balancing_mode = 1;
+	double capacity_scaler = 2;
+	string description = 3;
+	string group = 4;
+	double max_connections = 5;
+	double max_connections_per_endpoint = 6;
+	double max_connections_per_instance = 7;
+	double max_rate = 8;
+	double max_rate_per_endpoint = 9;
+	double max_rate_per_instance = 10;
+	double max_utilization = 11;
+}
+
+message ComputeBackendServiceXCdnPolicyXCacheKeyPolicy {
+	bool include_host = 1;
+	repeated string include_named_cookies = 2;
+	bool include_protocol = 3;
+	bool include_query_string = 4;
+	repeated string query_string_blacklist = 5;
+	repeated string query_string_whitelist = 6;
+}
+
+message ComputeBackendServiceXCdnPolicyXNegativeCachingPolicy {
+	double code = 1;
+	double ttl = 2;
+}
+
+message ComputeBackendServiceXCdnPolicy {
+	string cache_mode = 1;
+	double client_ttl = 2;
+	double default_ttl = 3;
+	double max_ttl = 4;
+	bool negative_caching = 5;
+	double serve_while_stale = 6;
+	double signed_url_cache_max_age_sec = 7;
+	ComputeBackendServiceXCdnPolicyXCacheKeyPolicy cache_key_policy = 8;
+	repeated ComputeBackendServiceXCdnPolicyXNegativeCachingPolicy negative_caching_policy = 9;
+}
+
+message ComputeBackendServiceXCircuitBreakers {
+	double max_connections = 1;
+	double max_pending_requests = 2;
+	double max_requests = 3;
+	double max_requests_per_connection = 4;
+	double max_retries = 5;
+}
+
+message ComputeBackendServiceXConsistentHashXHttpCookieXTtl {
+	double nanos = 1;
+	double seconds = 2;
+}
+
+message ComputeBackendServiceXConsistentHashXHttpCookie {
+	string name = 1;
+	string path = 2;
+	ComputeBackendServiceXConsistentHashXHttpCookieXTtl ttl = 3;
+}
+
+message ComputeBackendServiceXConsistentHash {
+	string http_header_name = 1;
+	double minimum_ring_size = 2;
+	ComputeBackendServiceXConsistentHashXHttpCookie http_cookie = 3;
+}
+
+message ComputeBackendServiceXIap {
+	string oauth2_client_id = 1;
+	string oauth2_client_secret = 2;
+	string oauth2_client_secret_sha256 = 3;
+}
+
+message ComputeBackendServiceXLogConfig {
+	bool enable = 1;
+	double sample_rate = 2;
+}
+
+message ComputeBackendServiceXOutlierDetectionXBaseEjectionTime {
+	double nanos = 1;
+	double seconds = 2;
+}
+
+message ComputeBackendServiceXOutlierDetectionXInterval {
+	double nanos = 1;
+	double seconds = 2;
+}
+
+message ComputeBackendServiceXOutlierDetection {
+	double consecutive_errors = 1;
+	double consecutive_gateway_failure = 2;
+	double enforcing_consecutive_errors = 3;
+	double enforcing_consecutive_gateway_failure = 4;
+	double enforcing_success_rate = 5;
+	double max_ejection_percent = 6;
+	double success_rate_minimum_hosts = 7;
+	double success_rate_request_volume = 8;
+	double success_rate_stdev_factor = 9;
+	ComputeBackendServiceXOutlierDetectionXBaseEjectionTime base_ejection_time = 10;
+	ComputeBackendServiceXOutlierDetectionXInterval interval = 11;
+}
+
+message ComputeBackendServiceXSecuritySettings {
+	string client_tls_policy = 1;
+	repeated string subject_alt_names = 2;
+}
+
+message ComputeBackendServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeBackendService {
+	double affinity_cookie_ttl_sec = 1;
+	double connection_draining_timeout_sec = 2;
+	string creation_timestamp = 3;
+	repeated string custom_request_headers = 4;
+	repeated string custom_response_headers = 5;
+	string description = 6;
+	bool enable_cdn = 7;
+	string fingerprint = 8;
+	repeated string health_checks = 9;
+	string id = 10;
+	string load_balancing_scheme = 11;
+	string locality_lb_policy = 12;
+	string name = 13;
+	string port_name = 14;
+	string project = 15;
+	string protocol = 16;
+	string security_policy = 17;
+	string self_link = 18;
+	string session_affinity = 19;
+	double timeout_sec = 20;
+	repeated ComputeBackendServiceXBackend backend = 21;
+	ComputeBackendServiceXCdnPolicy cdn_policy = 22;
+	ComputeBackendServiceXCircuitBreakers circuit_breakers = 23;
+	ComputeBackendServiceXConsistentHash consistent_hash = 24;
+	ComputeBackendServiceXIap iap = 25;
+	ComputeBackendServiceXLogConfig log_config = 26;
+	ComputeBackendServiceXOutlierDetection outlier_detection = 27;
+	ComputeBackendServiceXSecuritySettings security_settings = 28;
+	ComputeBackendServiceXTimeouts timeouts = 29;
+	oak9.tython.shared.ResourceInfo resource_info = 30;
+}
+
+message ComputeBackendServiceSignedUrlKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeBackendServiceSignedUrlKey {
+	string backend_service = 1;
+	string id = 2;
+	string key_value = 3;
+	string name = 4;
+	string project = 5;
+	ComputeBackendServiceSignedUrlKeyXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

@@ -1,0 +1,495 @@
+syntax = "proto3";
+
+package oak9.tython.aws.glue;
+
+import "shared/shared.proto";
+
+message ClassifierXMLClassifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string row_tag = 2;
+	string classification = 3;
+	string name = 4;
+}
+
+message ClassifierJsonClassifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string json_path = 2;
+	string name = 3;
+}
+
+message ClassifierCsvClassifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string quote_symbol = 2;
+	string contains_header = 3;
+	string delimiter = 4;
+	repeated string header = 5;
+	bool allow_single_column = 6;
+	bool disable_value_trimming = 7;
+	string name = 8;
+}
+
+message ClassifierGrokClassifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string custom_patterns = 2;
+	string grok_pattern = 3;
+	string classification = 4;
+	string name = 5;
+}
+
+message Classifier {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ClassifierXMLClassifier xml_classifier = 2;
+	ClassifierJsonClassifier json_classifier = 3;
+	ClassifierCsvClassifier csv_classifier = 4;
+	ClassifierGrokClassifier grok_classifier = 5;
+}
+
+message Glue {
+	repeated Classifier classifier = 1;
+	repeated Connection connection = 2;
+	repeated Crawler crawler = 3;
+	repeated DataCatalogEncryptionSettings data_catalog_encryption_settings = 4;
+	repeated Database database = 5;
+	repeated DevEndpoint dev_endpoint = 6;
+	repeated Job job = 7;
+	repeated MLTransform ml_transform = 8;
+	repeated Partition partition = 9;
+	repeated SecurityConfiguration security_configuration = 10;
+	repeated Table table = 11;
+	repeated Trigger trigger = 12;
+	repeated Workflow workflow = 13;
+	repeated SecurityConfigurationS3Encryption security_configuration_s3_encryption = 14;
+}
+
+message ConnectionPhysicalConnectionRequirements {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string availability_zone = 2;
+	repeated string security_group_id_list = 3;
+	string subnet_id = 4;
+}
+
+message ConnectionConnectionInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string connection_type = 3;
+	repeated string match_criteria = 4;
+	ConnectionPhysicalConnectionRequirements physical_connection_requirements = 5;
+	map<string, string> connection_properties = 6;
+	string name = 7;
+}
+
+message Connection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ConnectionConnectionInput connection_input = 2;
+	string catalog_id = 3;
+}
+
+message CrawlerSchemaChangePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string update_behavior = 2;
+	string delete_behavior = 3;
+}
+
+message CrawlerSchedule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string schedule_expression = 2;
+}
+
+message CrawlerS3Target {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+	repeated string exclusions = 3;
+}
+
+message CrawlerCatalogTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string database_name = 2;
+	repeated string tables = 3;
+}
+
+message CrawlerJdbcTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connection_name = 2;
+	string path = 3;
+	repeated string exclusions = 4;
+}
+
+message CrawlerDynamoDBTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+}
+
+message CrawlerTargets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated CrawlerS3Target s3_targets = 2;
+	repeated CrawlerCatalogTarget catalog_targets = 3;
+	repeated CrawlerJdbcTarget jdbc_targets = 4;
+	repeated CrawlerDynamoDBTarget dynamo_db_targets = 5;
+}
+
+message Crawler {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string role = 2;
+	repeated string classifiers = 3;
+	string description = 4;
+	CrawlerSchemaChangePolicy schema_change_policy = 5;
+	string configuration = 6;
+	CrawlerSchedule schedule = 7;
+	string database_name = 8;
+	CrawlerTargets targets = 9;
+	string crawler_security_configuration = 10;
+	string table_prefix = 11;
+	map<string, string> tags = 12;
+	string name = 13;
+}
+
+message DataCatalogEncryptionSettingsConnectionPasswordEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool return_connection_password_encrypted = 2;
+	string kms_key_id = 3;
+}
+
+message DataCatalogEncryptionSettingsEncryptionAtRest {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string catalog_encryption_mode = 2;
+	string sse_aws_kms_key_id = 3;
+}
+
+message DataCatalogEncryptionSettingsDataCatalogEncryptionSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DataCatalogEncryptionSettingsConnectionPasswordEncryption connection_password_encryption = 2;
+	DataCatalogEncryptionSettingsEncryptionAtRest encryption_at_rest = 3;
+}
+
+message DataCatalogEncryptionSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DataCatalogEncryptionSettingsDataCatalogEncryptionSettings data_catalog_encryption_settings = 2;
+	string catalog_id = 3;
+}
+
+message DatabaseDatabaseInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location_uri = 2;
+	string description = 3;
+	map<string, string> parameters = 4;
+	string name = 5;
+}
+
+message Database {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DatabaseDatabaseInput database_input = 2;
+	string catalog_id = 3;
+}
+
+message DevEndpoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string extra_jars_s3_path = 2;
+	string public_key = 3;
+	int32 number_of_nodes = 4;
+	map<string, string> arguments = 5;
+	string subnet_id = 6;
+	repeated string public_keys = 7;
+	repeated string security_group_ids = 8;
+	string role_arn = 9;
+	string worker_type = 10;
+	string endpoint_name = 11;
+	string glue_version = 12;
+	string extra_python_libs_s3_path = 13;
+	string security_configuration = 14;
+	int32 number_of_workers = 15;
+	map<string, string> tags = 16;
+}
+
+message JobConnectionsList {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string connections = 2;
+}
+
+message JobNotificationProperty {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 notify_delay_after = 2;
+}
+
+message JobJobCommand {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string python_version = 2;
+	string script_location = 3;
+	string name = 4;
+}
+
+message JobExecutionProperty {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double max_concurrent_runs = 2;
+}
+
+message Job {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	JobConnectionsList connections = 2;
+	double max_retries = 3;
+	string description = 4;
+	int32 timeout = 5;
+	double allocated_capacity = 6;
+	string name = 7;
+	string role = 8;
+	map<string, string> default_arguments = 9;
+	JobNotificationProperty notification_property = 10;
+	string worker_type = 11;
+	string log_uri = 12;
+	JobJobCommand command = 13;
+	string glue_version = 14;
+	JobExecutionProperty execution_property = 15;
+	string security_configuration = 16;
+	int32 number_of_workers = 17;
+	map<string, string> tags = 18;
+	double max_capacity = 19;
+}
+
+message MLTransformFindMatchesParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double precision_recall_tradeoff = 2;
+	bool enforce_provided_labels = 3;
+	string primary_key_column_name = 4;
+	double accuracy_cost_tradeoff = 5;
+}
+
+message MLTransformTransformParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transform_type = 2;
+	MLTransformFindMatchesParameters find_matches_parameters = 3;
+}
+
+message MLTransformGlueTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string connection_name = 2;
+	string table_name = 3;
+	string database_name = 4;
+	string catalog_id = 5;
+}
+
+message MLTransformInputRecordTables {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated MLTransformGlueTables glue_tables = 2;
+}
+
+message MLTransform {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string role = 2;
+	int32 max_retries = 3;
+	string worker_type = 4;
+	string description = 5;
+	int32 timeout = 6;
+	string glue_version = 7;
+	MLTransformTransformParameters transform_parameters = 8;
+	MLTransformInputRecordTables input_record_tables = 9;
+	int32 number_of_workers = 10;
+	map<string, string> tags = 11;
+	string name = 12;
+	double max_capacity = 13;
+}
+
+message PartitionSkewedInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string skewed_column_names = 2;
+	repeated string skewed_column_values = 3;
+	map<string, string> skewed_column_value_location_maps = 4;
+}
+
+message PartitionColumn {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+	string name = 3;
+}
+
+message PartitionSerdeInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> parameters = 2;
+	string serialization_library = 3;
+	string name = 4;
+}
+
+message PartitionOrder {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string column = 2;
+	int32 sort_order = 3;
+}
+
+message PartitionStorageDescriptor {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool stored_as_sub_directories = 2;
+	map<string, string> parameters = 3;
+	repeated string bucket_columns = 4;
+	PartitionSkewedInfo skewed_info = 5;
+	string input_format = 6;
+	int32 number_of_buckets = 7;
+	string output_format = 8;
+	repeated PartitionColumn columns = 9;
+	PartitionSerdeInfo serde_info = 10;
+	repeated PartitionOrder sort_columns = 11;
+	bool compressed = 12;
+	string location = 13;
+}
+
+message PartitionPartitionInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> parameters = 2;
+	PartitionStorageDescriptor storage_descriptor = 3;
+	repeated string values = 4;
+}
+
+message Partition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string table_name = 2;
+	string database_name = 3;
+	string catalog_id = 4;
+	PartitionPartitionInput partition_input = 5;
+}
+
+message SecurityConfigurationS3Encryptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message SecurityConfigurationCloudWatchEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_key_arn = 2;
+	string cloud_watch_encryption_mode = 3;
+}
+
+message SecurityConfigurationJobBookmarksEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_key_arn = 2;
+	string job_bookmarks_encryption_mode = 3;
+}
+
+message SecurityConfigurationEncryptionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SecurityConfigurationS3Encryptions s3_encryptions = 2;
+	SecurityConfigurationCloudWatchEncryption cloud_watch_encryption = 3;
+	SecurityConfigurationJobBookmarksEncryption job_bookmarks_encryption = 4;
+}
+
+message SecurityConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	SecurityConfigurationEncryptionConfiguration encryption_configuration = 2;
+	string name = 3;
+}
+
+message TableSkewedInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string skewed_column_names = 2;
+	repeated string skewed_column_values = 3;
+	map<string, string> skewed_column_value_location_maps = 4;
+}
+
+message TableColumn {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comment = 2;
+	string name = 3;
+}
+
+message TableSerdeInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> parameters = 2;
+	string serialization_library = 3;
+	string name = 4;
+}
+
+message TableOrder {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string column = 2;
+	int32 sort_order = 3;
+}
+
+message TableStorageDescriptor {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool stored_as_sub_directories = 2;
+	map<string, string> parameters = 3;
+	repeated string bucket_columns = 4;
+	TableSkewedInfo skewed_info = 5;
+	string input_format = 6;
+	int32 number_of_buckets = 7;
+	string output_format = 8;
+	repeated TableColumn columns = 9;
+	TableSerdeInfo serde_info = 10;
+	repeated TableOrder sort_columns = 11;
+	bool compressed = 12;
+	string location = 13;
+}
+
+message TableTableInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string owner = 2;
+	string view_original_text = 3;
+	string description = 4;
+	string table_type = 5;
+	map<string, string> parameters = 6;
+	string view_expanded_text = 7;
+	TableStorageDescriptor storage_descriptor = 8;
+	repeated TableColumn partition_keys = 9;
+	int32 retention = 10;
+	string name = 11;
+}
+
+message Table {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TableTableInput table_input = 2;
+	string database_name = 3;
+	string catalog_id = 4;
+}
+
+message TriggerNotificationProperty {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 notify_delay_after = 2;
+}
+
+message TriggerAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TriggerNotificationProperty notification_property = 2;
+	string crawler_name = 3;
+	int32 timeout = 4;
+	string job_name = 5;
+	map<string, string> arguments = 6;
+	string security_configuration = 7;
+}
+
+message TriggerCondition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string crawler_name = 2;
+	string state = 3;
+	string crawl_state = 4;
+	string logical_operator = 5;
+	string job_name = 6;
+}
+
+message TriggerPredicate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string logical = 2;
+	repeated TriggerCondition conditions = 3;
+}
+
+message Trigger {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string type = 2;
+	bool start_on_creation = 3;
+	string description = 4;
+	repeated TriggerAction actions = 5;
+	string workflow_name = 6;
+	string schedule = 7;
+	map<string, string> tags = 8;
+	string name = 9;
+	TriggerPredicate predicate = 10;
+}
+
+message Workflow {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> default_run_properties = 3;
+	map<string, string> tags = 4;
+	string name = 5;
+}
+
+message SecurityConfigurationS3Encryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_key_arn = 2;
+	string s3_encryption_mode = 3;
+}
+

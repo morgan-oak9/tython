@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_route;
+
+import "shared/shared.proto";
+
+message Route {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_cidr_block = 2;
+	string destination_ipv6_cidr_block = 3;
+	string egress_only_internet_gateway_id = 4;
+	string gateway_id = 5;
+	string instance_id = 6;
+	string nat_gateway_id = 7;
+	string network_interface_id = 8;
+	string route_table_id = 9;
+	string transit_gateway_id = 10;
+	string vpc_peering_connection_id = 11;
+}
+
+message EC2_Route {
+	repeated Route route = 1;
+	RouteTable route_table = 2;
+}
+
+message RouteTable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+	string vpc_id = 3;
+}
+

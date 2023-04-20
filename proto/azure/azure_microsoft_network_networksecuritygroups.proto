@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_networksecuritygroups;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_networkSecurityGroups {
+	NetworkSecurityGroups network_security_groups = 1;
+	repeated NetworkSecurityGroupsSecurityRules network_security_groups_security_rules = 2;
+}
+
+message NetworkSecurityGroupsSecurityRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	string protocol = 4;
+	string source_port_range = 5;
+	string destination_port_range = 6;
+	string source_address_prefix = 7;
+	repeated string source_address_prefixes = 8;
+	repeated string source_application_security_groups = 9;
+	string destination_address_prefix = 10;
+	repeated string destination_address_prefixes = 11;
+	repeated string destination_application_security_groups = 12;
+	repeated string source_port_ranges = 13;
+	repeated string destination_port_ranges = 14;
+	string access = 15;
+	int32 priority = 16;
+	string direction = 17;
+}
+
+message NetworkSecurityGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	repeated SecurityRule security_rules = 5;
+}
+
+message SecurityRule {
+	string description = 1;
+	string protocol = 2;
+	string source_port_range = 3;
+	string destination_port_range = 4;
+	string source_address_prefix = 5;
+	repeated string source_address_prefixes = 6;
+	repeated string source_application_security_groups = 7;
+	string destination_address_prefix = 8;
+	repeated string destination_address_prefixes = 9;
+	repeated string destination_application_security_groups = 10;
+	repeated string source_port_ranges = 11;
+	repeated string destination_port_ranges = 12;
+	string access = 13;
+	int32 priority = 14;
+	string direction = 15;
+	string name = 16;
+}
+

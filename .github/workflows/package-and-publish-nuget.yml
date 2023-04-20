@@ -1,0 +1,32 @@
+name: NuGet Package and Publish
+
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number for Nuget package'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install .NET 6.0 SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          6.0.x  
+
+    - name: Build & Pack
+      run: |
+        version=${{ github.event.inputs.version }}
+        dotnet pack csharp/oak9.tython/oak9.tython.csproj --configuration Release -o ./publish /p:PackageVersion=$version
+
+    - name: Publish to NuGet
+      run: dotnet nuget push ./publish/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}

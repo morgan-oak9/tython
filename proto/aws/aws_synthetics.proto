@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package oak9.tython.aws.synthetics;
+
+import "shared/shared.proto";
+
+message CanaryCode {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_bucket = 2;
+	string s3_key = 3;
+	string s3_object_version = 4;
+	string script = 5;
+	string handler = 6;
+}
+
+message CanarySchedule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string expression = 2;
+	string duration_in_seconds = 3;
+}
+
+message CanaryVPCConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string vpc_id = 2;
+	repeated string subnet_ids = 3;
+	repeated string security_group_ids = 4;
+}
+
+message CanaryRunConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 timeout_in_seconds = 2;
+	int32 memory_in_mb = 3;
+}
+
+message Canary {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	CanaryCode code = 3;
+	string artifact_s3_location = 4;
+	CanarySchedule schedule = 5;
+	string execution_role_arn = 6;
+	string runtime_version = 7;
+	int32 success_retention_period = 8;
+	int32 failure_retention_period = 9;
+	map<string, string> tags = 10;
+	CanaryVPCConfig vpc_config = 11;
+	CanaryRunConfig run_config = 12;
+	bool start_canary_after_creation = 13;
+}
+
+message Synthetics {
+	repeated Canary canary = 1;
+}
+

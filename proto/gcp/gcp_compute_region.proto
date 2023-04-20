@@ -1,0 +1,956 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_region;
+
+import "shared/shared.proto";
+
+message ComputeRegionAutoscalerXAutoscalingPolicyXCpuUtilization {
+	string predictive_method = 1;
+	double target = 2;
+}
+
+message ComputeRegionAutoscalerXAutoscalingPolicyXLoadBalancingUtilization {
+	double target = 1;
+}
+
+message ComputeRegionAutoscalerXAutoscalingPolicyXMetric {
+	string name = 1;
+	double target = 2;
+	string type = 3;
+}
+
+message ComputeRegionAutoscalerXAutoscalingPolicyXScaleInControlXMaxScaledInReplicas {
+	double fixed = 1;
+	double percent = 2;
+}
+
+message ComputeRegionAutoscalerXAutoscalingPolicyXScaleInControl {
+	double time_window_sec = 1;
+	ComputeRegionAutoscalerXAutoscalingPolicyXScaleInControlXMaxScaledInReplicas max_scaled_in_replicas = 2;
+}
+
+message ComputeRegionAutoscalerXAutoscalingPolicyXScalingSchedules {
+	string description = 1;
+	bool disabled = 2;
+	double duration_sec = 3;
+	double min_required_replicas = 4;
+	string name = 5;
+	string schedule = 6;
+	string time_zone = 7;
+}
+
+message ComputeRegionAutoscalerXAutoscalingPolicy {
+	double cooldown_period = 1;
+	double max_replicas = 2;
+	double min_replicas = 3;
+	string mode = 4;
+	ComputeRegionAutoscalerXAutoscalingPolicyXCpuUtilization cpu_utilization = 5;
+	ComputeRegionAutoscalerXAutoscalingPolicyXLoadBalancingUtilization load_balancing_utilization = 6;
+	repeated ComputeRegionAutoscalerXAutoscalingPolicyXMetric metric = 7;
+	ComputeRegionAutoscalerXAutoscalingPolicyXScaleInControl scale_in_control = 8;
+	repeated ComputeRegionAutoscalerXAutoscalingPolicyXScalingSchedules scaling_schedules = 9;
+}
+
+message ComputeRegionAutoscalerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionAutoscaler {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string self_link = 7;
+	string target = 8;
+	ComputeRegionAutoscalerXAutoscalingPolicy autoscaling_policy = 9;
+	ComputeRegionAutoscalerXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ComputeRegionBackendServiceXBackend {
+	string balancing_mode = 1;
+	double capacity_scaler = 2;
+	string description = 3;
+	bool failover = 4;
+	string group = 5;
+	double max_connections = 6;
+	double max_connections_per_endpoint = 7;
+	double max_connections_per_instance = 8;
+	double max_rate = 9;
+	double max_rate_per_endpoint = 10;
+	double max_rate_per_instance = 11;
+	double max_utilization = 12;
+}
+
+message ComputeRegionBackendServiceXCdnPolicyXCacheKeyPolicy {
+	bool include_host = 1;
+	repeated string include_named_cookies = 2;
+	bool include_protocol = 3;
+	bool include_query_string = 4;
+	repeated string query_string_blacklist = 5;
+	repeated string query_string_whitelist = 6;
+}
+
+message ComputeRegionBackendServiceXCdnPolicyXNegativeCachingPolicy {
+	double code = 1;
+}
+
+message ComputeRegionBackendServiceXCdnPolicy {
+	string cache_mode = 1;
+	double client_ttl = 2;
+	double default_ttl = 3;
+	double max_ttl = 4;
+	bool negative_caching = 5;
+	double serve_while_stale = 6;
+	double signed_url_cache_max_age_sec = 7;
+	ComputeRegionBackendServiceXCdnPolicyXCacheKeyPolicy cache_key_policy = 8;
+	repeated ComputeRegionBackendServiceXCdnPolicyXNegativeCachingPolicy negative_caching_policy = 9;
+}
+
+message ComputeRegionBackendServiceXCircuitBreakers {
+	double max_connections = 1;
+	double max_pending_requests = 2;
+	double max_requests = 3;
+	double max_requests_per_connection = 4;
+	double max_retries = 5;
+}
+
+message ComputeRegionBackendServiceXConsistentHashXHttpCookieXTtl {
+	double nanos = 1;
+	double seconds = 2;
+}
+
+message ComputeRegionBackendServiceXConsistentHashXHttpCookie {
+	string name = 1;
+	string path = 2;
+	ComputeRegionBackendServiceXConsistentHashXHttpCookieXTtl ttl = 3;
+}
+
+message ComputeRegionBackendServiceXConsistentHash {
+	string http_header_name = 1;
+	double minimum_ring_size = 2;
+	ComputeRegionBackendServiceXConsistentHashXHttpCookie http_cookie = 3;
+}
+
+message ComputeRegionBackendServiceXFailoverPolicy {
+	bool disable_connection_drain_on_failover = 1;
+	bool drop_traffic_if_unhealthy = 2;
+	double failover_ratio = 3;
+}
+
+message ComputeRegionBackendServiceXIap {
+	string oauth2_client_id = 1;
+	string oauth2_client_secret = 2;
+	string oauth2_client_secret_sha256 = 3;
+}
+
+message ComputeRegionBackendServiceXLogConfig {
+	bool enable = 1;
+	double sample_rate = 2;
+}
+
+message ComputeRegionBackendServiceXOutlierDetectionXBaseEjectionTime {
+	double nanos = 1;
+	double seconds = 2;
+}
+
+message ComputeRegionBackendServiceXOutlierDetectionXInterval {
+	double nanos = 1;
+	double seconds = 2;
+}
+
+message ComputeRegionBackendServiceXOutlierDetection {
+	double consecutive_errors = 1;
+	double consecutive_gateway_failure = 2;
+	double enforcing_consecutive_errors = 3;
+	double enforcing_consecutive_gateway_failure = 4;
+	double enforcing_success_rate = 5;
+	double max_ejection_percent = 6;
+	double success_rate_minimum_hosts = 7;
+	double success_rate_request_volume = 8;
+	double success_rate_stdev_factor = 9;
+	ComputeRegionBackendServiceXOutlierDetectionXBaseEjectionTime base_ejection_time = 10;
+	ComputeRegionBackendServiceXOutlierDetectionXInterval interval = 11;
+}
+
+message ComputeRegionBackendServiceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionBackendService {
+	double affinity_cookie_ttl_sec = 1;
+	double connection_draining_timeout_sec = 2;
+	string creation_timestamp = 3;
+	string description = 4;
+	bool enable_cdn = 5;
+	string fingerprint = 6;
+	repeated string health_checks = 7;
+	string id = 8;
+	string load_balancing_scheme = 9;
+	string locality_lb_policy = 10;
+	string name = 11;
+	string network = 12;
+	string port_name = 13;
+	string project = 14;
+	string protocol = 15;
+	string region = 16;
+	string self_link = 17;
+	string session_affinity = 18;
+	double timeout_sec = 19;
+	repeated ComputeRegionBackendServiceXBackend backend = 20;
+	ComputeRegionBackendServiceXCdnPolicy cdn_policy = 21;
+	ComputeRegionBackendServiceXCircuitBreakers circuit_breakers = 22;
+	ComputeRegionBackendServiceXConsistentHash consistent_hash = 23;
+	ComputeRegionBackendServiceXFailoverPolicy failover_policy = 24;
+	ComputeRegionBackendServiceXIap iap = 25;
+	ComputeRegionBackendServiceXLogConfig log_config = 26;
+	ComputeRegionBackendServiceXOutlierDetection outlier_detection = 27;
+	ComputeRegionBackendServiceXTimeouts timeouts = 28;
+	oak9.tython.shared.ResourceInfo resource_info = 29;
+}
+
+message ComputeRegionDiskXDiskEncryptionKey {
+	string kms_key_name = 1;
+	string raw_key = 2;
+	string sha256 = 3;
+}
+
+message ComputeRegionDiskXSourceSnapshotEncryptionKey {
+	string raw_key = 1;
+	string sha256 = 2;
+}
+
+message ComputeRegionDiskXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionDisk {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string label_fingerprint = 4;
+	map<string, string> labels = 5;
+	string last_attach_timestamp = 6;
+	string last_detach_timestamp = 7;
+	string name = 8;
+	double physical_block_size_bytes = 9;
+	string project = 10;
+	string region = 11;
+	repeated string replica_zones = 12;
+	string self_link = 13;
+	double size = 14;
+	string snapshot = 15;
+	string source_snapshot_id = 16;
+	string type = 17;
+	repeated string users = 18;
+	ComputeRegionDiskXDiskEncryptionKey disk_encryption_key = 19;
+	ComputeRegionDiskXSourceSnapshotEncryptionKey source_snapshot_encryption_key = 20;
+	ComputeRegionDiskXTimeouts timeouts = 21;
+	oak9.tython.shared.ResourceInfo resource_info = 22;
+}
+
+message ComputeRegionDiskIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeRegionDiskIamBinding {
+	string etag = 1;
+	string id = 2;
+	repeated string members = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	ComputeRegionDiskIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeRegionDiskIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeRegionDiskIamMember {
+	string etag = 1;
+	string id = 2;
+	string member = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	ComputeRegionDiskIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeRegionDiskIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string name = 3;
+	string policy_data = 4;
+	string project = 5;
+	string region = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ComputeRegionDiskResourcePolicyAttachmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeRegionDiskResourcePolicyAttachment {
+	string disk = 1;
+	string id = 2;
+	string name = 3;
+	string project = 4;
+	string region = 5;
+	ComputeRegionDiskResourcePolicyAttachmentXTimeouts timeouts = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ComputeRegionHealthCheckXGrpcHealthCheck {
+	string grpc_service_name = 1;
+	double port = 2;
+	string port_name = 3;
+	string port_specification = 4;
+}
+
+message ComputeRegionHealthCheckXHttp2HealthCheck {
+	string host = 1;
+	double port = 2;
+	string port_name = 3;
+	string port_specification = 4;
+	string proxy_header = 5;
+	string request_path = 6;
+	string response = 7;
+}
+
+message ComputeRegionHealthCheckXHttpHealthCheck {
+	string host = 1;
+	double port = 2;
+	string port_name = 3;
+	string port_specification = 4;
+	string proxy_header = 5;
+	string request_path = 6;
+	string response = 7;
+}
+
+message ComputeRegionHealthCheckXHttpsHealthCheck {
+	string host = 1;
+	double port = 2;
+	string port_name = 3;
+	string port_specification = 4;
+	string proxy_header = 5;
+	string request_path = 6;
+	string response = 7;
+}
+
+message ComputeRegionHealthCheckXLogConfig {
+	bool enable = 1;
+}
+
+message ComputeRegionHealthCheckXSslHealthCheck {
+	double port = 1;
+	string port_name = 2;
+	string port_specification = 3;
+	string proxy_header = 4;
+	string request = 5;
+	string response = 6;
+}
+
+message ComputeRegionHealthCheckXTcpHealthCheck {
+	double port = 1;
+	string port_name = 2;
+	string port_specification = 3;
+	string proxy_header = 4;
+	string request = 5;
+	string response = 6;
+}
+
+message ComputeRegionHealthCheckXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionHealthCheck {
+	double check_interval_sec = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	double healthy_threshold = 4;
+	string id = 5;
+	string name = 6;
+	string project = 7;
+	string region = 8;
+	string self_link = 9;
+	double timeout_sec = 10;
+	string type = 11;
+	double unhealthy_threshold = 12;
+	ComputeRegionHealthCheckXGrpcHealthCheck grpc_health_check = 13;
+	ComputeRegionHealthCheckXHttp2HealthCheck http2_health_check = 14;
+	ComputeRegionHealthCheckXHttpHealthCheck http_health_check = 15;
+	ComputeRegionHealthCheckXHttpsHealthCheck https_health_check = 16;
+	ComputeRegionHealthCheckXLogConfig log_config = 17;
+	ComputeRegionHealthCheckXSslHealthCheck ssl_health_check = 18;
+	ComputeRegionHealthCheckXTcpHealthCheck tcp_health_check = 19;
+	ComputeRegionHealthCheckXTimeouts timeouts = 20;
+	oak9.tython.shared.ResourceInfo resource_info = 21;
+}
+
+message ComputeRegionInstanceGroupManagerXAutoHealingPolicies {
+	string health_check = 1;
+	double initial_delay_sec = 2;
+}
+
+message ComputeRegionInstanceGroupManagerXNamedPort {
+	string name = 1;
+	double port = 2;
+}
+
+message ComputeRegionInstanceGroupManagerXStatefulDisk {
+	string delete_rule = 1;
+	string device_name = 2;
+}
+
+message ComputeRegionInstanceGroupManagerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionInstanceGroupManagerXUpdatePolicy {
+	string instance_redistribution_type = 1;
+	double max_surge_fixed = 2;
+	double max_surge_percent = 3;
+	double max_unavailable_fixed = 4;
+	double max_unavailable_percent = 5;
+	string minimal_action = 6;
+	string most_disruptive_allowed_action = 7;
+	string replacement_method = 8;
+	string type = 9;
+}
+
+message ComputeRegionInstanceGroupManagerXVersionXTargetSize {
+	double fixed = 1;
+	double percent = 2;
+}
+
+message ComputeRegionInstanceGroupManagerXVersion {
+	string instance_template = 1;
+	string name = 2;
+	ComputeRegionInstanceGroupManagerXVersionXTargetSize target_size = 3;
+}
+
+message ComputeRegionInstanceGroupManager {
+	string base_instance_name = 1;
+	string description = 2;
+	string distribution_policy_target_shape = 3;
+	repeated string distribution_policy_zones = 4;
+	string fingerprint = 5;
+	string id = 6;
+	string instance_group = 7;
+	string name = 8;
+	string project = 9;
+	string region = 10;
+	string self_link = 11;
+	map<string, string> status = 12;
+	repeated string target_pools = 13;
+	double target_size = 14;
+	bool wait_for_instances = 15;
+	string wait_for_instances_status = 16;
+	ComputeRegionInstanceGroupManagerXAutoHealingPolicies auto_healing_policies = 17;
+	repeated ComputeRegionInstanceGroupManagerXNamedPort named_port = 18;
+	repeated ComputeRegionInstanceGroupManagerXStatefulDisk stateful_disk = 19;
+	ComputeRegionInstanceGroupManagerXTimeouts timeouts = 20;
+	ComputeRegionInstanceGroupManagerXUpdatePolicy update_policy = 21;
+	repeated ComputeRegionInstanceGroupManagerXVersion version = 22;
+	oak9.tython.shared.ResourceInfo resource_info = 23;
+}
+
+message ComputeRegionNetworkEndpointGroupXAppEngine {
+	string service = 1;
+	string url_mask = 2;
+	string version = 3;
+}
+
+message ComputeRegionNetworkEndpointGroupXCloudFunction {
+	string function = 1;
+	string url_mask = 2;
+}
+
+message ComputeRegionNetworkEndpointGroupXCloudRun {
+	string service = 1;
+	string tag = 2;
+	string url_mask = 3;
+}
+
+message ComputeRegionNetworkEndpointGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeRegionNetworkEndpointGroup {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	string network = 4;
+	string network_endpoint_type = 5;
+	string project = 6;
+	string psc_target_service = 7;
+	string region = 8;
+	string self_link = 9;
+	string subnetwork = 10;
+	ComputeRegionNetworkEndpointGroupXAppEngine app_engine = 11;
+	ComputeRegionNetworkEndpointGroupXCloudFunction cloud_function = 12;
+	ComputeRegionNetworkEndpointGroupXCloudRun cloud_run = 13;
+	ComputeRegionNetworkEndpointGroupXTimeouts timeouts = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+
+message ComputeRegionPerInstanceConfigXPreservedStateXDisk {
+	string delete_rule = 1;
+	string device_name = 2;
+	string mode = 3;
+	string source = 4;
+}
+
+message ComputeRegionPerInstanceConfigXPreservedState {
+	map<string, string> metadata = 1;
+	repeated ComputeRegionPerInstanceConfigXPreservedStateXDisk disk = 2;
+}
+
+message ComputeRegionPerInstanceConfigXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionPerInstanceConfig {
+	string id = 1;
+	string minimal_action = 2;
+	string most_disruptive_allowed_action = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string region_instance_group_manager = 7;
+	bool remove_instance_state_on_destroy = 8;
+	ComputeRegionPerInstanceConfigXPreservedState preserved_state = 9;
+	ComputeRegionPerInstanceConfigXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ComputeRegionSslCertificateXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeRegionSslCertificate {
+	string certificate = 1;
+	double certificate_id = 2;
+	string creation_timestamp = 3;
+	string description = 4;
+	string id = 5;
+	string name = 6;
+	string name_prefix = 7;
+	string private_key = 8;
+	string project = 9;
+	string region = 10;
+	string self_link = 11;
+	ComputeRegionSslCertificateXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message ComputeRegionTargetHttpProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionTargetHttpProxy {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	double proxy_id = 6;
+	string region = 7;
+	string self_link = 8;
+	string url_map = 9;
+	ComputeRegionTargetHttpProxyXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ComputeRegionTargetHttpsProxyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionTargetHttpsProxy {
+	string creation_timestamp = 1;
+	string description = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	double proxy_id = 6;
+	string region = 7;
+	string self_link = 8;
+	repeated string ssl_certificates = 9;
+	string url_map = 10;
+	ComputeRegionTargetHttpsProxyXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ComputeRegionUrlMapXDefaultUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeRegionUrlMapXHostRule {
+	string description = 1;
+	repeated string hosts = 2;
+	string path_matcher = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXDefaultUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origin_regexes = 4;
+	repeated string allow_origins = 5;
+	bool disabled = 6;
+	repeated string expose_headers = 7;
+	double max_age = 8;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXAbort {
+	double http_status = 1;
+	double percentage = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelayXFixedDelay {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelay {
+	double percentage = 1;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelayXFixedDelay fixed_delay = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicy {
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXAbort abort = 1;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicyXDelay delay = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXRequestMirrorPolicy {
+	string backend_service = 1;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicyXPerTryTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicy {
+	double num_retries = 1;
+	repeated string retry_conditions = 2;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicyXPerTryTimeout per_try_timeout = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServices {
+	string backend_service = 1;
+	double weight = 2;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServicesXHeaderAction header_action = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXRouteAction {
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXCorsPolicy cors_policy = 1;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXFaultInjectionPolicy fault_injection_policy = 2;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXRequestMirrorPolicy request_mirror_policy = 3;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXRetryPolicy retry_policy = 4;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXTimeout timeout = 5;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXUrlRewrite url_rewrite = 6;
+	repeated ComputeRegionUrlMapXPathMatcherXPathRuleXRouteActionXWeightedBackendServices weighted_backend_services = 7;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRuleXUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeRegionUrlMapXPathMatcherXPathRule {
+	repeated string paths = 1;
+	string service = 2;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXRouteAction route_action = 3;
+	ComputeRegionUrlMapXPathMatcherXPathRuleXUrlRedirect url_redirect = 4;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatchesXRangeMatch {
+	double range_end = 1;
+	double range_start = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatches {
+	string exact_match = 1;
+	string header_name = 2;
+	bool invert_match = 3;
+	string prefix_match = 4;
+	bool present_match = 5;
+	string regex_match = 6;
+	string suffix_match = 7;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatchesXRangeMatch range_match = 8;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFiltersXFilterLabels {
+	string name = 1;
+	string value = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFilters {
+	string filter_match_criteria = 1;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFiltersXFilterLabels filter_labels = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXQueryParameterMatches {
+	string exact_match = 1;
+	string name = 2;
+	bool present_match = 3;
+	string regex_match = 4;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRules {
+	string full_path_match = 1;
+	bool ignore_case = 2;
+	string prefix_match = 3;
+	string regex_match = 4;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXHeaderMatches header_matches = 5;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXMetadataFilters metadata_filters = 6;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRulesXQueryParameterMatches query_parameter_matches = 7;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXCorsPolicy {
+	bool allow_credentials = 1;
+	repeated string allow_headers = 2;
+	repeated string allow_methods = 3;
+	repeated string allow_origin_regexes = 4;
+	repeated string allow_origins = 5;
+	bool disabled = 6;
+	repeated string expose_headers = 7;
+	double max_age = 8;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXAbort {
+	double http_status = 1;
+	double percentage = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelayXFixedDelay {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelay {
+	double percentage = 1;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelayXFixedDelay fixed_delay = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicy {
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXAbort abort = 1;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicyXDelay delay = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXRequestMirrorPolicy {
+	string backend_service = 1;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicyXPerTryTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicy {
+	double num_retries = 1;
+	repeated string retry_conditions = 2;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicyXPerTryTimeout per_try_timeout = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXTimeout {
+	double nanos = 1;
+	string seconds = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXUrlRewrite {
+	string host_rewrite = 1;
+	string path_prefix_rewrite = 2;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd {
+	string header_name = 1;
+	string header_value = 2;
+	bool replace = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderAction {
+	repeated string request_headers_to_remove = 1;
+	repeated string response_headers_to_remove = 2;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXRequestHeadersToAdd request_headers_to_add = 3;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderActionXResponseHeadersToAdd response_headers_to_add = 4;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServices {
+	string backend_service = 1;
+	double weight = 2;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServicesXHeaderAction header_action = 3;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteAction {
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXCorsPolicy cors_policy = 1;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXFaultInjectionPolicy fault_injection_policy = 2;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXRequestMirrorPolicy request_mirror_policy = 3;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXRetryPolicy retry_policy = 4;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXTimeout timeout = 5;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXUrlRewrite url_rewrite = 6;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteActionXWeightedBackendServices weighted_backend_services = 7;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRulesXUrlRedirect {
+	string host_redirect = 1;
+	bool https_redirect = 2;
+	string path_redirect = 3;
+	string prefix_redirect = 4;
+	string redirect_response_code = 5;
+	bool strip_query = 6;
+}
+
+message ComputeRegionUrlMapXPathMatcherXRouteRules {
+	double priority = 1;
+	string service = 2;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXHeaderAction header_action = 3;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRulesXMatchRules match_rules = 4;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXRouteAction route_action = 5;
+	ComputeRegionUrlMapXPathMatcherXRouteRulesXUrlRedirect url_redirect = 6;
+}
+
+message ComputeRegionUrlMapXPathMatcher {
+	string default_service = 1;
+	string description = 2;
+	string name = 3;
+	ComputeRegionUrlMapXPathMatcherXDefaultUrlRedirect default_url_redirect = 4;
+	repeated ComputeRegionUrlMapXPathMatcherXPathRule path_rule = 5;
+	repeated ComputeRegionUrlMapXPathMatcherXRouteRules route_rules = 6;
+}
+
+message ComputeRegionUrlMapXTest {
+	string description = 1;
+	string host = 2;
+	string path = 3;
+	string service = 4;
+}
+
+message ComputeRegionUrlMapXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRegionUrlMap {
+	string creation_timestamp = 1;
+	string default_service = 2;
+	string description = 3;
+	string fingerprint = 4;
+	string id = 5;
+	double map_id = 6;
+	string name = 7;
+	string project = 8;
+	string region = 9;
+	string self_link = 10;
+	ComputeRegionUrlMapXDefaultUrlRedirect default_url_redirect = 11;
+	repeated ComputeRegionUrlMapXHostRule host_rule = 12;
+	repeated ComputeRegionUrlMapXPathMatcher path_matcher = 13;
+	repeated ComputeRegionUrlMapXTest test = 14;
+	ComputeRegionUrlMapXTimeouts timeouts = 15;
+	oak9.tython.shared.ResourceInfo resource_info = 16;
+}
+

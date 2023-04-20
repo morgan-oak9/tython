@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.storage.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.api.resource.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+
+message CSIDriver {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	CSIDriverSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CSIDriverList {
+	string api_version = 1;
+	repeated CSIDriver items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CSIDriverSpec {
+	bool attach_required = 1;
+	string fs_group_policy = 2;
+	bool pod_info_on_mount = 3;
+	bool requires_republish = 4;
+	bool se_linux_mount = 5;
+	bool storage_capacity = 6;
+	repeated TokenRequest token_requests = 7;
+	repeated string volume_lifecycle_modes = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CSINode {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	CSINodeSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CSINodeDriver {
+	VolumeNodeResources allocatable = 1;
+	string name = 2;
+	string node_id = 3;
+	repeated string topology_keys = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CSINodeList {
+	string api_version = 1;
+	repeated CSINode items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CSINodeSpec {
+	repeated CSINodeDriver drivers = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message CSIStorageCapacity {
+	string api_version = 1;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity capacity = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity maximum_volume_size = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector node_topology = 6;
+	string storage_class_name = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message CSIStorageCapacityList {
+	string api_version = 1;
+	repeated CSIStorageCapacity items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message StorageClass {
+	bool allow_volume_expansion = 1;
+	repeated oak9.tython.k8s.api.core.v1.TopologySelectorTerm allowed_topologies = 2;
+	string api_version = 3;
+	string kind = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	repeated string mount_options = 6;
+	map<string, string> parameters = 7;
+	string provisioner = 8;
+	string reclaim_policy = 9;
+	string volume_binding_mode = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message StorageClassList {
+	string api_version = 1;
+	repeated StorageClass items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message TokenRequest {
+	string audience = 1;
+	int32 expiration_seconds = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message VolumeAttachment {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	VolumeAttachmentSpec spec = 4;
+	VolumeAttachmentStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message VolumeAttachmentList {
+	string api_version = 1;
+	repeated VolumeAttachment items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message VolumeAttachmentSource {
+	oak9.tython.k8s.api.core.v1.PersistentVolumeSpec inline_volume_spec = 1;
+	string persistent_volume_name = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message VolumeAttachmentSpec {
+	string attacher = 1;
+	string node_name = 2;
+	VolumeAttachmentSource source = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message VolumeAttachmentStatus {
+	VolumeError attach_error = 1;
+	bool attached = 2;
+	map<string, string> attachment_metadata = 3;
+	VolumeError detach_error = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message VolumeError {
+	string message = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time time = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message VolumeNodeResources {
+	int32 count = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+

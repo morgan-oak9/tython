@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_dhcpoptions;
+
+import "shared/shared.proto";
+
+message DHCPOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string domain_name = 2;
+	repeated string domain_name_servers = 3;
+	repeated string netbios_name_servers = 4;
+	int32 netbios_node_type = 5;
+	repeated string ntp_servers = 6;
+	map<string, string> tags = 7;
+}
+
+message EC2_DHCPOptions {
+	DHCPOptions dhcp_options = 1;
+}
+

@@ -1,0 +1,313 @@
+syntax = "proto3";
+
+package oak9.tython.aws.iot;
+
+import "shared/shared.proto";
+
+message AuthorizerTokenSigningPublicKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message AuthorizerTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message Authorizer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string authorizer_function_arn = 2;
+	string authorizer_name = 3;
+	bool signing_disabled = 4;
+	string status = 5;
+	string token_key_name = 6;
+	AuthorizerTokenSigningPublicKeys token_signing_public_keys = 7;
+	AuthorizerTags tags = 8;
+}
+
+message IoT {
+	repeated Authorizer authorizer = 1;
+	repeated Certificate certificate = 2;
+	repeated Policy policy = 3;
+	repeated PolicyPrincipalAttachment policy_principal_attachment = 4;
+	repeated ProvisioningTemplate provisioning_template = 5;
+	repeated Thing thing = 6;
+	repeated ThingPrincipalAttachment thing_principal_attachment = 7;
+	repeated TopicRule topic_rule = 8;
+}
+
+message Certificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ca_certificate_pem = 2;
+	string certificate_pem = 3;
+	string certificate_signing_request = 4;
+	string certificate_mode = 5;
+	string status = 6;
+}
+
+message Policy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> policy_document = 2;
+	string policy_name = 3;
+}
+
+message PolicyPrincipalAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string policy_name = 2;
+	string principal = 3;
+}
+
+message ProvisioningTemplateProvisioningHook {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_arn = 2;
+	string payload_version = 3;
+}
+
+message ProvisioningTemplateTags {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message ProvisioningTemplate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string template_name = 2;
+	string description = 3;
+	bool enabled = 4;
+	string provisioning_role_arn = 5;
+	string template_body = 6;
+	ProvisioningTemplateProvisioningHook pre_provisioning_hook = 7;
+	ProvisioningTemplateTags tags = 8;
+}
+
+message ThingAttributePayload {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> attributes = 2;
+}
+
+message Thing {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ThingAttributePayload attribute_payload = 2;
+	string thing_name = 3;
+}
+
+message ThingPrincipalAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string principal = 2;
+	string thing_name = 3;
+}
+
+message TopicRuleCloudwatchAlarmAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string alarm_name = 2;
+	string role_arn = 3;
+	string state_reason = 4;
+	string state_value = 5;
+}
+
+message TopicRuleCloudwatchMetricAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	string metric_namespace = 3;
+	string metric_timestamp = 4;
+	string metric_unit = 5;
+	string metric_value = 6;
+	string role_arn = 7;
+}
+
+message TopicRuleDynamoDBAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string hash_key_field = 2;
+	string hash_key_type = 3;
+	string hash_key_value = 4;
+	string payload_field = 5;
+	string range_key_field = 6;
+	string range_key_type = 7;
+	string range_key_value = 8;
+	string role_arn = 9;
+	string table_name = 10;
+}
+
+message TopicRulePutItemInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string table_name = 2;
+}
+
+message TopicRuleDynamoDBv2Action {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TopicRulePutItemInput put_item = 2;
+	string role_arn = 3;
+}
+
+message TopicRuleElasticsearchAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string endpoint = 2;
+	string id = 3;
+	string index = 4;
+	string role_arn = 5;
+}
+
+message TopicRuleFirehoseAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string delivery_stream_name = 2;
+	string role_arn = 3;
+	string separator = 4;
+}
+
+message TopicRuleSigV4Authorization {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string role_arn = 2;
+	string service_name = 3;
+	string signing_region = 4;
+}
+
+message TopicRuleHttpAuthorization {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TopicRuleSigV4Authorization sigv4 = 2;
+}
+
+message TopicRuleHttpActionHeader {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message TopicRuleHttpAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TopicRuleHttpAuthorization auth = 2;
+	string confirmation_url = 3;
+	repeated TopicRuleHttpActionHeader headers = 4;
+	string url = 5;
+}
+
+message TopicRuleIotAnalyticsAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string channel_name = 2;
+	string role_arn = 3;
+}
+
+message TopicRuleIotEventsAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string input_name = 2;
+	string message_id = 3;
+	string role_arn = 4;
+}
+
+message TopicRuleAssetPropertyTimestamp {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string offset_in_nanos = 2;
+	string time_in_seconds = 3;
+}
+
+message TopicRuleAssetPropertyVariant {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string boolean_value = 2;
+	string double_value = 3;
+	string integer_value = 4;
+	string string_value = 5;
+}
+
+message TopicRuleAssetPropertyValue {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string quality = 2;
+	TopicRuleAssetPropertyTimestamp timestamp = 3;
+	TopicRuleAssetPropertyVariant value = 4;
+}
+
+message TopicRulePutAssetPropertyValueEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string asset_id = 2;
+	string entry_id = 3;
+	string property_alias = 4;
+	string property_id = 5;
+	repeated TopicRuleAssetPropertyValue property_values = 6;
+}
+
+message TopicRuleIotSiteWiseAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated TopicRulePutAssetPropertyValueEntry put_asset_property_value_entries = 2;
+	string role_arn = 3;
+}
+
+message TopicRuleKinesisAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string partition_key = 2;
+	string role_arn = 3;
+	string stream_name = 4;
+}
+
+message TopicRuleLambdaAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string function_arn = 2;
+}
+
+message TopicRuleRepublishAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 qos = 2;
+	string role_arn = 3;
+	string topic = 4;
+}
+
+message TopicRuleS3Action {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket_name = 2;
+	string key = 3;
+	string role_arn = 4;
+}
+
+message TopicRuleSnsAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string message_format = 2;
+	string role_arn = 3;
+	string target_arn = 4;
+}
+
+message TopicRuleSqsAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string queue_url = 2;
+	string role_arn = 3;
+	bool use_base64 = 4;
+}
+
+message TopicRuleStepFunctionsAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string execution_name_prefix = 2;
+	string role_arn = 3;
+	string state_machine_name = 4;
+}
+
+message TopicRuleAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	TopicRuleCloudwatchAlarmAction cloudwatch_alarm = 2;
+	TopicRuleCloudwatchMetricAction cloudwatch_metric = 3;
+	TopicRuleDynamoDBAction dynamo_db = 4;
+	TopicRuleDynamoDBv2Action dynamo_dbv2 = 5;
+	TopicRuleElasticsearchAction elasticsearch = 6;
+	TopicRuleFirehoseAction firehose = 7;
+	TopicRuleHttpAction http = 8;
+	TopicRuleIotAnalyticsAction iot_analytics = 9;
+	TopicRuleIotEventsAction iot_events = 10;
+	TopicRuleIotSiteWiseAction iot_site_wise = 11;
+	TopicRuleKinesisAction kinesis = 12;
+	TopicRuleLambdaAction lambda = 13;
+	TopicRuleRepublishAction republish = 14;
+	TopicRuleS3Action s3 = 15;
+	TopicRuleSnsAction sns = 16;
+	TopicRuleSqsAction sqs = 17;
+	TopicRuleStepFunctionsAction step_functions = 18;
+}
+
+message TopicRuleTopicRulePayload {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated TopicRuleAction actions = 2;
+	string aws_iot_sql_version = 3;
+	string description = 4;
+	TopicRuleAction error_action = 5;
+	bool rule_disabled = 6;
+	string sql = 7;
+}
+
+message TopicRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string rule_name = 2;
+	TopicRuleTopicRulePayload topic_rule_payload = 3;
+}
+

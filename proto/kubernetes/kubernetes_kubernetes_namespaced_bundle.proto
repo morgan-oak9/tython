@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package sac_kubernetes.kubernetes_namespaced_bundle;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.apps.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.autoscaling.v2.proto";
+import "kubernetes/kubernetes_io.k8s.api.rbac.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.networking.v1.proto";
+
+message Kubernetes_Namespaced {
+	repeated oak9.tython.k8s.api.core.v1.Binding binding = 1;
+	repeated oak9.tython.k8s.api.core.v1.ConfigMap config_map = 2;
+	repeated oak9.tython.k8s.api.core.v1.Pod pod = 3;
+	repeated oak9.tython.k8s.api.core.v1.ServiceAccount service_account = 4;
+	repeated oak9.tython.k8s.api.core.v1.Service service = 5;
+	repeated oak9.tython.k8s.api.apps.v1.DaemonSet daemon_set = 6;
+	repeated oak9.tython.k8s.api.apps.v1.Deployment deployment = 7;
+	repeated oak9.tython.k8s.api.apps.v1.ReplicaSet replica_set = 8;
+	repeated oak9.tython.k8s.api.apps.v1.StatefulSet stateful_set = 9;
+	repeated oak9.tython.k8s.api.autoscaling.v2.HorizontalPodAutoscaler horizontal_pod_autoscaler = 10;
+	repeated oak9.tython.k8s.api.core.v1.PodTemplate pod_template = 11;
+	repeated oak9.tython.k8s.api.core.v1.Secret secret = 12;
+	repeated oak9.tython.k8s.api.rbac.v1.RoleBinding role_binding = 13;
+	repeated oak9.tython.k8s.api.rbac.v1.Role role = 14;
+	repeated oak9.tython.k8s.api.networking.v1.Ingress ingress = 15;
+	repeated oak9.tython.k8s.api.networking.v1.NetworkPolicy network_policy = 16;
+}
+

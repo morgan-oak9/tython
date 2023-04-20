@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.autoscaling.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message CrossVersionObjectReference {
+	string api_version = 1;
+	string kind = 2;
+	string name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message HorizontalPodAutoscaler {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	HorizontalPodAutoscalerSpec spec = 4;
+	HorizontalPodAutoscalerStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message HorizontalPodAutoscalerList {
+	string api_version = 1;
+	repeated HorizontalPodAutoscaler items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message HorizontalPodAutoscalerSpec {
+	int32 max_replicas = 1;
+	int32 min_replicas = 2;
+	CrossVersionObjectReference scale_target_ref = 3;
+	int32 target_cpu_utilization_percentage = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message HorizontalPodAutoscalerStatus {
+	int32 current_cpu_utilization_percentage = 1;
+	int32 current_replicas = 2;
+	int32 desired_replicas = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_scale_time = 4;
+	int32 observed_generation = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message Scale {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ScaleSpec spec = 4;
+	ScaleStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ScaleSpec {
+	int32 replicas = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ScaleStatus {
+	int32 replicas = 1;
+	string selector = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

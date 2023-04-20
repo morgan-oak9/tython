@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package oak9.tython.aws.neptune;
+
+import "shared/shared.proto";
+
+message DBClusterDBClusterRole {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string role_arn = 2;
+	string feature_name = 3;
+}
+
+message DBCluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool storage_encrypted = 2;
+	string restore_to_time = 3;
+	string engine_version = 4;
+	string kms_key_id = 5;
+	repeated DBClusterDBClusterRole associated_roles = 6;
+	repeated string availability_zones = 7;
+	string snapshot_identifier = 8;
+	int32 port = 9;
+	string db_cluster_identifier = 10;
+	string preferred_maintenance_window = 11;
+	bool iam_auth_enabled = 12;
+	string db_subnet_group_name = 13;
+	bool deletion_protection = 14;
+	string preferred_backup_window = 15;
+	bool use_latest_restorable_time = 16;
+	repeated string vpc_security_group_ids = 17;
+	string source_db_cluster_identifier = 18;
+	string db_cluster_parameter_group_name = 19;
+	int32 backup_retention_period = 20;
+	string restore_type = 21;
+	map<string, string> tags = 22;
+	repeated string enable_cloudwatch_logs_exports = 23;
+}
+
+message Neptune {
+	repeated DBCluster db_cluster = 1;
+	repeated DBClusterParameterGroup db_cluster_parameter_group = 2;
+	repeated DBInstance db_instance = 3;
+	repeated DBParameterGroup db_parameter_group = 4;
+	repeated DBSubnetGroup db_subnet_group = 5;
+}
+
+message DBClusterParameterGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> parameters = 3;
+	string family = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message DBInstance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_parameter_group_name = 2;
+	string db_instance_class = 3;
+	bool allow_major_version_upgrade = 4;
+	string db_cluster_identifier = 5;
+	string availability_zone = 6;
+	string preferred_maintenance_window = 7;
+	bool auto_minor_version_upgrade = 8;
+	string db_subnet_group_name = 9;
+	string db_instance_identifier = 10;
+	string db_snapshot_identifier = 11;
+	map<string, string> tags = 12;
+}
+
+message DBParameterGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> parameters = 3;
+	string family = 4;
+	map<string, string> tags = 5;
+	string name = 6;
+}
+
+message DBSubnetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_subnet_group_name = 2;
+	string db_subnet_group_description = 3;
+	repeated string subnet_ids = 4;
+	map<string, string> tags = 5;
+}
+

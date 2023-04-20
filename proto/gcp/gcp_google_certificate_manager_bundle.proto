@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_certificate_manager_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_certificate.proto";
+
+message GoogleCertificateManager {
+	repeated oak9.tython.gcp.certificate.CertificateManagerCertificate certificate_manager_certificate = 1;
+	oak9.tython.gcp.certificate.CertificateManagerCertificateMap certificate_manager_certificate_map = 2;
+	repeated oak9.tython.gcp.certificate.CertificateManagerCertificateMapEntry certificate_manager_certificate_map_entry = 3;
+	repeated oak9.tython.gcp.certificate.CertificateManagerDnsAuthorization certificate_manager_dns_authorization = 4;
+}
+

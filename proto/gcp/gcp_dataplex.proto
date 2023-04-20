@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.dataplex;
+
+import "shared/shared.proto";
+
+message DataplexLakeXMetastore {
+	string service = 1;
+}
+
+message DataplexLakeXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataplexLake {
+	map<string, string> asset_status = 1;
+	string create_time = 2;
+	string description = 3;
+	string display_name = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	string location = 7;
+	map<string, string> metastore_status = 8;
+	string name = 9;
+	string project = 10;
+	string service_account = 11;
+	string state = 12;
+	string uid = 13;
+	string update_time = 14;
+	DataplexLakeXMetastore metastore = 15;
+	DataplexLakeXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+
+message DataplexZoneXDiscoverySpecXCsvOptions {
+	string delimiter = 1;
+	bool disable_type_inference = 2;
+	string encoding = 3;
+	double header_rows = 4;
+}
+
+message DataplexZoneXDiscoverySpecXJsonOptions {
+	bool disable_type_inference = 1;
+	string encoding = 2;
+}
+
+message DataplexZoneXDiscoverySpec {
+	bool enabled = 1;
+	repeated string exclude_patterns = 2;
+	repeated string include_patterns = 3;
+	string schedule = 4;
+	DataplexZoneXDiscoverySpecXCsvOptions csv_options = 5;
+	DataplexZoneXDiscoverySpecXJsonOptions json_options = 6;
+}
+
+message DataplexZoneXResourceSpec {
+	string location_type = 1;
+}
+
+message DataplexZoneXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message DataplexZone {
+	map<string, string> asset_status = 1;
+	string create_time = 2;
+	string description = 3;
+	string display_name = 4;
+	string id = 5;
+	map<string, string> labels = 6;
+	string lake = 7;
+	string location = 8;
+	string name = 9;
+	string project = 10;
+	string state = 11;
+	string type = 12;
+	string uid = 13;
+	string update_time = 14;
+	DataplexZoneXDiscoverySpec discovery_spec = 15;
+	DataplexZoneXResourceSpec resource_spec = 16;
+	DataplexZoneXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+

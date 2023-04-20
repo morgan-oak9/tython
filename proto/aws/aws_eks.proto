@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package oak9.tython.aws.eks;
+
+import "shared/shared.proto";
+
+message ClusterProvider {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key_arn = 2;
+}
+
+message ClusterEncryptionConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string resources = 2;
+	ClusterProvider provider = 3;
+}
+
+message ClusterResourcesVpcConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_group_ids = 2;
+	repeated string subnet_ids = 3;
+	repeated string public_access_cidrs = 4;
+	bool endpoint_private_access = 5;
+	bool endpoint_public_access = 6;
+}
+
+message ClusterKubernetesNetworkConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string service_ipv4_cidr = 2;
+}
+
+message Cluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string version = 2;
+	repeated ClusterEncryptionConfig encryption_config = 3;
+	string role_arn = 4;
+	ClusterResourcesVpcConfig resources_vpc_config = 5;
+	ClusterKubernetesNetworkConfig kubernetes_network_config = 6;
+	string name = 7;
+}
+
+message EKS {
+	Cluster cluster = 1;
+	repeated FargateProfile fargate_profile = 2;
+	repeated Nodegroup nodegroup = 3;
+}
+
+message FargateProfileLabel {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message FargateProfileSelector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string namespace = 2;
+	repeated FargateProfileLabel labels = 3;
+}
+
+message FargateProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cluster_name = 2;
+	string fargate_profile_name = 3;
+	string pod_execution_role_arn = 4;
+	repeated string subnets = 5;
+	repeated FargateProfileSelector selectors = 6;
+	map<string, string> tags = 7;
+}
+
+message NodegroupScalingConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double min_size = 2;
+	double desired_size = 3;
+	double max_size = 4;
+}
+
+message NodegroupLaunchTemplateSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string version = 2;
+	string id = 3;
+	string name = 4;
+}
+
+message NodegroupRemoteAccess {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string source_security_groups = 2;
+	string ec2_ssh_key = 3;
+}
+
+message Nodegroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	NodegroupScalingConfig scaling_config = 2;
+	map<string, string> labels = 3;
+	string release_version = 4;
+	string nodegroup_name = 5;
+	repeated string subnets = 6;
+	string node_role = 7;
+	string ami_type = 8;
+	bool force_update_enabled = 9;
+	string version = 10;
+	NodegroupLaunchTemplateSpecification launch_template = 11;
+	NodegroupRemoteAccess remote_access = 12;
+	double disk_size = 13;
+	string cluster_name = 14;
+	repeated string instance_types = 15;
+	map<string, string> tags = 16;
+}
+

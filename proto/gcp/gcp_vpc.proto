@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.vpc;
+
+import "shared/shared.proto";
+
+message VpcAccessConnectorXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message VpcAccessConnector {
+	string id = 1;
+	string ip_cidr_range = 2;
+	double max_throughput = 3;
+	double min_throughput = 4;
+	string name = 5;
+	string network = 6;
+	string project = 7;
+	string region = 8;
+	string self_link = 9;
+	string state = 10;
+	VpcAccessConnectorXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+

@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+package oak9.tython.aws.wafregional;
+
+import "shared/shared.proto";
+
+message ByteMatchSetFieldToMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data = 2;
+}
+
+message ByteMatchSetByteMatchTuple {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string target_string = 2;
+	string target_string_base64 = 3;
+	string positional_constraint = 4;
+	string text_transformation = 5;
+	ByteMatchSetFieldToMatch field_to_match = 6;
+}
+
+message ByteMatchSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated ByteMatchSetByteMatchTuple byte_match_tuples = 2;
+	string name = 3;
+}
+
+message WAFRegional {
+	repeated ByteMatchSet byte_match_set = 1;
+	repeated GeoMatchSet geo_match_set = 2;
+	repeated IPSet ip_set = 3;
+	repeated RateBasedRule rate_based_rule = 4;
+	repeated RegexPatternSet regex_pattern_set = 5;
+	repeated Rule rule = 6;
+	repeated SizeConstraintSet size_constraint_set = 7;
+	repeated SqlInjectionMatchSet sql_injection_match_set = 8;
+	repeated WebACL web_a_c_l = 9;
+	repeated WebACLAssociation web_a_c_l_association = 10;
+	repeated XssMatchSet xss_match_set = 11;
+}
+
+message GeoMatchSetGeoMatchConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+}
+
+message GeoMatchSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated GeoMatchSetGeoMatchConstraint geo_match_constraints = 2;
+	string name = 3;
+}
+
+message IPSetIPSetDescriptor {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+}
+
+message IPSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated IPSetIPSetDescriptor ip_set_descriptors = 2;
+	string name = 3;
+}
+
+message RateBasedRulePredicate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data_id = 2;
+	bool negated = 3;
+}
+
+message RateBasedRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	int32 rate_limit = 3;
+	repeated RateBasedRulePredicate match_predicates = 4;
+	string rate_key = 5;
+	string name = 6;
+}
+
+message RegexPatternSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string regex_pattern_strings = 2;
+	string name = 3;
+}
+
+message RulePredicate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data_id = 2;
+	bool negated = 3;
+}
+
+message Rule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	repeated RulePredicate predicates = 3;
+	string name = 4;
+}
+
+message SizeConstraintSetFieldToMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data = 2;
+}
+
+message SizeConstraintSetSizeConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string comparison_operator = 2;
+	int32 size = 3;
+	string text_transformation = 4;
+	SizeConstraintSetFieldToMatch field_to_match = 5;
+}
+
+message SizeConstraintSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated SizeConstraintSetSizeConstraint size_constraints = 2;
+	string name = 3;
+}
+
+message SqlInjectionMatchSetFieldToMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data = 2;
+}
+
+message SqlInjectionMatchSetSqlInjectionMatchTuple {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string text_transformation = 2;
+	SqlInjectionMatchSetFieldToMatch field_to_match = 3;
+}
+
+message SqlInjectionMatchSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated SqlInjectionMatchSetSqlInjectionMatchTuple sql_injection_match_tuples = 2;
+	string name = 3;
+}
+
+message WebACLAction {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message WebACLRule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WebACLAction action = 2;
+	int32 priority = 3;
+	string rule_id = 4;
+}
+
+message WebACL {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string metric_name = 2;
+	WebACLAction default_action = 3;
+	repeated WebACLRule rules = 4;
+	string name = 5;
+}
+
+message WebACLAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string web_a_c_l_id = 3;
+}
+
+message XssMatchSetFieldToMatch {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string data = 2;
+}
+
+message XssMatchSetXssMatchTuple {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string text_transformation = 2;
+	XssMatchSetFieldToMatch field_to_match = 3;
+}
+
+message XssMatchSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated XssMatchSetXssMatchTuple xss_match_tuples = 2;
+	string name = 3;
+}
+

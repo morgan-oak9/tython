@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.recaptcha;
+
+import "shared/shared.proto";
+
+message RecaptchaEnterpriseKeyXAndroidSettings {
+	bool allow_all_package_names = 1;
+	repeated string allowed_package_names = 2;
+}
+
+message RecaptchaEnterpriseKeyXIosSettings {
+	bool allow_all_bundle_ids = 1;
+	repeated string allowed_bundle_ids = 2;
+}
+
+message RecaptchaEnterpriseKeyXTestingOptions {
+	string testing_challenge = 1;
+	double testing_score = 2;
+}
+
+message RecaptchaEnterpriseKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message RecaptchaEnterpriseKeyXWebSettings {
+	bool allow_all_domains = 1;
+	bool allow_amp_traffic = 2;
+	repeated string allowed_domains = 3;
+	string challenge_security_preference = 4;
+	string integration_type = 5;
+}
+
+message RecaptchaEnterpriseKey {
+	string create_time = 1;
+	string display_name = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string name = 5;
+	string project = 6;
+	RecaptchaEnterpriseKeyXAndroidSettings android_settings = 7;
+	RecaptchaEnterpriseKeyXIosSettings ios_settings = 8;
+	RecaptchaEnterpriseKeyXTestingOptions testing_options = 9;
+	RecaptchaEnterpriseKeyXTimeouts timeouts = 10;
+	RecaptchaEnterpriseKeyXWebSettings web_settings = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+

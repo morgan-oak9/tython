@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_address;
+
+import "shared/shared.proto";
+
+message ComputeAddressXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeAddress {
+	string address = 1;
+	string address_type = 2;
+	string creation_timestamp = 3;
+	string description = 4;
+	string id = 5;
+	string name = 6;
+	string network = 7;
+	string network_tier = 8;
+	double prefix_length = 9;
+	string project = 10;
+	string purpose = 11;
+	string region = 12;
+	string self_link = 13;
+	string subnetwork = 14;
+	repeated string users = 15;
+	ComputeAddressXTimeouts timeouts = 16;
+	oak9.tython.shared.ResourceInfo resource_info = 17;
+}
+

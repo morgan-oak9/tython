@@ -1,0 +1,378 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_cdn;
+
+import "shared/shared.proto";
+
+message Microsoft_Cdn {
+	repeated CdnWebApplicationFirewallPolicies cdn_web_application_firewall_policies = 1;
+	Profiles profiles = 2;
+	repeated ProfilesEndpoints profiles_endpoints = 3;
+	repeated ProfilesEndpointsCustomDomains profiles_endpoints_custom_domains = 4;
+	repeated ProfilesEndpointsOriginGroups profiles_endpoints_origin_groups = 5;
+	repeated ProfilesEndpointsOrigins profiles_endpoints_origins = 6;
+}
+
+message ProfilesSecurityPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	SecurityPolicyParameters parameters = 3;
+}
+
+message SecurityPolicyParameters {
+	string name = 1;
+}
+
+message ProfilesSecrets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	SecretParameters parameters = 3;
+}
+
+message SecretParameters {
+	string name = 1;
+}
+
+message ProfilesRuleSetsRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated DeliveryRuleAction1 actions = 3;
+	repeated DeliveryRuleCondition conditions = 4;
+	string match_processing_behavior = 5;
+	int32 order = 6;
+}
+
+message ProfilesRuleSets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ProfilesRuleSetsRules profiles_rule_sets_rules = 3;
+}
+
+message ProfilesOriginGroupsOrigins {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ResourceReference azure_origin = 3;
+	string enabled_state = 4;
+	bool enforce_certificate_name_check = 5;
+	string host_name = 6;
+	int32 http_port = 7;
+	int32 https_port = 8;
+	string origin_host_header = 9;
+	int32 priority = 10;
+	map<string, string> shared_private_link_resource = 11;
+	int32 weight = 12;
+}
+
+message ProfilesOriginGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	HealthProbeParameters health_probe_settings = 3;
+	LoadBalancingSettingsParameters load_balancing_settings = 4;
+	ResponseBasedOriginErrorDetectionParameters response_based_afd_origin_error_detection_settings = 5;
+	string session_affinity_state = 6;
+	int32 traffic_restoration_time_to_healed_or_new_endpoints_in_minutes = 7;
+	repeated ProfilesOriginGroupsOrigins profiles_origin_groups_origins = 8;
+}
+
+message LoadBalancingSettingsParameters {
+	int32 additional_latency_in_milliseconds = 1;
+	int32 sample_size = 2;
+	int32 successful_samples_required = 3;
+}
+
+message ProfilesEndpointsOrigins {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool enabled = 3;
+	string host_name = 4;
+	int32 http_port = 5;
+	int32 https_port = 6;
+	string origin_host_header = 7;
+	int32 priority = 8;
+	string private_link_alias = 9;
+	string private_link_approval_message = 10;
+	string private_link_location = 11;
+	string private_link_resource_id = 12;
+	int32 weight = 13;
+}
+
+message ProfilesEndpointsOriginGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	HealthProbeParameters health_probe_settings = 3;
+	repeated ResourceReference origins = 4;
+	ResponseBasedOriginErrorDetectionParameters response_based_origin_error_detection_settings = 5;
+	int32 traffic_restoration_time_to_healed_or_new_endpoints_in_minutes = 6;
+}
+
+message ProfilesEndpointsCustomDomains {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string host_name = 3;
+}
+
+message ProfilesEndpoints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	repeated string content_types_to_compress = 4;
+	ResourceReference default_origin_group = 5;
+	EndpointPropertiesUpdateParametersDeliveryPolicy delivery_policy = 6;
+	repeated GeoFilter geo_filters = 7;
+	bool is_compression_enabled = 8;
+	bool is_http_allowed = 9;
+	bool is_https_allowed = 10;
+	string optimization_type = 11;
+	repeated DeepCreatedOriginGroup origin_groups = 12;
+	string origin_host_header = 13;
+	string origin_path = 14;
+	repeated DeepCreatedOrigin origins = 15;
+	string probe_path = 16;
+	string query_string_caching_behavior = 17;
+	repeated UrlSigningKey url_signing_keys = 18;
+	EndpointPropertiesUpdateParametersWebApplicationFirewallPolicyLink web_application_firewall_policy_link = 19;
+	map<string, string> tags = 20;
+}
+
+message EndpointPropertiesUpdateParametersWebApplicationFirewallPolicyLink {
+	string id = 1;
+}
+
+message UrlSigningKey {
+	string key_id = 1;
+	KeyVaultSigningKeyParameters key_source_parameters = 2;
+}
+
+message KeyVaultSigningKeyParameters {
+	string resource_group_name = 1;
+	string secret_name = 2;
+	string secret_version = 3;
+	string subscription_id = 4;
+	string type_name = 5;
+	string vault_name = 6;
+}
+
+message DeepCreatedOrigin {
+	string name = 1;
+	bool enabled = 2;
+	string host_name = 3;
+	int32 http_port = 4;
+	int32 https_port = 5;
+	string origin_host_header = 6;
+	int32 priority = 7;
+	string private_link_alias = 8;
+	string private_link_approval_message = 9;
+	string private_link_location = 10;
+	string private_link_resource_id = 11;
+	int32 weight = 12;
+}
+
+message DeepCreatedOriginGroup {
+	string name = 1;
+	HealthProbeParameters health_probe_settings = 2;
+	repeated ResourceReference origins = 3;
+	ResponseBasedOriginErrorDetectionParameters response_based_origin_error_detection_settings = 4;
+	int32 traffic_restoration_time_to_healed_or_new_endpoints_in_minutes = 5;
+}
+
+message ResponseBasedOriginErrorDetectionParameters {
+	repeated HttpErrorRangeParameters http_error_ranges = 1;
+	string response_based_detected_error_types = 2;
+	int32 response_based_failover_threshold_percentage = 3;
+}
+
+message HttpErrorRangeParameters {
+	int32 begin = 1;
+	int32 end = 2;
+}
+
+message HealthProbeParameters {
+	int32 probe_interval_in_seconds = 1;
+	string probe_path = 2;
+	string probe_protocol = 3;
+	string probe_request_type = 4;
+}
+
+message GeoFilter {
+	string action = 1;
+	repeated string country_codes = 2;
+	string relative_path = 3;
+}
+
+message EndpointPropertiesUpdateParametersDeliveryPolicy {
+	string description = 1;
+	repeated DeliveryRule rules = 2;
+}
+
+message DeliveryRule {
+	repeated DeliveryRuleAction1 actions = 1;
+	repeated DeliveryRuleCondition conditions = 2;
+	string name = 3;
+	int32 order = 4;
+}
+
+message DeliveryRuleCondition {
+	string name = 1;
+}
+
+message DeliveryRuleAction1 {
+	string name = 1;
+}
+
+message ProfilesCustomDomains {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ResourceReference azure_dns_zone = 3;
+	string host_name = 4;
+	ResourceReference pre_validated_custom_domain_resource_id = 5;
+	AFDDomainHttpsParameters tls_settings = 6;
+}
+
+message AFDDomainHttpsParameters {
+	string certificate_type = 1;
+	string minimum_tls_version = 2;
+	ResourceReference secret = 3;
+}
+
+message ProfilesAfdEndpointsRoutes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	AfdRouteCacheConfiguration cache_configuration = 3;
+	repeated ActivatedResourceReference custom_domains = 4;
+	string enabled_state = 5;
+	string forwarding_protocol = 6;
+	string https_redirect = 7;
+	string link_to_default_domain = 8;
+	ResourceReference origin_group = 9;
+	string origin_path = 10;
+	repeated string patterns_to_match = 11;
+	repeated ResourceReference rule_sets = 12;
+	repeated string supported_protocols = 13;
+}
+
+message ResourceReference {
+	string id = 1;
+}
+
+message ActivatedResourceReference {
+	string id = 1;
+}
+
+message AfdRouteCacheConfiguration {
+	map<string, string> compression_settings = 1;
+	string query_parameters = 2;
+	string query_string_caching_behavior = 3;
+}
+
+message ProfilesAfdEndpoints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string enabled_state = 4;
+	int32 origin_response_timeout_seconds = 5;
+	map<string, string> tags = 6;
+	repeated ProfilesAfdEndpointsRoutes profiles_afd_endpoints_routes = 7;
+}
+
+message Profiles {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	ManagedServiceIdentity identity = 4;
+	int32 origin_response_timeout_seconds = 5;
+	Sku sku = 6;
+	map<string, string> tags = 7;
+	repeated ProfilesCustomDomains profiles_custom_domains = 8;
+	repeated ProfilesAfdEndpoints profiles_afd_endpoints = 9;
+	repeated ProfilesOriginGroups profiles_origin_groups = 10;
+	repeated ProfilesRuleSets profiles_rule_sets = 11;
+	repeated ProfilesSecurityPolicies profiles_security_policies = 12;
+	repeated ProfilesSecrets profiles_secrets = 13;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+}
+
+message CdnWebApplicationFirewallPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string location = 3;
+	string name = 4;
+	CustomRuleList custom_rules = 5;
+	ManagedRuleSetList managed_rules = 6;
+	PolicySettings policy_settings = 7;
+	RateLimitRuleList rate_limit_rules = 8;
+	Sku sku = 9;
+	map<string, string> tags = 10;
+}
+
+message Sku {
+	string name = 1;
+}
+
+message RateLimitRuleList {
+	repeated RateLimitRule rules = 1;
+}
+
+message RateLimitRule {
+	string action = 1;
+	string enabled_state = 2;
+	repeated MatchCondition match_conditions = 3;
+	string name = 4;
+	int32 priority = 5;
+	int32 rate_limit_duration_in_minutes = 6;
+	int32 rate_limit_threshold = 7;
+}
+
+message PolicySettings {
+	string default_custom_block_response_body = 1;
+	int32 default_custom_block_response_status_code = 2;
+	string default_redirect_url = 3;
+	string enabled_state = 4;
+	string mode = 5;
+}
+
+message ManagedRuleSetList {
+	repeated ManagedRuleSet managed_rule_sets = 1;
+}
+
+message ManagedRuleSet {
+	int32 anomaly_score = 1;
+	repeated ManagedRuleGroupOverride rule_group_overrides = 2;
+	string rule_set_type = 3;
+	string rule_set_version = 4;
+}
+
+message ManagedRuleGroupOverride {
+	string rule_group_name = 1;
+	repeated ManagedRuleOverride rules = 2;
+}
+
+message ManagedRuleOverride {
+	string action = 1;
+	string enabled_state = 2;
+	string rule_id = 3;
+}
+
+message CustomRuleList {
+	repeated CustomRule rules = 1;
+}
+
+message CustomRule {
+	string action = 1;
+	string enabled_state = 2;
+	repeated MatchCondition match_conditions = 3;
+	string name = 4;
+	int32 priority = 5;
+}
+
+message MatchCondition {
+	repeated string match_value = 1;
+	string match_variable = 2;
+	bool negate_condition = 3;
+	string operator = 4;
+	string selector = 5;
+	repeated string transforms = 6;
+}
+

@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.policy.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.util.intstr.proto";
+
+message Eviction {
+	string api_version = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions delete_options = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodDisruptionBudget {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PodDisruptionBudgetSpec spec = 4;
+	PodDisruptionBudgetStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PodDisruptionBudgetList {
+	string api_version = 1;
+	repeated PodDisruptionBudget items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodDisruptionBudgetSpec {
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString max_unavailable = 1;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString min_available = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 3;
+	string unhealthy_pod_eviction_policy = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodDisruptionBudgetStatus {
+	repeated oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Condition conditions = 1;
+	int32 current_healthy = 2;
+	int32 desired_healthy = 3;
+	map<string, string> disrupted_pods = 4;
+	int32 disruptions_allowed = 5;
+	int32 expected_pods = 6;
+	int32 observed_generation = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

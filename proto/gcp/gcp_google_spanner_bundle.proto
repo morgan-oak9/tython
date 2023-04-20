@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_spanner_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_spanner.proto";
+
+message GoogleSpanner {
+	repeated oak9.tython.gcp.spanner.SpannerDatabase spanner_database = 1;
+	repeated oak9.tython.gcp.spanner.SpannerDatabaseIamBinding spanner_database_iam_binding = 2;
+	repeated oak9.tython.gcp.spanner.SpannerDatabaseIamMember spanner_database_iam_member = 3;
+	repeated oak9.tython.gcp.spanner.SpannerDatabaseIamPolicy spanner_database_iam_policy = 4;
+	oak9.tython.gcp.spanner.SpannerInstance spanner_instance = 5;
+	repeated oak9.tython.gcp.spanner.SpannerInstanceIamBinding spanner_instance_iam_binding = 6;
+	repeated oak9.tython.gcp.spanner.SpannerInstanceIamMember spanner_instance_iam_member = 7;
+	repeated oak9.tython.gcp.spanner.SpannerInstanceIamPolicy spanner_instance_iam_policy = 8;
+}
+

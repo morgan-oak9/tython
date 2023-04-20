@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.batch.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.api.core.v1.proto";
+
+message CronJob {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	CronJobSpec spec = 4;
+	CronJobStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message CronJobList {
+	string api_version = 1;
+	repeated CronJob items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CronJobSpec {
+	string concurrency_policy = 1;
+	int32 failed_jobs_history_limit = 2;
+	JobTemplateSpec job_template = 3;
+	string schedule = 4;
+	int32 starting_deadline_seconds = 5;
+	int32 successful_jobs_history_limit = 6;
+	bool suspend = 7;
+	string time_zone = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CronJobStatus {
+	repeated oak9.tython.k8s.api.core.v1.ObjectReference active = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_schedule_time = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_successful_time = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message Job {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	JobSpec spec = 4;
+	JobStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message JobCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_probe_time = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 2;
+	string message = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message JobList {
+	string api_version = 1;
+	repeated Job items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message JobSpec {
+	int32 active_deadline_seconds = 1;
+	int32 backoff_limit = 2;
+	string completion_mode = 3;
+	int32 completions = 4;
+	bool manual_selector = 5;
+	int32 parallelism = 6;
+	PodFailurePolicy pod_failure_policy = 7;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 8;
+	bool suspend = 9;
+	oak9.tython.k8s.api.core.v1.PodTemplateSpec template = 10;
+	int32 ttl_seconds_after_finished = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message JobStatus {
+	int32 active = 1;
+	string completed_indexes = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time completion_time = 3;
+	repeated JobCondition conditions = 4;
+	int32 failed = 5;
+	int32 ready = 6;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time start_time = 7;
+	int32 succeeded = 8;
+	UncountedTerminatedPods uncounted_terminated_pods = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message JobTemplateSpec {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+	JobSpec spec = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodFailurePolicy {
+	repeated PodFailurePolicyRule rules = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message PodFailurePolicyOnExitCodesRequirement {
+	string container_name = 1;
+	string operator = 2;
+	repeated int32 values = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PodFailurePolicyOnPodConditionsPattern {
+	string status = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodFailurePolicyRule {
+	string action = 1;
+	PodFailurePolicyOnExitCodesRequirement on_exit_codes = 2;
+	repeated PodFailurePolicyOnPodConditionsPattern on_pod_conditions = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message UncountedTerminatedPods {
+	repeated string failed = 1;
+	repeated string succeeded = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

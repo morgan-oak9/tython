@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package oak9.tython.aws.resourcegroups;
+
+import "shared/shared.proto";
+
+message GroupTagFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	repeated string values = 3;
+}
+
+message GroupQuery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string resource_type_filters = 2;
+	string stack_identifier = 3;
+	repeated GroupTagFilter tag_filters = 4;
+}
+
+message GroupResourceQuery {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	GroupQuery query = 2;
+}
+
+message Group {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string description = 3;
+	GroupResourceQuery resource_query = 4;
+	map<string, string> tags = 5;
+}
+
+message ResourceGroups {
+	repeated Group group = 1;
+}
+

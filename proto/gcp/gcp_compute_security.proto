@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_security;
+
+import "shared/shared.proto";
+
+message ComputeSecurityPolicyXAdaptiveProtectionConfigXLayer7DdosDefenseConfig {
+	bool enable = 1;
+	string rule_visibility = 2;
+}
+
+message ComputeSecurityPolicyXAdaptiveProtectionConfig {
+	ComputeSecurityPolicyXAdaptiveProtectionConfigXLayer7DdosDefenseConfig layer_7_ddos_defense_config = 1;
+}
+
+message ComputeSecurityPolicyXAdvancedOptionsConfig {
+	string json_parsing = 1;
+	string log_level = 2;
+}
+
+message ComputeSecurityPolicyXRuleXMatchXConfig {
+	repeated string src_ip_ranges = 1;
+}
+
+message ComputeSecurityPolicyXRuleXMatchXExpr {
+	string expression = 1;
+}
+
+message ComputeSecurityPolicyXRuleXMatch {
+	string versioned_expr = 1;
+	ComputeSecurityPolicyXRuleXMatchXConfig config = 2;
+	ComputeSecurityPolicyXRuleXMatchXExpr expr = 3;
+}
+
+message ComputeSecurityPolicyXRuleXRateLimitOptionsXBanThreshold {
+	double count = 1;
+	double interval_sec = 2;
+}
+
+message ComputeSecurityPolicyXRuleXRateLimitOptionsXExceedRedirectOptions {
+	string target = 1;
+	string type = 2;
+}
+
+message ComputeSecurityPolicyXRuleXRateLimitOptionsXRateLimitThreshold {
+	double count = 1;
+	double interval_sec = 2;
+}
+
+message ComputeSecurityPolicyXRuleXRateLimitOptions {
+	double ban_duration_sec = 1;
+	string conform_action = 2;
+	string enforce_on_key = 3;
+	string enforce_on_key_name = 4;
+	string exceed_action = 5;
+	ComputeSecurityPolicyXRuleXRateLimitOptionsXBanThreshold ban_threshold = 6;
+	ComputeSecurityPolicyXRuleXRateLimitOptionsXExceedRedirectOptions exceed_redirect_options = 7;
+	ComputeSecurityPolicyXRuleXRateLimitOptionsXRateLimitThreshold rate_limit_threshold = 8;
+}
+
+message ComputeSecurityPolicyXRuleXRedirectOptions {
+	string target = 1;
+	string type = 2;
+}
+
+message ComputeSecurityPolicyXRule {
+	string action = 1;
+	string description = 2;
+	bool preview = 3;
+	double priority = 4;
+	ComputeSecurityPolicyXRuleXMatch match = 5;
+	ComputeSecurityPolicyXRuleXRateLimitOptions rate_limit_options = 6;
+	ComputeSecurityPolicyXRuleXRedirectOptions redirect_options = 7;
+}
+
+message ComputeSecurityPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeSecurityPolicy {
+	string description = 1;
+	string fingerprint = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	string self_link = 6;
+	string type = 7;
+	ComputeSecurityPolicyXAdaptiveProtectionConfig adaptive_protection_config = 8;
+	ComputeSecurityPolicyXAdvancedOptionsConfig advanced_options_config = 9;
+	repeated ComputeSecurityPolicyXRule rule = 10;
+	ComputeSecurityPolicyXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+

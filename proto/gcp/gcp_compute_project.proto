@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_project;
+
+import "shared/shared.proto";
+
+message ComputeProjectDefaultNetworkTierXTimeouts {
+	string create = 1;
+}
+
+message ComputeProjectDefaultNetworkTier {
+	string id = 1;
+	string network_tier = 2;
+	string project = 3;
+	ComputeProjectDefaultNetworkTierXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ComputeProjectMetadataXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeProjectMetadata {
+	string id = 1;
+	map<string, string> metadata = 2;
+	string project = 3;
+	ComputeProjectMetadataXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ComputeProjectMetadataItemXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeProjectMetadataItem {
+	string id = 1;
+	string key = 2;
+	string project = 3;
+	string value = 4;
+	ComputeProjectMetadataItemXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

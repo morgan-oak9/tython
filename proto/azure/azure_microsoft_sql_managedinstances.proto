@@ -1,0 +1,265 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_sql_managedinstances;
+
+import "shared/shared.proto";
+
+message Microsoft_Sql_ManagedInstances {
+	repeated ManagedInstancesDatabases managed_instances_databases = 1;
+}
+
+message ManagedInstancesVulnerabilityAssessments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	VulnerabilityAssessmentRecurringScansProperties recurring_scans = 3;
+	string storage_account_access_key = 4;
+	string storage_container_path = 5;
+	string storage_container_sas_key = 6;
+}
+
+message ManagedInstancesSqlAgent {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string state = 3;
+}
+
+message ManagedInstancesServerTrustCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string public_blob = 3;
+}
+
+message ManagedInstancesSecurityAlertPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string disabled_alerts = 3;
+	bool email_account_admins = 4;
+	repeated string email_addresses = 5;
+	int32 retention_days = 6;
+	string state = 7;
+	string storage_account_access_key = 8;
+	string storage_endpoint = 9;
+}
+
+message ManagedInstancesRestorableDroppedDatabasesBackupShortTermRetentionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 retention_days = 3;
+}
+
+message ManagedInstancesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	ManagedInstancePrivateEndpointProperty private_endpoint = 3;
+	ManagedInstancePrivateLinkServiceConnectionStateProperty private_link_service_connection_state = 4;
+}
+
+message ManagedInstancePrivateLinkServiceConnectionStateProperty {
+	string description = 1;
+	string status = 2;
+}
+
+message ManagedInstancePrivateEndpointProperty {
+	string id = 1;
+}
+
+message ManagedInstancesKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string server_key_type = 3;
+	string uri = 4;
+}
+
+message ManagedInstancesEncryptionProtector {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool auto_rotation_enabled = 3;
+	string server_key_name = 4;
+	string server_key_type = 5;
+}
+
+message ManagedInstancesDistributedAvailabilityGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string primary_availability_group_name = 3;
+	string replication_mode = 4;
+	string secondary_availability_group_name = 5;
+	string source_endpoint = 6;
+	string target_database = 7;
+}
+
+message ManagedInstancesDatabasesVulnerabilityAssessmentsRulesBaselines {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated DatabaseVulnerabilityAssessmentRuleBaselineItem baseline_results = 3;
+}
+
+message DatabaseVulnerabilityAssessmentRuleBaselineItem {
+	repeated string result = 1;
+}
+
+message ManagedInstancesDatabasesVulnerabilityAssessments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	VulnerabilityAssessmentRecurringScansProperties recurring_scans = 3;
+	string storage_account_access_key = 4;
+	string storage_container_path = 5;
+	string storage_container_sas_key = 6;
+}
+
+message VulnerabilityAssessmentRecurringScansProperties {
+	repeated string emails = 1;
+	bool email_subscription_admins = 2;
+	bool is_enabled = 3;
+}
+
+message ManagedInstancesDatabasesTransparentDataEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string state = 3;
+}
+
+message ManagedInstancesDatabasesSecurityAlertPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated string disabled_alerts = 3;
+	bool email_account_admins = 4;
+	repeated string email_addresses = 5;
+	int32 retention_days = 6;
+	string state = 7;
+	string storage_account_access_key = 8;
+	string storage_endpoint = 9;
+}
+
+message ManagedInstancesDatabasesSchemasTablesColumnsSensitivityLabels {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string information_type = 3;
+	string information_type_id = 4;
+	string label_id = 5;
+	string label_name = 6;
+	string rank = 7;
+}
+
+message ManagedInstancesDatabasesBackupShortTermRetentionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 retention_days = 3;
+}
+
+message ManagedInstancesDatabasesBackupLongTermRetentionPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string monthly_retention = 3;
+	string weekly_retention = 4;
+	int32 week_of_year = 5;
+	string yearly_retention = 6;
+}
+
+message ManagedInstancesDatabases {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	bool auto_complete_restore = 4;
+	string catalog_collation = 5;
+	string collation = 6;
+	string create_mode = 7;
+	string last_backup_name = 8;
+	string long_term_retention_backup_resource_id = 9;
+	string recoverable_database_id = 10;
+	string restorable_dropped_database_id = 11;
+	string restore_point_in_time = 12;
+	string source_database_id = 13;
+	string storage_container_sas_token = 14;
+	string storage_container_uri = 15;
+	map<string, string> tags = 16;
+	repeated ManagedInstancesDatabasesBackupShortTermRetentionPolicies managed_instances_databases_backup_short_term_retention_policies = 17;
+	repeated ManagedInstancesDatabasesSecurityAlertPolicies managed_instances_databases_security_alert_policies = 18;
+	repeated ManagedInstancesDatabasesTransparentDataEncryption managed_instances_databases_transparent_data_encryption = 19;
+	repeated ManagedInstancesDatabasesVulnerabilityAssessments managed_instances_databases_vulnerability_assessments = 20;
+	repeated ManagedInstancesDatabasesBackupLongTermRetentionPolicies managed_instances_databases_backup_long_term_retention_policies = 21;
+}
+
+message ManagedInstancesAzureADOnlyAuthentications {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool azure_ad_only_authentication = 3;
+}
+
+message ManagedInstancesAdministrators {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string administrator_type = 3;
+	string login = 4;
+	string sid = 5;
+	string tenant_id = 6;
+}
+
+message ManagedInstances {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ResourceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	string administrator_login = 5;
+	string administrator_login_password = 6;
+	ManagedInstanceExternalAdministrator administrators = 7;
+	string collation = 8;
+	string dns_zone_partner = 9;
+	string instance_pool_id = 10;
+	string key_id = 11;
+	string license_type = 12;
+	string maintenance_configuration_id = 13;
+	string managed_instance_create_mode = 14;
+	string minimal_tls_version = 15;
+	string primary_user_assigned_identity_id = 16;
+	string proxy_override = 17;
+	bool public_data_endpoint_enabled = 18;
+	string requested_backup_storage_redundancy = 19;
+	string restore_point_in_time = 20;
+	ServicePrincipal service_principal = 21;
+	string source_managed_instance_id = 22;
+	int32 storage_size_in_gb = 23;
+	string subnet_id = 24;
+	string timezone_id = 25;
+	int32 v_cores = 26;
+	bool zone_redundant = 27;
+	Sku sku = 28;
+	map<string, string> tags = 29;
+	repeated ManagedInstancesDistributedAvailabilityGroups managed_instances_distributed_availability_groups = 30;
+	repeated ManagedInstancesAdministrators managed_instances_administrators = 31;
+	repeated ManagedInstancesAzureADOnlyAuthentications managed_instances_azure_ad_only_authentications = 32;
+	repeated ManagedInstancesEncryptionProtector managed_instances_encryption_protector = 33;
+	repeated ManagedInstancesKeys managed_instances_keys = 34;
+	repeated ManagedInstancesPrivateEndpointConnections managed_instances_private_endpoint_connections = 35;
+	repeated ManagedInstancesVulnerabilityAssessments managed_instances_vulnerability_assessments = 36;
+	repeated ManagedInstancesSecurityAlertPolicies managed_instances_security_alert_policies = 37;
+	repeated ManagedInstancesServerTrustCertificates managed_instances_server_trust_certificates = 38;
+	repeated ManagedInstancesSqlAgent managed_instances_sql_agent = 39;
+}
+
+message Sku {
+	int32 capacity = 1;
+	string family = 2;
+	string name = 3;
+	string size = 4;
+	string tier = 5;
+}
+
+message ServicePrincipal {
+	string type = 1;
+}
+
+message ManagedInstanceExternalAdministrator {
+	string administrator_type = 1;
+	bool azure_ad_only_authentication = 2;
+	string login = 3;
+	string principal_type = 4;
+	string sid = 5;
+	string tenant_id = 6;
+}
+
+message ResourceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+

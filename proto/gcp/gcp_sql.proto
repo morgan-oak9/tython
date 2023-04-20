@@ -1,0 +1,223 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.sql;
+
+import "shared/shared.proto";
+
+message SqlDatabaseXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SqlDatabase {
+	string charset = 1;
+	string collation = 2;
+	string id = 3;
+	string instance = 4;
+	string name = 5;
+	string project = 6;
+	string self_link = 7;
+	SqlDatabaseXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message SqlDatabaseInstanceXReplicaConfiguration {
+	string ca_certificate = 1;
+	string client_certificate = 2;
+	string client_key = 3;
+	double connect_retry_interval = 4;
+	string dump_file_path = 5;
+	bool failover_target = 6;
+	double master_heartbeat_period = 7;
+	string password = 8;
+	string ssl_cipher = 9;
+	string username = 10;
+	bool verify_server_certificate = 11;
+}
+
+message SqlDatabaseInstanceXRestoreBackupContext {
+	double backup_run_id = 1;
+	string instance_id = 2;
+	string project = 3;
+}
+
+message SqlDatabaseInstanceXSettingsXActiveDirectoryConfig {
+	string domain = 1;
+}
+
+message SqlDatabaseInstanceXSettingsXBackupConfigurationXBackupRetentionSettings {
+	double retained_backups = 1;
+	string retention_unit = 2;
+}
+
+message SqlDatabaseInstanceXSettingsXBackupConfiguration {
+	bool binary_log_enabled = 1;
+	bool enabled = 2;
+	string location = 3;
+	bool point_in_time_recovery_enabled = 4;
+	string start_time = 5;
+	double transaction_log_retention_days = 6;
+	SqlDatabaseInstanceXSettingsXBackupConfigurationXBackupRetentionSettings backup_retention_settings = 7;
+}
+
+message SqlDatabaseInstanceXSettingsXDatabaseFlags {
+	string name = 1;
+	string value = 2;
+}
+
+message SqlDatabaseInstanceXSettingsXInsightsConfig {
+	bool query_insights_enabled = 1;
+	double query_string_length = 2;
+	bool record_application_tags = 3;
+	bool record_client_address = 4;
+}
+
+message SqlDatabaseInstanceXSettingsXIpConfigurationXAuthorizedNetworks {
+	string expiration_time = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message SqlDatabaseInstanceXSettingsXIpConfiguration {
+	string allocated_ip_range = 1;
+	bool ipv4_enabled = 2;
+	string private_network = 3;
+	bool require_ssl = 4;
+	repeated SqlDatabaseInstanceXSettingsXIpConfigurationXAuthorizedNetworks authorized_networks = 5;
+}
+
+message SqlDatabaseInstanceXSettingsXLocationPreference {
+	string follow_gae_application = 1;
+	string secondary_zone = 2;
+	string zone = 3;
+}
+
+message SqlDatabaseInstanceXSettingsXMaintenanceWindow {
+	double day = 1;
+	double hour = 2;
+	string update_track = 3;
+}
+
+message SqlDatabaseInstanceXSettingsXSqlServerAuditConfig {
+	string bucket = 1;
+	string retention_interval = 2;
+	string upload_interval = 3;
+}
+
+message SqlDatabaseInstanceXSettings {
+	string activation_policy = 1;
+	string availability_type = 2;
+	string collation = 3;
+	bool disk_autoresize = 4;
+	double disk_autoresize_limit = 5;
+	double disk_size = 6;
+	string disk_type = 7;
+	string pricing_plan = 8;
+	string tier = 9;
+	map<string, string> user_labels = 10;
+	double version = 11;
+	SqlDatabaseInstanceXSettingsXActiveDirectoryConfig active_directory_config = 12;
+	SqlDatabaseInstanceXSettingsXBackupConfiguration backup_configuration = 13;
+	repeated SqlDatabaseInstanceXSettingsXDatabaseFlags database_flags = 14;
+	SqlDatabaseInstanceXSettingsXInsightsConfig insights_config = 15;
+	SqlDatabaseInstanceXSettingsXIpConfiguration ip_configuration = 16;
+	SqlDatabaseInstanceXSettingsXLocationPreference location_preference = 17;
+	SqlDatabaseInstanceXSettingsXMaintenanceWindow maintenance_window = 18;
+	SqlDatabaseInstanceXSettingsXSqlServerAuditConfig sql_server_audit_config = 19;
+}
+
+message SqlDatabaseInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SqlDatabaseInstance {
+	string connection_name = 1;
+	string database_version = 2;
+	bool deletion_protection = 3;
+	string encryption_key_name = 4;
+	string first_ip_address = 5;
+	string id = 6;
+	map<string, string> ip_address = 7;
+	string master_instance_name = 8;
+	string name = 9;
+	string private_ip_address = 10;
+	string project = 11;
+	string public_ip_address = 12;
+	string region = 13;
+	string root_password = 14;
+	string self_link = 15;
+	map<string, string> server_ca_cert = 16;
+	string service_account_email_address = 17;
+	SqlDatabaseInstanceXReplicaConfiguration replica_configuration = 18;
+	SqlDatabaseInstanceXRestoreBackupContext restore_backup_context = 19;
+	SqlDatabaseInstanceXSettings settings = 20;
+	SqlDatabaseInstanceXTimeouts timeouts = 21;
+	oak9.tython.shared.ResourceInfo resource_info = 22;
+}
+
+message SqlSourceRepresentationInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message SqlSourceRepresentationInstance {
+	string database_version = 1;
+	string host = 2;
+	string id = 3;
+	string name = 4;
+	double port = 5;
+	string project = 6;
+	string region = 7;
+	SqlSourceRepresentationInstanceXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message SqlSslCertXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message SqlSslCert {
+	string cert = 1;
+	string cert_serial_number = 2;
+	string common_name = 3;
+	string create_time = 4;
+	string expiration_time = 5;
+	string id = 6;
+	string instance = 7;
+	string private_key = 8;
+	string project = 9;
+	string server_ca_cert = 10;
+	string sha1_fingerprint = 11;
+	SqlSslCertXTimeouts timeouts = 12;
+	oak9.tython.shared.ResourceInfo resource_info = 13;
+}
+
+message SqlUserXSqlServerUserDetails {
+	bool disabled = 1;
+	repeated string server_roles = 2;
+}
+
+message SqlUserXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SqlUser {
+	string deletion_policy = 1;
+	string host = 2;
+	string id = 3;
+	string instance = 4;
+	string name = 5;
+	string password = 6;
+	string project = 7;
+	string type = 8;
+	SqlUserXSqlServerUserDetails sql_server_user_details = 9;
+	SqlUserXTimeouts timeouts = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+

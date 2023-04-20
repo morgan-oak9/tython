@@ -1,0 +1,180 @@
+syntax = "proto3";
+
+package oak9.tython.aws.servicecatalog;
+
+import "shared/shared.proto";
+
+message AcceptedPortfolioShare {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string accept_language = 2;
+	string portfolio_id = 3;
+}
+
+message ServiceCatalog {
+	repeated AcceptedPortfolioShare accepted_portfolio_share = 1;
+	repeated CloudFormationProduct cloud_formation_product = 2;
+	repeated CloudFormationProvisionedProduct cloud_formation_provisioned_product = 3;
+	repeated LaunchNotificationConstraint launch_notification_constraint = 4;
+	repeated LaunchRoleConstraint launch_role_constraint = 5;
+	repeated LaunchTemplateConstraint launch_template_constraint = 6;
+	repeated Portfolio portfolio = 7;
+	repeated PortfolioPrincipalAssociation portfolio_principal_association = 8;
+	repeated PortfolioProductAssociation portfolio_product_association = 9;
+	repeated PortfolioShare portfolio_share = 10;
+	repeated ResourceUpdateConstraint resource_update_constraint = 11;
+	repeated StackSetConstraint stack_set_constraint = 12;
+	repeated TagOption tag_option = 13;
+	repeated TagOptionAssociation tag_option_association = 14;
+}
+
+message CloudFormationProductProvisioningArtifactProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	bool disable_template_validation = 3;
+	map<string, string> info = 4;
+	string name = 5;
+}
+
+message CloudFormationProduct {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool replace_provisioning_artifacts = 2;
+	string owner = 3;
+	string support_description = 4;
+	string description = 5;
+	string distributor = 6;
+	string support_email = 7;
+	string accept_language = 8;
+	string support_url = 9;
+	map<string, string> tags = 10;
+	string name = 11;
+	repeated CloudFormationProductProvisioningArtifactProperties provisioning_artifact_parameters = 12;
+}
+
+message CloudFormationProvisionedProductProvisioningParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message CloudFormationProvisionedProductProvisioningPreferences {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string stack_set_accounts = 2;
+	int32 stack_set_failure_tolerance_count = 3;
+	int32 stack_set_failure_tolerance_percentage = 4;
+	int32 stack_set_max_concurrency_count = 5;
+	int32 stack_set_max_concurrency_percentage = 6;
+	string stack_set_operation_type = 7;
+	repeated string stack_set_regions = 8;
+}
+
+message CloudFormationProvisionedProduct {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string accept_language = 2;
+	repeated string notification_arns = 3;
+	string path_id = 4;
+	string path_name = 5;
+	string product_id = 6;
+	string product_name = 7;
+	string provisioned_product_name = 8;
+	string provisioning_artifact_id = 9;
+	string provisioning_artifact_name = 10;
+	repeated CloudFormationProvisionedProductProvisioningParameter provisioning_parameters = 11;
+	CloudFormationProvisionedProductProvisioningPreferences provisioning_preferences = 12;
+	map<string, string> tags = 13;
+}
+
+message LaunchNotificationConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string notification_arns = 3;
+	string accept_language = 4;
+	string portfolio_id = 5;
+	string product_id = 6;
+}
+
+message LaunchRoleConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string local_role_name = 3;
+	string accept_language = 4;
+	string portfolio_id = 5;
+	string product_id = 6;
+	string role_arn = 7;
+}
+
+message LaunchTemplateConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string accept_language = 3;
+	string portfolio_id = 4;
+	string product_id = 5;
+	string rules = 6;
+}
+
+message Portfolio {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string provider_name = 2;
+	string description = 3;
+	string display_name = 4;
+	string accept_language = 5;
+	map<string, string> tags = 6;
+}
+
+message PortfolioPrincipalAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string principal_arn = 2;
+	string accept_language = 3;
+	string portfolio_id = 4;
+	string principal_type = 5;
+}
+
+message PortfolioProductAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string source_portfolio_id = 2;
+	string accept_language = 3;
+	string portfolio_id = 4;
+	string product_id = 5;
+}
+
+message PortfolioShare {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string account_id = 2;
+	string accept_language = 3;
+	string portfolio_id = 4;
+}
+
+message ResourceUpdateConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string accept_language = 3;
+	string tag_update_on_provisioned_product = 4;
+	string portfolio_id = 5;
+	string product_id = 6;
+}
+
+message StackSetConstraint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string stack_instance_control = 3;
+	string accept_language = 4;
+	string portfolio_id = 5;
+	string product_id = 6;
+	repeated string region_list = 7;
+	string admin_role = 8;
+	repeated string account_list = 9;
+	string execution_role = 10;
+}
+
+message TagOption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool active = 2;
+	string value = 3;
+	string key = 4;
+}
+
+message TagOptionAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string tag_option_id = 2;
+	string resource_id = 3;
+}
+

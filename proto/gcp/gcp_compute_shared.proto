@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_shared;
+
+import "shared/shared.proto";
+
+message ComputeSharedVpcHostProjectXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeSharedVpcHostProject {
+	string id = 1;
+	string project = 2;
+	ComputeSharedVpcHostProjectXTimeouts timeouts = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ComputeSharedVpcServiceProjectXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeSharedVpcServiceProject {
+	string host_project = 1;
+	string id = 2;
+	string service_project = 3;
+	ComputeSharedVpcServiceProjectXTimeouts timeouts = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

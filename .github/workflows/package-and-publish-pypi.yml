@@ -1,0 +1,42 @@
+name: PyPI Package and Publish
+
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number for PyPI package'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Build distribution package
+      run: |
+        export PYPIVERSION=$${{ github.event.inputs.version }}
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+        cd py
+        ./python/build_py_runner.sh
+
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        packages-dir: py/package/dist/
+
+    - name: Notify Discord
+      run: |
+        export PYPIVERSION=${{ github.event.inputs.version }}
+        curl -H "Content-Type: application/json" -d "{\"content\": \"<@&1097577711666467046> <:python:1097581016622846182> A new version of the Python SDK has been released: $PYPIVERSION Check it out here: https://pypi.org/project/oak9-tython/$PYPIVERSION/\"}" $DISCORD_WEBHOOK_URL
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}

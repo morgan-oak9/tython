@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_router;
+
+import "shared/shared.proto";
+
+message ComputeRouterXBgpXAdvertisedIpRanges {
+	string description = 1;
+	string range = 2;
+}
+
+message ComputeRouterXBgp {
+	string advertise_mode = 1;
+	repeated string advertised_groups = 2;
+	double asn = 3;
+	double keepalive_interval = 4;
+	repeated ComputeRouterXBgpXAdvertisedIpRanges advertised_ip_ranges = 5;
+}
+
+message ComputeRouterXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRouter {
+	string creation_timestamp = 1;
+	string description = 2;
+	bool encrypted_interconnect_router = 3;
+	string id = 4;
+	string name = 5;
+	string network = 6;
+	string project = 7;
+	string region = 8;
+	string self_link = 9;
+	ComputeRouterXBgp bgp = 10;
+	ComputeRouterXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ComputeRouterInterfaceXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeRouterInterface {
+	string id = 1;
+	string interconnect_attachment = 2;
+	string ip_range = 3;
+	string name = 4;
+	string project = 5;
+	string region = 6;
+	string router = 7;
+	string vpn_tunnel = 8;
+	ComputeRouterInterfaceXTimeouts timeouts = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message ComputeRouterNatXLogConfig {
+	bool enable = 1;
+	string filter = 2;
+}
+
+message ComputeRouterNatXSubnetwork {
+	string name = 1;
+	repeated string secondary_ip_range_names = 2;
+	repeated string source_ip_ranges_to_nat = 3;
+}
+
+message ComputeRouterNatXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRouterNat {
+	repeated string drain_nat_ips = 1;
+	bool enable_dynamic_port_allocation = 2;
+	bool enable_endpoint_independent_mapping = 3;
+	double icmp_idle_timeout_sec = 4;
+	string id = 5;
+	double max_ports_per_vm = 6;
+	double min_ports_per_vm = 7;
+	string name = 8;
+	string nat_ip_allocate_option = 9;
+	repeated string nat_ips = 10;
+	string project = 11;
+	string region = 12;
+	string router = 13;
+	string source_subnetwork_ip_ranges_to_nat = 14;
+	double tcp_established_idle_timeout_sec = 15;
+	double tcp_transitory_idle_timeout_sec = 16;
+	double udp_idle_timeout_sec = 17;
+	ComputeRouterNatXLogConfig log_config = 18;
+	repeated ComputeRouterNatXSubnetwork subnetwork = 19;
+	ComputeRouterNatXTimeouts timeouts = 20;
+	oak9.tython.shared.ResourceInfo resource_info = 21;
+}
+
+message ComputeRouterPeerXAdvertisedIpRanges {
+	string description = 1;
+	string range = 2;
+}
+
+message ComputeRouterPeerXBfd {
+	double min_receive_interval = 1;
+	double min_transmit_interval = 2;
+	double multiplier = 3;
+	string session_initialization_mode = 4;
+}
+
+message ComputeRouterPeerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeRouterPeer {
+	string advertise_mode = 1;
+	repeated string advertised_groups = 2;
+	double advertised_route_priority = 3;
+	bool enable = 4;
+	string id = 5;
+	string interface = 6;
+	string ip_address = 7;
+	string management_type = 8;
+	string name = 9;
+	double peer_asn = 10;
+	string peer_ip_address = 11;
+	string project = 12;
+	string region = 13;
+	string router = 14;
+	repeated ComputeRouterPeerXAdvertisedIpRanges advertised_ip_ranges = 15;
+	ComputeRouterPeerXBfd bfd = 16;
+	ComputeRouterPeerXTimeouts timeouts = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+

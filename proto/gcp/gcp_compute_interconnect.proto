@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_interconnect;
+
+import "shared/shared.proto";
+
+message ComputeInterconnectAttachmentXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeInterconnectAttachment {
+	bool admin_enabled = 1;
+	string bandwidth = 2;
+	repeated string candidate_subnets = 3;
+	string cloud_router_ip_address = 4;
+	string creation_timestamp = 5;
+	string customer_router_ip_address = 6;
+	string description = 7;
+	string edge_availability_domain = 8;
+	string encryption = 9;
+	string google_reference_id = 10;
+	string id = 11;
+	string interconnect = 12;
+	repeated string ipsec_internal_addresses = 13;
+	string mtu = 14;
+	string name = 15;
+	string pairing_key = 16;
+	string partner_asn = 17;
+	map<string, string> private_interconnect_info = 18;
+	string project = 19;
+	string region = 20;
+	string router = 21;
+	string self_link = 22;
+	string state = 23;
+	string type = 24;
+	double vlan_tag8021q = 25;
+	ComputeInterconnectAttachmentXTimeouts timeouts = 26;
+	oak9.tython.shared.ResourceInfo resource_info = 27;
+}
+

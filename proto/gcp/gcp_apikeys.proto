@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.apikeys;
+
+import "shared/shared.proto";
+
+message ApikeysKeyXRestrictionsXAndroidKeyRestrictionsXAllowedApplications {
+	string package_name = 1;
+	string sha1_fingerprint = 2;
+}
+
+message ApikeysKeyXRestrictionsXAndroidKeyRestrictions {
+	repeated ApikeysKeyXRestrictionsXAndroidKeyRestrictionsXAllowedApplications allowed_applications = 1;
+}
+
+message ApikeysKeyXRestrictionsXApiTargets {
+	repeated string methods = 1;
+	string service = 2;
+}
+
+message ApikeysKeyXRestrictionsXBrowserKeyRestrictions {
+	repeated string allowed_referrers = 1;
+}
+
+message ApikeysKeyXRestrictionsXIosKeyRestrictions {
+	repeated string allowed_bundle_ids = 1;
+}
+
+message ApikeysKeyXRestrictionsXServerKeyRestrictions {
+	repeated string allowed_ips = 1;
+}
+
+message ApikeysKeyXRestrictions {
+	ApikeysKeyXRestrictionsXAndroidKeyRestrictions android_key_restrictions = 1;
+	repeated ApikeysKeyXRestrictionsXApiTargets api_targets = 2;
+	ApikeysKeyXRestrictionsXBrowserKeyRestrictions browser_key_restrictions = 3;
+	ApikeysKeyXRestrictionsXIosKeyRestrictions ios_key_restrictions = 4;
+	ApikeysKeyXRestrictionsXServerKeyRestrictions server_key_restrictions = 5;
+}
+
+message ApikeysKeyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ApikeysKey {
+	string display_name = 1;
+	string id = 2;
+	string key_string = 3;
+	string name = 4;
+	string project = 5;
+	string uid = 6;
+	ApikeysKeyXRestrictions restrictions = 7;
+	ApikeysKeyXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+

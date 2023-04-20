@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_storage_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_storage.proto";
+
+message GoogleStorage {
+	oak9.tython.gcp.storage.StorageBucket storage_bucket = 1;
+	repeated oak9.tython.gcp.storage.StorageBucketAccessControl storage_bucket_access_control = 2;
+	repeated oak9.tython.gcp.storage.StorageBucketAcl storage_bucket_acl = 3;
+	repeated oak9.tython.gcp.storage.StorageBucketIamBinding storage_bucket_iam_binding = 4;
+	repeated oak9.tython.gcp.storage.StorageBucketIamMember storage_bucket_iam_member = 5;
+	repeated oak9.tython.gcp.storage.StorageBucketIamPolicy storage_bucket_iam_policy = 6;
+	repeated oak9.tython.gcp.storage.StorageBucketObject storage_bucket_object = 7;
+	oak9.tython.gcp.storage.StorageDefaultObjectAccessControl storage_default_object_access_control = 8;
+	oak9.tython.gcp.storage.StorageDefaultObjectAcl storage_default_object_acl = 9;
+	oak9.tython.gcp.storage.StorageHmacKey storage_hmac_key = 10;
+	oak9.tython.gcp.storage.StorageNotification storage_notification = 11;
+	repeated oak9.tython.gcp.storage.StorageObjectAccessControl storage_object_access_control = 12;
+	repeated oak9.tython.gcp.storage.StorageObjectAcl storage_object_acl = 13;
+	oak9.tython.gcp.storage.StorageTransferJob storage_transfer_job = 14;
+}
+

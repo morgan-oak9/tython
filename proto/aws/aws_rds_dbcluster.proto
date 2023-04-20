@@ -1,0 +1,180 @@
+syntax = "proto3";
+
+package oak9.tython.aws.rds_dbcluster;
+
+import "shared/shared.proto";
+
+message DBClusterDBClusterRole {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string feature_name = 2;
+	string role_arn = 3;
+}
+
+message DBClusterScalingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool auto_pause = 2;
+	int32 max_capacity = 3;
+	int32 min_capacity = 4;
+	int32 seconds_until_auto_pause = 5;
+}
+
+message DBCluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DBClusterDBClusterRole associated_roles = 2;
+	repeated string availability_zones = 3;
+	int32 backtrack_window = 4;
+	int32 backup_retention_period = 5;
+	string db_cluster_identifier = 6;
+	string db_cluster_parameter_group_name = 7;
+	string db_subnet_group_name = 8;
+	string database_name = 9;
+	bool deletion_protection = 10;
+	repeated string enable_cloudwatch_logs_exports = 11;
+	bool enable_http_endpoint = 12;
+	bool enable_iam_database_authentication = 13;
+	string engine = 14;
+	string engine_mode = 15;
+	string engine_version = 16;
+	string kms_key_id = 17;
+	string master_user_password = 18;
+	string master_username = 19;
+	int32 port = 20;
+	string preferred_backup_window = 21;
+	string preferred_maintenance_window = 22;
+	string replication_source_identifier = 23;
+	string restore_type = 24;
+	DBClusterScalingConfiguration scaling_configuration = 25;
+	string snapshot_identifier = 26;
+	string source_db_cluster_identifier = 27;
+	string source_region = 28;
+	bool storage_encrypted = 29;
+	map<string, string> tags = 30;
+	bool use_latest_restorable_time = 31;
+	repeated string vpc_security_group_ids = 32;
+}
+
+message RDS_DBCluster {
+	DBCluster db_cluster = 1;
+	DBClusterParameterGroup db_cluster_parameter_group = 2;
+	repeated DBProxy db_proxy = 3;
+	repeated DBProxyTargetGroup db_proxy_target_group = 4;
+	DBSecurityGroup db_security_group = 5;
+	repeated DBSecurityGroupIngress db_security_group_ingress = 6;
+	DBSubnetGroup db_subnet_group = 7;
+	EventSubscription event_subscription = 8;
+	OptionGroup option_group = 9;
+}
+
+message DBClusterParameterGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string family = 3;
+	map<string, string> parameters = 4;
+	map<string, string> tags = 5;
+}
+
+message DBProxyTagFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message DBProxy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_proxy_name = 2;
+	bool debug_logging = 3;
+	string engine_family = 4;
+	int32 idle_client_timeout = 5;
+	bool require_tls = 6;
+	string role_arn = 7;
+	repeated DBProxyTagFormat tags = 8;
+	repeated string vpc_security_group_ids = 9;
+	repeated string vpc_subnet_ids = 10;
+	repeated DBProxyAuth auth = 11;
+}
+
+message DBProxyTargetGroupConnectionPoolConfigurationInfoFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_connections_percent = 2;
+	int32 max_idle_connections_percent = 3;
+	int32 connection_borrow_timeout = 4;
+	repeated string session_pinning_filters = 5;
+	string init_query = 6;
+}
+
+message DBProxyTargetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_proxy_name = 2;
+	string target_group_name = 3;
+	DBProxyTargetGroupConnectionPoolConfigurationInfoFormat connection_pool_configuration_info = 4;
+	repeated string db_instance_identifiers = 5;
+	repeated string db_cluster_identifiers = 6;
+}
+
+message DBSecurityGroupIngress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cidr_ip = 2;
+	string e_c2_security_group_id = 3;
+	string e_c2_security_group_name = 4;
+	string e_c2_security_group_owner_id = 5;
+}
+
+message DBSecurityGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated DBSecurityGroupIngress db_security_group_ingress = 2;
+	string e_c2_vpc_id = 3;
+	string group_description = 4;
+	map<string, string> tags = 5;
+}
+
+message DBSubnetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_subnet_group_description = 2;
+	string db_subnet_group_name = 3;
+	repeated string subnet_ids = 4;
+	map<string, string> tags = 5;
+}
+
+message EventSubscription {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	repeated string event_categories = 3;
+	string sns_topic_arn = 4;
+	repeated string source_ids = 5;
+	string source_type = 6;
+}
+
+message OptionGroupOptionSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string value = 3;
+}
+
+message OptionGroupOptionConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string db_security_group_memberships = 2;
+	string option_name = 3;
+	repeated OptionGroupOptionSetting option_settings = 4;
+	string option_version = 5;
+	int32 port = 6;
+	repeated string vpc_security_group_memberships = 7;
+}
+
+message DBProxyAuth {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auth_scheme  = 2;
+	string description = 3;
+	string iam_auth = 4;
+	string secret_arn = 5;
+	string user_name = 6;
+}
+
+message OptionGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string engine_name = 2;
+	string major_engine_version = 3;
+	repeated OptionGroupOptionConfiguration option_configurations = 4;
+	string option_group_description = 5;
+	map<string, string> tags = 6;
+}
+

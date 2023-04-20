@@ -1,0 +1,233 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.cloudbuild;
+
+import "shared/shared.proto";
+
+message CloudbuildTriggerXApprovalConfig {
+	bool approval_required = 1;
+}
+
+message CloudbuildTriggerXBuildXArtifactsXObjects {
+	string location = 1;
+	repeated string paths = 2;
+	map<string, string> timing = 3;
+}
+
+message CloudbuildTriggerXBuildXArtifacts {
+	repeated string images = 1;
+	CloudbuildTriggerXBuildXArtifactsXObjects objects = 2;
+}
+
+message CloudbuildTriggerXBuildXAvailableSecretsXSecretManager {
+	string env = 1;
+	string version_name = 2;
+}
+
+message CloudbuildTriggerXBuildXAvailableSecrets {
+	repeated CloudbuildTriggerXBuildXAvailableSecretsXSecretManager secret_manager = 1;
+}
+
+message CloudbuildTriggerXBuildXOptionsXVolumes {
+	string name = 1;
+	string path = 2;
+}
+
+message CloudbuildTriggerXBuildXOptions {
+	double disk_size_gb = 1;
+	bool dynamic_substitutions = 2;
+	repeated string env = 3;
+	string log_streaming_option = 4;
+	string logging = 5;
+	string machine_type = 6;
+	string requested_verify_option = 7;
+	repeated string secret_env = 8;
+	repeated string source_provenance_hash = 9;
+	string substitution_option = 10;
+	string worker_pool = 11;
+	repeated CloudbuildTriggerXBuildXOptionsXVolumes volumes = 12;
+}
+
+message CloudbuildTriggerXBuildXSecret {
+	string kms_key_name = 1;
+	map<string, string> secret_env = 2;
+}
+
+message CloudbuildTriggerXBuildXSourceXRepoSource {
+	string branch_name = 1;
+	string commit_sha = 2;
+	string dir = 3;
+	bool invert_regex = 4;
+	string project_id = 5;
+	string repo_name = 6;
+	map<string, string> substitutions = 7;
+	string tag_name = 8;
+}
+
+message CloudbuildTriggerXBuildXSourceXStorageSource {
+	string bucket = 1;
+	string generation = 2;
+	string object = 3;
+}
+
+message CloudbuildTriggerXBuildXSource {
+	CloudbuildTriggerXBuildXSourceXRepoSource repo_source = 1;
+	CloudbuildTriggerXBuildXSourceXStorageSource storage_source = 2;
+}
+
+message CloudbuildTriggerXBuildXStepXVolumes {
+	string name = 1;
+	string path = 2;
+}
+
+message CloudbuildTriggerXBuildXStep {
+	repeated string args = 1;
+	string dir = 2;
+	string entrypoint = 3;
+	repeated string env = 4;
+	string id = 5;
+	string name = 6;
+	repeated string secret_env = 7;
+	string timeout = 8;
+	string timing = 9;
+	repeated string wait_for = 10;
+	repeated CloudbuildTriggerXBuildXStepXVolumes volumes = 11;
+}
+
+message CloudbuildTriggerXBuild {
+	repeated string images = 1;
+	string logs_bucket = 2;
+	string queue_ttl = 3;
+	map<string, string> substitutions = 4;
+	repeated string tags = 5;
+	string timeout = 6;
+	CloudbuildTriggerXBuildXArtifacts artifacts = 7;
+	CloudbuildTriggerXBuildXAvailableSecrets available_secrets = 8;
+	CloudbuildTriggerXBuildXOptions options = 9;
+	repeated CloudbuildTriggerXBuildXSecret secret = 10;
+	CloudbuildTriggerXBuildXSource source = 11;
+	repeated CloudbuildTriggerXBuildXStep step = 12;
+}
+
+message CloudbuildTriggerXGitFileSource {
+	string path = 1;
+	string repo_type = 2;
+	string revision = 3;
+	string uri = 4;
+}
+
+message CloudbuildTriggerXGithubXPullRequest {
+	string branch = 1;
+	string comment_control = 2;
+	bool invert_regex = 3;
+}
+
+message CloudbuildTriggerXGithubXPush {
+	string branch = 1;
+	bool invert_regex = 2;
+	string tag = 3;
+}
+
+message CloudbuildTriggerXGithub {
+	string name = 1;
+	string owner = 2;
+	CloudbuildTriggerXGithubXPullRequest pull_request = 3;
+	CloudbuildTriggerXGithubXPush push = 4;
+}
+
+message CloudbuildTriggerXPubsubConfig {
+	string service_account_email = 1;
+	string state = 2;
+	string subscription = 3;
+	string topic = 4;
+}
+
+message CloudbuildTriggerXSourceToBuild {
+	string ref = 1;
+	string repo_type = 2;
+	string uri = 3;
+}
+
+message CloudbuildTriggerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudbuildTriggerXTriggerTemplate {
+	string branch_name = 1;
+	string commit_sha = 2;
+	string dir = 3;
+	bool invert_regex = 4;
+	string project_id = 5;
+	string repo_name = 6;
+	string tag_name = 7;
+}
+
+message CloudbuildTriggerXWebhookConfig {
+	string secret = 1;
+	string state = 2;
+}
+
+message CloudbuildTrigger {
+	string create_time = 1;
+	string description = 2;
+	bool disabled = 3;
+	string filename = 4;
+	string filter = 5;
+	string id = 6;
+	repeated string ignored_files = 7;
+	string include_build_logs = 8;
+	repeated string included_files = 9;
+	string name = 10;
+	string project = 11;
+	string service_account = 12;
+	map<string, string> substitutions = 13;
+	repeated string tags = 14;
+	string trigger_id = 15;
+	CloudbuildTriggerXApprovalConfig approval_config = 16;
+	CloudbuildTriggerXBuild build = 17;
+	CloudbuildTriggerXGitFileSource git_file_source = 18;
+	CloudbuildTriggerXGithub github = 19;
+	CloudbuildTriggerXPubsubConfig pubsub_config = 20;
+	CloudbuildTriggerXSourceToBuild source_to_build = 21;
+	CloudbuildTriggerXTimeouts timeouts = 22;
+	CloudbuildTriggerXTriggerTemplate trigger_template = 23;
+	CloudbuildTriggerXWebhookConfig webhook_config = 24;
+	oak9.tython.shared.ResourceInfo resource_info = 25;
+}
+
+message CloudbuildWorkerPoolXNetworkConfig {
+	string peered_network = 1;
+}
+
+message CloudbuildWorkerPoolXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message CloudbuildWorkerPoolXWorkerConfig {
+	double disk_size_gb = 1;
+	string machine_type = 2;
+	bool no_external_ip = 3;
+}
+
+message CloudbuildWorkerPool {
+	map<string, string> annotations = 1;
+	string create_time = 2;
+	string delete_time = 3;
+	string display_name = 4;
+	string id = 5;
+	string location = 6;
+	string name = 7;
+	string project = 8;
+	string state = 9;
+	string uid = 10;
+	string update_time = 11;
+	CloudbuildWorkerPoolXNetworkConfig network_config = 12;
+	CloudbuildWorkerPoolXTimeouts timeouts = 13;
+	CloudbuildWorkerPoolXWorkerConfig worker_config = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

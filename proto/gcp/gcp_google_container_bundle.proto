@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_container_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_container.proto";
+
+message GoogleContainer {
+	oak9.tython.gcp.container.ContainerCluster container_cluster = 1;
+	repeated oak9.tython.gcp.container.ContainerNodePool container_node_pool = 2;
+}
+

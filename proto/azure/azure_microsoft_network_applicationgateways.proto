@@ -1,0 +1,415 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_applicationgateways;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_applicationGateways {
+	ApplicationGateways application_gateways = 1;
+	ApplicationGatewayWebApplicationFirewallPolicies application_gateway_web_application_firewall_policies = 2;
+}
+
+message HttpListener {
+	string id = 1;
+}
+
+message BackendHttpSettings {
+	string id = 1;
+}
+
+message BackendAddressPool {
+	string id = 1;
+}
+
+message FrontendPort {
+	string id = 1;
+}
+
+message FrontendIPConfiguration {
+	string id = 1;
+}
+
+message Subnet {
+	string id = 1;
+}
+
+message PublicIpAddress {
+	string id = 1;
+}
+
+message ApplicationGatewaysPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 3;
+}
+
+message PrivateLinkServiceConnectionState {
+	string status = 1;
+	string description = 2;
+	string actions_required = 3;
+}
+
+message ApplicationGateways {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ApplicationGatewaySku sku = 5;
+	ApplicationGatewaySslPolicy ssl_policy = 6;
+	repeated ApplicationGatewayIPConfiguration gateway_ip_configurations = 7;
+	repeated ApplicationGatewayAuthenticationCertificate authentication_certificates = 8;
+	repeated ApplicationGatewayTrustedRootCertificate trusted_root_certificates = 9;
+	repeated ApplicationGatewayTrustedClientCertificate trusted_client_certificates = 10;
+	repeated ApplicationGatewaySslCertificate ssl_certificates = 11;
+	repeated ApplicationGatewayFrontendIPConfiguration frontend_ip_configurations = 12;
+	repeated ApplicationGatewayFrontendPort frontend_ports = 13;
+	repeated ApplicationGatewayProbe probes = 14;
+	repeated ApplicationGatewayBackendAddressPool backend_address_pools = 15;
+	repeated ApplicationGatewayBackendHttpSettings backend_http_settings_collection = 16;
+	repeated ApplicationGatewayHttpListener http_listeners = 17;
+	repeated ApplicationGatewaySslProfile ssl_profiles = 18;
+	repeated ApplicationGatewayUrlPathMap url_path_maps = 19;
+	repeated ApplicationGatewayRequestRoutingRule request_routing_rules = 20;
+	repeated ApplicationGatewayRewriteRuleSet rewrite_rule_sets = 21;
+	repeated ApplicationGatewayRedirectConfiguration redirect_configurations = 22;
+	ApplicationGatewayWebApplicationFirewallConfiguration web_application_firewall_configuration = 23;
+	string firewall_policy = 24;
+	bool enable_http2 = 25;
+	bool enable_fips = 26;
+	ApplicationGatewayAutoscaleConfiguration autoscale_configuration = 27;
+	repeated ApplicationGatewayPrivateLinkConfiguration private_link_configurations = 28;
+	repeated ApplicationGatewayCustomError custom_error_configurations = 29;
+	bool force_firewall_policy_association = 30;
+	repeated string zones = 31;
+	ManagedServiceIdentity identity = 32;
+	repeated ApplicationGatewaysPrivateEndpointConnections application_gateways_private_endpoint_connections = 33;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ApplicationGatewayPrivateLinkConfiguration {
+	repeated ApplicationGatewayPrivateLinkIpConfiguration ip_configurations = 1;
+	string name = 2;
+}
+
+message ApplicationGatewayPrivateLinkIpConfiguration {
+	string private_ip_address = 1;
+	string private_ip_allocation_method = 2;
+	Subnet subnet = 3;
+	bool primary = 4;
+	string name = 5;
+}
+
+message ApplicationGatewayAutoscaleConfiguration {
+	int32 min_capacity = 1;
+	int32 max_capacity = 2;
+}
+
+message ApplicationGatewayWebApplicationFirewallConfiguration {
+	bool enabled = 1;
+	string firewall_mode = 2;
+	string rule_set_type = 3;
+	string rule_set_version = 4;
+	repeated ApplicationGatewayFirewallDisabledRuleGroup disabled_rule_groups = 5;
+	bool request_body_check = 6;
+	int32 max_request_body_size = 7;
+	int32 max_request_body_size_in_kb = 8;
+	int32 file_upload_limit_in_mb = 9;
+	repeated ApplicationGatewayFirewallExclusion exclusions = 10;
+}
+
+message ApplicationGatewayFirewallExclusion {
+	string match_variable = 1;
+	string selector_match_operator = 2;
+	string selector = 3;
+}
+
+message ApplicationGatewayFirewallDisabledRuleGroup {
+	string rule_group_name = 1;
+	repeated int32 rules = 2;
+}
+
+message ApplicationGatewayRedirectConfiguration {
+	string redirect_type = 1;
+	string target_listener = 2;
+	string target_url = 3;
+	bool include_path = 4;
+	bool include_query_string = 5;
+	repeated string request_routing_rules = 6;
+	repeated string url_path_maps = 7;
+	repeated string path_rules = 8;
+	string name = 9;
+}
+
+message ApplicationGatewayRewriteRuleSet {
+	repeated ApplicationGatewayRewriteRule rewrite_rules = 1;
+	string name = 2;
+}
+
+message ApplicationGatewayRewriteRule {
+	string name = 1;
+	int32 rule_sequence = 2;
+	repeated ApplicationGatewayRewriteRuleCondition conditions = 3;
+	ApplicationGatewayRewriteRuleActionSet action_set = 4;
+}
+
+message ApplicationGatewayRewriteRuleActionSet {
+	repeated ApplicationGatewayHeaderConfiguration request_header_configurations = 1;
+	repeated ApplicationGatewayHeaderConfiguration response_header_configurations = 2;
+	ApplicationGatewayUrlConfiguration url_configuration = 3;
+}
+
+message ApplicationGatewayUrlConfiguration {
+	string modified_path = 1;
+	string modified_query_string = 2;
+	bool reroute = 3;
+}
+
+message ApplicationGatewayHeaderConfiguration {
+	string header_name = 1;
+	string header_value = 2;
+}
+
+message ApplicationGatewayRewriteRuleCondition {
+	string variable = 1;
+	string pattern = 2;
+	bool ignore_case = 3;
+	bool negate = 4;
+}
+
+message ApplicationGatewayRequestRoutingRule {
+	string rule_type = 1;
+	int32 priority = 2;
+	BackendAddressPool backend_address_pool = 3;
+	BackendHttpSettings backend_http_settings = 4;
+	HttpListener http_listener = 5;
+	string url_path_map = 6;
+	string rewrite_rule_set = 7;
+	string redirect_configuration = 8;
+	string name = 9;
+}
+
+message ApplicationGatewayUrlPathMap {
+	string default_backend_address_pool = 1;
+	string default_backend_http_settings = 2;
+	string default_rewrite_rule_set = 3;
+	string default_redirect_configuration = 4;
+	repeated ApplicationGatewayPathRule path_rules = 5;
+	string name = 6;
+}
+
+message ApplicationGatewayPathRule {
+	repeated string paths = 1;
+	BackendAddressPool backend_address_pool = 2;
+	BackendHttpSettings backend_http_settings = 3;
+	string redirect_configuration = 4;
+	string rewrite_rule_set = 5;
+	string firewall_policy = 6;
+	string name = 7;
+}
+
+message ApplicationGatewaySslProfile {
+	repeated string trusted_client_certificates = 1;
+	ApplicationGatewaySslPolicy ssl_policy = 2;
+	ApplicationGatewayClientAuthConfiguration client_auth_configuration = 3;
+	string name = 4;
+}
+
+message ApplicationGatewayClientAuthConfiguration {
+	bool verify_client_cert_issuer_d_n = 1;
+}
+
+message ApplicationGatewayHttpListener {
+	FrontendIPConfiguration frontend_ip_configuration = 1;
+	FrontendPort frontend_port = 2;
+	string protocol = 3;
+	string host_name = 4;
+	string ssl_certificate = 5;
+	string ssl_profile = 6;
+	bool require_server_name_indication = 7;
+	repeated ApplicationGatewayCustomError custom_error_configurations = 8;
+	string firewall_policy = 9;
+	repeated string host_names = 10;
+	string name = 11;
+}
+
+message ApplicationGatewayCustomError {
+	string status_code = 1;
+	string custom_error_page_url = 2;
+}
+
+message ApplicationGatewayBackendHttpSettings {
+	int32 port = 1;
+	string protocol = 2;
+	string cookie_based_affinity = 3;
+	int32 request_timeout = 4;
+	string probe = 5;
+	repeated string authentication_certificates = 6;
+	repeated string trusted_root_certificates = 7;
+	ApplicationGatewayConnectionDraining connection_draining = 8;
+	string host_name = 9;
+	bool pick_host_name_from_backend_address = 10;
+	string affinity_cookie_name = 11;
+	bool probe_enabled = 12;
+	string path = 13;
+	string name = 14;
+}
+
+message ApplicationGatewayConnectionDraining {
+	bool enabled = 1;
+	int32 drain_timeout_in_sec = 2;
+}
+
+message ApplicationGatewayBackendAddressPool {
+	repeated ApplicationGatewayBackendAddress backend_addresses = 1;
+	string name = 2;
+}
+
+message ApplicationGatewayBackendAddress {
+	string fqdn = 1;
+	string ip_address = 2;
+}
+
+message ApplicationGatewayProbe {
+	string protocol = 1;
+	string host = 2;
+	string path = 3;
+	int32 interval = 4;
+	int32 timeout = 5;
+	int32 unhealthy_threshold = 6;
+	bool pick_host_name_from_backend_http_settings = 7;
+	int32 min_servers = 8;
+	ApplicationGatewayProbeHealthResponseMatch match = 9;
+	int32 port = 10;
+	string name = 11;
+}
+
+message ApplicationGatewayProbeHealthResponseMatch {
+	string body = 1;
+	repeated string status_codes = 2;
+}
+
+message ApplicationGatewayFrontendPort {
+	int32 port = 1;
+	string name = 2;
+}
+
+message ApplicationGatewayFrontendIPConfiguration {
+	string private_ip_address = 1;
+	string private_ip_allocation_method = 2;
+	Subnet subnet = 3;
+	string private_link_configuration = 4;
+	string name = 5;
+	PublicIpAddress public_ip_address = 6;
+}
+
+message ApplicationGatewaySslCertificate {
+	string data = 1;
+	string password = 2;
+	string key_vault_secret_id = 3;
+	string name = 4;
+}
+
+message ApplicationGatewayTrustedClientCertificate {
+	string data = 1;
+	string name = 2;
+}
+
+message ApplicationGatewayTrustedRootCertificate {
+	string data = 1;
+	string key_vault_secret_id = 2;
+	string name = 3;
+}
+
+message ApplicationGatewayAuthenticationCertificate {
+	string data = 1;
+	string name = 2;
+}
+
+message ApplicationGatewayIPConfiguration {
+	Subnet subnet = 1;
+	string name = 2;
+}
+
+message ApplicationGatewaySslPolicy {
+	repeated string disabled_ssl_protocols = 1;
+	string policy_type = 2;
+	string policy_name = 3;
+	repeated string cipher_suites = 4;
+	string min_protocol_version = 5;
+}
+
+message ApplicationGatewaySku {
+	string name = 1;
+	string tier = 2;
+	int32 capacity = 3;
+}
+
+message ApplicationGatewayWebApplicationFirewallPolicies {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	PolicySettings policy_settings = 5;
+	repeated WebApplicationFirewallCustomRule custom_rules = 6;
+	ManagedRulesDefinition managed_rules = 7;
+}
+
+message ManagedRulesDefinition {
+	repeated OwaspCrsExclusionEntry exclusions = 1;
+	repeated ManagedRuleSet managed_rule_sets = 2;
+}
+
+message ManagedRuleSet {
+	string rule_set_type = 1;
+	string rule_set_version = 2;
+	repeated ManagedRuleGroupOverride rule_group_overrides = 3;
+}
+
+message ManagedRuleGroupOverride {
+	string rule_group_name = 1;
+	repeated ManagedRuleOverride rules = 2;
+}
+
+message ManagedRuleOverride {
+	string rule_id = 1;
+	string state = 2;
+}
+
+message OwaspCrsExclusionEntry {
+	string match_variable = 1;
+	string selector_match_operator = 2;
+	string selector = 3;
+}
+
+message WebApplicationFirewallCustomRule {
+	string name = 1;
+	int32 priority = 2;
+	string rule_type = 3;
+	repeated MatchCondition match_conditions = 4;
+	string action = 5;
+}
+
+message MatchCondition {
+	repeated MatchVariable match_variables = 1;
+	string operator = 2;
+	bool negation_conditon = 3;
+	repeated string match_values = 4;
+	repeated string transforms = 5;
+}
+
+message MatchVariable {
+	string variable_name = 1;
+	string selector = 2;
+}
+
+message PolicySettings {
+	string state = 1;
+	string mode = 2;
+	bool request_body_check = 3;
+	int32 max_request_body_size_in_kb = 4;
+	int32 file_upload_limit_in_mb = 5;
+}

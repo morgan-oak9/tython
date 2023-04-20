@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.apimachinery.pkg.runtime;
+
+import "shared/shared.proto";
+
+message RawExtension {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+

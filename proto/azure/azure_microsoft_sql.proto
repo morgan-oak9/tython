@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_sql;
+
+import "shared/shared.proto";
+
+message Microsoft_Sql {
+	repeated InstancePools instance_pools = 1;
+	repeated LocationsInstanceFailoverGroups locations_instance_failover_groups = 2;
+	repeated LocationsServerTrustGroups locations_server_trust_groups = 3;
+}
+
+message LocationsServerTrustGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ServerInfo group_members = 3;
+	repeated string trust_scopes = 4;
+}
+
+message ServerInfo {
+	string server_id = 1;
+}
+
+message LocationsInstanceFailoverGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ManagedInstancePairInfo managed_instance_pairs = 3;
+	repeated PartnerRegionInfo partner_regions = 4;
+	InstanceFailoverGroupReadOnlyEndpoint read_only_endpoint = 5;
+	InstanceFailoverGroupReadWriteEndpoint read_write_endpoint = 6;
+}
+
+message InstanceFailoverGroupReadWriteEndpoint {
+	string failover_policy = 1;
+	int32 failover_with_data_loss_grace_period_minutes = 2;
+}
+
+message InstanceFailoverGroupReadOnlyEndpoint {
+	string failover_policy = 1;
+}
+
+message PartnerRegionInfo {
+	string location = 1;
+}
+
+message ManagedInstancePairInfo {
+	string partner_managed_instance_id = 1;
+	string primary_managed_instance_id = 2;
+}
+
+message InstancePools {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string license_type = 4;
+	string subnet_id = 5;
+	int32 v_cores = 6;
+	Sku sku = 7;
+	map<string, string> tags = 8;
+}
+
+message Sku {
+	int32 capacity = 1;
+	string family = 2;
+	string name = 3;
+	string size = 4;
+	string tier = 5;
+}
+

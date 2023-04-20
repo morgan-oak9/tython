@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.datastore;
+
+import "shared/shared.proto";
+
+message DatastoreIndexXProperties {
+	string direction = 1;
+	string name = 2;
+}
+
+message DatastoreIndexXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message DatastoreIndex {
+	string ancestor = 1;
+	string id = 2;
+	string index_id = 3;
+	string kind = 4;
+	string project = 5;
+	repeated DatastoreIndexXProperties properties = 6;
+	DatastoreIndexXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

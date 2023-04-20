@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.org;
+
+import "shared/shared.proto";
+
+message OrgPolicyPolicyXSpecXRulesXCondition {
+	string description = 1;
+	string expression = 2;
+	string location = 3;
+	string title = 4;
+}
+
+message OrgPolicyPolicyXSpecXRulesXValues {
+	repeated string allowed_values = 1;
+	repeated string denied_values = 2;
+}
+
+message OrgPolicyPolicyXSpecXRules {
+	string allow_all = 1;
+	string deny_all = 2;
+	string enforce = 3;
+	OrgPolicyPolicyXSpecXRulesXCondition condition = 4;
+	OrgPolicyPolicyXSpecXRulesXValues values = 5;
+}
+
+message OrgPolicyPolicyXSpec {
+	string etag = 1;
+	bool inherit_from_parent = 2;
+	bool reset = 3;
+	string update_time = 4;
+	repeated OrgPolicyPolicyXSpecXRules rules = 5;
+}
+
+message OrgPolicyPolicyXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message OrgPolicyPolicy {
+	string id = 1;
+	string name = 2;
+	string parent = 3;
+	OrgPolicyPolicyXSpec spec = 4;
+	OrgPolicyPolicyXTimeouts timeouts = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

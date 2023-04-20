@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_frontdoor_networkexperimentprofiles;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_FrontDoor_NetworkExperimentProfiles {
+	repeated NetworkExperimentProfiles network_experiment_profiles = 1;
+}
+
+message NetworkExperimentProfilesExperiments {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string description = 4;
+	string enabled_state = 5;
+	Endpoint endpoint_a = 6;
+	Endpoint endpoint_b = 7;
+	string resource_state = 8;
+	map<string, string> tags = 9;
+}
+
+message Endpoint {
+	string endpoint = 1;
+	string name = 2;
+}
+
+message NetworkExperimentProfiles {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string location = 3;
+	string name = 4;
+	string enabled_state = 5;
+	string resource_state = 6;
+	map<string, string> tags = 7;
+	repeated NetworkExperimentProfilesExperiments network_experiment_profiles__experiments = 8;
+}
+

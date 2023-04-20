@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_cache;
+
+import "shared/shared.proto";
+
+message Microsoft_Cache {
+	Redis redis = 1;
+	repeated RedisFirewallRules redis_firewall_rules = 2;
+	RedisLinkedServers redis_linked_servers = 3;
+	RedisPatchSchedules redis_patch_schedules = 4;
+}
+
+message RedisPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+	string provisioning_state = 5;
+}
+
+message PrivateLinkServiceConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string name = 1;
+}
+
+message RedisPatchSchedules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ScheduleEntry schedule_entries = 3;
+}
+
+message ScheduleEntry {
+	string day_of_week = 1;
+	string maintenance_window = 2;
+	int32 start_hour_utc = 3;
+}
+
+message RedisLinkedServers {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string linked_redis_cache_id = 3;
+	string linked_redis_cache_location = 4;
+	string server_role = 5;
+}
+
+message RedisFirewallRules {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string end_ip = 3;
+	string start_ip = 4;
+}
+
+message Redis {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ManagedServiceIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	bool enable_non_ssl_port = 5;
+	string minimum_tls_version = 6;
+	string public_network_access = 7;
+	RedisCommonPropertiesRedisConfiguration redis_configuration = 8;
+	string redis_version = 9;
+	int32 replicas_per_master = 10;
+	int32 replicas_per_primary = 11;
+	int32 shard_count = 12;
+	Sku sku = 13;
+	string static_ip = 14;
+	string subnet_id = 15;
+	map<string, string> tenant_settings = 16;
+	map<string, string> tags = 17;
+	repeated string zones = 18;
+	repeated RedisPrivateEndpointConnections redis_private_endpoint_connections = 19;
+}
+
+message Sku {
+	int32 capacity = 1;
+	string family = 2;
+	string name = 3;
+}
+
+message RedisCommonPropertiesRedisConfiguration {
+	map<string, string> additional_properties = 1;
+	string aof_storage_connection_string_0 = 2;
+	string aof_storage_connection_string_1 = 3;
+	string maxfragmentationmemory_reserved = 4;
+	string maxmemory_delta = 5;
+	string maxmemory_policy = 6;
+	string maxmemory_reserved = 7;
+	string rdb_backup_enabled = 8;
+	string rdb_backup_frequency = 9;
+	string rdb_backup_max_snapshot_count = 10;
+	string rdb_storage_connection_string = 11;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+

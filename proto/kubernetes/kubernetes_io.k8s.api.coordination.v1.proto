@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.coordination.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message Lease {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	LeaseSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message LeaseList {
+	string api_version = 1;
+	repeated Lease items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message LeaseSpec {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.MicroTime acquire_time = 1;
+	string holder_identity = 2;
+	int32 lease_duration_seconds = 3;
+	int32 lease_transitions = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.MicroTime renew_time = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

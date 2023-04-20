@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_packet;
+
+import "shared/shared.proto";
+
+message ComputePacketMirroringXCollectorIlb {
+	string url = 1;
+}
+
+message ComputePacketMirroringXFilter {
+	repeated string cidr_ranges = 1;
+	string direction = 2;
+	repeated string ip_protocols = 3;
+}
+
+message ComputePacketMirroringXMirroredResourcesXInstances {
+	string url = 1;
+}
+
+message ComputePacketMirroringXMirroredResourcesXSubnetworks {
+	string url = 1;
+}
+
+message ComputePacketMirroringXMirroredResources {
+	repeated string tags = 1;
+	repeated ComputePacketMirroringXMirroredResourcesXInstances instances = 2;
+	repeated ComputePacketMirroringXMirroredResourcesXSubnetworks subnetworks = 3;
+}
+
+message ComputePacketMirroringXNetwork {
+	string url = 1;
+}
+
+message ComputePacketMirroringXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputePacketMirroring {
+	string description = 1;
+	string id = 2;
+	string name = 3;
+	double priority = 4;
+	string project = 5;
+	string region = 6;
+	ComputePacketMirroringXCollectorIlb collector_ilb = 7;
+	ComputePacketMirroringXFilter filter = 8;
+	ComputePacketMirroringXMirroredResources mirrored_resources = 9;
+	ComputePacketMirroringXNetwork network = 10;
+	ComputePacketMirroringXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+

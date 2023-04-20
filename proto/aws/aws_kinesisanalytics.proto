@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+package oak9.tython.aws.kinesisanalytics;
+
+import "shared/shared.proto";
+
+message ApplicationRecordColumn {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mapping = 2;
+	string sql_type = 3;
+	string name = 4;
+}
+
+message ApplicationJSONMappingParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_row_path = 2;
+}
+
+message ApplicationCSVMappingParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_row_delimiter = 2;
+	string record_column_delimiter = 3;
+}
+
+message ApplicationMappingParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationJSONMappingParameters json_mapping_parameters = 2;
+	ApplicationCSVMappingParameters cs_v_mapping_parameters = 3;
+}
+
+message ApplicationRecordFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationMappingParameters mapping_parameters = 2;
+	string record_format_type = 3;
+}
+
+message ApplicationInputSchema {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_encoding = 2;
+	repeated ApplicationRecordColumn record_columns = 3;
+	ApplicationRecordFormat record_format = 4;
+}
+
+message ApplicationKinesisStreamsInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string role_arn = 3;
+}
+
+message ApplicationKinesisFirehoseInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string role_arn = 3;
+}
+
+message ApplicationInputLambdaProcessor {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string role_arn = 3;
+}
+
+message ApplicationInputProcessingConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationInputLambdaProcessor input_lambda_processor = 2;
+}
+
+message ApplicationInputParallelism {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 count = 2;
+}
+
+message ApplicationInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name_prefix = 2;
+	ApplicationInputSchema input_schema = 3;
+	ApplicationKinesisStreamsInput kinesis_streams_input = 4;
+	ApplicationKinesisFirehoseInput kinesis_firehose_input = 5;
+	ApplicationInputProcessingConfiguration input_processing_configuration = 6;
+	ApplicationInputParallelism input_parallelism = 7;
+}
+
+message Application {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	repeated ApplicationInput inputs = 3;
+	string application_description = 4;
+	string application_code = 5;
+}
+
+message KinesisAnalytics {
+	repeated Application application = 1;
+	repeated ApplicationOutput application_output = 2;
+	repeated ApplicationReferenceDataSource application_reference_data_source = 3;
+}
+
+message ApplicationOutputDestinationSchema {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_format_type = 2;
+}
+
+message ApplicationOutputLambdaOutput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string role_arn = 3;
+}
+
+message ApplicationOutputKinesisFirehoseOutput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string role_arn = 3;
+}
+
+message ApplicationOutputKinesisStreamsOutput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string resource_arn = 2;
+	string role_arn = 3;
+}
+
+message ApplicationOutputOutput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationOutputDestinationSchema destination_schema = 2;
+	ApplicationOutputLambdaOutput lambda_output = 3;
+	ApplicationOutputKinesisFirehoseOutput kinesis_firehose_output = 4;
+	ApplicationOutputKinesisStreamsOutput kinesis_streams_output = 5;
+	string name = 6;
+}
+
+message ApplicationOutput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	ApplicationOutputOutput output = 3;
+}
+
+message ApplicationReferenceDataSourceRecordColumn {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string mapping = 2;
+	string sql_type = 3;
+	string name = 4;
+}
+
+message ApplicationReferenceDataSourceJSONMappingParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_row_path = 2;
+}
+
+message ApplicationReferenceDataSourceCSVMappingParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_row_delimiter = 2;
+	string record_column_delimiter = 3;
+}
+
+message ApplicationReferenceDataSourceMappingParameters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationReferenceDataSourceJSONMappingParameters json_mapping_parameters = 2;
+	ApplicationReferenceDataSourceCSVMappingParameters cs_v_mapping_parameters = 3;
+}
+
+message ApplicationReferenceDataSourceRecordFormat {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationReferenceDataSourceMappingParameters mapping_parameters = 2;
+	string record_format_type = 3;
+}
+
+message ApplicationReferenceDataSourceReferenceSchema {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string record_encoding = 2;
+	repeated ApplicationReferenceDataSourceRecordColumn record_columns = 3;
+	ApplicationReferenceDataSourceRecordFormat record_format = 4;
+}
+
+message ApplicationReferenceDataSourceS3ReferenceDataSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket_arn = 2;
+	string file_key = 3;
+	string reference_role_arn = 4;
+}
+
+message ApplicationReferenceDataSourceReferenceDataSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ApplicationReferenceDataSourceReferenceSchema reference_schema = 2;
+	string table_name = 3;
+	ApplicationReferenceDataSourceS3ReferenceDataSource s3_reference_data_source = 4;
+}
+
+message ApplicationReferenceDataSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string application_name = 2;
+	ApplicationReferenceDataSourceReferenceDataSource reference_data_source = 3;
+}
+

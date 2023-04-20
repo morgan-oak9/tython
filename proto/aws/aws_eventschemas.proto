@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package oak9.tython.aws.eventschemas;
+
+import "shared/shared.proto";
+
+message DiscovererTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Discoverer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string source_arn = 3;
+	repeated DiscovererTagsEntry tags = 4;
+}
+
+message EventSchemas {
+	repeated Discoverer discoverer = 1;
+	repeated Registry registry = 2;
+	repeated RegistryPolicy registry_policy = 3;
+	repeated Schema schema = 4;
+}
+
+message RegistryTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Registry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string registry_name = 3;
+	repeated RegistryTagsEntry tags = 4;
+}
+
+message RegistryPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> policy = 2;
+	string registry_name = 3;
+	string revision_id = 4;
+}
+
+message SchemaTagsEntry {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string value = 2;
+	string key = 3;
+}
+
+message Schema {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string type = 2;
+	string description = 3;
+	string content = 4;
+	string registry_name = 5;
+	string schema_name = 6;
+	repeated SchemaTagsEntry tags = 7;
+}
+

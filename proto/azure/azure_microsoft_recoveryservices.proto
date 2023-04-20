@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_recoveryservices;
+
+import "shared/shared.proto";
+
+message Microsoft_RecoveryServices {
+	repeated Vaults vaults = 1;
+}
+
+message VaultsExtendedInformation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string name = 3;
+	string algorithm = 4;
+	string encryption_key = 5;
+	string encryption_key_thumbprint = 6;
+	string integrity_key = 7;
+}
+
+message VaultsCertificates {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string auth_type = 3;
+	string certificate = 4;
+}
+
+message Vaults {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	IdentityData identity = 3;
+	string location = 4;
+	string name = 5;
+	VaultPropertiesEncryption encryption = 6;
+	VaultPropertiesMoveDetails move_details = 7;
+	UpgradeDetails upgrade_details = 8;
+	Sku sku = 9;
+	SystemData system_data = 10;
+	map<string, string> tags = 11;
+	repeated VaultsCertificates vaults_certificates = 12;
+	repeated VaultsExtendedInformation vaults_extended_information = 13;
+}
+
+message SystemData {
+	string created_at = 1;
+	string created_by = 2;
+	string created_by_type = 3;
+	string last_modified_at = 4;
+	string last_modified_by = 5;
+	string last_modified_by_type = 6;
+}
+
+message Sku {
+	string capacity = 1;
+	string family = 2;
+	string name = 3;
+	string size = 4;
+	string tier = 5;
+}
+
+message UpgradeDetails {
+	string name = 1;
+}
+
+message VaultPropertiesMoveDetails {
+	string name = 1;
+}
+
+message VaultPropertiesEncryption {
+	string infrastructure_encryption = 1;
+	CmkKekIdentity kek_identity = 2;
+	CmkKeyVaultProperties key_vault_properties = 3;
+}
+
+message CmkKeyVaultProperties {
+	string key_uri = 1;
+}
+
+message CmkKekIdentity {
+	string user_assigned_identity = 1;
+	bool use_system_assigned_identity = 2;
+}
+
+message IdentityData {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+

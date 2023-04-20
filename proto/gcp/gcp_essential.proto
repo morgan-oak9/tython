@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.essential;
+
+import "shared/shared.proto";
+
+message EssentialContactsContactXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message EssentialContactsContact {
+	string email = 1;
+	string id = 2;
+	string language_tag = 3;
+	string name = 4;
+	repeated string notification_category_subscriptions = 5;
+	string parent = 6;
+	EssentialContactsContactXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

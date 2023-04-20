@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package oak9.tython.aws.logs;
+
+import "shared/shared.proto";
+
+message Destination {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_name = 2;
+	string destination_policy = 3;
+	string role_arn = 4;
+	string target_arn = 5;
+}
+
+message Logs {
+	repeated Destination destination = 1;
+	repeated LogGroup log_group = 2;
+	repeated LogStream log_stream = 3;
+	repeated MetricFilter metric_filter = 4;
+	repeated SubscriptionFilter subscription_filter = 5;
+}
+
+message LogGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_group_name = 2;
+	int32 retention_in_days = 3;
+}
+
+message LogStream {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string log_group_name = 2;
+	string log_stream_name = 3;
+}
+
+message MetricFilterMetricTransformation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double default_value = 2;
+	string metric_name = 3;
+	string metric_namespace = 4;
+	string metric_value = 5;
+}
+
+message MetricFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string filter_pattern = 2;
+	string log_group_name = 3;
+	repeated MetricFilterMetricTransformation metric_transformations = 4;
+}
+
+message SubscriptionFilter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_arn = 2;
+	string filter_pattern = 3;
+	string log_group_name = 4;
+	string role_arn = 5;
+}
+

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.aws.workspaces;
+
+import "shared/shared.proto";
+
+message WorkspaceWorkspaceProperties {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string compute_type_name = 2;
+	int32 root_volume_size_gib = 3;
+	string running_mode = 4;
+	int32 running_mode_auto_stop_timeout_in_minutes = 5;
+	int32 user_volume_size_gib = 6;
+}
+
+message Workspace {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bundle_id = 2;
+	string directory_id = 3;
+	bool root_volume_encryption_enabled = 4;
+	map<string, string> tags = 5;
+	string user_name = 6;
+	bool user_volume_encryption_enabled = 7;
+	string volume_encryption_key = 8;
+	WorkspaceWorkspaceProperties workspace_properties = 9;
+}
+
+message WorkSpaces {
+	repeated Workspace workspace = 1;
+}
+

@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package oak9.tython.aws.elasticsearch;
+
+import "shared/shared.proto";
+
+message DomainMasterUserOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string master_user_arn = 2;
+	string master_user_name = 3;
+	string master_user_password = 4;
+}
+
+message DomainAdvancedSecurityOptionsInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	bool internal_user_database_enabled = 3;
+	DomainMasterUserOptions master_user_options = 4;
+}
+
+message DomainCognitoOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	string identity_pool_id = 3;
+	string role_arn = 4;
+	string user_pool_id = 5;
+}
+
+message DomainDomainEndpointOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enforce_http_s = 2;
+	string tls_security_policy = 3;
+}
+
+message DomainEBSOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool ebs_enabled = 2;
+	int32 iops = 3;
+	int32 volume_size = 4;
+	string volume_type = 5;
+}
+
+message DomainZoneAwarenessConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 availability_zone_count = 2;
+}
+
+message DomainElasticsearchClusterConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 dedicated_master_count = 2;
+	bool dedicated_master_enabled = 3;
+	string dedicated_master_type = 4;
+	int32 instance_count = 5;
+	string instance_type = 6;
+	DomainZoneAwarenessConfig zone_awareness_config = 7;
+	bool zone_awareness_enabled = 8;
+}
+
+message DomainEncryptionAtRestOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	string kms_key_id = 3;
+}
+
+message DomainNodeToNodeEncryptionOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+}
+
+message DomainSnapshotOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 automated_snapshot_start_hour = 2;
+}
+
+message DomainVPCOptions {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_group_ids = 2;
+	repeated string subnet_ids = 3;
+}
+
+message Domain {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> access_policies = 2;
+	map<string, string> advanced_options = 3;
+	DomainAdvancedSecurityOptionsInput advanced_security_options = 4;
+	DomainCognitoOptions cognito_options = 5;
+	DomainDomainEndpointOptions domain_endpoint_options = 6;
+	string domain_name = 7;
+	DomainEBSOptions ebs_options = 8;
+	DomainElasticsearchClusterConfig elasticsearch_cluster_config = 9;
+	string elasticsearch_version = 10;
+	DomainEncryptionAtRestOptions encryption_at_rest_options = 11;
+	DomainNodeToNodeEncryptionOptions node_to_node_encryption_options = 12;
+	DomainSnapshotOptions snapshot_options = 13;
+	map<string, string> tags = 14;
+	DomainVPCOptions vpc_options = 15;
+	LogPublishingOptions log_publishing_options = 16;
+}
+
+message Elasticsearch {
+	Domain domain = 1;
+}
+
+message LogPublishingOptions {
+	bool enabled = 1;
+	string cloudwatchlogs_log_group_arn = 2;
+	string log_type = 3;
+}
+

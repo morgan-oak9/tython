@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_dns_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_dns.proto";
+
+message GoogleDns {
+	oak9.tython.gcp.dns.DnsManagedZone dns_managed_zone = 1;
+	oak9.tython.gcp.dns.DnsPolicy dns_policy = 2;
+	oak9.tython.gcp.dns.DnsRecordSet dns_record_set = 3;
+}
+

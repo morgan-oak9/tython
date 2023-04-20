@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package oak9.tython.aws.elasticache_cachecluster;
+
+import "shared/shared.proto";
+
+message CacheCluster {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string az_mode = 2;
+	bool auto_minor_version_upgrade = 3;
+	string cache_node_type = 4;
+	string cache_parameter_group_name = 5;
+	repeated string cache_security_group_names = 6;
+	string cache_subnet_group_name = 7;
+	string cluster_name = 8;
+	string engine = 9;
+	string engine_version = 10;
+	string notification_topic_arn = 11;
+	int32 num_cache_nodes = 12;
+	int32 port = 13;
+	string preferred_availability_zone = 14;
+	repeated string preferred_availability_zones = 15;
+	string preferred_maintenance_window = 16;
+	repeated string snapshot_arns = 17;
+	string snapshot_name = 18;
+	int32 snapshot_retention_limit = 19;
+	string snapshot_window = 20;
+	map<string, string> tags = 21;
+	repeated string vpc_security_group_ids = 22;
+}
+
+message ElastiCache_CacheCluster {
+	CacheCluster cache_cluster = 1;
+	SecurityGroup security_group = 2;
+	repeated SecurityGroupIngress security_group_ingress = 3;
+	SubnetGroup subnet_group = 4;
+}
+
+message SecurityGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+}
+
+message SecurityGroupIngress {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cache_security_group_name = 2;
+	string e_c2_security_group_name = 3;
+	string e_c2_security_group_owner_id = 4;
+}
+
+message SubnetGroup {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cache_subnet_group_name = 2;
+	string description = 3;
+	repeated string subnet_ids = 4;
+}
+

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package oak9.tython.aws.detective;
+
+import "shared/shared.proto";
+
+message Graph {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message Detective {
+	repeated Graph graph = 1;
+	repeated MemberInvitation member_invitation = 2;
+}
+
+message MemberInvitation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string graph_arn = 2;
+	string member_id = 3;
+	string member_email_address = 4;
+	string message = 5;
+}
+

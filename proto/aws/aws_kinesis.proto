@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package oak9.tython.aws.kinesis;
+
+import "shared/shared.proto";
+
+message StreamStreamEncryption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string encryption_type = 2;
+	string key_id = 3;
+}
+
+message Stream {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	int32 retention_period_hours = 3;
+	int32 shard_count = 4;
+	StreamStreamEncryption stream_encryption = 5;
+	map<string, string> tags = 6;
+}
+
+message Kinesis {
+	Stream stream = 1;
+}
+
+message StreamConsumer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string consumer_name = 2;
+	string stream_arn = 3;
+}
+

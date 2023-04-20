@@ -1,0 +1,313 @@
+syntax = "proto3";
+
+package oak9.tython.aws.sagemaker;
+
+import "shared/shared.proto";
+
+message CodeRepositoryGitConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string secret_arn = 2;
+	string branch = 3;
+	string repository_url = 4;
+}
+
+message CodeRepository {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string code_repository_name = 2;
+	CodeRepositoryGitConfig git_config = 3;
+}
+
+message SageMaker {
+	repeated CodeRepository code_repository = 1;
+	repeated Endpoint endpoint = 2;
+	repeated EndpointConfig endpoint_config = 3;
+	repeated Model model = 4;
+	repeated MonitoringSchedule monitoring_schedule = 5;
+	repeated NotebookInstance notebook_instance = 6;
+	repeated NotebookInstanceLifecycleConfig notebook_instance_lifecycle_config = 7;
+	repeated Workteam workteam = 8;
+}
+
+message EndpointVariantProperty {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string variant_property_type = 2;
+}
+
+message Endpoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool retain_all_variant_properties = 2;
+	string endpoint_name = 3;
+	repeated EndpointVariantProperty exclude_retained_variant_properties = 4;
+	string endpoint_config_name = 5;
+	map<string, string> tags = 6;
+}
+
+message EndpointConfigCaptureOption {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string capture_mode = 2;
+}
+
+message EndpointConfigCaptureContentTypeHeader {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string json_content_types = 2;
+	repeated string csv_content_types = 3;
+}
+
+message EndpointConfigDataCaptureConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated EndpointConfigCaptureOption capture_options = 2;
+	string kms_key_id = 3;
+	string destination_s3_uri = 4;
+	int32 initial_sampling_percentage = 5;
+	EndpointConfigCaptureContentTypeHeader capture_content_type_header = 6;
+	bool enable_capture = 7;
+}
+
+message EndpointConfigProductionVariant {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string model_name = 2;
+	string variant_name = 3;
+	int32 initial_instance_count = 4;
+	string instance_type = 5;
+	string accelerator_type = 6;
+	double initial_variant_weight = 7;
+}
+
+message EndpointConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	EndpointConfigDataCaptureConfig data_capture_config = 2;
+	repeated EndpointConfigProductionVariant production_variants = 3;
+	string kms_key_id = 4;
+	string endpoint_config_name = 5;
+	map<string, string> tags = 6;
+}
+
+message ModelContainerDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string container_hostname = 2;
+	string model_package_name = 3;
+	string mode = 4;
+	map<string, string> environment = 5;
+	string model_data_url = 6;
+	string image = 7;
+}
+
+message ModelVpcConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string subnets = 2;
+	repeated string security_group_ids = 3;
+}
+
+message Model {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string execution_role_arn = 2;
+	bool enable_network_isolation = 3;
+	ModelContainerDefinition primary_container = 4;
+	string model_name = 5;
+	ModelVpcConfig vpc_config = 6;
+	repeated ModelContainerDefinition containers = 7;
+	map<string, string> tags = 8;
+}
+
+message MonitoringScheduleConstraintsResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_uri = 2;
+}
+
+message MonitoringScheduleStatisticsResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string s3_uri = 2;
+}
+
+message MonitoringScheduleBaselineConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MonitoringScheduleConstraintsResource constraints_resource = 2;
+	MonitoringScheduleStatisticsResource statistics_resource = 3;
+}
+
+message MonitoringScheduleEnvironment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message MonitoringScheduleMonitoringAppSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string container_arguments = 2;
+	repeated string container_entrypoint = 3;
+	string image_uri = 4;
+	string post_analytics_processor_source_uri = 5;
+	string record_preprocessor_source_uri = 6;
+}
+
+message MonitoringScheduleEndpointInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string endpoint_name = 2;
+	string local_path = 3;
+	string s3_data_distribution_type = 4;
+	string s3_input_mode = 5;
+}
+
+message MonitoringScheduleMonitoringInput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MonitoringScheduleEndpointInput endpoint_input = 2;
+}
+
+message MonitoringScheduleMonitoringInputs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated MonitoringScheduleMonitoringInput monitoring_inputs = 2;
+}
+
+message MonitoringScheduleS3Output {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string local_path = 2;
+	string s3_upload_mode = 3;
+	string s3_uri = 4;
+}
+
+message MonitoringScheduleMonitoringOutput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MonitoringScheduleS3Output s3_output = 2;
+}
+
+message MonitoringScheduleMonitoringOutputConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_key_id = 2;
+	repeated MonitoringScheduleMonitoringOutput monitoring_outputs = 3;
+}
+
+message MonitoringScheduleClusterConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 instance_count = 2;
+	string instance_type = 3;
+	string volume_kms_key_id = 4;
+	int32 volume_size_in_gb = 5;
+}
+
+message MonitoringScheduleMonitoringResources {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MonitoringScheduleClusterConfig cluster_config = 2;
+}
+
+message MonitoringScheduleVpcConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string security_group_ids = 2;
+	repeated string subnets = 3;
+}
+
+message MonitoringScheduleNetworkConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enable_inter_container_traffic_encryption = 2;
+	bool enable_network_isolation = 3;
+	MonitoringScheduleVpcConfig vpc_config = 4;
+}
+
+message MonitoringScheduleStoppingCondition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 max_runtime_in_seconds = 2;
+}
+
+message MonitoringScheduleMonitoringJobDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MonitoringScheduleBaselineConfig baseline_config = 2;
+	MonitoringScheduleEnvironment environment = 3;
+	MonitoringScheduleMonitoringAppSpecification monitoring_app_specification = 4;
+	MonitoringScheduleMonitoringInputs monitoring_inputs = 5;
+	MonitoringScheduleMonitoringOutputConfig monitoring_output_config = 6;
+	MonitoringScheduleMonitoringResources monitoring_resources = 7;
+	MonitoringScheduleNetworkConfig network_config = 8;
+	string role_arn = 9;
+	MonitoringScheduleStoppingCondition stopping_condition = 10;
+}
+
+message MonitoringScheduleScheduleConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string schedule_expression = 2;
+}
+
+message MonitoringScheduleMonitoringScheduleConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	MonitoringScheduleMonitoringJobDefinition monitoring_job_definition = 2;
+	MonitoringScheduleScheduleConfig schedule_config = 3;
+}
+
+message MonitoringScheduleMonitoringExecutionSummary {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string creation_time = 2;
+	string endpoint_name = 3;
+	string failure_reason = 4;
+	string last_modified_time = 5;
+	string monitoring_execution_status = 6;
+	string monitoring_schedule_name = 7;
+	string processing_job_arn = 8;
+	string scheduled_time = 9;
+}
+
+message MonitoringSchedule {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string monitoring_schedule_arn = 2;
+	string monitoring_schedule_name = 3;
+	MonitoringScheduleMonitoringScheduleConfig monitoring_schedule_config = 4;
+	map<string, string> tags = 5;
+	string creation_time = 6;
+	string endpoint_name = 7;
+	string failure_reason = 8;
+	string last_modified_time = 9;
+	MonitoringScheduleMonitoringExecutionSummary last_monitoring_execution_summary = 10;
+	string monitoring_schedule_status = 11;
+}
+
+message NotebookInstance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_key_id = 2;
+	int32 volume_size_in_gb = 3;
+	repeated string additional_code_repositories = 4;
+	string default_code_repository = 5;
+	string direct_internet_access = 6;
+	repeated string accelerator_types = 7;
+	string subnet_id = 8;
+	repeated string security_group_ids = 9;
+	string role_arn = 10;
+	string root_access = 11;
+	string notebook_instance_name = 12;
+	string instance_type = 13;
+	string lifecycle_config_name = 14;
+	map<string, string> tags = 15;
+}
+
+message NotebookInstanceLifecycleConfigNotebookInstanceLifecycleHook {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string content = 2;
+}
+
+message NotebookInstanceLifecycleConfig {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated NotebookInstanceLifecycleConfigNotebookInstanceLifecycleHook on_start = 2;
+	string notebook_instance_lifecycle_config_name = 3;
+	repeated NotebookInstanceLifecycleConfigNotebookInstanceLifecycleHook on_create = 4;
+}
+
+message WorkteamNotificationConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string notification_topic_arn = 2;
+}
+
+message WorkteamCognitoMemberDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cognito_user_pool = 2;
+	string cognito_client_id = 3;
+	string cognito_user_group = 4;
+}
+
+message WorkteamMemberDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	WorkteamCognitoMemberDefinition cognito_member_definition = 2;
+}
+
+message Workteam {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	WorkteamNotificationConfiguration notification_configuration = 3;
+	string workteam_name = 4;
+	repeated WorkteamMemberDefinition member_definitions = 5;
+	map<string, string> tags = 6;
+}
+

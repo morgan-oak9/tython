@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_sql_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_sql.proto";
+
+message GoogleSql {
+	repeated oak9.tython.gcp.sql.SqlDatabase sql_database = 1;
+	oak9.tython.gcp.sql.SqlDatabaseInstance sql_database_instance = 2;
+	oak9.tython.gcp.sql.SqlSourceRepresentationInstance sql_source_representation_instance = 3;
+	repeated oak9.tython.gcp.sql.SqlSslCert sql_ssl_cert = 4;
+	oak9.tython.gcp.sql.SqlUser sql_user = 5;
+}
+

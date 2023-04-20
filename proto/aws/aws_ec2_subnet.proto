@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package oak9.tython.aws.ec2_subnet;
+
+import "shared/shared.proto";
+
+message Subnet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool assign_ipv6_address_on_creation = 2;
+	string availability_zone = 3;
+	string cidr_block = 4;
+	string ipv6_cidr_block = 5;
+	bool map_public_ip_on_launch = 6;
+	map<string, string> tags = 7;
+	string vpc_id = 8;
+}
+
+message EC2_Subnet {
+	Subnet subnet = 1;
+	SubnetCidrBlock subnet_cidr_block = 2;
+	SubnetNetworkAclAssociation subnet_network_acl_association = 3;
+	SubnetRouteTableAssociation subnet_route_table_association = 4;
+}
+
+message SubnetCidrBlock {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ipv6_cidr_block = 2;
+	string subnet_id = 3;
+}
+
+message SubnetNetworkAclAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string network_acl_id = 2;
+	string subnet_id = 3;
+}
+
+message SubnetRouteTableAssociation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string route_table_id = 2;
+	string subnet_id = 3;
+}
+

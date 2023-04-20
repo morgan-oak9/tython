@@ -1,0 +1,391 @@
+syntax = "proto3";
+
+package oak9.tython.aws.apigateway;
+
+import "shared/shared.proto";
+
+message Account {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string cloud_watch_role_arn = 2;
+}
+
+message ApiGateway {
+	Account account = 1;
+	repeated ApiKey api_key = 2;
+	repeated Authorizer authorizer = 3;
+	BasePathMapping base_path_mapping = 4;
+	Deployment deployment = 5;
+	repeated DomainName domain_name = 6;
+	repeated GatewayResponse gateway_response = 7;
+	repeated Method method = 8;
+	RequestValidator request_validator = 9;
+	repeated Resource resource = 10;
+	RestApi rest_api = 11;
+	repeated Stage stage = 12;
+	UsagePlan usage_plan = 13;
+	UsagePlanKey usage_plan_key = 14;
+}
+
+message ApiKeyStageKey {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string rest_api_id = 2;
+	string stage_name = 3;
+}
+
+message ApiKey {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string customer_id = 2;
+	string description = 3;
+	bool enabled = 4;
+	bool generate_distinct_id = 5;
+	string name = 6;
+	repeated ApiKeyStageKey stage_keys = 7;
+	map<string, string> tags = 8;
+	string value = 9;
+}
+
+message Authorizer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string auth_type = 2;
+	string authorizer_credentials = 3;
+	int32 authorizer_result_ttl_in_seconds = 4;
+	string authorizer_uri = 5;
+	string identity_source = 6;
+	string identity_validation_expression = 7;
+	string name = 8;
+	repeated string provider_arns = 9;
+	string rest_api_id = 10;
+	string type = 11;
+}
+
+message BasePathMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string base_path = 2;
+	string domain_name = 3;
+	string rest_api_id = 4;
+	string stage = 5;
+}
+
+message ClientCertificate {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	map<string, string> tags = 3;
+}
+
+message DeploymentDeploymentCanarySettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double percent_traffic = 2;
+	map<string, string> stage_variable_overrides = 3;
+	bool use_stage_cache = 4;
+}
+
+message DeploymentAccessLogSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_arn = 2;
+	string format = 3;
+}
+
+message DeploymentCanarySetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double percent_traffic = 2;
+	map<string, string> stage_variable_overrides = 3;
+	bool use_stage_cache = 4;
+}
+
+message DeploymentMethodSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool cache_data_encrypted = 2;
+	int32 cache_ttl_in_seconds = 3;
+	bool caching_enabled = 4;
+	bool data_trace_enabled = 5;
+	string http_method = 6;
+	string logging_level = 7;
+	bool metrics_enabled = 8;
+	string resource_path = 9;
+	int32 throttling_burst_limit = 10;
+	double throttling_rate_limit = 11;
+}
+
+message DeploymentStageDescription {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DeploymentAccessLogSetting access_log_setting = 2;
+	bool cache_cluster_enabled = 3;
+	string cache_cluster_size = 4;
+	bool cache_data_encrypted = 5;
+	int32 cache_ttl_in_seconds = 6;
+	bool caching_enabled = 7;
+	DeploymentCanarySetting canary_setting = 8;
+	string client_certificate_id = 9;
+	bool data_trace_enabled = 10;
+	string description = 11;
+	string documentation_version = 12;
+	string logging_level = 13;
+	repeated DeploymentMethodSetting method_settings = 14;
+	bool metrics_enabled = 15;
+	map<string, string> tags = 16;
+	int32 throttling_burst_limit = 17;
+	double throttling_rate_limit = 18;
+	bool tracing_enabled = 19;
+	map<string, string> variables = 20;
+}
+
+message Deployment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DeploymentDeploymentCanarySettings deployment_canary_settings = 2;
+	string description = 3;
+	string rest_api_id = 4;
+	DeploymentStageDescription stage_description = 5;
+	string stage_name = 6;
+}
+
+message DocumentationPartLocation {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string method = 2;
+	string name = 3;
+	string path = 4;
+	string status_code = 5;
+}
+
+message DocumentationPart {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	DocumentationPartLocation location = 2;
+	string properties = 3;
+	string rest_api_id = 4;
+}
+
+message DocumentationVersion {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string documentation_version = 3;
+	string rest_api_id = 4;
+}
+
+message DomainNameEndpointConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string types = 2;
+}
+
+message DomainNameMutualTlsAuthentication {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string truststore_uri = 2;
+	string truststore_version = 3;
+}
+
+message DomainName {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string domain_name = 2;
+	DomainNameEndpointConfiguration endpoint_configuration = 3;
+	DomainNameMutualTlsAuthentication mutual_tls_authentication = 4;
+	string certificate_arn = 5;
+	string regional_certificate_arn = 6;
+	string security_policy = 7;
+	map<string, string> tags = 8;
+}
+
+message GatewayResponse {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> response_parameters = 2;
+	map<string, string> response_templates = 3;
+	string response_type = 4;
+	string rest_api_id = 5;
+	string status_code = 6;
+}
+
+message MethodIntegrationResponse {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string content_handling = 2;
+	map<string, string> response_parameters = 3;
+	map<string, string> response_templates = 4;
+	string selection_pattern = 5;
+	string status_code = 6;
+}
+
+message MethodIntegration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string cache_key_parameters = 2;
+	string cache_namespace = 3;
+	string connection_id = 4;
+	string connection_type = 5;
+	string content_handling = 6;
+	string credentials = 7;
+	string integration_http_method = 8;
+	repeated MethodIntegrationResponse integration_responses = 9;
+	string passthrough_behavior = 10;
+	map<string, string> request_parameters = 11;
+	map<string, string> request_templates = 12;
+	int32 timeout_in_millis = 13;
+	string uri = 14;
+}
+
+message MethodMethodResponse {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> response_models = 2;
+	map<string, string> response_parameters = 3;
+	string status_code = 4;
+}
+
+message Method {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool api_key_required = 2;
+	repeated string authorization_scopes = 3;
+	string authorization_type = 4;
+	string authorizer_id = 5;
+	string http_method = 6;
+	MethodIntegration integration = 7;
+	repeated MethodMethodResponse method_responses = 8;
+	string operation_name = 9;
+	map<string, string> request_models = 10;
+	map<string, string> request_parameters = 11;
+	string request_validator_id = 12;
+	string resource_id = 13;
+	string rest_api_id = 14;
+	string depends_on = 15;
+}
+
+message Model {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string content_type = 2;
+	string description = 3;
+	string name = 4;
+	string rest_api_id = 5;
+	map<string, string> schema = 6;
+}
+
+message RequestValidator {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string rest_api_id = 3;
+	bool validate_request_body = 4;
+	bool validate_request_parameters = 5;
+}
+
+message Resource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string parent_id = 2;
+	string path_part = 3;
+	string rest_api_id = 4;
+}
+
+message RestApiS3Location {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string bucket = 2;
+	string e_tag = 3;
+	string key = 4;
+	string version = 5;
+}
+
+message RestApiEndpointConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string types = 2;
+	repeated string vpc_endpoint_ids = 3;
+}
+
+message RestApi {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_key_source_type = 2;
+	repeated string binary_media_types = 3;
+	map<string, string> body = 4;
+	RestApiS3Location body_s3_location = 5;
+	string clone_from = 6;
+	string description = 7;
+	RestApiEndpointConfiguration endpoint_configuration = 8;
+	bool fail_on_warnings = 9;
+	int32 minimum_compression_size = 10;
+	string name = 11;
+	map<string, string> parameters = 12;
+	string policy = 13;
+	map<string, string> tags = 14;
+	string disable_execute_api_endpoint = 15;
+	string api_key_source = 16;
+}
+
+message StageAccessLogSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string destination_arn = 2;
+	string format = 3;
+}
+
+message StageCanarySetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string deployment_id = 2;
+	double percent_traffic = 3;
+	map<string, string> stage_variable_overrides = 4;
+	bool use_stage_cache = 5;
+}
+
+message StageMethodSetting {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool cache_data_encrypted = 2;
+	int32 cache_ttl_in_seconds = 3;
+	bool caching_enabled = 4;
+	bool data_trace_enabled = 5;
+	string http_method = 6;
+	string logging_level = 7;
+	bool metrics_enabled = 8;
+	string resource_path = 9;
+	int32 throttling_burst_limit = 10;
+	double throttling_rate_limit = 11;
+}
+
+message Stage {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	StageAccessLogSetting access_log_setting = 2;
+	bool cache_cluster_enabled = 3;
+	string cache_cluster_size = 4;
+	StageCanarySetting canary_setting = 5;
+	string client_certificate_id = 6;
+	string deployment_id = 7;
+	string description = 8;
+	string documentation_version = 9;
+	repeated StageMethodSetting method_settings = 10;
+	string rest_api_id = 11;
+	string stage_name = 12;
+	map<string, string> tags = 13;
+	bool tracing_enabled = 14;
+	map<string, string> variables = 15;
+}
+
+message UsagePlanApiStage {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string api_id = 2;
+	string stage = 3;
+	map<string, string> throttle = 4;
+}
+
+message UsagePlanQuotaSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 limit = 2;
+	int32 offset = 3;
+	string period = 4;
+}
+
+message UsagePlanThrottleSettings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 burst_limit = 2;
+	double rate_limit = 3;
+}
+
+message UsagePlan {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated UsagePlanApiStage api_stages = 2;
+	string description = 3;
+	UsagePlanQuotaSettings quota = 4;
+	map<string, string> tags = 5;
+	UsagePlanThrottleSettings throttle = 6;
+	string usage_plan_name = 7;
+}
+
+message UsagePlanKey {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key_id = 2;
+	string key_type = 3;
+	string usage_plan_id = 4;
+}
+
+message VpcLink {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	repeated string target_arns = 3;
+	string name = 4;
+}
+

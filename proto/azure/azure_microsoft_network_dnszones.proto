@@ -1,0 +1,273 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_dnszones;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_dnsZones {
+	DnsZones dns_zones = 1;
+	repeated DnsZonesA dns_zones_a = 2;
+}
+
+message DnsZonesTXT {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesSRV {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesSOA {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesPTR {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesNS {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesMX {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesCNAME {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesCAA {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesAAAA {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message DnsZonesA {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string etag = 3;
+	map<string, string> metadata = 4;
+	int32 ttl = 5;
+	string target_resource = 6;
+	repeated ARecord a_records = 7;
+	repeated AaaaRecord aaaa_records = 8;
+	repeated MxRecord mx_records = 9;
+	repeated NsRecord ns_records = 10;
+	repeated PtrRecord ptr_records = 11;
+	repeated SrvRecord srv_records = 12;
+	repeated TxtRecord txt_records = 13;
+	CnameRecord cname_record = 14;
+	SoaRecord soa_record = 15;
+	repeated CaaRecord caa_records = 16;
+}
+
+message CaaRecord {
+	int32 flags = 1;
+	string tag = 2;
+	string value = 3;
+}
+
+message SoaRecord {
+	string host = 1;
+	string email = 2;
+	int32 serial_number = 3;
+	int32 refresh_time = 4;
+	int32 retry_time = 5;
+	int32 expire_time = 6;
+	int32 minimum_ttl = 7;
+}
+
+message CnameRecord {
+	string cname = 1;
+}
+
+message TxtRecord {
+	repeated string value = 1;
+}
+
+message SrvRecord {
+	int32 priority = 1;
+	int32 weight = 2;
+	int32 port = 3;
+	string target = 4;
+}
+
+message PtrRecord {
+	string ptrdname = 1;
+}
+
+message NsRecord {
+	string nsdname = 1;
+}
+
+message MxRecord {
+	int32 preference = 1;
+	string exchange = 2;
+}
+
+message AaaaRecord {
+	string ipv6_address = 1;
+}
+
+message ARecord {
+	string ipv4_address = 1;
+}
+
+message DnsZones {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	string etag = 5;
+	string zone_type = 6;
+	repeated string registration_virtual_networks = 7;
+	repeated string resolution_virtual_networks = 8;
+	repeated DnsZonesTXT dns_zones__txt = 9;
+	repeated DnsZonesSRV dns_zones__srv = 10;
+	repeated DnsZonesSOA dns_zones__soa = 11;
+	repeated DnsZonesPTR dns_zones__ptr = 12;
+	repeated DnsZonesNS dns_zones__ns = 13;
+	repeated DnsZonesMX dns_zones__mx = 14;
+	repeated DnsZonesCNAME dns_zones__cname = 15;
+	repeated DnsZonesCAA dns_zones__ca_a = 16;
+	repeated DnsZonesAAAA dns_zones__aaaa = 17;
+}
+

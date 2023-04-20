@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_compute_firewall_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_compute_firewall.proto";
+
+message GoogleComputeFirewall {
+	oak9.tython.gcp.compute_firewall.ComputeFirewall compute_firewall = 1;
+}
+

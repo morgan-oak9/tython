@@ -1,0 +1,235 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_healthcareapis;
+
+import "shared/shared.proto";
+
+message Microsoft_HealthcareApis {
+	Services services = 1;
+}
+
+message WorkspacesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+	string provisioning_state = 5;
+	SystemData system_data = 6;
+}
+
+message WorkspacesIotconnectorsFhirdestinations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	string location = 3;
+	string name = 4;
+	IotMappingProperties fhir_mapping = 5;
+	string fhir_service_resource_id = 6;
+	string provisioning_state = 7;
+	string resource_identity_resolution_type = 8;
+	SystemData system_data = 9;
+}
+
+message WorkspacesIotconnectors {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ServiceManagedIdentityIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	IotMappingProperties device_mapping = 5;
+	IotEventHubIngestionEndpointConfiguration ingestion_endpoint_configuration = 6;
+	string provisioning_state = 7;
+	SystemData system_data = 8;
+	map<string, string> tags = 9;
+	repeated WorkspacesIotconnectorsFhirdestinations workspaces_iotconnectors_fhirdestinations = 10;
+}
+
+message IotEventHubIngestionEndpointConfiguration {
+	string consumer_group = 1;
+	string event_hub_name = 2;
+	string fully_qualified_event_hub_namespace = 3;
+}
+
+message IotMappingProperties {
+	map<string, string> content = 1;
+}
+
+message WorkspacesFhirservices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ServiceManagedIdentityIdentity identity = 2;
+	string kind = 3;
+	string location = 4;
+	string name = 5;
+	repeated FhirServiceAccessPolicyEntry access_policies = 6;
+	FhirServiceAcrConfiguration acr_configuration = 7;
+	FhirServiceAuthenticationConfiguration authentication_configuration = 8;
+	FhirServiceCorsConfiguration cors_configuration = 9;
+	string event_state = 10;
+	FhirServiceExportConfiguration export_configuration = 11;
+	string provisioning_state = 12;
+	string public_network_access = 13;
+	ResourceVersionPolicyConfiguration resource_version_policy_configuration = 14;
+	SystemData system_data = 15;
+	map<string, string> tags = 16;
+}
+
+message ResourceVersionPolicyConfiguration {
+	string default = 1;
+	map<string, string> resource_type_overrides = 2;
+}
+
+message FhirServiceExportConfiguration {
+	string storage_account_name = 1;
+}
+
+message FhirServiceCorsConfiguration {
+	bool allow_credentials = 1;
+	repeated string headers = 2;
+	int32 max_age = 3;
+	repeated string methods = 4;
+	repeated string origins = 5;
+}
+
+message FhirServiceAuthenticationConfiguration {
+	string audience = 1;
+	string authority = 2;
+	bool smart_proxy_enabled = 3;
+}
+
+message FhirServiceAcrConfiguration {
+	repeated string login_servers = 1;
+	repeated ServiceOciArtifactEntry oci_artifacts = 2;
+}
+
+message FhirServiceAccessPolicyEntry {
+	string object_id = 1;
+}
+
+message WorkspacesDicomservices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ServiceManagedIdentityIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	DicomServiceAuthenticationConfiguration authentication_configuration = 5;
+	string provisioning_state = 6;
+	string public_network_access = 7;
+	SystemData system_data = 8;
+	map<string, string> tags = 9;
+}
+
+message DicomServiceAuthenticationConfiguration {
+	string name = 1;
+}
+
+message ServiceManagedIdentityIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message Workspaces {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string provisioning_state = 4;
+	string public_network_access = 5;
+	SystemData system_data = 6;
+	map<string, string> tags = 7;
+	repeated WorkspacesDicomservices workspaces_dicomservices = 8;
+	repeated WorkspacesIotconnectors workspaces_iotconnectors = 9;
+	repeated WorkspacesFhirservices workspaces_fhirservices = 10;
+	repeated WorkspacesPrivateEndpointConnections workspaces_private_endpoint_connections = 11;
+}
+
+message ServicesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateEndpoint private_endpoint = 3;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 4;
+	string provisioning_state = 5;
+}
+
+message Services {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string etag = 2;
+	ServicesResourceIdentity identity = 3;
+	string kind = 4;
+	string location = 5;
+	string name = 6;
+	repeated ServiceAccessPolicyEntry access_policies = 7;
+	ServiceAcrConfigurationInfo acr_configuration = 8;
+	ServiceAuthenticationConfigurationInfo authentication_configuration = 9;
+	ServiceCorsConfigurationInfo cors_configuration = 10;
+	ServiceCosmosDbConfigurationInfo cosmos_db_configuration = 11;
+	ServiceExportConfigurationInfo export_configuration = 12;
+	repeated PrivateEndpointConnection private_endpoint_connections = 13;
+	string provisioning_state = 14;
+	string public_network_access = 15;
+	SystemData system_data = 16;
+	map<string, string> tags = 17;
+}
+
+message SystemData {
+	string created_at = 1;
+	string created_by = 2;
+	string created_by_type = 3;
+	string last_modified_at = 4;
+	string last_modified_by = 5;
+	string last_modified_by_type = 6;
+}
+
+message PrivateEndpointConnection {
+	PrivateEndpoint private_endpoint = 1;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 2;
+	string provisioning_state = 3;
+}
+
+message PrivateLinkServiceConnectionState {
+	string actions_required = 1;
+	string description = 2;
+	string status = 3;
+}
+
+message PrivateEndpoint {
+	string name = 1;
+}
+
+message ServiceExportConfigurationInfo {
+	string storage_account_name = 1;
+}
+
+message ServiceCosmosDbConfigurationInfo {
+	string key_vault_key_uri = 1;
+	int32 offer_throughput = 2;
+}
+
+message ServiceCorsConfigurationInfo {
+	bool allow_credentials = 1;
+	repeated string headers = 2;
+	int32 max_age = 3;
+	repeated string methods = 4;
+	repeated string origins = 5;
+}
+
+message ServiceAuthenticationConfigurationInfo {
+	string audience = 1;
+	string authority = 2;
+	bool smart_proxy_enabled = 3;
+}
+
+message ServiceAcrConfigurationInfo {
+	repeated string login_servers = 1;
+	repeated ServiceOciArtifactEntry oci_artifacts = 2;
+}
+
+message ServiceOciArtifactEntry {
+	string digest = 1;
+	string image_name = 2;
+	string login_server = 3;
+}
+
+message ServiceAccessPolicyEntry {
+	string object_id = 1;
+}
+
+message ServicesResourceIdentity {
+	string type = 1;
+}
+

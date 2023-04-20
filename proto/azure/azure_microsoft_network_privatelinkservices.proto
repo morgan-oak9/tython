@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_privatelinkservices;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_privateLinkServices {
+	PrivateLinkServices private_link_services = 1;
+	repeated PrivateLinkServicesPrivateEndpointConnections private_link_services_private_endpoint_connections = 2;
+}
+
+message PrivateLinkServicesPrivateEndpointConnections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	PrivateLinkServiceConnectionState private_link_service_connection_state = 3;
+}
+
+message PrivateLinkServiceConnectionState {
+	string status = 1;
+	string description = 2;
+	string actions_required = 3;
+}
+
+message PrivateLinkServices {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	repeated string load_balancer_frontend_ip_configurations = 6;
+	repeated PrivateLinkServiceIpConfiguration ip_configurations = 7;
+	PrivateLinkServicePropertiesVisibility visibility = 8;
+	PrivateLinkServicePropertiesAutoApproval auto_approval = 9;
+	repeated string fqdns = 10;
+	bool enable_proxy_protocol = 11;
+}
+
+message PrivateLinkServicePropertiesAutoApproval {
+	repeated string subscriptions = 1;
+}
+
+message PrivateLinkServicePropertiesVisibility {
+	repeated string subscriptions = 1;
+}
+
+message PrivateLinkServiceIpConfiguration {
+	string private_ip_address = 1;
+	string private_ip_allocation_method = 2;
+	string subnet = 3;
+	bool primary = 4;
+	string private_ip_address_version = 5;
+	string name = 6;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

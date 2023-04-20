@@ -1,0 +1,270 @@
+syntax = "proto3";
+
+package oak9.tython.aws.opsworks;
+
+import "shared/shared.proto";
+
+message AppSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string password = 2;
+	string revision = 3;
+	string ssh_key = 4;
+	string url = 5;
+	string username = 6;
+}
+
+message AppDataSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string arn = 2;
+	string database_name = 3;
+}
+
+message AppEnvironmentVariable {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	bool secure = 3;
+	string value = 4;
+}
+
+message AppSslConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string certificate = 2;
+	string chain = 3;
+	string private_key = 4;
+}
+
+message App {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	AppSource app_source = 2;
+	map<string, string> attributes = 3;
+	repeated AppDataSource data_sources = 4;
+	string description = 5;
+	repeated string domains = 6;
+	bool enable_ssl = 7;
+	repeated AppEnvironmentVariable environment = 8;
+	string name = 9;
+	string shortname = 10;
+	AppSslConfiguration ssl_configuration = 11;
+	string stack_id = 12;
+	string type = 13;
+}
+
+message OpsWorks {
+	repeated App app = 1;
+	repeated ElasticLoadBalancerAttachment elastic_load_balancer_attachment = 2;
+	repeated Instance instance = 3;
+	repeated Layer layer = 4;
+	repeated Stack stack = 5;
+	repeated UserProfile user_profile = 6;
+	repeated Volume volume = 7;
+}
+
+message ElasticLoadBalancerAttachment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string elastic_load_balancer_name = 2;
+	string layer_id = 3;
+}
+
+message InstanceEbsBlockDevice {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delete_on_termination = 2;
+	int32 iops = 3;
+	string snapshot_id = 4;
+	int32 volume_size = 5;
+	string volume_type = 6;
+}
+
+message InstanceBlockDeviceMapping {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string device_name = 2;
+	InstanceEbsBlockDevice ebs = 3;
+	string no_device = 4;
+	string virtual_name = 5;
+}
+
+message InstanceTimeBasedAutoScaling {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> friday = 2;
+	map<string, string> monday = 3;
+	map<string, string> saturday = 4;
+	map<string, string> sunday = 5;
+	map<string, string> thursday = 6;
+	map<string, string> tuesday = 7;
+	map<string, string> wednesday = 8;
+}
+
+message Instance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string agent_version = 2;
+	string ami_id = 3;
+	string architecture = 4;
+	string auto_scaling_type = 5;
+	string availability_zone = 6;
+	repeated InstanceBlockDeviceMapping block_device_mappings = 7;
+	bool ebs_optimized = 8;
+	repeated string elastic_ips = 9;
+	string hostname = 10;
+	bool install_updates_on_boot = 11;
+	string instance_type = 12;
+	repeated string layer_ids = 13;
+	string os = 14;
+	string root_device_type = 15;
+	string ssh_key_name = 16;
+	string stack_id = 17;
+	string subnet_id = 18;
+	string tenancy = 19;
+	InstanceTimeBasedAutoScaling time_based_auto_scaling = 20;
+	string virtualization_type = 21;
+	repeated string volumes = 22;
+}
+
+message LayerRecipes {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string configure = 2;
+	repeated string deploy = 3;
+	repeated string setup = 4;
+	repeated string shutdown = 5;
+	repeated string undeploy = 6;
+}
+
+message LayerShutdownEventConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool delay_until_elb_connections_drained = 2;
+	int32 execution_timeout = 3;
+}
+
+message LayerLifecycleEventConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LayerShutdownEventConfiguration shutdown_event_configuration = 2;
+}
+
+message LayerAutoScalingThresholds {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	double cpu_threshold = 2;
+	int32 ignore_metrics_time = 3;
+	int32 instance_count = 4;
+	double load_threshold = 5;
+	double memory_threshold = 6;
+	int32 thresholds_wait_time = 7;
+}
+
+message LayerLoadBasedAutoScaling {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	LayerAutoScalingThresholds down_scaling = 2;
+	bool enable = 3;
+	LayerAutoScalingThresholds up_scaling = 4;
+}
+
+message LayerVolumeConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool encrypted = 2;
+	int32 iops = 3;
+	string mount_point = 4;
+	int32 number_of_disks = 5;
+	int32 raid_level = 6;
+	int32 size = 7;
+	string volume_type = 8;
+}
+
+message Layer {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> attributes = 2;
+	bool auto_assign_elastic_ips = 3;
+	bool auto_assign_public_ips = 4;
+	string custom_instance_profile_arn = 5;
+	map<string, string> custom_json = 6;
+	LayerRecipes custom_recipes = 7;
+	repeated string custom_security_group_ids = 8;
+	bool enable_auto_healing = 9;
+	bool install_updates_on_boot = 10;
+	LayerLifecycleEventConfiguration lifecycle_event_configuration = 11;
+	LayerLoadBasedAutoScaling load_based_auto_scaling = 12;
+	string name = 13;
+	repeated string packages = 14;
+	string shortname = 15;
+	string stack_id = 16;
+	map<string, string> tags = 17;
+	string type = 18;
+	bool use_ebs_optimized_instances = 19;
+	repeated LayerVolumeConfiguration volume_configurations = 20;
+}
+
+message StackChefConfiguration {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string berkshelf_version = 2;
+	bool manage_berkshelf = 3;
+}
+
+message StackStackConfigurationManager {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string version = 3;
+}
+
+message StackSource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string password = 2;
+	string revision = 3;
+	string ssh_key = 4;
+	string url = 5;
+	string username = 6;
+}
+
+message StackElasticIp {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ip = 2;
+	string name = 3;
+}
+
+message StackRdsDbInstance {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string db_password = 2;
+	string db_user = 3;
+	string rds_db_instance_arn = 4;
+}
+
+message Stack {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string agent_version = 2;
+	map<string, string> attributes = 3;
+	StackChefConfiguration chef_configuration = 4;
+	repeated string clone_app_ids = 5;
+	bool clone_permissions = 6;
+	StackStackConfigurationManager configuration_manager = 7;
+	StackSource custom_cookbooks_source = 8;
+	map<string, string> custom_json = 9;
+	string default_availability_zone = 10;
+	string default_instance_profile_arn = 11;
+	string default_os = 12;
+	string default_root_device_type = 13;
+	string default_ssh_key_name = 14;
+	string default_subnet_id = 15;
+	string ecs_cluster_arn = 16;
+	repeated StackElasticIp elastic_ips = 17;
+	string hostname_theme = 18;
+	string name = 19;
+	repeated StackRdsDbInstance rds_db_instances = 20;
+	string service_role_arn = 21;
+	string source_stack_id = 22;
+	map<string, string> tags = 23;
+	bool use_custom_cookbooks = 24;
+	bool use_opsworks_security_groups = 25;
+	string vpc_id = 26;
+}
+
+message UserProfile {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool allow_self_management = 2;
+	string iam_user_arn = 3;
+	string ssh_public_key = 4;
+	string ssh_username = 5;
+}
+
+message Volume {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string ec2_volume_id = 2;
+	string mount_point = 3;
+	string name = 4;
+	string stack_id = 5;
+}
+

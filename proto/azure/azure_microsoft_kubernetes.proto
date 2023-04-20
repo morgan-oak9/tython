@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_kubernetes;
+
+import "shared/shared.proto";
+
+message Microsoft_Kubernetes {
+	repeated ConnectedClusters connected_clusters = 1;
+}
+
+message ConnectedClusters {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ConnectedClusterIdentity identity = 2;
+	string location = 3;
+	string name = 4;
+	string agent_public_key_certificate = 5;
+	string distribution = 6;
+	string infrastructure = 7;
+	string provisioning_state = 8;
+	map<string, string> tags = 9;
+}
+
+message ConnectedClusterIdentity {
+	string type = 1;
+}
+

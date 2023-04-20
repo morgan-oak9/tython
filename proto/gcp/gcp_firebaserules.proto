@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.firebaserules;
+
+import "shared/shared.proto";
+
+message FirebaserulesReleaseXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message FirebaserulesRelease {
+	string create_time = 1;
+	bool disabled = 2;
+	string id = 3;
+	string name = 4;
+	string project = 5;
+	string ruleset_name = 6;
+	string update_time = 7;
+	FirebaserulesReleaseXTimeouts timeouts = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message FirebaserulesRulesetXSourceXFiles {
+	string content = 1;
+	string fingerprint = 2;
+	string name = 3;
+}
+
+message FirebaserulesRulesetXSource {
+	string language = 1;
+	repeated FirebaserulesRulesetXSourceXFiles files = 2;
+}
+
+message FirebaserulesRulesetXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message FirebaserulesRuleset {
+	string create_time = 1;
+	string id = 2;
+	map<string, string> metadata = 3;
+	string name = 4;
+	string project = 5;
+	FirebaserulesRulesetXSource source = 6;
+	FirebaserulesRulesetXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+

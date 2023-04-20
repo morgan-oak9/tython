@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.spanner;
+
+import "shared/shared.proto";
+
+message SpannerDatabaseXEncryptionConfig {
+	string kms_key_name = 1;
+}
+
+message SpannerDatabaseXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SpannerDatabase {
+	string database_dialect = 1;
+	repeated string ddl = 2;
+	bool deletion_protection = 3;
+	string id = 4;
+	string instance = 5;
+	string name = 6;
+	string project = 7;
+	string state = 8;
+	string version_retention_period = 9;
+	SpannerDatabaseXEncryptionConfig encryption_config = 10;
+	SpannerDatabaseXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message SpannerDatabaseIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message SpannerDatabaseIamBinding {
+	string database = 1;
+	string etag = 2;
+	string id = 3;
+	string instance = 4;
+	repeated string members = 5;
+	string project = 6;
+	string role = 7;
+	SpannerDatabaseIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message SpannerDatabaseIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message SpannerDatabaseIamMember {
+	string database = 1;
+	string etag = 2;
+	string id = 3;
+	string instance = 4;
+	string member = 5;
+	string project = 6;
+	string role = 7;
+	SpannerDatabaseIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message SpannerDatabaseIamPolicy {
+	string database = 1;
+	string etag = 2;
+	string id = 3;
+	string instance = 4;
+	string policy_data = 5;
+	string project = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message SpannerInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message SpannerInstance {
+	string config = 1;
+	string display_name = 2;
+	bool force_destroy = 3;
+	string id = 4;
+	map<string, string> labels = 5;
+	string name = 6;
+	double num_nodes = 7;
+	double processing_units = 8;
+	string project = 9;
+	string state = 10;
+	SpannerInstanceXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message SpannerInstanceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message SpannerInstanceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	SpannerInstanceIamBindingXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message SpannerInstanceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message SpannerInstanceIamMember {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	SpannerInstanceIamMemberXCondition condition = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message SpannerInstanceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string instance = 3;
+	string policy_data = 4;
+	string project = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+

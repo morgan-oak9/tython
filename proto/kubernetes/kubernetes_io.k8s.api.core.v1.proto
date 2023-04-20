@@ -1,0 +1,1698 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.api.core.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.api.resource.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.util.intstr.proto";
+
+message AWSElasticBlockStoreVolumeSource {
+	string fs_type = 1;
+	int32 partition = 2;
+	bool read_only = 3;
+	string volume_id = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Affinity {
+	NodeAffinity node_affinity = 1;
+	PodAffinity pod_affinity = 2;
+	PodAntiAffinity pod_anti_affinity = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message AttachedVolume {
+	string device_path = 1;
+	string name = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message AzureDiskVolumeSource {
+	string caching_mode = 1;
+	string disk_name = 2;
+	string disk_u_r_i = 3;
+	string fs_type = 4;
+	string kind = 5;
+	bool read_only = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message AzureFilePersistentVolumeSource {
+	bool read_only = 1;
+	string secret_name = 2;
+	string secret_namespace = 3;
+	string share_name = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message AzureFileVolumeSource {
+	bool read_only = 1;
+	string secret_name = 2;
+	string share_name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message Binding {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ObjectReference target = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CSIPersistentVolumeSource {
+	SecretReference controller_expand_secret_ref = 1;
+	SecretReference controller_publish_secret_ref = 2;
+	string driver = 3;
+	string fs_type = 4;
+	SecretReference node_expand_secret_ref = 5;
+	SecretReference node_publish_secret_ref = 6;
+	SecretReference node_stage_secret_ref = 7;
+	bool read_only = 8;
+	map<string, string> volume_attributes = 9;
+	string volume_handle = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message CSIVolumeSource {
+	string driver = 1;
+	string fs_type = 2;
+	LocalObjectReference node_publish_secret_ref = 3;
+	bool read_only = 4;
+	map<string, string> volume_attributes = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message Capabilities {
+	repeated string add = 1;
+	repeated string drop = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message CephFSPersistentVolumeSource {
+	repeated string monitors = 1;
+	string path = 2;
+	bool read_only = 3;
+	string secret_file = 4;
+	SecretReference secret_ref = 5;
+	string user = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CephFSVolumeSource {
+	repeated string monitors = 1;
+	string path = 2;
+	bool read_only = 3;
+	string secret_file = 4;
+	LocalObjectReference secret_ref = 5;
+	string user = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CinderPersistentVolumeSource {
+	string fs_type = 1;
+	bool read_only = 2;
+	SecretReference secret_ref = 3;
+	string volume_id = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CinderVolumeSource {
+	string fs_type = 1;
+	bool read_only = 2;
+	LocalObjectReference secret_ref = 3;
+	string volume_id = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ClaimSource {
+	string resource_claim_name = 1;
+	string resource_claim_template_name = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ClientIPConfig {
+	int32 timeout_seconds = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ComponentCondition {
+	string error = 1;
+	string message = 2;
+	string status = 3;
+	string type = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ComponentStatus {
+	string api_version = 1;
+	repeated ComponentCondition conditions = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ComponentStatusList {
+	string api_version = 1;
+	repeated ComponentStatus items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ConfigMap {
+	string api_version = 1;
+	map<string, string> binary_data = 2;
+	map<string, string> data = 3;
+	bool immutable = 4;
+	string kind = 5;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ConfigMapEnvSource {
+	string name = 1;
+	bool optional = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ConfigMapKeySelector {
+	string key = 1;
+	string name = 2;
+	bool optional = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ConfigMapList {
+	string api_version = 1;
+	repeated ConfigMap items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ConfigMapNodeConfigSource {
+	string kubelet_config_key = 1;
+	string name = 2;
+	string namespace = 3;
+	string resource_version = 4;
+	string uid = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ConfigMapProjection {
+	repeated KeyToPath items = 1;
+	string name = 2;
+	bool optional = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ConfigMapVolumeSource {
+	int32 default_mode = 1;
+	repeated KeyToPath items = 2;
+	string name = 3;
+	bool optional = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Container {
+	repeated string args = 1;
+	repeated string command = 2;
+	repeated EnvVar env = 3;
+	repeated EnvFromSource env_from = 4;
+	string image = 5;
+	string image_pull_policy = 6;
+	Lifecycle lifecycle = 7;
+	Probe liveness_probe = 8;
+	string name = 9;
+	repeated ContainerPort ports = 10;
+	Probe readiness_probe = 11;
+	ResourceRequirements resources = 12;
+	SecurityContext security_context = 13;
+	Probe startup_probe = 14;
+	bool stdin = 15;
+	bool stdin_once = 16;
+	string termination_message_path = 17;
+	string termination_message_policy = 18;
+	bool tty = 19;
+	repeated VolumeDevice volume_devices = 20;
+	repeated VolumeMount volume_mounts = 21;
+	string working_dir = 22;
+	oak9.tython.shared.ResourceInfo resource_info = 23;
+}
+
+message ContainerImage {
+	repeated string names = 1;
+	int32 size_bytes = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ContainerPort {
+	int32 container_port = 1;
+	string host_ip = 2;
+	int32 host_port = 3;
+	string name = 4;
+	string protocol = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ContainerState {
+	ContainerStateRunning running = 1;
+	ContainerStateTerminated terminated = 2;
+	ContainerStateWaiting waiting = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ContainerStateRunning {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time started_at = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ContainerStateTerminated {
+	string container_id = 1;
+	int32 exit_code = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time finished_at = 3;
+	string message = 4;
+	string reason = 5;
+	int32 signal = 6;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time started_at = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ContainerStateWaiting {
+	string message = 1;
+	string reason = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ContainerStatus {
+	string container_id = 1;
+	string image = 2;
+	string image_id = 3;
+	ContainerState last_state = 4;
+	string name = 5;
+	bool ready = 6;
+	int32 restart_count = 7;
+	bool started = 8;
+	ContainerState state = 9;
+	oak9.tython.shared.ResourceInfo resource_info = 10;
+}
+
+message DaemonEndpoint {
+	int32 port = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message DownwardAPIProjection {
+	repeated DownwardAPIVolumeFile items = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message DownwardAPIVolumeFile {
+	ObjectFieldSelector field_ref = 1;
+	int32 mode = 2;
+	string path = 3;
+	ResourceFieldSelector resource_field_ref = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message DownwardAPIVolumeSource {
+	int32 default_mode = 1;
+	repeated DownwardAPIVolumeFile items = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message EmptyDirVolumeSource {
+	string medium = 1;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity size_limit = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message EndpointAddress {
+	string hostname = 1;
+	string ip = 2;
+	string node_name = 3;
+	ObjectReference target_ref = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EndpointPort {
+	string app_protocol = 1;
+	string name = 2;
+	int32 port = 3;
+	string protocol = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EndpointSubset {
+	repeated EndpointAddress addresses = 1;
+	repeated EndpointAddress not_ready_addresses = 2;
+	repeated EndpointPort ports = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message Endpoints {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	repeated EndpointSubset subsets = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EndpointsList {
+	string api_version = 1;
+	repeated Endpoints items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EnvFromSource {
+	ConfigMapEnvSource config_map_ref = 1;
+	string prefix = 2;
+	SecretEnvSource secret_ref = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message EnvVar {
+	string name = 1;
+	string value = 2;
+	EnvVarSource value_from = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message EnvVarSource {
+	ConfigMapKeySelector config_map_key_ref = 1;
+	ObjectFieldSelector field_ref = 2;
+	ResourceFieldSelector resource_field_ref = 3;
+	SecretKeySelector secret_key_ref = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EphemeralContainer {
+	repeated string args = 1;
+	repeated string command = 2;
+	repeated EnvVar env = 3;
+	repeated EnvFromSource env_from = 4;
+	string image = 5;
+	string image_pull_policy = 6;
+	Lifecycle lifecycle = 7;
+	Probe liveness_probe = 8;
+	string name = 9;
+	repeated ContainerPort ports = 10;
+	Probe readiness_probe = 11;
+	ResourceRequirements resources = 12;
+	SecurityContext security_context = 13;
+	Probe startup_probe = 14;
+	bool stdin = 15;
+	bool stdin_once = 16;
+	string target_container_name = 17;
+	string termination_message_path = 18;
+	string termination_message_policy = 19;
+	bool tty = 20;
+	repeated VolumeDevice volume_devices = 21;
+	repeated VolumeMount volume_mounts = 22;
+	string working_dir = 23;
+	oak9.tython.shared.ResourceInfo resource_info = 24;
+}
+
+message EphemeralVolumeSource {
+	PersistentVolumeClaimTemplate volume_claim_template = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message Event {
+	string action = 1;
+	string api_version = 2;
+	int32 count = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.MicroTime event_time = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time first_timestamp = 5;
+	ObjectReference involved_object = 6;
+	string kind = 7;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_timestamp = 8;
+	string message = 9;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 10;
+	string reason = 11;
+	ObjectReference related = 12;
+	string reporting_component = 13;
+	string reporting_instance = 14;
+	EventSeries series = 15;
+	EventSource source = 16;
+	string type = 17;
+	oak9.tython.shared.ResourceInfo resource_info = 18;
+}
+
+message EventList {
+	string api_version = 1;
+	repeated Event items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message EventSeries {
+	int32 count = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.MicroTime last_observed_time = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message EventSource {
+	string component = 1;
+	string host = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ExecAction {
+	repeated string command = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message FCVolumeSource {
+	string fs_type = 1;
+	int32 lun = 2;
+	bool read_only = 3;
+	repeated string target_w_w_ns = 4;
+	repeated string wwids = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message FlexPersistentVolumeSource {
+	string driver = 1;
+	string fs_type = 2;
+	map<string, string> options = 3;
+	bool read_only = 4;
+	SecretReference secret_ref = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message FlexVolumeSource {
+	string driver = 1;
+	string fs_type = 2;
+	map<string, string> options = 3;
+	bool read_only = 4;
+	LocalObjectReference secret_ref = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message FlockerVolumeSource {
+	string dataset_name = 1;
+	string dataset_u_u_id = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message GCEPersistentDiskVolumeSource {
+	string fs_type = 1;
+	int32 partition = 2;
+	string pd_name = 3;
+	bool read_only = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message GRPCAction {
+	int32 port = 1;
+	string service = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message GitRepoVolumeSource {
+	string directory = 1;
+	string repository = 2;
+	string revision = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message GlusterfsPersistentVolumeSource {
+	string endpoints = 1;
+	string endpoints_namespace = 2;
+	string path = 3;
+	bool read_only = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message GlusterfsVolumeSource {
+	string endpoints = 1;
+	string path = 2;
+	bool read_only = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message HTTPGetAction {
+	string host = 1;
+	repeated HTTPHeader http_headers = 2;
+	string path = 3;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString port = 4;
+	string scheme = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message HTTPHeader {
+	string name = 1;
+	string value = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message HostAlias {
+	repeated string hostnames = 1;
+	string ip = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message HostPathVolumeSource {
+	string path = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ISCSIPersistentVolumeSource {
+	bool chap_auth_discovery = 1;
+	bool chap_auth_session = 2;
+	string fs_type = 3;
+	string initiator_name = 4;
+	string iqn = 5;
+	string iscsi_interface = 6;
+	int32 lun = 7;
+	repeated string portals = 8;
+	bool read_only = 9;
+	SecretReference secret_ref = 10;
+	string target_portal = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ISCSIVolumeSource {
+	bool chap_auth_discovery = 1;
+	bool chap_auth_session = 2;
+	string fs_type = 3;
+	string initiator_name = 4;
+	string iqn = 5;
+	string iscsi_interface = 6;
+	int32 lun = 7;
+	repeated string portals = 8;
+	bool read_only = 9;
+	LocalObjectReference secret_ref = 10;
+	string target_portal = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message KeyToPath {
+	string key = 1;
+	int32 mode = 2;
+	string path = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message Lifecycle {
+	LifecycleHandler post_start = 1;
+	LifecycleHandler pre_stop = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message LifecycleHandler {
+	ExecAction exec = 1;
+	HTTPGetAction http_get = 2;
+	TCPSocketAction tcp_socket = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message LimitRange {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	LimitRangeSpec spec = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message LimitRangeItem {
+	map<string, string> default = 1;
+	map<string, string> default_request = 2;
+	map<string, string> max = 3;
+	map<string, string> max_limit_request_ratio = 4;
+	map<string, string> min = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message LimitRangeList {
+	string api_version = 1;
+	repeated LimitRange items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message LimitRangeSpec {
+	repeated LimitRangeItem limits = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message LoadBalancerIngress {
+	string hostname = 1;
+	string ip = 2;
+	repeated PortStatus ports = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message LoadBalancerStatus {
+	repeated LoadBalancerIngress ingress = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message LocalObjectReference {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message LocalVolumeSource {
+	string fs_type = 1;
+	string path = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NFSVolumeSource {
+	string path = 1;
+	bool read_only = 2;
+	string server = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message Namespace {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	NamespaceSpec spec = 4;
+	NamespaceStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NamespaceCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NamespaceList {
+	string api_version = 1;
+	repeated Namespace items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message NamespaceSpec {
+	repeated string finalizers = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message NamespaceStatus {
+	repeated NamespaceCondition conditions = 1;
+	string phase = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Node {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	NodeSpec spec = 4;
+	NodeStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message NodeAddress {
+	string address = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NodeAffinity {
+	repeated PreferredSchedulingTerm preferred_during_scheduling_ignored_during_execution = 1;
+	NodeSelector required_during_scheduling_ignored_during_execution = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NodeCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_heartbeat_time = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 2;
+	string message = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message NodeConfigSource {
+	ConfigMapNodeConfigSource config_map = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message NodeConfigStatus {
+	NodeConfigSource active = 1;
+	NodeConfigSource assigned = 2;
+	string error = 3;
+	NodeConfigSource last_known_good = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message NodeDaemonEndpoints {
+	DaemonEndpoint kubelet_endpoint = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message NodeList {
+	string api_version = 1;
+	repeated Node items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message NodeSelector {
+	repeated NodeSelectorTerm node_selector_terms = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message NodeSelectorRequirement {
+	string key = 1;
+	string operator = 2;
+	repeated string values = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message NodeSelectorTerm {
+	repeated NodeSelectorRequirement match_expressions = 1;
+	repeated NodeSelectorRequirement match_fields = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message NodeSpec {
+	NodeConfigSource config_source = 1;
+	string external_id = 2;
+	string pod_cidr = 3;
+	repeated string pod_cidrs = 4;
+	string provider_id = 5;
+	repeated Taint taints = 6;
+	bool unschedulable = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message NodeStatus {
+	repeated NodeAddress addresses = 1;
+	map<string, string> allocatable = 2;
+	map<string, string> capacity = 3;
+	repeated NodeCondition conditions = 4;
+	NodeConfigStatus config = 5;
+	NodeDaemonEndpoints daemon_endpoints = 6;
+	repeated ContainerImage images = 7;
+	NodeSystemInfo node_info = 8;
+	string phase = 9;
+	repeated AttachedVolume volumes_attached = 10;
+	repeated string volumes_in_use = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message NodeSystemInfo {
+	string architecture = 1;
+	string boot_id = 2;
+	string container_runtime_version = 3;
+	string kernel_version = 4;
+	string kube_proxy_version = 5;
+	string kubelet_version = 6;
+	string machine_id = 7;
+	string operating_system = 8;
+	string os_image = 9;
+	string system_u_u_id = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ObjectFieldSelector {
+	string api_version = 1;
+	string field_path = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ObjectReference {
+	string api_version = 1;
+	string field_path = 2;
+	string kind = 3;
+	string name = 4;
+	string namespace = 5;
+	string resource_version = 6;
+	string uid = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message PersistentVolume {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PersistentVolumeSpec spec = 4;
+	PersistentVolumeStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PersistentVolumeClaim {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PersistentVolumeClaimSpec spec = 4;
+	PersistentVolumeClaimStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PersistentVolumeClaimCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_probe_time = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 2;
+	string message = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message PersistentVolumeClaimList {
+	string api_version = 1;
+	repeated PersistentVolumeClaim items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PersistentVolumeClaimSpec {
+	repeated string access_modes = 1;
+	TypedLocalObjectReference data_source = 2;
+	TypedObjectReference data_source_ref = 3;
+	ResourceRequirements resources = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 5;
+	string storage_class_name = 6;
+	string volume_mode = 7;
+	string volume_name = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message PersistentVolumeClaimStatus {
+	repeated string access_modes = 1;
+	map<string, string> allocated_resources = 2;
+	map<string, string> capacity = 3;
+	repeated PersistentVolumeClaimCondition conditions = 4;
+	string phase = 5;
+	string resize_status = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message PersistentVolumeClaimTemplate {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+	PersistentVolumeClaimSpec spec = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PersistentVolumeClaimVolumeSource {
+	string claim_name = 1;
+	bool read_only = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PersistentVolumeList {
+	string api_version = 1;
+	repeated PersistentVolume items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PersistentVolumeSpec {
+	repeated string access_modes = 1;
+	AWSElasticBlockStoreVolumeSource aws_elastic_block_store = 2;
+	AzureDiskVolumeSource azure_disk = 3;
+	AzureFilePersistentVolumeSource azure_file = 4;
+	map<string, string> capacity = 5;
+	CephFSPersistentVolumeSource cephfs = 6;
+	CinderPersistentVolumeSource cinder = 7;
+	ObjectReference claim_ref = 8;
+	CSIPersistentVolumeSource csi = 9;
+	FCVolumeSource fc = 10;
+	FlexPersistentVolumeSource flex_volume = 11;
+	FlockerVolumeSource flocker = 12;
+	GCEPersistentDiskVolumeSource gce_persistent_disk = 13;
+	GlusterfsPersistentVolumeSource glusterfs = 14;
+	HostPathVolumeSource host_path = 15;
+	ISCSIPersistentVolumeSource iscsi = 16;
+	LocalVolumeSource local = 17;
+	repeated string mount_options = 18;
+	NFSVolumeSource nfs = 19;
+	VolumeNodeAffinity node_affinity = 20;
+	string persistent_volume_reclaim_policy = 21;
+	PhotonPersistentDiskVolumeSource photon_persistent_disk = 22;
+	PortworxVolumeSource portworx_volume = 23;
+	QuobyteVolumeSource quobyte = 24;
+	RBDPersistentVolumeSource rbd = 25;
+	ScaleIOPersistentVolumeSource scale_io = 26;
+	string storage_class_name = 27;
+	StorageOSPersistentVolumeSource storageos = 28;
+	string volume_mode = 29;
+	VsphereVirtualDiskVolumeSource vsphere_volume = 30;
+	oak9.tython.shared.ResourceInfo resource_info = 31;
+}
+
+message PersistentVolumeStatus {
+	string message = 1;
+	string phase = 2;
+	string reason = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PhotonPersistentDiskVolumeSource {
+	string fs_type = 1;
+	string pd_id = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Pod {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PodSpec spec = 4;
+	PodStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message PodAffinity {
+	repeated WeightedPodAffinityTerm preferred_during_scheduling_ignored_during_execution = 1;
+	repeated PodAffinityTerm required_during_scheduling_ignored_during_execution = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodAffinityTerm {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector label_selector = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector namespace_selector = 2;
+	repeated string namespaces = 3;
+	string topology_key = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodAntiAffinity {
+	repeated WeightedPodAffinityTerm preferred_during_scheduling_ignored_during_execution = 1;
+	repeated PodAffinityTerm required_during_scheduling_ignored_during_execution = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_probe_time = 1;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 2;
+	string message = 3;
+	string reason = 4;
+	string status = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message PodDNSConfig {
+	repeated string nameservers = 1;
+	repeated PodDNSConfigOption options = 2;
+	repeated string searches = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PodDNSConfigOption {
+	string name = 1;
+	string value = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodIP {
+	string ip = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message PodList {
+	string api_version = 1;
+	repeated Pod items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodOS {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message PodReadinessGate {
+	string condition_type = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message PodResourceClaim {
+	string name = 1;
+	ClaimSource source = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PodSchedulingGate {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message PodSecurityContext {
+	int32 fs_group = 1;
+	string fs_group_change_policy = 2;
+	int32 run_as_group = 3;
+	bool run_as_non_root = 4;
+	int32 run_as_user = 5;
+	SELinuxOptions se_linux_options = 6;
+	SeccompProfile seccomp_profile = 7;
+	repeated int64 supplemental_groups = 8;
+	repeated Sysctl sysctls = 9;
+	WindowsSecurityContextOptions windows_options = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message PodSpec {
+	int32 active_deadline_seconds = 1;
+	Affinity affinity = 2;
+	bool automount_service_account_token = 3;
+	repeated Container containers = 4;
+	PodDNSConfig dns_config = 5;
+	string dns_policy = 6;
+	bool enable_service_links = 7;
+	repeated EphemeralContainer ephemeral_containers = 8;
+	repeated HostAlias host_aliases = 9;
+	bool host_ip_c = 10;
+	bool host_network = 11;
+	bool host_p_id = 12;
+	bool host_users = 13;
+	string hostname = 14;
+	repeated LocalObjectReference image_pull_secrets = 15;
+	repeated Container init_containers = 16;
+	string node_name = 17;
+	map<string, string> node_selector = 18;
+	PodOS os = 19;
+	map<string, string> overhead = 20;
+	string preemption_policy = 21;
+	int32 priority = 22;
+	string priority_class_name = 23;
+	repeated PodReadinessGate readiness_gates = 24;
+	repeated PodResourceClaim resource_claims = 25;
+	string restart_policy = 26;
+	string runtime_class_name = 27;
+	string scheduler_name = 28;
+	repeated PodSchedulingGate scheduling_gates = 29;
+	PodSecurityContext security_context = 30;
+	string service_account = 31;
+	string service_account_name = 32;
+	bool set_hostname_as_fqdn = 33;
+	bool share_process_namespace = 34;
+	string subdomain = 35;
+	int32 termination_grace_period_seconds = 36;
+	repeated Toleration tolerations = 37;
+	repeated TopologySpreadConstraint topology_spread_constraints = 38;
+	repeated Volume volumes = 39;
+	oak9.tython.shared.ResourceInfo resource_info = 40;
+}
+
+message PodStatus {
+	repeated PodCondition conditions = 1;
+	repeated ContainerStatus container_statuses = 2;
+	repeated ContainerStatus ephemeral_container_statuses = 3;
+	string host_ip = 4;
+	repeated ContainerStatus init_container_statuses = 5;
+	string message = 6;
+	string nominated_node_name = 7;
+	string phase = 8;
+	string pod_ip = 9;
+	repeated PodIP pod_ips = 10;
+	string qos_class = 11;
+	string reason = 12;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time start_time = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+
+message PodTemplate {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	PodTemplateSpec template = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodTemplateList {
+	string api_version = 1;
+	repeated PodTemplate items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message PodTemplateSpec {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+	PodSpec spec = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message PortStatus {
+	string error = 1;
+	int32 port = 2;
+	string protocol = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PortworxVolumeSource {
+	string fs_type = 1;
+	bool read_only = 2;
+	string volume_id = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message PreferredSchedulingTerm {
+	NodeSelectorTerm preference = 1;
+	int32 weight = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Probe {
+	ExecAction exec = 1;
+	int32 failure_threshold = 2;
+	GRPCAction grpc = 3;
+	HTTPGetAction http_get = 4;
+	int32 initial_delay_seconds = 5;
+	int32 period_seconds = 6;
+	int32 success_threshold = 7;
+	TCPSocketAction tcp_socket = 8;
+	int32 termination_grace_period_seconds = 9;
+	int32 timeout_seconds = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ProjectedVolumeSource {
+	int32 default_mode = 1;
+	repeated VolumeProjection sources = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message QuobyteVolumeSource {
+	string group = 1;
+	bool read_only = 2;
+	string registry = 3;
+	string tenant = 4;
+	string user = 5;
+	string volume = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message RBDPersistentVolumeSource {
+	string fs_type = 1;
+	string image = 2;
+	string keyring = 3;
+	repeated string monitors = 4;
+	string pool = 5;
+	bool read_only = 6;
+	SecretReference secret_ref = 7;
+	string user = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message RBDVolumeSource {
+	string fs_type = 1;
+	string image = 2;
+	string keyring = 3;
+	repeated string monitors = 4;
+	string pool = 5;
+	bool read_only = 6;
+	LocalObjectReference secret_ref = 7;
+	string user = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ReplicationController {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ReplicationControllerSpec spec = 4;
+	ReplicationControllerStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ReplicationControllerCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ReplicationControllerList {
+	string api_version = 1;
+	repeated ReplicationController items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ReplicationControllerSpec {
+	int32 min_ready_seconds = 1;
+	int32 replicas = 2;
+	map<string, string> selector = 3;
+	PodTemplateSpec template = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ReplicationControllerStatus {
+	int32 available_replicas = 1;
+	repeated ReplicationControllerCondition conditions = 2;
+	int32 fully_labeled_replicas = 3;
+	int32 observed_generation = 4;
+	int32 ready_replicas = 5;
+	int32 replicas = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ResourceClaim {
+	string name = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ResourceFieldSelector {
+	string container_name = 1;
+	oak9.tython.k8s.apimachinery.pkg.api.resource.Quantity divisor = 2;
+	string resource = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ResourceQuota {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ResourceQuotaSpec spec = 4;
+	ResourceQuotaStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ResourceQuotaList {
+	string api_version = 1;
+	repeated ResourceQuota items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ResourceQuotaSpec {
+	map<string, string> hard = 1;
+	ScopeSelector scope_selector = 2;
+	repeated string scopes = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ResourceQuotaStatus {
+	map<string, string> hard = 1;
+	map<string, string> used = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message ResourceRequirements {
+	repeated ResourceClaim claims = 1;
+	map<string, string> limits = 2;
+	map<string, string> requests = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message SELinuxOptions {
+	string level = 1;
+	string role = 2;
+	string type = 3;
+	string user = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ScaleIOPersistentVolumeSource {
+	string fs_type = 1;
+	string gateway = 2;
+	string protection_domain = 3;
+	bool read_only = 4;
+	SecretReference secret_ref = 5;
+	bool ssl_enabled = 6;
+	string storage_mode = 7;
+	string storage_pool = 8;
+	string system = 9;
+	string volume_name = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ScaleIOVolumeSource {
+	string fs_type = 1;
+	string gateway = 2;
+	string protection_domain = 3;
+	bool read_only = 4;
+	LocalObjectReference secret_ref = 5;
+	bool ssl_enabled = 6;
+	string storage_mode = 7;
+	string storage_pool = 8;
+	string system = 9;
+	string volume_name = 10;
+	oak9.tython.shared.ResourceInfo resource_info = 11;
+}
+
+message ScopeSelector {
+	repeated ScopedResourceSelectorRequirement match_expressions = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ScopedResourceSelectorRequirement {
+	string operator = 1;
+	string scope_name = 2;
+	repeated string values = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message SeccompProfile {
+	string localhost_profile = 1;
+	string type = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Secret {
+	string api_version = 1;
+	map<string, string> data = 2;
+	bool immutable = 3;
+	string kind = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	map<string, string> string_data = 6;
+	string type = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message SecretEnvSource {
+	string name = 1;
+	bool optional = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message SecretKeySelector {
+	string key = 1;
+	string name = 2;
+	bool optional = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message SecretList {
+	string api_version = 1;
+	repeated Secret items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message SecretProjection {
+	repeated KeyToPath items = 1;
+	string name = 2;
+	bool optional = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message SecretReference {
+	string name = 1;
+	string namespace = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message SecretVolumeSource {
+	int32 default_mode = 1;
+	repeated KeyToPath items = 2;
+	bool optional = 3;
+	string secret_name = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message SecurityContext {
+	bool allow_privilege_escalation = 1;
+	Capabilities capabilities = 2;
+	bool privileged = 3;
+	string proc_mount = 4;
+	bool read_only_root_filesystem = 5;
+	int32 run_as_group = 6;
+	bool run_as_non_root = 7;
+	int32 run_as_user = 8;
+	SELinuxOptions se_linux_options = 9;
+	SeccompProfile seccomp_profile = 10;
+	WindowsSecurityContextOptions windows_options = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message Service {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	ServiceSpec spec = 4;
+	ServiceStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message ServiceAccount {
+	string api_version = 1;
+	bool automount_service_account_token = 2;
+	repeated LocalObjectReference image_pull_secrets = 3;
+	string kind = 4;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 5;
+	repeated ObjectReference secrets = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ServiceAccountList {
+	string api_version = 1;
+	repeated ServiceAccount items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ServiceAccountTokenProjection {
+	string audience = 1;
+	int32 expiration_seconds = 2;
+	string path = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message ServiceList {
+	string api_version = 1;
+	repeated Service items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ServicePort {
+	string app_protocol = 1;
+	string name = 2;
+	int32 node_port = 3;
+	int32 port = 4;
+	string protocol = 5;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString target_port = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ServiceSpec {
+	bool allocate_load_balancer_node_ports = 1;
+	string cluster_ip = 2;
+	repeated string cluster_ips = 3;
+	repeated string external_ips = 4;
+	string external_name = 5;
+	string external_traffic_policy = 6;
+	int32 health_check_node_port = 7;
+	string internal_traffic_policy = 8;
+	repeated string ip_families = 9;
+	string ip_family_policy = 10;
+	string load_balancer_class = 11;
+	string load_balancer_ip = 12;
+	repeated string load_balancer_source_ranges = 13;
+	repeated ServicePort ports = 14;
+	bool publish_not_ready_addresses = 15;
+	map<string, string> selector = 16;
+	string session_affinity = 17;
+	SessionAffinityConfig session_affinity_config = 18;
+	string type = 19;
+	oak9.tython.shared.ResourceInfo resource_info = 20;
+}
+
+message ServiceStatus {
+	repeated oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Condition conditions = 1;
+	LoadBalancerStatus load_balancer = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message SessionAffinityConfig {
+	ClientIPConfig client_ip = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message StorageOSPersistentVolumeSource {
+	string fs_type = 1;
+	bool read_only = 2;
+	ObjectReference secret_ref = 3;
+	string volume_name = 4;
+	string volume_namespace = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message StorageOSVolumeSource {
+	string fs_type = 1;
+	bool read_only = 2;
+	LocalObjectReference secret_ref = 3;
+	string volume_name = 4;
+	string volume_namespace = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message Sysctl {
+	string name = 1;
+	string value = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message TCPSocketAction {
+	string host = 1;
+	oak9.tython.k8s.apimachinery.pkg.util.intstr.IntOrString port = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message Taint {
+	string effect = 1;
+	string key = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time time_added = 3;
+	string value = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Toleration {
+	string effect = 1;
+	string key = 2;
+	string operator = 3;
+	int32 toleration_seconds = 4;
+	string value = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message TopologySelectorLabelRequirement {
+	string key = 1;
+	repeated string values = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message TopologySelectorTerm {
+	repeated TopologySelectorLabelRequirement match_label_expressions = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message TopologySpreadConstraint {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector label_selector = 1;
+	repeated string match_label_keys = 2;
+	int32 max_skew = 3;
+	int32 min_domains = 4;
+	string node_affinity_policy = 5;
+	string node_taints_policy = 6;
+	string topology_key = 7;
+	string when_unsatisfiable = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message TypedLocalObjectReference {
+	string api_group = 1;
+	string kind = 2;
+	string name = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message TypedObjectReference {
+	string api_group = 1;
+	string kind = 2;
+	string name = 3;
+	string namespace = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message Volume {
+	AWSElasticBlockStoreVolumeSource aws_elastic_block_store = 1;
+	AzureDiskVolumeSource azure_disk = 2;
+	AzureFileVolumeSource azure_file = 3;
+	CephFSVolumeSource cephfs = 4;
+	CinderVolumeSource cinder = 5;
+	ConfigMapVolumeSource config_map = 6;
+	CSIVolumeSource csi = 7;
+	DownwardAPIVolumeSource downward_a_p_i = 8;
+	EmptyDirVolumeSource empty_dir = 9;
+	EphemeralVolumeSource ephemeral = 10;
+	FCVolumeSource fc = 11;
+	FlexVolumeSource flex_volume = 12;
+	FlockerVolumeSource flocker = 13;
+	GCEPersistentDiskVolumeSource gce_persistent_disk = 14;
+	GitRepoVolumeSource git_repo = 15;
+	GlusterfsVolumeSource glusterfs = 16;
+	HostPathVolumeSource host_path = 17;
+	ISCSIVolumeSource iscsi = 18;
+	string name = 19;
+	NFSVolumeSource nfs = 20;
+	PersistentVolumeClaimVolumeSource persistent_volume_claim = 21;
+	PhotonPersistentDiskVolumeSource photon_persistent_disk = 22;
+	PortworxVolumeSource portworx_volume = 23;
+	ProjectedVolumeSource projected = 24;
+	QuobyteVolumeSource quobyte = 25;
+	RBDVolumeSource rbd = 26;
+	ScaleIOVolumeSource scale_io = 27;
+	SecretVolumeSource secret = 28;
+	StorageOSVolumeSource storageos = 29;
+	VsphereVirtualDiskVolumeSource vsphere_volume = 30;
+	oak9.tython.shared.ResourceInfo resource_info = 31;
+}
+
+message VolumeDevice {
+	string device_path = 1;
+	string name = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message VolumeMount {
+	string mount_path = 1;
+	string mount_propagation = 2;
+	string name = 3;
+	bool read_only = 4;
+	string sub_path = 5;
+	string sub_path_expr = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message VolumeNodeAffinity {
+	NodeSelector required = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message VolumeProjection {
+	ConfigMapProjection config_map = 1;
+	DownwardAPIProjection downward_a_p_i = 2;
+	SecretProjection secret = 3;
+	ServiceAccountTokenProjection service_account_token = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message VsphereVirtualDiskVolumeSource {
+	string fs_type = 1;
+	string storage_policy_id = 2;
+	string storage_policy_name = 3;
+	string volume_path = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message WeightedPodAffinityTerm {
+	PodAffinityTerm pod_affinity_term = 1;
+	int32 weight = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message WindowsSecurityContextOptions {
+	string gmsa_credential_spec = 1;
+	string gmsa_credential_spec_name = 2;
+	bool host_process = 3;
+	string run_as_user_name = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+

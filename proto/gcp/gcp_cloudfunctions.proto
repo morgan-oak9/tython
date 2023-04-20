@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.cloudfunctions;
+
+import "shared/shared.proto";
+
+message CloudfunctionsFunctionXEventTriggerXFailurePolicy {
+	bool retry = 1;
+}
+
+message CloudfunctionsFunctionXEventTrigger {
+	string event_type = 1;
+	string resource = 2;
+	CloudfunctionsFunctionXEventTriggerXFailurePolicy failure_policy = 3;
+}
+
+message CloudfunctionsFunctionXSecretEnvironmentVariables {
+	string key = 1;
+	string project_id = 2;
+	string secret = 3;
+	string version = 4;
+}
+
+message CloudfunctionsFunctionXSecretVolumesXVersions {
+	string path = 1;
+	string version = 2;
+}
+
+message CloudfunctionsFunctionXSecretVolumes {
+	string mount_path = 1;
+	string project_id = 2;
+	string secret = 3;
+	repeated CloudfunctionsFunctionXSecretVolumesXVersions versions = 4;
+}
+
+message CloudfunctionsFunctionXSourceRepository {
+	string deployed_url = 1;
+	string url = 2;
+}
+
+message CloudfunctionsFunctionXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string read = 3;
+	string update = 4;
+}
+
+message CloudfunctionsFunction {
+	double available_memory_mb = 1;
+	map<string, string> build_environment_variables = 2;
+	string description = 3;
+	string docker_registry = 4;
+	string docker_repository = 5;
+	string entry_point = 6;
+	map<string, string> environment_variables = 7;
+	string https_trigger_security_level = 8;
+	string https_trigger_url = 9;
+	string id = 10;
+	string ingress_settings = 11;
+	string kms_key_name = 12;
+	map<string, string> labels = 13;
+	double max_instances = 14;
+	double min_instances = 15;
+	string name = 16;
+	string project = 17;
+	string region = 18;
+	string runtime = 19;
+	string service_account_email = 20;
+	string source_archive_bucket = 21;
+	string source_archive_object = 22;
+	double timeout = 23;
+	bool trigger_http = 24;
+	string vpc_connector = 25;
+	string vpc_connector_egress_settings = 26;
+	CloudfunctionsFunctionXEventTrigger event_trigger = 27;
+	repeated CloudfunctionsFunctionXSecretEnvironmentVariables secret_environment_variables = 28;
+	repeated CloudfunctionsFunctionXSecretVolumes secret_volumes = 29;
+	CloudfunctionsFunctionXSourceRepository source_repository = 30;
+	CloudfunctionsFunctionXTimeouts timeouts = 31;
+	oak9.tython.shared.ResourceInfo resource_info = 32;
+}
+
+message CloudfunctionsFunctionIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudfunctionsFunctionIamBinding {
+	string cloud_function = 1;
+	string etag = 2;
+	string id = 3;
+	repeated string members = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	CloudfunctionsFunctionIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudfunctionsFunctionIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message CloudfunctionsFunctionIamMember {
+	string cloud_function = 1;
+	string etag = 2;
+	string id = 3;
+	string member = 4;
+	string project = 5;
+	string region = 6;
+	string role = 7;
+	CloudfunctionsFunctionIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CloudfunctionsFunctionIamPolicy {
+	string cloud_function = 1;
+	string etag = 2;
+	string id = 3;
+	string policy_data = 4;
+	string project = 5;
+	string region = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+

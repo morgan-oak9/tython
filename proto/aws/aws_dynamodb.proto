@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package oak9.tython.aws.dynamodb;
+
+import "shared/shared.proto";
+
+message TableAttributeDefinition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string attribute_name = 2;
+	string attribute_type = 3;
+}
+
+message DynamoDB {
+	repeated TableAttributeDefinition table_attribute_definition = 1;
+	repeated TableGlobalSecondaryIndex table_global_secondary_index = 2;
+	repeated TableLocalSecondaryIndex table_local_secondary_index = 3;
+	repeated TablePointInTimeRecoverySpecification table_point_in_time_recovery_specification = 4;
+	repeated TableSSESpecification table_sse_specification = 5;
+	repeated TableStreamSpecification table_stream_specification = 6;
+	repeated TableTimeToLiveSpecification table_time_to_live_specification = 7;
+}
+
+message TableKeySchema {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string attribute_name = 2;
+	string key_type = 3;
+}
+
+message TableProjection {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string non_key_attributes = 2;
+	string projection_type = 3;
+}
+
+message TableProvisionedThroughput {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 read_capacity_units = 2;
+	int32 write_capacity_units = 3;
+}
+
+message TableGlobalSecondaryIndex {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string index_name = 2;
+	repeated TableKeySchema key_schema = 3;
+	TableProjection projection = 4;
+	TableProvisionedThroughput provisioned_throughput = 5;
+}
+
+message TableLocalSecondaryIndex {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string index_name = 2;
+	repeated TableKeySchema key_schema = 3;
+	TableProjection projection = 4;
+}
+
+message TablePointInTimeRecoverySpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool point_in_time_recovery_enabled = 2;
+}
+
+message TableSSESpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string kms_master_key_id = 2;
+	bool sse_enabled = 3;
+	string sse_type = 4;
+}
+
+message TableStreamSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string stream_view_type = 2;
+}
+
+message TableTimeToLiveSpecification {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string attribute_name = 2;
+	bool enabled = 3;
+}
+

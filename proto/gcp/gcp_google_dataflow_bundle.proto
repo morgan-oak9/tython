@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_dataflow_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_dataflow.proto";
+
+message GoogleDataflow {
+	oak9.tython.gcp.dataflow.DataflowJob dataflow_job = 1;
+}
+

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.eventarc;
+
+import "shared/shared.proto";
+
+message EventarcTriggerXDestinationXCloudRunService {
+	string path = 1;
+	string region = 2;
+	string service = 3;
+}
+
+message EventarcTriggerXDestinationXGke {
+	string cluster = 1;
+	string location = 2;
+	string namespace = 3;
+	string path = 4;
+	string service = 5;
+}
+
+message EventarcTriggerXDestination {
+	string cloud_function = 1;
+	string workflow = 2;
+	EventarcTriggerXDestinationXCloudRunService cloud_run_service = 3;
+	EventarcTriggerXDestinationXGke gke = 4;
+}
+
+message EventarcTriggerXMatchingCriteria {
+	string attribute = 1;
+	string operator = 2;
+	string value = 3;
+}
+
+message EventarcTriggerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message EventarcTriggerXTransportXPubsub {
+	string subscription = 1;
+	string topic = 2;
+}
+
+message EventarcTriggerXTransport {
+	EventarcTriggerXTransportXPubsub pubsub = 1;
+}
+
+message EventarcTrigger {
+	string create_time = 1;
+	string etag = 2;
+	string id = 3;
+	map<string, string> labels = 4;
+	string location = 5;
+	string name = 6;
+	string project = 7;
+	string service_account = 8;
+	string uid = 9;
+	string update_time = 10;
+	EventarcTriggerXDestination destination = 11;
+	repeated EventarcTriggerXMatchingCriteria matching_criteria = 12;
+	EventarcTriggerXTimeouts timeouts = 13;
+	EventarcTriggerXTransport transport = 14;
+	oak9.tython.shared.ResourceInfo resource_info = 15;
+}
+

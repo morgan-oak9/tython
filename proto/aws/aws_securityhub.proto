@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package oak9.tython.aws.securityhub;
+
+import "shared/shared.proto";
+
+message Hub {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	map<string, string> tags = 2;
+}
+
+message SecurityHub {
+	repeated Hub hub = 1;
+}
+

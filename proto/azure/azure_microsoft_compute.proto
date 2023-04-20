@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_compute;
+
+import "shared/shared.proto";
+
+message Microsoft_Compute {
+	repeated AvailabilitySets availability_sets = 1;
+	repeated CapacityReservationGroups capacity_reservation_groups = 2;
+	repeated HostGroups host_groups = 3;
+	repeated Images images = 4;
+	repeated ProximityPlacementGroups proximity_placement_groups = 5;
+	repeated RestorePointCollections restore_point_collections = 6;
+	repeated SshPublicKeys ssh_public_keys = 7;
+}
+
+message SshPublicKeys {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	string public_key = 4;
+	map<string, string> tags = 5;
+}
+
+message RestorePointCollectionsRestorePoints {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	repeated ApiEntityReference exclude_disks = 3;
+	ApiEntityReference source_restore_point = 4;
+	string time_created = 5;
+}
+
+message ApiEntityReference {
+	string id = 1;
+}
+
+message RestorePointCollections {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	RestorePointCollectionSourceProperties source = 4;
+	map<string, string> tags = 5;
+	repeated RestorePointCollectionsRestorePoints restore_point_collections_restore_points = 6;
+}
+
+message RestorePointCollectionSourceProperties {
+	string id = 1;
+}
+
+message ProximityPlacementGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	InstanceViewStatus colocation_status = 4;
+	string proximity_placement_group_type = 5;
+	map<string, string> tags = 6;
+}
+
+message InstanceViewStatus {
+	string code = 1;
+	string display_status = 2;
+	string level = 3;
+	string message = 4;
+	string time = 5;
+}
+
+message Images {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	string location = 3;
+	string name = 4;
+	string hyper_v_generation = 5;
+	string source_virtual_machine = 6;
+	ImageStorageProfile storage_profile = 7;
+	map<string, string> tags = 8;
+}
+
+message ImageStorageProfile {
+	repeated ImageDataDisk data_disks = 1;
+	ImageOSDisk os_disk = 2;
+	bool zone_resilient = 3;
+}
+
+message ImageOSDisk {
+	string blob_uri = 1;
+	string caching = 2;
+	DiskEncryptionSetParameters disk_encryption_set = 3;
+	int32 disk_size_gb = 4;
+	string managed_disk = 5;
+	string os_state = 6;
+	string os_type = 7;
+	string snapshot = 8;
+	string storage_account_type = 9;
+}
+
+message ImageDataDisk {
+	string blob_uri = 1;
+	string caching = 2;
+	DiskEncryptionSetParameters disk_encryption_set = 3;
+	int32 disk_size_gb = 4;
+	int32 lun = 5;
+	string managed_disk = 6;
+	string snapshot = 7;
+	string storage_account_type = 8;
+}
+
+message DiskEncryptionSetParameters {
+	string id = 1;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+
+message HostGroupsHosts {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	bool auto_replace_on_failure = 4;
+	string license_type = 5;
+	int32 platform_fault_domain = 6;
+	Sku sku = 7;
+	map<string, string> tags = 8;
+}
+
+message HostGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	int32 platform_fault_domain_count = 4;
+	bool support_automatic_placement = 5;
+	map<string, string> tags = 6;
+	repeated string zones = 7;
+	repeated HostGroupsHosts host_groups_hosts = 8;
+}
+
+message CapacityReservationGroupsCapacityReservations {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	Sku sku = 4;
+	map<string, string> tags = 5;
+	repeated string zones = 6;
+}
+
+message CapacityReservationGroups {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	map<string, string> tags = 4;
+	repeated string zones = 5;
+	repeated CapacityReservationGroupsCapacityReservations capacity_reservation_groups_capacity_reservations = 6;
+}
+
+message AvailabilitySets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string location = 2;
+	string name = 3;
+	int32 platform_fault_domain_count = 4;
+	int32 platform_update_domain_count = 5;
+	string proximity_placement_group = 6;
+	repeated string virtual_machines = 7;
+	Sku sku = 8;
+	map<string, string> tags = 9;
+}
+
+message Sku {
+	int32 capacity = 1;
+	string name = 2;
+	string tier = 3;
+}

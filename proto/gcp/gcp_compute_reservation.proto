@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_reservation;
+
+import "shared/shared.proto";
+
+message ComputeReservationXShareSettingsXProjectMap {
+	string id = 1;
+	string project_id = 2;
+}
+
+message ComputeReservationXShareSettings {
+	string share_type = 1;
+	repeated ComputeReservationXShareSettingsXProjectMap project_map = 2;
+}
+
+message ComputeReservationXSpecificReservationXInstancePropertiesXGuestAccelerators {
+	double accelerator_count = 1;
+	string accelerator_type = 2;
+}
+
+message ComputeReservationXSpecificReservationXInstancePropertiesXLocalSsds {
+	double disk_size_gb = 1;
+	string interface = 2;
+}
+
+message ComputeReservationXSpecificReservationXInstanceProperties {
+	string machine_type = 1;
+	string min_cpu_platform = 2;
+	repeated ComputeReservationXSpecificReservationXInstancePropertiesXGuestAccelerators guest_accelerators = 3;
+	repeated ComputeReservationXSpecificReservationXInstancePropertiesXLocalSsds local_ssds = 4;
+}
+
+message ComputeReservationXSpecificReservation {
+	double count = 1;
+	double in_use_count = 2;
+	ComputeReservationXSpecificReservationXInstanceProperties instance_properties = 3;
+}
+
+message ComputeReservationXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeReservation {
+	string commitment = 1;
+	string creation_timestamp = 2;
+	string description = 3;
+	string id = 4;
+	string name = 5;
+	string project = 6;
+	string self_link = 7;
+	bool specific_reservation_required = 8;
+	string status = 9;
+	string zone = 10;
+	ComputeReservationXShareSettings share_settings = 11;
+	ComputeReservationXSpecificReservation specific_reservation = 12;
+	ComputeReservationXTimeouts timeouts = 13;
+	oak9.tython.shared.ResourceInfo resource_info = 14;
+}
+

@@ -1,0 +1,589 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.compute_instance;
+
+import "shared/shared.proto";
+
+message ComputeInstanceXAdvancedMachineFeatures {
+	bool enable_nested_virtualization = 1;
+	double threads_per_core = 2;
+}
+
+message ComputeInstanceXAttachedDisk {
+	string device_name = 1;
+	string disk_encryption_key_raw = 2;
+	string disk_encryption_key_sha256 = 3;
+	string kms_key_self_link = 4;
+	string mode = 5;
+	string source = 6;
+}
+
+message ComputeInstanceXBootDiskXInitializeParams {
+	string image = 1;
+	map<string, string> labels = 2;
+	double size = 3;
+	string type = 4;
+}
+
+message ComputeInstanceXBootDisk {
+	bool auto_delete = 1;
+	string device_name = 2;
+	string disk_encryption_key_raw = 3;
+	string disk_encryption_key_sha256 = 4;
+	string kms_key_self_link = 5;
+	string mode = 6;
+	string source = 7;
+	ComputeInstanceXBootDiskXInitializeParams initialize_params = 8;
+}
+
+message ComputeInstanceXConfidentialInstanceConfig {
+	bool enable_confidential_compute = 1;
+}
+
+message ComputeInstanceXNetworkInterfaceXAccessConfig {
+	string nat_ip = 1;
+	string network_tier = 2;
+	string public_ptr_domain_name = 3;
+}
+
+message ComputeInstanceXNetworkInterfaceXAliasIpRange {
+	string ip_cidr_range = 1;
+	string subnetwork_range_name = 2;
+}
+
+message ComputeInstanceXNetworkInterfaceXIpv6AccessConfig {
+	string external_ipv6 = 1;
+	string external_ipv6_prefix_length = 2;
+	string network_tier = 3;
+	string public_ptr_domain_name = 4;
+}
+
+message ComputeInstanceXNetworkInterface {
+	string ipv6_access_type = 1;
+	string name = 2;
+	string network = 3;
+	string network_ip = 4;
+	string nic_type = 5;
+	double queue_count = 6;
+	string stack_type = 7;
+	string subnetwork = 8;
+	string subnetwork_project = 9;
+	repeated ComputeInstanceXNetworkInterfaceXAccessConfig access_config = 10;
+	repeated ComputeInstanceXNetworkInterfaceXAliasIpRange alias_ip_range = 11;
+	repeated ComputeInstanceXNetworkInterfaceXIpv6AccessConfig ipv6_access_config = 12;
+}
+
+message ComputeInstanceXReservationAffinityXSpecificReservation {
+	string key = 1;
+	repeated string values = 2;
+}
+
+message ComputeInstanceXReservationAffinity {
+	string type = 1;
+	ComputeInstanceXReservationAffinityXSpecificReservation specific_reservation = 2;
+}
+
+message ComputeInstanceXSchedulingXNodeAffinities {
+	string key = 1;
+	string operator = 2;
+	repeated string values = 3;
+}
+
+message ComputeInstanceXScheduling {
+	bool automatic_restart = 1;
+	string instance_termination_action = 2;
+	double min_node_cpus = 3;
+	string on_host_maintenance = 4;
+	bool preemptible = 5;
+	string provisioning_model = 6;
+	repeated ComputeInstanceXSchedulingXNodeAffinities node_affinities = 7;
+}
+
+message ComputeInstanceXScratchDisk {
+	string interface = 1;
+}
+
+message ComputeInstanceXServiceAccount {
+	string email = 1;
+	repeated string scopes = 2;
+}
+
+message ComputeInstanceXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+	bool enable_vtpm = 3;
+}
+
+message ComputeInstanceXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeInstance {
+	bool allow_stopping_for_update = 1;
+	bool can_ip_forward = 2;
+	string cpu_platform = 3;
+	string current_status = 4;
+	bool deletion_protection = 5;
+	string description = 6;
+	string desired_status = 7;
+	bool enable_display = 8;
+	map<string, string> guest_accelerator = 9;
+	string hostname = 10;
+	string id = 11;
+	string instance_id = 12;
+	string label_fingerprint = 13;
+	map<string, string> labels = 14;
+	string machine_type = 15;
+	map<string, string> metadata = 16;
+	string metadata_fingerprint = 17;
+	string metadata_startup_script = 18;
+	string min_cpu_platform = 19;
+	string name = 20;
+	string project = 21;
+	repeated string resource_policies = 22;
+	string self_link = 23;
+	repeated string tags = 24;
+	string tags_fingerprint = 25;
+	string zone = 26;
+	ComputeInstanceXAdvancedMachineFeatures advanced_machine_features = 27;
+	repeated ComputeInstanceXAttachedDisk attached_disk = 28;
+	ComputeInstanceXBootDisk boot_disk = 29;
+	ComputeInstanceXConfidentialInstanceConfig confidential_instance_config = 30;
+	repeated ComputeInstanceXNetworkInterface network_interface = 31;
+	ComputeInstanceXReservationAffinity reservation_affinity = 32;
+	ComputeInstanceXScheduling scheduling = 33;
+	repeated ComputeInstanceXScratchDisk scratch_disk = 34;
+	ComputeInstanceXServiceAccount service_account = 35;
+	ComputeInstanceXShieldedInstanceConfig shielded_instance_config = 36;
+	ComputeInstanceXTimeouts timeouts = 37;
+	oak9.tython.shared.ResourceInfo resource_info = 38;
+}
+
+message ComputeInstanceFromTemplateXAdvancedMachineFeatures {
+	bool enable_nested_virtualization = 1;
+	double threads_per_core = 2;
+}
+
+message ComputeInstanceFromTemplateXBootDiskXInitializeParams {
+	string image = 1;
+	map<string, string> labels = 2;
+	double size = 3;
+	string type = 4;
+}
+
+message ComputeInstanceFromTemplateXBootDisk {
+	bool auto_delete = 1;
+	string device_name = 2;
+	string disk_encryption_key_raw = 3;
+	string disk_encryption_key_sha256 = 4;
+	string kms_key_self_link = 5;
+	string mode = 6;
+	string source = 7;
+	ComputeInstanceFromTemplateXBootDiskXInitializeParams initialize_params = 8;
+}
+
+message ComputeInstanceFromTemplateXConfidentialInstanceConfig {
+	bool enable_confidential_compute = 1;
+}
+
+message ComputeInstanceFromTemplateXNetworkInterfaceXIpv6AccessConfig {
+	string external_ipv6 = 1;
+	string external_ipv6_prefix_length = 2;
+	string network_tier = 3;
+	string public_ptr_domain_name = 4;
+}
+
+message ComputeInstanceFromTemplateXNetworkInterface {
+	map<string, string> access_config = 1;
+	map<string, string> alias_ip_range = 2;
+	string ipv6_access_type = 3;
+	string name = 4;
+	string network = 5;
+	string network_ip = 6;
+	string nic_type = 7;
+	double queue_count = 8;
+	string stack_type = 9;
+	string subnetwork = 10;
+	string subnetwork_project = 11;
+	repeated ComputeInstanceFromTemplateXNetworkInterfaceXIpv6AccessConfig ipv6_access_config = 12;
+}
+
+message ComputeInstanceFromTemplateXReservationAffinityXSpecificReservation {
+	string key = 1;
+	repeated string values = 2;
+}
+
+message ComputeInstanceFromTemplateXReservationAffinity {
+	string type = 1;
+	ComputeInstanceFromTemplateXReservationAffinityXSpecificReservation specific_reservation = 2;
+}
+
+message ComputeInstanceFromTemplateXSchedulingXNodeAffinities {
+	string key = 1;
+	string operator = 2;
+	repeated string values = 3;
+}
+
+message ComputeInstanceFromTemplateXScheduling {
+	bool automatic_restart = 1;
+	string instance_termination_action = 2;
+	double min_node_cpus = 3;
+	string on_host_maintenance = 4;
+	bool preemptible = 5;
+	string provisioning_model = 6;
+	repeated ComputeInstanceFromTemplateXSchedulingXNodeAffinities node_affinities = 7;
+}
+
+message ComputeInstanceFromTemplateXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+	bool enable_vtpm = 3;
+}
+
+message ComputeInstanceFromTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeInstanceFromTemplate {
+	bool allow_stopping_for_update = 1;
+	map<string, string> attached_disk = 2;
+	bool can_ip_forward = 3;
+	string cpu_platform = 4;
+	string current_status = 5;
+	bool deletion_protection = 6;
+	string description = 7;
+	string desired_status = 8;
+	bool enable_display = 9;
+	map<string, string> guest_accelerator = 10;
+	string hostname = 11;
+	string id = 12;
+	string instance_id = 13;
+	string label_fingerprint = 14;
+	map<string, string> labels = 15;
+	string machine_type = 16;
+	map<string, string> metadata = 17;
+	string metadata_fingerprint = 18;
+	string metadata_startup_script = 19;
+	string min_cpu_platform = 20;
+	string name = 21;
+	string project = 22;
+	repeated string resource_policies = 23;
+	map<string, string> scratch_disk = 24;
+	string self_link = 25;
+	map<string, string> service_account = 26;
+	string source_instance_template = 27;
+	repeated string tags = 28;
+	string tags_fingerprint = 29;
+	string zone = 30;
+	ComputeInstanceFromTemplateXAdvancedMachineFeatures advanced_machine_features = 31;
+	ComputeInstanceFromTemplateXBootDisk boot_disk = 32;
+	ComputeInstanceFromTemplateXConfidentialInstanceConfig confidential_instance_config = 33;
+	repeated ComputeInstanceFromTemplateXNetworkInterface network_interface = 34;
+	ComputeInstanceFromTemplateXReservationAffinity reservation_affinity = 35;
+	ComputeInstanceFromTemplateXScheduling scheduling = 36;
+	ComputeInstanceFromTemplateXShieldedInstanceConfig shielded_instance_config = 37;
+	ComputeInstanceFromTemplateXTimeouts timeouts = 38;
+	oak9.tython.shared.ResourceInfo resource_info = 39;
+}
+
+message ComputeInstanceGroupXNamedPort {
+	string name = 1;
+	double port = 2;
+}
+
+message ComputeInstanceGroupXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeInstanceGroup {
+	string description = 1;
+	string id = 2;
+	repeated string instances = 3;
+	string name = 4;
+	string network = 5;
+	string project = 6;
+	string self_link = 7;
+	double size = 8;
+	string zone = 9;
+	repeated ComputeInstanceGroupXNamedPort named_port = 10;
+	ComputeInstanceGroupXTimeouts timeouts = 11;
+	oak9.tython.shared.ResourceInfo resource_info = 12;
+}
+
+message ComputeInstanceGroupManagerXAutoHealingPolicies {
+	string health_check = 1;
+	double initial_delay_sec = 2;
+}
+
+message ComputeInstanceGroupManagerXNamedPort {
+	string name = 1;
+	double port = 2;
+}
+
+message ComputeInstanceGroupManagerXStatefulDisk {
+	string delete_rule = 1;
+	string device_name = 2;
+}
+
+message ComputeInstanceGroupManagerXTimeouts {
+	string create = 1;
+	string delete = 2;
+	string update = 3;
+}
+
+message ComputeInstanceGroupManagerXUpdatePolicy {
+	double max_surge_fixed = 1;
+	double max_surge_percent = 2;
+	double max_unavailable_fixed = 3;
+	double max_unavailable_percent = 4;
+	string minimal_action = 5;
+	string most_disruptive_allowed_action = 6;
+	string replacement_method = 7;
+	string type = 8;
+}
+
+message ComputeInstanceGroupManagerXVersionXTargetSize {
+	double fixed = 1;
+	double percent = 2;
+}
+
+message ComputeInstanceGroupManagerXVersion {
+	string instance_template = 1;
+	string name = 2;
+	ComputeInstanceGroupManagerXVersionXTargetSize target_size = 3;
+}
+
+message ComputeInstanceGroupManager {
+	string base_instance_name = 1;
+	string description = 2;
+	string fingerprint = 3;
+	string id = 4;
+	string instance_group = 5;
+	string name = 6;
+	string operation = 7;
+	string project = 8;
+	string self_link = 9;
+	map<string, string> status = 10;
+	repeated string target_pools = 11;
+	double target_size = 12;
+	bool wait_for_instances = 13;
+	string wait_for_instances_status = 14;
+	string zone = 15;
+	ComputeInstanceGroupManagerXAutoHealingPolicies auto_healing_policies = 16;
+	repeated ComputeInstanceGroupManagerXNamedPort named_port = 17;
+	repeated ComputeInstanceGroupManagerXStatefulDisk stateful_disk = 18;
+	ComputeInstanceGroupManagerXTimeouts timeouts = 19;
+	ComputeInstanceGroupManagerXUpdatePolicy update_policy = 20;
+	repeated ComputeInstanceGroupManagerXVersion version = 21;
+	oak9.tython.shared.ResourceInfo resource_info = 22;
+}
+
+message ComputeInstanceGroupNamedPortXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeInstanceGroupNamedPort {
+	string group = 1;
+	string id = 2;
+	string name = 3;
+	double port = 4;
+	string project = 5;
+	string zone = 6;
+	ComputeInstanceGroupNamedPortXTimeouts timeouts = 7;
+	oak9.tython.shared.ResourceInfo resource_info = 8;
+}
+
+message ComputeInstanceIamBindingXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeInstanceIamBinding {
+	string etag = 1;
+	string id = 2;
+	string instance_name = 3;
+	repeated string members = 4;
+	string project = 5;
+	string role = 6;
+	string zone = 7;
+	ComputeInstanceIamBindingXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeInstanceIamMemberXCondition {
+	string description = 1;
+	string expression = 2;
+	string title = 3;
+}
+
+message ComputeInstanceIamMember {
+	string etag = 1;
+	string id = 2;
+	string instance_name = 3;
+	string member = 4;
+	string project = 5;
+	string role = 6;
+	string zone = 7;
+	ComputeInstanceIamMemberXCondition condition = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message ComputeInstanceIamPolicy {
+	string etag = 1;
+	string id = 2;
+	string instance_name = 3;
+	string policy_data = 4;
+	string project = 5;
+	string zone = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message ComputeInstanceTemplateXAdvancedMachineFeatures {
+	bool enable_nested_virtualization = 1;
+	double threads_per_core = 2;
+}
+
+message ComputeInstanceTemplateXConfidentialInstanceConfig {
+	bool enable_confidential_compute = 1;
+}
+
+message ComputeInstanceTemplateXDiskXDiskEncryptionKey {
+	string kms_key_self_link = 1;
+}
+
+message ComputeInstanceTemplateXDisk {
+	bool auto_delete = 1;
+	bool boot = 2;
+	string device_name = 3;
+	string disk_name = 4;
+	double disk_size_gb = 5;
+	string disk_type = 6;
+	string interface = 7;
+	map<string, string> labels = 8;
+	string mode = 9;
+	repeated string resource_policies = 10;
+	string source = 11;
+	string source_image = 12;
+	string type = 13;
+	ComputeInstanceTemplateXDiskXDiskEncryptionKey disk_encryption_key = 14;
+}
+
+message ComputeInstanceTemplateXGuestAccelerator {
+	double count = 1;
+	string type = 2;
+}
+
+message ComputeInstanceTemplateXNetworkInterfaceXAccessConfig {
+	string nat_ip = 1;
+	string network_tier = 2;
+	string public_ptr_domain_name = 3;
+}
+
+message ComputeInstanceTemplateXNetworkInterfaceXAliasIpRange {
+	string ip_cidr_range = 1;
+	string subnetwork_range_name = 2;
+}
+
+message ComputeInstanceTemplateXNetworkInterfaceXIpv6AccessConfig {
+	string external_ipv6 = 1;
+	string external_ipv6_prefix_length = 2;
+	string network_tier = 3;
+	string public_ptr_domain_name = 4;
+}
+
+message ComputeInstanceTemplateXNetworkInterface {
+	string ipv6_access_type = 1;
+	string name = 2;
+	string network = 3;
+	string network_ip = 4;
+	string nic_type = 5;
+	double queue_count = 6;
+	string stack_type = 7;
+	string subnetwork = 8;
+	string subnetwork_project = 9;
+	repeated ComputeInstanceTemplateXNetworkInterfaceXAccessConfig access_config = 10;
+	repeated ComputeInstanceTemplateXNetworkInterfaceXAliasIpRange alias_ip_range = 11;
+	repeated ComputeInstanceTemplateXNetworkInterfaceXIpv6AccessConfig ipv6_access_config = 12;
+}
+
+message ComputeInstanceTemplateXReservationAffinityXSpecificReservation {
+	string key = 1;
+	repeated string values = 2;
+}
+
+message ComputeInstanceTemplateXReservationAffinity {
+	string type = 1;
+	ComputeInstanceTemplateXReservationAffinityXSpecificReservation specific_reservation = 2;
+}
+
+message ComputeInstanceTemplateXSchedulingXNodeAffinities {
+	string key = 1;
+	string operator = 2;
+	repeated string values = 3;
+}
+
+message ComputeInstanceTemplateXScheduling {
+	bool automatic_restart = 1;
+	string instance_termination_action = 2;
+	double min_node_cpus = 3;
+	string on_host_maintenance = 4;
+	bool preemptible = 5;
+	string provisioning_model = 6;
+	repeated ComputeInstanceTemplateXSchedulingXNodeAffinities node_affinities = 7;
+}
+
+message ComputeInstanceTemplateXServiceAccount {
+	string email = 1;
+	repeated string scopes = 2;
+}
+
+message ComputeInstanceTemplateXShieldedInstanceConfig {
+	bool enable_integrity_monitoring = 1;
+	bool enable_secure_boot = 2;
+	bool enable_vtpm = 3;
+}
+
+message ComputeInstanceTemplateXTimeouts {
+	string create = 1;
+	string delete = 2;
+}
+
+message ComputeInstanceTemplate {
+	bool can_ip_forward = 1;
+	string description = 2;
+	string id = 3;
+	string instance_description = 4;
+	map<string, string> labels = 5;
+	string machine_type = 6;
+	map<string, string> metadata = 7;
+	string metadata_fingerprint = 8;
+	string metadata_startup_script = 9;
+	string min_cpu_platform = 10;
+	string name = 11;
+	string name_prefix = 12;
+	string project = 13;
+	string region = 14;
+	string self_link = 15;
+	repeated string tags = 16;
+	string tags_fingerprint = 17;
+	ComputeInstanceTemplateXAdvancedMachineFeatures advanced_machine_features = 18;
+	ComputeInstanceTemplateXConfidentialInstanceConfig confidential_instance_config = 19;
+	repeated ComputeInstanceTemplateXDisk disk = 20;
+	repeated ComputeInstanceTemplateXGuestAccelerator guest_accelerator = 21;
+	repeated ComputeInstanceTemplateXNetworkInterface network_interface = 22;
+	ComputeInstanceTemplateXReservationAffinity reservation_affinity = 23;
+	ComputeInstanceTemplateXScheduling scheduling = 24;
+	ComputeInstanceTemplateXServiceAccount service_account = 25;
+	ComputeInstanceTemplateXShieldedInstanceConfig shielded_instance_config = 26;
+	ComputeInstanceTemplateXTimeouts timeouts = 27;
+	oak9.tython.shared.ResourceInfo resource_info = 28;
+}
+

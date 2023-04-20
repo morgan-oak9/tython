@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package oak9.tython.aws.efs;
+
+import "shared/shared.proto";
+
+message AccessPointAccessPointTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message AccessPointPosixUser {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string uid = 2;
+	string gid = 3;
+	repeated string secondary_gids = 4;
+}
+
+message AccessPointCreationInfo {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string owner_uid = 2;
+	string owner_gid = 3;
+	string permissions = 4;
+}
+
+message AccessPointRootDirectory {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string path = 2;
+	AccessPointCreationInfo creation_info = 3;
+}
+
+message AccessPoint {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string client_token = 2;
+	repeated AccessPointAccessPointTag access_point_tags = 3;
+	string file_system_id = 4;
+	AccessPointPosixUser posix_user = 5;
+	AccessPointRootDirectory root_directory = 6;
+}
+
+message EFS {
+	repeated AccessPoint access_point = 1;
+	repeated FileSystem file_system = 2;
+	repeated MountTarget mount_target = 3;
+}
+
+message FileSystemElasticFileSystemTag {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string key = 2;
+	string value = 3;
+}
+
+message FileSystemLifecyclePolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string transition_to_i_a = 2;
+}
+
+message FileSystemBackupPolicy {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string status = 2;
+}
+
+message FileSystem {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool encrypted = 2;
+	repeated FileSystemElasticFileSystemTag file_system_tags = 3;
+	string kms_key_id = 4;
+	repeated FileSystemLifecyclePolicy lifecycle_policies = 5;
+	string performance_mode = 6;
+	double provisioned_throughput_in_mibps = 7;
+	string throughput_mode = 8;
+	map<string, string> file_system_policy = 9;
+	FileSystemBackupPolicy backup_policy = 10;
+}
+
+message MountTarget {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string file_system_id = 2;
+	string ip_address = 3;
+	repeated string security_groups = 4;
+	string subnet_id = 5;
+}
+

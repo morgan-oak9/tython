@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package oak9.tython.aws.cloudformation;
+
+import "shared/shared.proto";
+
+message CustomResource {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string service_token = 2;
+}
+
+message CloudFormation {
+	repeated CustomResource custom_resource = 1;
+	repeated Macro macro = 2;
+	repeated Stack stack = 3;
+	repeated StackSet stack_set = 4;
+	repeated WaitCondition wait_condition = 5;
+	repeated WaitConditionHandle wait_condition_handle = 6;
+}
+
+message Macro {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string description = 2;
+	string function_name = 3;
+	string log_group_name = 4;
+	string log_role_arn = 5;
+	string name = 6;
+}
+
+message Stack {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string notification_arns = 2;
+	map<string, string> parameters = 3;
+	map<string, string> tags = 4;
+	string template_u_r_l = 5;
+	int32 timeout_in_minutes = 6;
+}
+
+message StackSetAutoDeployment {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	bool enabled = 2;
+	bool retain_stacks_on_account_removal = 3;
+}
+
+message StackSetOperationPreferences {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 failure_tolerance_count = 2;
+	int32 failure_tolerance_percentage = 3;
+	int32 max_concurrent_count = 4;
+	int32 max_concurrent_percentage = 5;
+	repeated string region_order = 6;
+}
+
+message StackSetDeploymentTargets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	repeated string accounts = 2;
+	repeated string organizational_unit_ids = 3;
+}
+
+message StackSetParameter {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string parameter_key = 2;
+	string parameter_value = 3;
+}
+
+message StackSetStackInstances {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	StackSetDeploymentTargets deployment_targets = 2;
+	repeated string regions = 3;
+	repeated StackSetParameter parameter_overrides = 4;
+}
+
+message StackSet {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string stack_set_name = 2;
+	string administration_role_arn = 3;
+	StackSetAutoDeployment auto_deployment = 4;
+	repeated string capabilities = 5;
+	string description = 6;
+	string execution_role_name = 7;
+	StackSetOperationPreferences operation_preferences = 8;
+	repeated StackSetStackInstances stack_instances_group = 9;
+	repeated StackSetParameter parameters = 10;
+	string permission_model = 11;
+	map<string, string> tags = 12;
+	string template_body = 13;
+	string template_u_r_l = 14;
+}
+
+message WaitCondition {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	int32 count = 2;
+	string handle = 3;
+	string timeout = 4;
+}
+
+message WaitConditionHandle {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+

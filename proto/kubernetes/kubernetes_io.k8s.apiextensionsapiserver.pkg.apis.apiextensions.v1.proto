@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+package oak9.tython.k8s.apiextensionsapiserver.pkg.apis.apiextensions.v1;
+
+import "shared/shared.proto";
+import "kubernetes/kubernetes_io.k8s.apimachinery.pkg.apis.meta.v1.proto";
+
+message CustomResourceColumnDefinition {
+	string description = 1;
+	string format = 2;
+	string json_path = 3;
+	string name = 4;
+	int32 priority = 5;
+	string type = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CustomResourceConversion {
+	string strategy = 1;
+	WebhookConversion webhook = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message CustomResourceDefinition {
+	string api_version = 1;
+	string kind = 2;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+	CustomResourceDefinitionSpec spec = 4;
+	CustomResourceDefinitionStatus status = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message CustomResourceDefinitionCondition {
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.Time last_transition_time = 1;
+	string message = 2;
+	string reason = 3;
+	string status = 4;
+	string type = 5;
+	oak9.tython.shared.ResourceInfo resource_info = 6;
+}
+
+message CustomResourceDefinitionList {
+	string api_version = 1;
+	repeated CustomResourceDefinition items = 2;
+	string kind = 3;
+	oak9.tython.k8s.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message CustomResourceDefinitionNames {
+	repeated string categories = 1;
+	string kind = 2;
+	string list_kind = 3;
+	string plural = 4;
+	repeated string short_names = 5;
+	string singular = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CustomResourceDefinitionSpec {
+	CustomResourceConversion conversion = 1;
+	string group = 2;
+	CustomResourceDefinitionNames names = 3;
+	bool preserve_unknown_fields = 4;
+	string scope = 5;
+	repeated CustomResourceDefinitionVersion versions = 6;
+	oak9.tython.shared.ResourceInfo resource_info = 7;
+}
+
+message CustomResourceDefinitionStatus {
+	CustomResourceDefinitionNames accepted_names = 1;
+	repeated CustomResourceDefinitionCondition conditions = 2;
+	repeated string stored_versions = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message CustomResourceDefinitionVersion {
+	repeated CustomResourceColumnDefinition additional_printer_columns = 1;
+	bool deprecated = 2;
+	string deprecation_warning = 3;
+	string name = 4;
+	CustomResourceValidation schema = 5;
+	bool served = 6;
+	bool storage = 7;
+	CustomResourceSubresources subresources = 8;
+	oak9.tython.shared.ResourceInfo resource_info = 9;
+}
+
+message CustomResourceSubresourceScale {
+	string label_selector_path = 1;
+	string spec_replicas_path = 2;
+	string status_replicas_path = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message CustomResourceSubresourceStatus {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message CustomResourceSubresources {
+	CustomResourceSubresourceScale scale = 1;
+	CustomResourceSubresourceStatus status = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message CustomResourceValidation {
+	JSONSchemaProps open_a_p_i_v3_schema = 1;
+	oak9.tython.shared.ResourceInfo resource_info = 2;
+}
+
+message ExternalDocumentation {
+	string description = 1;
+	string url = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message JSON {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message JSONSchemaProps {
+	JSONSchemaPropsOrBool additional_items = 1;
+	JSONSchemaPropsOrBool additional_properties = 2;
+	repeated JSONSchemaProps all_of = 3;
+	repeated JSONSchemaProps any_of = 4;
+	JSON default = 5;
+	map<string, string> definitions = 6;
+	map<string, string> dependencies = 7;
+	string description = 8;
+	repeated JSON enum = 9;
+	JSON example = 10;
+	bool exclusive_maximum = 11;
+	bool exclusive_minimum = 12;
+	ExternalDocumentation external_docs = 13;
+	string format = 14;
+	string id = 15;
+	JSONSchemaPropsOrArray items = 16;
+	int32 max_items = 17;
+	int32 max_length = 18;
+	int32 max_properties = 19;
+	double maximum = 20;
+	int32 min_items = 21;
+	int32 min_length = 22;
+	int32 min_properties = 23;
+	double minimum = 24;
+	double multiple_of = 25;
+	JSONSchemaProps not = 26;
+	bool nullable = 27;
+	repeated JSONSchemaProps one_of = 28;
+	string pattern = 29;
+	map<string, string> pattern_properties = 30;
+	map<string, string> properties = 31;
+	repeated string required = 32;
+	string title = 33;
+	string type = 34;
+	bool unique_items = 35;
+	bool xkubernetesembeddedresource = 36;
+	bool xkubernetesintorstring = 37;
+	repeated string xkuberneteslistmapkeys = 38;
+	string xkuberneteslisttype = 39;
+	string xkubernetesmaptype = 40;
+	bool xkubernetespreserveunknownfields = 41;
+	repeated ValidationRule xkubernetesvalidations = 42;
+	oak9.tython.shared.ResourceInfo resource_info = 43;
+}
+
+message JSONSchemaPropsOrArray {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message JSONSchemaPropsOrBool {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message JSONSchemaPropsOrStringArray {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+}
+
+message ServiceReference {
+	string name = 1;
+	string namespace = 2;
+	string path = 3;
+	int32 port = 4;
+	oak9.tython.shared.ResourceInfo resource_info = 5;
+}
+
+message ValidationRule {
+	string message = 1;
+	string rule = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+
+message WebhookClientConfig {
+	string ca_bundle = 1;
+	ServiceReference service = 2;
+	string url = 3;
+	oak9.tython.shared.ResourceInfo resource_info = 4;
+}
+
+message WebhookConversion {
+	WebhookClientConfig client_config = 1;
+	repeated string conversion_review_versions = 2;
+	oak9.tython.shared.ResourceInfo resource_info = 3;
+}
+

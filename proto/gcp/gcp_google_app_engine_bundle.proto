@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package oak9.tython.gcp.google_app_engine_bundle;
+
+import "shared/shared.proto";
+import "gcp/gcp_app.proto";
+
+message GoogleAppEngine {
+	oak9.tython.gcp.app.AppEngineApplication app_engine_application = 1;
+	repeated oak9.tython.gcp.app.AppEngineApplicationUrlDispatchRules app_engine_application_url_dispatch_rules = 2;
+	repeated oak9.tython.gcp.app.AppEngineDomainMapping app_engine_domain_mapping = 3;
+	repeated oak9.tython.gcp.app.AppEngineFirewallRule app_engine_firewall_rule = 4;
+	repeated oak9.tython.gcp.app.AppEngineFlexibleAppVersion app_engine_flexible_app_version = 5;
+	repeated oak9.tython.gcp.app.AppEngineServiceNetworkSettings app_engine_service_network_settings = 6;
+	repeated oak9.tython.gcp.app.AppEngineServiceSplitTraffic app_engine_service_split_traffic = 7;
+	repeated oak9.tython.gcp.app.AppEngineStandardAppVersion app_engine_standard_app_version = 8;
+}
+

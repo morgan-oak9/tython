@@ -1,0 +1,427 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_app_containerapps;
+
+import "shared/shared.proto";
+
+message Microsoft_App_containerApps {
+	ContainerApps container_apps = 1;
+	repeated ContainerAppsAuthConfigs container_apps_auth_configs = 2;
+	ContainerAppsSourcecontrols container_apps_sourcecontrols = 3;
+}
+
+message ContainerAppsSourcecontrols {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string branch = 3;
+	GithubActionConfiguration github_action_configuration = 4;
+	string repo_url = 5;
+}
+
+message GithubActionConfiguration {
+	AzureCredentials azure_credentials = 1;
+	string context_path = 2;
+	string image = 3;
+	string os = 4;
+	string publish_type = 5;
+	RegistryInfo registry_info = 6;
+	string runtime_stack = 7;
+	string runtime_version = 8;
+}
+
+message RegistryInfo {
+	string registry_password = 1;
+	string registry_url = 2;
+	string registry_user_name = 3;
+}
+
+message AzureCredentials {
+	string client_id = 1;
+	string client_secret = 2;
+	string subscription_id = 3;
+	string tenant_id = 4;
+}
+
+message ContainerAppsAuthConfigs {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	GlobalValidation global_validation = 3;
+	HttpSettings http_settings = 4;
+	IdentityProviders identity_providers = 5;
+	Login login = 6;
+	AuthPlatform platform = 7;
+}
+
+message AuthPlatform {
+	bool enabled = 1;
+	string runtime_version = 2;
+}
+
+message Login {
+	repeated string allowed_external_redirect_urls = 1;
+	CookieExpiration cookie_expiration = 2;
+	Nonce nonce = 3;
+	bool preserve_url_fragments_for_logins = 4;
+	LoginRoutes routes = 5;
+}
+
+message LoginRoutes {
+	string logout_endpoint = 1;
+}
+
+message Nonce {
+	string nonce_expiration_interval = 1;
+	bool validate_nonce = 2;
+}
+
+message CookieExpiration {
+	string convention = 1;
+	string time_to_expiration = 2;
+}
+
+message IdentityProviders {
+	Apple apple = 1;
+	AzureActiveDirectory azure_active_directory = 2;
+	AzureStaticWebApps azure_static_web_apps = 3;
+	map<string, string> custom_open_id_connect_providers = 4;
+	Facebook facebook = 5;
+	GitHub git_hub = 6;
+	Google google = 7;
+	Twitter twitter = 8;
+}
+
+message Twitter {
+	bool enabled = 1;
+	TwitterRegistration registration = 2;
+}
+
+message TwitterRegistration {
+	string consumer_key = 1;
+	string consumer_secret_setting_name = 2;
+}
+
+message Google {
+	bool enabled = 1;
+	LoginScopes login = 2;
+	ClientRegistration registration = 3;
+	AllowedAudiencesValidation validation = 4;
+}
+
+message AllowedAudiencesValidation {
+	repeated string allowed_audiences = 1;
+}
+
+message GitHub {
+	bool enabled = 1;
+	LoginScopes login = 2;
+	ClientRegistration registration = 3;
+}
+
+message ClientRegistration {
+	string client_id = 1;
+	string client_secret_setting_name = 2;
+}
+
+message Facebook {
+	bool enabled = 1;
+	string graph_api_version = 2;
+	LoginScopes login = 3;
+	AppRegistration registration = 4;
+}
+
+message AppRegistration {
+	string app_id = 1;
+	string app_secret_setting_name = 2;
+}
+
+message AzureStaticWebApps {
+	bool enabled = 1;
+	AzureStaticWebAppsRegistration registration = 2;
+}
+
+message AzureStaticWebAppsRegistration {
+	string client_id = 1;
+}
+
+message AzureActiveDirectory {
+	bool enabled = 1;
+	bool is_auto_provisioned = 2;
+	AzureActiveDirectoryLogin login = 3;
+	AzureActiveDirectoryRegistration registration = 4;
+	AzureActiveDirectoryValidation validation = 5;
+}
+
+message AzureActiveDirectoryValidation {
+	repeated string allowed_audiences = 1;
+	DefaultAuthorizationPolicy default_authorization_policy = 2;
+	JwtClaimChecks jwt_claim_checks = 3;
+}
+
+message JwtClaimChecks {
+	repeated string allowed_client_applications = 1;
+	repeated string allowed_groups = 2;
+}
+
+message DefaultAuthorizationPolicy {
+	repeated string allowed_applications = 1;
+	AllowedPrincipals allowed_principals = 2;
+}
+
+message AllowedPrincipals {
+	repeated string groups = 1;
+	repeated string identities = 2;
+}
+
+message AzureActiveDirectoryRegistration {
+	string client_id = 1;
+	string client_secret_certificate_issuer = 2;
+	string client_secret_certificate_subject_alternative_name = 3;
+	string client_secret_certificate_thumbprint = 4;
+	string client_secret_setting_name = 5;
+	string open_id_issuer = 6;
+}
+
+message AzureActiveDirectoryLogin {
+	bool disable_w_w_w_authenticate = 1;
+	repeated string login_parameters = 2;
+}
+
+message Apple {
+	bool enabled = 1;
+	LoginScopes login = 2;
+	AppleRegistration registration = 3;
+}
+
+message AppleRegistration {
+	string client_id = 1;
+	string client_secret_setting_name = 2;
+}
+
+message LoginScopes {
+	repeated string scopes = 1;
+}
+
+message HttpSettings {
+	ForwardProxy forward_proxy = 1;
+	bool require_https = 2;
+	HttpSettingsRoutes routes = 3;
+}
+
+message HttpSettingsRoutes {
+	string api_prefix = 1;
+}
+
+message ForwardProxy {
+	string convention = 1;
+	string custom_host_header_name = 2;
+	string custom_proto_header_name = 3;
+}
+
+message GlobalValidation {
+	repeated string excluded_paths = 1;
+	string redirect_to_provider = 2;
+	string unauthenticated_client_action = 3;
+}
+
+message ContainerApps {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	ExtendedLocation extended_location = 2;
+	ManagedServiceIdentity identity = 3;
+	string location = 4;
+	string name = 5;
+	Configuration configuration = 6;
+	string environment_id = 7;
+	string managed_environment_id = 8;
+	Template template = 9;
+	string workload_profile_type = 10;
+	map<string, string> tags = 11;
+}
+
+message Template {
+	repeated Container containers = 1;
+	repeated InitContainer init_containers = 2;
+	string revision_suffix = 3;
+	Scale scale = 4;
+	repeated Volume volumes = 5;
+}
+
+message Volume {
+	string name = 1;
+	string storage_name = 2;
+	string storage_type = 3;
+}
+
+message Scale {
+	int32 max_replicas = 1;
+	int32 min_replicas = 2;
+	repeated ScaleRule rules = 3;
+}
+
+message ScaleRule {
+	QueueScaleRule azure_queue = 1;
+	CustomScaleRule custom = 2;
+	HttpScaleRule http = 3;
+	string name = 4;
+	TcpScaleRule tcp = 5;
+}
+
+message TcpScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	map<string, string> metadata = 2;
+}
+
+message HttpScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	map<string, string> metadata = 2;
+}
+
+message CustomScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	map<string, string> metadata = 2;
+	string type = 3;
+}
+
+message QueueScaleRule {
+	repeated ScaleRuleAuth auth = 1;
+	int32 queue_length = 2;
+	string queue_name = 3;
+}
+
+message ScaleRuleAuth {
+	string secret_ref = 1;
+	string trigger_parameter = 2;
+}
+
+message InitContainer {
+	repeated string args = 1;
+	repeated string command = 2;
+	repeated EnvironmentVar env = 3;
+	string image = 4;
+	string name = 5;
+	repeated VolumeMount volume_mounts = 6;
+}
+
+message Container {
+	repeated string args = 1;
+	repeated string command = 2;
+	repeated EnvironmentVar env = 3;
+	string image = 4;
+	string name = 5;
+	repeated ContainerAppProbe probes = 6;
+	repeated VolumeMount volume_mounts = 7;
+}
+
+message VolumeMount {
+	string mount_path = 1;
+	string volume_name = 2;
+}
+
+message ContainerAppProbe {
+	int32 failure_threshold = 1;
+	ContainerAppProbeHttpGet http_get = 2;
+	int32 initial_delay_seconds = 3;
+	int32 period_seconds = 4;
+	int32 success_threshold = 5;
+	ContainerAppProbeTcpSocket tcp_socket = 6;
+	int32 termination_grace_period_seconds = 7;
+	int32 timeout_seconds = 8;
+	string type = 9;
+}
+
+message ContainerAppProbeTcpSocket {
+	string host = 1;
+	int32 port = 2;
+}
+
+message ContainerAppProbeHttpGet {
+	string host = 1;
+	repeated ContainerAppProbeHttpGetHttpHeadersItem http_headers = 2;
+	string path = 3;
+	int32 port = 4;
+	string scheme = 5;
+}
+
+message ContainerAppProbeHttpGetHttpHeadersItem {
+	string name = 1;
+	string value = 2;
+}
+
+message EnvironmentVar {
+	string name = 1;
+	string secret_ref = 2;
+	string value = 3;
+}
+
+message Configuration {
+	string active_revisions_mode = 1;
+	Dapr dapr = 2;
+	Ingress ingress = 3;
+	int32 max_inactive_revisions = 4;
+	repeated RegistryCredentials registries = 5;
+	repeated Secret secrets = 6;
+}
+
+message Secret {
+	string name = 1;
+	string value = 2;
+}
+
+message RegistryCredentials {
+	string identity = 1;
+	string password_secret_ref = 2;
+	string server = 3;
+	string username = 4;
+}
+
+message Ingress {
+	bool allow_insecure = 1;
+	repeated CustomDomain custom_domains = 2;
+	int32 exposed_port = 3;
+	bool external = 4;
+	repeated IpSecurityRestrictionRule ip_security_restrictions = 5;
+	int32 target_port = 6;
+	repeated TrafficWeight traffic = 7;
+	string transport = 8;
+}
+
+message TrafficWeight {
+	string label = 1;
+	bool latest_revision = 2;
+	string revision_name = 3;
+	int32 weight = 4;
+}
+
+message IpSecurityRestrictionRule {
+	string action = 1;
+	string description = 2;
+	string ip_address_range = 3;
+	string name = 4;
+}
+
+message CustomDomain {
+	string binding_type = 1;
+	string certificate_id = 2;
+	string name = 3;
+}
+
+message Dapr {
+	string app_id = 1;
+	int32 app_port = 2;
+	string app_protocol = 3;
+	bool enable_api_logging = 4;
+	bool enabled = 5;
+	int32 http_max_request_size = 6;
+	int32 http_read_buffer_size = 7;
+	string log_level = 8;
+}
+
+message ManagedServiceIdentity {
+	string type = 1;
+	map<string, string> user_assigned_identities = 2;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+

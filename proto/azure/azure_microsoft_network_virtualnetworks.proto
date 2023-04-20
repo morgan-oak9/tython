@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package oak9.tython.azure.microsoft_network_virtualnetworks;
+
+import "shared/shared.proto";
+
+message Microsoft_Network_virtualNetworks {
+	VirtualNetworks virtual_networks = 1;
+	repeated VirtualNetworksSubnets virtual_networks_subnets = 2;
+	repeated VirtualNetworksVirtualNetworkPeerings virtual_networks_virtual_network_peerings = 3;
+}
+
+message NetworkSecurityGroup {
+	string id = 1;
+}
+
+message RouteTable {
+	string id = 1;
+}
+
+message NatGateways {
+	string id = 1;
+}
+
+message DdosProtectionPlan {
+	string id = 1;
+}
+
+message VirtualNetworksVirtualNetworkPeerings {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	bool allow_virtual_network_access = 3;
+	bool allow_forwarded_traffic = 4;
+	bool allow_gateway_transit = 5;
+	bool use_remote_gateways = 6;
+	string remote_virtual_network = 7;
+	AddressSpace remote_address_space = 8;
+	VirtualNetworkBgpCommunities remote_bgp_communities = 9;
+	string peering_state = 10;
+}
+
+message VirtualNetworksSubnets {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string address_prefix = 3;
+	repeated string address_prefixes = 4;
+	NetworkSecurityGroup network_security_group = 5;
+	RouteTable route_table = 6;
+	string nat_gateway = 7;
+	repeated ServiceEndpointPropertiesFormat service_endpoints = 8;
+	repeated string service_endpoint_policies = 9;
+	repeated string ip_allocations = 10;
+	repeated Delegation delegations = 11;
+	string private_endpoint_network_policies = 12;
+	string private_link_service_network_policies = 13;
+}
+
+message VirtualNetworks {
+	oak9.tython.shared.ResourceInfo resource_info = 1;
+	string name = 2;
+	string location = 3;
+	map<string, string> tags = 4;
+	ExtendedLocation extended_location = 5;
+	AddressSpace address_space = 6;
+	DhcpOptions dhcp_options = 7;
+	repeated Subnet subnets = 8;
+	repeated VirtualNetworkPeering virtual_network_peerings = 9;
+	bool enable_ddos_protection = 10;
+	bool enable_vm_protection = 11;
+	DdosProtectionPlan ddos_protection_plan = 12;
+	VirtualNetworkBgpCommunities bgp_communities = 13;
+	repeated string ip_allocations = 14;
+}
+
+message VirtualNetworkPeering {
+	bool allow_virtual_network_access = 1;
+	bool allow_forwarded_traffic = 2;
+	bool allow_gateway_transit = 3;
+	bool use_remote_gateways = 4;
+	string remote_virtual_network = 5;
+	AddressSpace remote_address_space = 6;
+	VirtualNetworkBgpCommunities remote_bgp_communities = 7;
+	string peering_state = 8;
+	string name = 9;
+}
+
+message VirtualNetworkBgpCommunities {
+	string virtual_network_community = 1;
+}
+
+message Subnet {
+	string address_prefix = 1;
+	repeated string address_prefixes = 2;
+	NetworkSecurityGroup network_security_group = 3;
+	RouteTable route_table = 4;
+	string nat_gateway = 5;
+	repeated ServiceEndpointPropertiesFormat service_endpoints = 6;
+	repeated string service_endpoint_policies = 7;
+	repeated string ip_allocations = 8;
+	repeated Delegation delegations = 9;
+	string private_endpoint_network_policies = 10;
+	string private_link_service_network_policies = 11;
+	string name = 12;
+}
+
+message Delegation {
+	string service_name = 1;
+	string name = 2;
+}
+
+message ServiceEndpointPropertiesFormat {
+	string service = 1;
+	repeated string locations = 2;
+}
+
+message DhcpOptions {
+	repeated string dns_servers = 1;
+}
+
+message AddressSpace {
+	repeated string address_prefixes = 1;
+}
+
+message ExtendedLocation {
+	string name = 1;
+	string type = 2;
+}
+
