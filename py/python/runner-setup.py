@@ -7,7 +7,7 @@ for package in find_packages():
     package_data[package] = ["*.pyi"]
 
 version = os.environ.get('PYPIVERSION')
-
+print("version is ", version)
 setup_args = dict(
     name = "oak9_tython",
     version=version,
