@@ -26,6 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
         cd py
+        chmod +x ./python/build_py_runner.sh
         ./python/build_py_runner.sh
 
     - name: Publish distribution to PyPI
