@@ -115,6 +115,7 @@ class SecurityLevel(OrderedEnum):
 class ResourceMetadata:
     resource_id: str
     resource_name: str
+    resource_type: str
 
 
 class Context:
@@ -355,6 +356,8 @@ class Violation:
             related_configs: List[RelatedConfig] = None,
             capability_id: str = "",
             capability_name: str = "",
+            resource_id: str = "",
+            resource_type: str = "",
             priority: int = 0
     ):
 
@@ -443,6 +446,10 @@ class Violation:
         # This will be auto-populated on the platform side
         self._documentation = documentation
 
+        self._resource_id = resource_id
+        
+        self._resource_type = resource_type
+
         # Priority of finding to relatively prioritize across
         # qualitative ratings
         self._priority = priority
@@ -452,15 +459,15 @@ class Violation:
             'severity': self.severity.name,
             'configGap': self.config_gap,
             'capabilityId': self.capability_id,
-            'resourceId': "",
-            'resourceType': "",
             'configId': self.config_id,
             'configValue': self.config_value,
-            'oak9Guidance': "",
-            'prefferedValue': "",
+            'oak9Guidance': self.additional_guidance,
+            'prefferedValue': self.preferred_value,
             'capabilityName': self.capability_name,
             'configFix': self.config_fix,
-            'configImpact': self.config_impact
+            'configImpact': self.config_impact,
+            'resourceId': self.resource_id,
+            'resourceType': self.resource_type
         }
     
 
@@ -512,6 +519,21 @@ class Violation:
         if isinstance(value, int) and 101 > value > 0:
             self._priority = value
 
+    @property
+    def resource_id(self):
+        return self._resource_id
+    
+    @resource_id.setter
+    def resource_id(self, value):
+        self._resource_id = value
+    
+    @property
+    def resource_type(self):
+        return self._resource_type
+    
+    @resource_type.setter
+    def resource_type(self, value):
+        self._resource_type = value
 
 @dataclass
 class DesignGap:
@@ -581,6 +603,8 @@ class Finding:
 
         self._id = uuid.uuid4()
 
+        self._resource_metadata: ResourceMetadata = resource_metadata
+
         self._finding_type: FindingType = finding_type
 
         # For Design Gaps and Tasks: Severity of the gap or task.  Default to low. Severity should be determined based on the business context
@@ -645,11 +669,11 @@ class Finding:
 
         # Requirement id
         # Could be oak9 or customer provided requirement id
-        self._req_id = resource_metadata.resource_id
+        self._req_id = req_id
 
         # oak9 detailed requirement name
         # This is automatically populated on the platform side
-        self._req_name = resource_metadata.resource_name
+        self._req_name = req_name
 
         # Priority of finding to relatively prioritize across
         # qualitative ratings.  Can be any number from 0-100
@@ -662,6 +686,10 @@ class Finding:
     @property
     def id(self):
         return self._id
+    
+    @property
+    def resource_metadata(self):
+        return self._resource_metadata
 
     @property
     def finding_type(self):
@@ -859,6 +887,8 @@ class Finding:
         viol.capability_id = self.req_id
         viol.capability_name = self.req_name
         viol.priority = self.priority
+        viol.resource_id = self.resource_metadata.resource_id
+        viol.resource_type = self.resource_metadata.resource_type
 
         return viol
 
@@ -956,7 +986,8 @@ class Blueprint:
                     
                     resource_metadata = ResourceMetadata(
                         resource_id=input.meta_info.resource_id,
-                        resource_name=input.meta_info.resource_name
+                        resource_name=input.meta_info.resource_name,
+                        resource_type=input.meta_info.resource_type
                     )
 
                     resources.append((resource, resource_metadata))
