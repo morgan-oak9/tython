@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Trigger PyPI and Nuget workflows
         run: |
-          gh workflow run package-and-publish-pypi.yml --ref main --inputs version=${{ github.event.inputs.version }}
-          gh workflow run package-and-publish-nuget.yml --ref main --inputs version=${{ github.event.inputs.version }}
+          gh workflow run package-and-publish-pypi.yml --ref main -f version=${{ github.event.inputs.version }}
+          gh workflow run package-and-publish-nuget.yml --ref main -f version=${{ github.event.inputs.version }}
         env:
             GITHUB_TOKEN: ${{  secrets.SERVICES_OAK9_PAT  }}
