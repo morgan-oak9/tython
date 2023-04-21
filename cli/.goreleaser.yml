@@ -1,0 +1,107 @@
+project_name: tython
+release:
+  name_template: '{{.Tag}}'
+scoop:
+  name: tython
+  commit_author:
+    name: goreleaserbot
+    email: systems@oak9.io
+  commit_msg_template: Scoop update for {{ .ProjectName }} version {{ .Tag }}
+  goamd64: v1
+builds:
+  - id: tython
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+      - "386"
+    goarm:
+      - "6"
+    gomips:
+      - hardfloat
+    goamd64:
+      - v1
+    targets:
+      - linux_amd64_v1
+      - linux_arm64
+      - linux_386
+      - darwin_amd64_v1
+      - darwin_arm64
+      - windows_amd64_v1
+      - windows_arm64
+      - windows_386
+    dir: .
+    main: .
+    binary: tython
+    builder: go
+    gobinary: go
+    command: build
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser
+archives:
+  - id: tython
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
+    format: tar.gz
+    files:
+      - src: License.md
+      - src: README.*
+snapshot:
+  name_template: '{{ .Version }}-SNAPSHOT-{{ .ShortCommit }}'
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
+  algorithm: sha256
+dist: dist
+source:
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz
+gomod:
+  gobinary: go
+git:
+  tag_sort: -version:refname
+github_urls:
+  download: https://github.com/oak9io
+
+brews:
+  - name: tython
+    # GOARM to specify which 32-bit arm version to use if there are multiple
+    # versions from the build section. Brew formulas support only one 32-bit
+    # version.
+    #
+    # Default: 6
+    goarm: 6
+
+    # GOAMD64 to specify which amd64 version to use if there are multiple
+    # versions from the build section.
+    #
+    # Default: v1
+    goamd64: v1
+
+    # GitHub/GitLab repository to push the formula to
+    tap:
+      owner: oak9io
+      name: homebrew-tap
+      branch: master
+
+    # Git author used to commit to the repository.
+    commit_author:
+      name: goreleaserbot
+      email: systems@oak9.io
+
+    # The project name and current git tag are used in the format string.
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+
+    # Folder inside the repository to put the formula.
+    folder: Formula
+
+    # Caveats for the user of your binary.
+    caveats: "./tython -h or ./tython.exe -h"
+
+    homepage: "https://oak9.io/"
+
+    description: "Tython supports testing and applying (i.e. running) user-created SaC blueprints. This can be done locally on your own machine or through integrations with oak9."
+
+    # SPDX identifier of your app's license.
+    license: "Apache 2.0"
