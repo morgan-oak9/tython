@@ -62,7 +62,7 @@ gomod:
 git:
   tag_sort: -version:refname
 github_urls:
-  download: https://github.com/oak9io
+  download: https://github.com/
 
 brews:
   - name: tython
