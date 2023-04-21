@@ -13,7 +13,6 @@ var applyCmd = &cobra.Command{
 	Args:    cobra.MinimumNArgs(1),
 	PreRunE: blueprints.UseBlueprintRunFlags,
 	RunE: func(cmd *cobra.Command, args []string) error {
-
 		runnerArgs, err := blueprints.BuildRunnerArgs(enums.CmdTypeApply)
 		if err != nil {
 			return err
@@ -24,5 +23,6 @@ var applyCmd = &cobra.Command{
 }
 
 func init() {
+	blueprints.SetupBlueprintRunFlags(applyCmd)
 	rootCmd.AddCommand(applyCmd)
 }

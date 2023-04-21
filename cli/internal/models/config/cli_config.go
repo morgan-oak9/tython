@@ -4,26 +4,12 @@ import (
 	"fmt"
 
 	"oak9.io/tython/internal/util"
-)
-
-const (
-	InputFilePathKey        string = "InputFilePath"
-	DataSourceKey           string = "DataSource"
-	BlueprintPackagePathKey string = "BlueprintPackagePath"
-	CommandTypeKey          string = "CommandType"
+	"oak9.io/tython/internal/visuals"
 )
 
 const (
 	NotSetValue string = "[NOT SET]"
 )
-
-const ConfigDisplay string = `
-================[Configuration]=================
-Org Id: %s,
-Project Id: %s,
-Api Key: %s
-================================================
-`
 
 type CliConfig struct {
 	OrgId     string `mapstructure:"org_id" json:"org_id"`
@@ -32,12 +18,25 @@ type CliConfig struct {
 }
 
 func (config *CliConfig) String() string {
-	return fmt.Sprintf(
-		ConfigDisplay,
-		valueOrDefault(config.OrgId),
-		valueOrDefault(config.ProjectId),
-		valueOrDefault(showLastN(config.ApiKey, 4)),
-	)
+	return fmt.Sprintf("%s, %s, %s", config.OrgId, config.ProjectId, showLastN(config.ApiKey, 4))
+}
+
+func (config *CliConfig) View() error {
+	errs := []error{
+		visuals.DrawSectionSeparatorWithTitle("Configuration"),
+		visuals.WriteKeyValue("Org Id", config.OrgId),
+		visuals.WriteKeyValue("Project Id", config.ProjectId),
+		visuals.WriteKeyValue("Api Key", showLastN(config.ApiKey, 4)),
+		visuals.DrawSectionSeparator(),
+	}
+
+	for _, err := range errs {
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (config *CliConfig) AssertAllRequired() error {

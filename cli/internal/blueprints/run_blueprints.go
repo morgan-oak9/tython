@@ -5,90 +5,62 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 
-	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
 	"oak9.io/tython/internal/blueprints/python"
 	"oak9.io/tython/internal/constants"
 	"oak9.io/tython/internal/models/config"
-	"oak9.io/tython/internal/models/outputs"
+	"oak9.io/tython/internal/models/runner"
 	"oak9.io/tython/internal/util"
+	"oak9.io/tython/internal/viewers"
+	"oak9.io/tython/internal/visuals"
 )
 
 const (
 	tempDirectoryName  = "tython_temp"
 	runnerArgsFileName = "tython_runner_input"
-	responseFileName   = "tython_runner_output"
 )
 
-func RunBlueprints(runnerArgs outputs.RunnerArgs) error {
-	fmt.Println("Applying blueprints...")
+func RunBlueprints(runnerArgs runner.RunnerArgs) error {
+	visuals.WriteLine("Applying blueprints...")
 	return callRunner(runnerArgs)
 }
 
-func TestRunBlueprints(runnerArgs outputs.RunnerArgs) error {
-	fmt.Println("Testing blueprints...")
+func TestRunBlueprints(runnerArgs runner.RunnerArgs) error {
+	visuals.WriteLine("Testing blueprints...")
 	return callRunner(runnerArgs)
 }
 
-func callRunner(runnerArgs outputs.RunnerArgs) error {
+func callRunner(runnerArgs runner.RunnerArgs) error {
 	var err error
-
-	runnerArgs.DataConfigPath, err = util.GetAbsolutePath(viper.GetString(config.InputFilePathKey))
-	if err != nil {
-		return err
-	}
 
 	absoluteBlueprintPath, err := util.GetAbsolutePath(runnerArgs.BlueprintPackagePath)
 	if err != nil {
 		return err
 	}
 
-	blueprintRuntime, err := GetRunTimeFromPackage(absoluteBlueprintPath)
+	blueprintRuntime, err := getRunTimeFromPackage(absoluteBlueprintPath)
 	if err != nil {
 		return err
-	}
-
-	switch blueprintRuntime {
-	case constants.PythonRunTime:
-		return runWithPython(runnerArgs)
-	default:
-		return errors.New("[Error] No runtime or unsupported runtime found. Cannot run blueprints")
-	}
-}
-
-func runWithPython(runnerArgs outputs.RunnerArgs) error {
-
-	pyRunnerPackagePath, err := python.GetPythonRunnerPackagePath()
-	if err != nil {
-		return errors.Join(
-			errors.New("[Error] oak9 Tython framework package is not installed. Be sure to run \"pip install -r requirements.txt\""),
-			err,
-		)
 	}
 
 	tempDirName, tempFilePath, err := saveRunnerArgs(runnerArgs)
-	cmdArgs := []string{"-X", "utf8", pyRunnerPackagePath, tempFilePath}
-	if err != nil {
-		return err
-	}
-
 	defer cleanupRunnerArgs(tempDirName)
 
-	cmd := exec.Command("python", cmdArgs...)
-	stdout, cmdErr := cmd.CombinedOutput()
+	responseViewer := viewers.ResponseViewer{}
 
-	if cmdErr != nil {
-		return cmdErr
+	switch blueprintRuntime {
+	case constants.PythonRunTime:
+		responseViewer = python.Run(runnerArgs, tempFilePath)
+	default:
+		return errors.New("[Error] No runtime or unsupported runtime found. Cannot run blueprints")
 	}
 
-	fmt.Println(string(stdout))
-	return nil
+	return responseViewer.View(os.Stdout)
 }
 
-func saveRunnerArgs(runnerArgs outputs.RunnerArgs) (tempDir string, tempFilePath string, err error) {
+func saveRunnerArgs(runnerArgs runner.RunnerArgs) (tempDir string, tempFilePath string, err error) {
 	argsFile := make([]byte, 0)
 
 	argsFile, err = json.Marshal(runnerArgs)
@@ -128,7 +100,7 @@ func cleanupRunnerArgs(tempDirPath string) error {
 	return errors.New("did not find temp folder to delete")
 }
 
-func GetRunTimeFromPackage(blueprintPackagePath string) (string, error) {
+func getRunTimeFromPackage(blueprintPackagePath string) (string, error) {
 	invalidPublishFileErr := errors.New("[Error] Could not read publish.yml. Cannot determine runtime for blueprints")
 
 	yamlFile, err := os.ReadFile(filepath.FromSlash(filepath.Join(blueprintPackagePath + "/publish.yml")))

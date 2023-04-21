@@ -9,7 +9,9 @@ import (
 	"strconv"
 	"strings"
 
+	"oak9.io/tython/internal/models/runner"
 	"oak9.io/tython/internal/util"
+	"oak9.io/tython/internal/viewers"
 )
 
 const (
@@ -19,6 +21,28 @@ const (
 var (
 	oak9RunnerFilePath = filepath.FromSlash("/oak9/tython/runner.py")
 )
+
+func Run(runnerArgs runner.RunnerArgs, tempFilePath string) viewers.ResponseViewer {
+	pyRunnerPackagePath, err := GetPythonRunnerPackagePath()
+	if err != nil {
+		joinedErr := errors.Join(
+			errors.New("[Error] oak9 Tython framework package is not installed. Be sure to run \"pip install -r requirements.txt\""),
+			err,
+		)
+
+		return viewers.ViewerFromRunnerOutput(tempFilePath, "", joinedErr)
+	}
+
+	cmdArgs := []string{"-X", "utf8", pyRunnerPackagePath, tempFilePath}
+	if err != nil {
+		return viewers.ViewerFromRunnerOutput(tempFilePath, "", err)
+	}
+
+	cmd := exec.Command("python", cmdArgs...)
+	stdOut, stdErr := cmd.CombinedOutput()
+
+	return viewers.ViewerFromRunnerOutput(tempFilePath, string(stdOut), stdErr)
+}
 
 func GetPythonRunnerPackagePath() (string, error) {
 	pythonVersion, err := checkPythonVersion()
