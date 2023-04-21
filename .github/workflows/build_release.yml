@@ -19,7 +19,7 @@ jobs:
     
       - name: Copy License
         run:
-          cp ./License.md ./cli/
+          cp License.md cli/
 
       - name: Set up Go
         uses: actions/setup-go@v3
