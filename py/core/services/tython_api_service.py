@@ -76,29 +76,32 @@ class TythonApiService:
         '''
         Apply a findings list to the oak9 project
         '''
-        violations = []
+        design_gaps = []
+        capability_number = 1
 
         for finding in findings:
-            violations.append(finding.to_violation().__json__())
+            if finding:
+                design_gaps.append(
+                    {
+                        "capabilityId": f"{config.org_id}.{capability_number}",
+                        "capabilityName": finding.desc,
+                        "source": "",
+                        "resourceName": finding.resource_metadata.resource_name,
+                        "resourceId": finding.resource_metadata.resource_id,
+                        "resourceType": finding.resource_metadata.resource_type,
+                        "resourceGap": "",
+                        "resourceImpact": "",
+                        "violations": [finding.to_violation().__json__()],
+                        "oak9Guidance": "",
+                        "mappedIndustryFrameworks": []
+                    }
+                )
+                capability_number += 1
 
         payload = {
             "runtime": "Python",
             "author": "",
-            "designGaps": [
-                {
-                    "capabilityId": "",
-                    "capabilityName": "",
-                    "source": "",
-                    "resourceName": "",
-                    "resourceId": "",
-                    "resourceType": "",
-                    "resourceGap": "",
-                    "resourceImpact": "",
-                    "violations": violations,
-                    "oak9Guidance": "",
-                    "mappedIndustryFrameworks": []
-                }
-            ]
+            "designGaps": design_gaps
         }
 
         url = f"{config.data_endpoint}{config.org_id}/sac/{config.project_id}/apply/{environment_id}/{request_id}"
