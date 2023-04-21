@@ -11,6 +11,9 @@ jobs:
   trigger-package-workflows:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
       - name: Trigger PyPI and Nuget workflows
         run: |
           gh workflow run package-and-publish-pypi.yml --ref main -f version=${{ github.event.inputs.version }}
