@@ -12,55 +12,6 @@ from colorama import Fore, Style
 ValidationFunction = Callable[[any], any]
 
 
-@unique
-class Capabilities(Enum):
-    ACCESS_ENFORCEMENT = (
-        'Oak9',
-        'AE',
-        2,
-        [
-            # TODO: (immutableT) Add the remaining ones.
-            # This CR has many check functions, but many are stubs.
-            # Come back here once we remove un-implemented checks.
-            'check_access_policy_enforcement',
-        ])
-    APPLICATION_LAYER_ENCRYPTION = ('Oak9', 'DAR', 2, ['check_application_layer_encryption'])
-    ASSET_INVENTORY = ('Oak9', 'AI', 1, ['check_asset_inventory'])
-    AUTHENTICATION = ('Oak9', 'IA', 1, ['check_identification_and_authentication'])
-    AUTHENTICATION_PROTECTION = ('Oak9', 'IA', 2, ['check_protect_authenticators'])
-    BACKUP = ('Oak9', 'BR', 2, ['check_backups'])
-    DATA_ENCRYPTION_AT_REST = ('Oak9', 'DAR', 1, ['check_transparent_data_encryption'])
-    DATA_MINIMIZATION = ('Oak9', 'DM', 1, ['check_data_minimization_enabled'])
-    DATA_SANITIZATION = ('Oak9', 'DAR', 4, ['check_securely_remove_data'])
-    DENIAL_OF_SERVICE = ('Oak9', 'DOS', 1, ['check_load_balancing', 'check_ip_whitelisting'])
-    FIREWALLS = ('Oak9', 'IFE', 1, ['check_firewalls'])
-    HARDENING = ('Oak9', 'CM', 1, ['check_hardening'])
-    HIGH_AVAILABILITY = ('Oak9', 'BR', 1, ['check_auto_scaling', 'check_high_availability'])
-    IDENTIFICATION_AND_AUTHORIZATION = ('Oak9', 'IA', 1, [])
-    IDENTITY_LIFECYCLE = ('Oak9', 'ILM', 1, ['check_identity_lifecycle_management'])
-    INFORMATION_SYSTEMS_ENFORCING_NETWORK_ACCESS = ('Oak9', 'IFE', 10, ['check_subnet_isolation_enabled'])
-    KEY_MANAGEMENT = ('Oak9', 'KM', 1, ['check_protect_cryptographic_keys'])
-    LOGGING = ('Oak9', 'AA', 2, ['check_logging', 'check_log_integrity'])
-    NETWORK_INFORMATION_FLOW_ENFORCEMENT = ('Oak9', 'IFE', 9, ['check_subnet_isolation_enabled'])
-    PRIVILEGED_ACCESS_MANAGEMENT = ('Oak9', 'AE', 3, ['check_privileged_access_management'])
-    ROLE_BASED_ACCESS_CONTROL = ('Oak9', 'ILM', 2, ['check_role_based_access_control'])
-    SESSION_MANAGEMENT = ('Oak9', 'AE', 1, ['check_session_management'])
-    TLS = ('Oak9', 'DIT', 1, ['check_tls', 'check_destination_authentication', 'check_source_authentication'])
-
-    def __init__(self, company: str, category: str, index: int, validation_functions: list[str]):
-        self.company = company
-        self.category = category
-        self.index = index
-        self.validation_functions = list(validation_functions)
-
-    def __str__(self):
-        return f'{self.company}.CR.{self.category}.{self.index}'
-
-    @property
-    def id(self) -> str:
-        return f'{self.company}.CR.{self.category}.{self.index}'
-
-
 class OrderedEnum(Enum):
 
     def __ge__(self, other):
@@ -82,6 +33,7 @@ class OrderedEnum(Enum):
         if self.__class__ is other.__class__:
             return self.value < other.value
         return NotImplemented
+
 
 class Csp(Enum):
     Aws = 1
@@ -105,12 +57,6 @@ class DeploymentModel(OrderedEnum):
     Public = 1
 
 
-class SecurityLevel(OrderedEnum):
-    Best = 3
-    Better = 2
-    Good = 1
-
-
 @dataclass
 class ResourceMetadata:
     resource_id: str
@@ -121,12 +67,9 @@ class ResourceMetadata:
 class Context:
 
     def __init__(self, context: Ctx = None):
-        """_summary_
-        Context object that will be populated by the proto project_context object. This object is based on the
-        security teams context definition located in the teams component template. 
-        
-        Component Template: https://github.com/oak9io/oak9.cf/blob/aeab1f1bf598719c8b2d16a70c9161f61755db5a/component_mappings/COMPONENT_MAPPING_TEMPLATE.jsonc#L26
-          
+        """
+        Business context of the architecture being secured 
+                  
         Args:
             context (context_pb2): The proto context object is passed in and converted into a python object
         """
@@ -136,7 +79,6 @@ class Context:
             self.business_impact: BusinessImpact = BusinessImpact.High
             self.data_sensitivity: DataSensitivity = DataSensitivity.Sensitive
             self.deployment_model: DeploymentModel = DeploymentModel.Public
-            self.security_level: SecurityLevel = SecurityLevel.Good
             self.internal_access = True
             self.external_access = False
             self.remote_access = False
@@ -154,54 +96,6 @@ class Context:
             self.user_interface = True
             self.management_interface = True
             return
-
-        # Proto context object is provided
-        if context.susceptibility.business_impact.lower() == "high":
-            self.business_impact: BusinessImpact = BusinessImpact.High
-        elif context.susceptibility.business_impact.lower() == "medium":
-            self.business_impact: BusinessImpact = BusinessImpact.Medium
-        else:
-            self.business_impact: BusinessImpact = BusinessImpact.Low
-
-        if context.susceptibility.data_sensitivity.lower() == "businesssensitive":
-            self.data_sensitivity = DataSensitivity.Sensitive
-        else:
-            self.data_sensitivity = DataSensitivity.NonSensitive
-
-        if context.app_architecture.deployment_model.lower() == "private":
-            self.deployment_model: DeploymentModel = DeploymentModel.Private
-        elif context.app_architecture.deployment_model.lower() == "hybrid":
-            self.deployment_model: DeploymentModel = DeploymentModel.Hybrid
-        else:
-            self.deployment_model: DeploymentModel = DeploymentModel.Public
-
-        if context.security_architecture.security_level.lower() == "better":
-            self.security_level: SecurityLevel = SecurityLevel.Better
-        elif context.security_architecture.security_level.lower() == "best":
-            self.security_level: SecurityLevel = SecurityLevel.Best
-        else:
-            self.security_level: SecurityLevel = SecurityLevel.Good
-
-        self.internal_access = context.accessibility.access_type.internal_access.lower() == "required"
-        self.external_access = context.accessibility.access_type.external_access.lower() == "required"
-        self.remote_access = context.accessibility.access_type.remote_access.lower() == "required"
-        self.wireless_access = context.accessibility.access_type.wireless_access.lower() == "required"
-        self.outbound_access = context.accessibility.access_type.outbound_access.lower() == "required"
-
-        self.workforce = context.accessibility.end_users.workforce.lower() == "required"
-        self.consumers = context.accessibility.end_users.consumers.lower() == "required"
-        self.business_partners = context.accessibility.end_users.business_partners.lower() == "required"
-
-        self.physical = context.accessibility.level_of_access.physical.lower() == "required"
-        self.open = context.accessibility.level_of_access.open.lower() == "required"
-        self.limited_sensitive_data = context.accessibility.level_of_access.limited_sensitive_data.lower() == "required"
-        self.broad_sensitive_data = context.accessibility.level_of_access.broad_sensitive_data.lower() == "required"
-        self.security_privileged = context.accessibility.level_of_access.security_privileged.lower() == "required"
-
-        self.component_core = context.accessibility.applicable_component_slices.component_core.lower() == "required"
-        self.user_interface = context.accessibility.applicable_component_slices.user_interface.lower() == "required"
-        self.management_interface = \
-            context.accessibility.applicable_component_slices.management_interface.lower() == "required"
 
     def is_externally_accessible(self):
         if self.external_access and not self.internal_access:
@@ -331,14 +225,9 @@ class RelatedConfig:
 
 class Violation:
     """
-        Defines a violation object.
-        This object is DEPRECATED and is only there for backwards compatibility
-        Note that there are required and optional fields
-
-        config_gap, config_impact, config_fix and oak9_guidance are all fields that support
-        a specific markup for displaying design gaps correctly to the end user.  See link here:
-        https://oak9.atlassian.net/wiki/spaces/SEC/pages/351240193/Violation+Markup+Support
-
+    Defines a violation object.
+    This object is DEPRECATED and is only there for backwards compatibility
+    Note that there are required and optional fields
     """
 
     def __init__(
@@ -362,53 +251,32 @@ class Violation:
     ):
 
         # Severity of the violation.  Default to low. Severity should be determined based on the business context
-        # Resource blueprints can also specify adjusted severity. When an adjusted severity is specified, it does
-        # not allow the Component blueprint to set the severity for this violation.
-        # Blueprint Author: REQUIRED
         self._severity = severity
 
-        # Adjusted severity of the violation. This field is used by Resource blueprints to set the severity in a way
-        # that higher level component or resource blueprints cannot modify.  This is to account for use-cases
-        # it is clear from the resource blueprint that a mitigating design is in place so the resource blueprint can
-        # account for that to force a severity
-        # Blueprint Author: REQUIRED (Internal blueprint use only - this configuration does not get
-        # propagated to the platform)
+        # Adjusted severity of the violation. This field is used to adjust the severity for a mitigating design
         self._adjusted_severity = adjusted_severity
 
         # the unique id (full path) of the configuration that has the issue
-        # e.g. LoadBalancer.listeners[0].listenerCertificates[2].certificate[1].name
-        # This field should be auto-populated using a utility function (get_config_id)
-        # Blueprint Author: REQUIRED
         self.config_id = config_id
 
-        # currently configure value of this configuration
-        # Blueprint Author: REQUIRED
+        # currently configured value of this configuration
         if type(config_value) != str:
             self.config_value = str(config_value)
 
         else:
             self.config_value = config_value
 
-        # Config gap is a description of the gap if the configuration(s) are
-        # not set to the preferred values
-        # See: https://oak9.atlassian.net/wiki/spaces/SEC/pages/243892225/Design+Gap+-+Hierarchy+and+Logic
-        # config gaps should summarize the gap and possibly list the parent configuration that needs to be updated
-        # Blueprint Author: OPTIONAL
+        # Description of the gap 
         self.config_gap = config_gap
 
-        # Document the impact of not fixing this violation
-        # Blueprint Author: OPTIONAL
+        # Impact of not fixing this violation
         self.config_impact = config_impact
 
-        # Provide guidance on how to fix the issue
-        # Blueprint Author: OPTIONAL
+        # Guidance on how to fix the issue
         self.config_fix = config_fix
 
-        # oak9's preferred value
-        # preferred values can be strings, integers, bools, lists, dictionaries
-        # the platform is responsible for checking type to use-cases like remediation
-        # or displaying design gaps
-        # Blueprint Author: OPTIONAL (required for remediation)
+        # The preferred value
+        # Preferred values can be strings, integers, bools, lists, dictionaries
         if type(preferred_value) == list:
             self.preferred_value = ', '.join(preferred_value)
 
@@ -418,40 +286,29 @@ class Violation:
         else:
             self.preferred_value = preferred_value
 
-        # Additional guidance (renamed from oak9 guidance)
-        # Blueprint Author: OPTIONAL (required for remediation)
+        # Additional guidance 
         self.additional_guidance = additional_guidance
 
-        # Related configurations that should be remediated together and
-        # are better presented bundled together
-        # Blueprint Author: OPTIONAL
+        # Related configurations that should be remediated together 
         self.related_configs: List[RelatedConfig] = related_configs
 
-        """
-        Configurations that are autopopulated and not populated by the blueprint author
-        (Some could be populated in the Customer SaC use-case
-        """
-
-        # oak9 detailed requirement id
-        # REQUIRED (for all oak9 blueprints)
+        # oak9 security capability requirement id
         self._capability_id = capability_id
 
         # oak9 detailed requirement name
-        # This is automatically populated on the platform side
-        # In the future, we may use this for customer created blueprints
         self._capability_name = capability_name
 
-        # add documentation link
-        # This does not need to be populated
-        # This will be auto-populated on the platform side
+        # documentation link
         self._documentation = documentation
 
+        # Unique id of the resource
         self._resource_id = resource_id
-        
+
+        # Type of resource
         self._resource_type = resource_type
 
-        # Priority of finding to relatively prioritize across
-        # qualitative ratings
+        # Priority of finding (1-100)
+        # This helps relatively prioritize across qualitative ratings
         self._priority = priority
 
     def __json__(self):
@@ -469,7 +326,6 @@ class Violation:
             'resourceId': self.resource_id,
             'resourceType': self.resource_type
         }
-    
 
     @property
     def severity(self) -> Severity:
@@ -522,29 +378,36 @@ class Violation:
     @property
     def resource_id(self):
         return self._resource_id
-    
+
     @resource_id.setter
     def resource_id(self, value):
         self._resource_id = value
-    
+
     @property
     def resource_type(self):
         return self._resource_type
-    
+
     @resource_type.setter
     def resource_type(self, value):
         self._resource_type = value
 
+
 @dataclass
 class DesignGap:
+    """
+    Defines the design gap object, which is a collection of violations
+    This object is DEPRECATED and is only there for backwards compatibility
+    Note that there are required and optional fields
+    """
     # What is the  gap
-    # Blueprint Author: OPTIONAL (For oak9 req ids only)
     capability_gap: str = ""
+
     # What is the impact
-    # Blueprint Author: OPTIONAL (For oak9 req ids only)
     capability_impact: str = ""
+
     # severity of the design gap
     _severity: Severity = Severity.Low
+
     # List of violations
     violations: List[Violation] = field(default_factory=list)
 
@@ -568,14 +431,7 @@ class FindingType(Enum):
 
 class Finding:
     """
-        Defines a observation object.
-        Observations can be Violations, ResourceGaps or Passed Checks
-        Note that there are required and optional fields
-
-        config_gap, config_impact, config_fix and oak9_guidance are all fields that support
-        a specific markup for displaying design gaps correctly to the end user.  See link here:
-        https://oak9.atlassian.net/wiki/spaces/SEC/pages/351240193/Violation+Markup+Support
-
+    Defines a Finding object.
     """
 
     def __init__(
@@ -595,7 +451,9 @@ class Finding:
             req_id: str = "",
             req_name: str = "",
             priority: int = 0,
-            documentation_url=""
+            documentation_url="",
+            cost_consideration: bool = False,
+            env: str = ""
     ):
         """
         Type of observation
@@ -603,27 +461,42 @@ class Finding:
 
         self._id = uuid.uuid4()
 
+        """
+        Metadata of the resource that this finding relates to
+        """
         self._resource_metadata: ResourceMetadata = resource_metadata
 
+        """
+        Findings can be of type Design Gap, Resource Gap, Kudos, Task or Warning
+        """
         self._finding_type: FindingType = finding_type
 
-        # For Design Gaps and Tasks: Severity of the gap or task.  Default to low. Severity should be determined based on the business context
-        # Resource blueprints can also specify adjusted severity. When an adjusted severity is specified, it does
-        # not allow the Component blueprint to set the severity for this violation.
-        # For Kudos: Well done rating. Should be determined based on the business context
-        # For Warnings: N/A
+        """
+        For Design Gaps and Tasks: 
+            Severity of the gap or task.  Default to low. 
+            Severity should be determined based on the business context
+            Resource blueprints can also specify adjusted severity. When an adjusted severity is specified, it does
+            not allow the Component blueprint to set the severity for this violation.
+        
+        For Kudos: 
+            Well done rating. Should be determined based on the business context
+        
+        For Warnings: N/A
+        """
         self._rating = rating
 
-        # Internal blueprint use only (this configuration does not get propagated to the platform)
-        # Adjusted severity of the design gap. This field is used by Resource blueprints to set the severity in a way
-        # that higher level component or resource blueprints cannot modify.  This is to account for use-cases
-        # it is clear from the resource blueprint that a mitigating design is in place so the resource blueprint can
-        # account for that to force a severity
+        """
+        Currently N/A to Tython
+        This field is meant to provide an adjusted severity rating for mitigating designs
+        """
         self._adjusted_severity = adjusted_severity
 
-        # the unique id (full path) of the configuration that we want to call out
-        # e.g. LoadBalancer.listeners[0].listenerCertificates[2].certificate[1].name
-        # This field should be auto-populated using a utility function (get_config_id)
+        """
+        the unique id (full path) of the configuration that we want to call out
+        e.g. LoadBalancer.listeners[0].listenerCertificates[2].certificate[1].name
+        This field should be auto-populated using a utility function (get_config_id)
+        """
+
         self._config_id = config_id
 
         # currently configured value of this configuration
@@ -632,11 +505,30 @@ class Finding:
         else:
             self._current_value = current_value
 
-        # For design gaps - Description of the gap to be fixed.
-        # Note that design gaps can also use the gap field to populate the gap
-        # For Kudos - Description of the passed check
-        # For Tasks - Description of the task
-        # For Warnings - Description of the warnings
+        """
+        For design gaps - Description of the gap, framed neutrally as a recommendation.
+            Guidance on language - This field should be framed in a neutral way (as opposed to a negative framing).
+            This field should focus on explicitly defining "What is the recommendation" and implicitly defining "What is the gap"
+            The Fix field will define the How do I fix it
+
+            Examples:
+            
+                Instead of "Encryption is not configured" we focus on the recommendation "Enable Encryption"
+            
+                For lists: instead of "[configId] contains insecure origin values" say 
+                "Remove origins from CORS rules that allow broad access"
+            
+                Instead of "SSL Protocol is not set to TLS.v1.2" we should say "SSL protocol should use latest protocol version"
+                
+                Instead of "Encryption is not enabled" we should say "Enable encryption"
+
+        For Kudos - Description of the passed check
+        
+        For Tasks - Description of the task
+        
+        For Warnings - Description of the warnings
+        """
+
         self._desc = desc
 
         # Specific details on the gap (for cases where the gap gets displayed separately)
@@ -683,10 +575,16 @@ class Finding:
         # List of UUIDs for related findings
         self._related_findings = related_findings or []
 
+        # Note if the finding will lead to higher costs for the customers if they follow our guidance
+        self._cost_consideration = cost_consideration
+
+        # environment as defined by customer
+        self._env = env
+
     @property
     def id(self):
         return self._id
-    
+
     @property
     def resource_metadata(self):
         return self._resource_metadata
@@ -761,7 +659,7 @@ class Finding:
         self._additional_guidance = value
 
     @property
-    def severity(self) -> Severity:
+    def severity(self) -> Union[Severity]:
         return self._rating
 
     @severity.setter
@@ -801,7 +699,7 @@ class Finding:
 
     @req_id.setter
     def req_id(self, value):
-        # TODO: add checks for customer provided ids vs oak9 ids
+        # TODO: add checks for user provided ids vs oak9 ids
         self._req_id = value
 
     @property
@@ -810,7 +708,7 @@ class Finding:
 
     @req_name.setter
     def req_name(self, value):
-        # TODO: add checks for customer provided reqs vs oak9 reqs
+        # TODO: add checks for user provided reqs vs oak9 reqs
         self._req_name = value
 
     @property
@@ -821,13 +719,28 @@ class Finding:
         self._related_configs.append(related_config)
 
     @property
-    def priority(self):
+    def priority(self) -> int:
         return self._priority
 
+    @property
+    def env(self) -> str:
+        return self._env
+
+    @env.setter
+    def env(self, value: str):
+        self._env = value
+
     @priority.setter
-    def priority(self, value):
-        if isinstance(value, int) and 101 > value > 0:
-            self._priority = value
+    def priority(self, value: int):
+        if isinstance(value, int):
+            if self.severity == Severity.Critical:
+                self._priority = value if value > 75 else 75
+            elif self.severity == Severity.High:
+                self._priority = value if (50 < value < 74) else 74 if value > 50 else 50
+            elif self.severity == Severity.Moderate:
+                self._priority = value if (25 < value < 49) else 49 if value > 25 else 25
+            elif self.severity == Severity.Low:
+                self._priority = value if (0 < value < 24) else 24 if value > 0 else 0
 
     @property
     def related_findings(self):
@@ -840,6 +753,14 @@ class Finding:
     @documentation_url.setter
     def documentation_url(self, value):
         self._documentation_url = value
+
+    @property
+    def cost_consideration(self) -> bool:
+        return self._cost_consideration
+
+    @cost_consideration.setter
+    def cost_consideration(self, value: bool):
+        self._cost_consideration = value
 
     def add_related_findings(self, related_findings: Union[uuid.UUID, List]):
         if isinstance(related_findings, uuid.UUID):
@@ -867,7 +788,6 @@ class Finding:
         self._req_name = viol.capability_name
         self.priority = viol.priority
         return self
-
 
     def to_violation(self):
         viol = Violation()
@@ -925,6 +845,7 @@ class Finding:
             ret_str += f"Description: {self.desc}\n"
         return ret_str
 
+
 @dataclass
 class ValidationMetaInfo:
     caller: str
@@ -940,16 +861,18 @@ class DesignPref:
 
 
 class Blueprint:
+    """
+    Base class for Tython Blueprints
+    """
     display_name: ClassVar[str] = None
     blueprint_type: ClassVar[BlueprintType] = BlueprintType.Customer
     id: ClassVar[str] = None
     parent_blueprint_id: ClassVar[str] = None
     version: ClassVar[str] = None
 
-    def __init__(self, graph: Graph, context: Context = None, design_pref: DesignPref = None) -> None:
+    def __init__(self, graph: Graph, context: Context = None) -> None:
         self._graph = graph
         self._context = context
-        self.design_pref = design_pref
         self._meta_info = None
 
     @property
@@ -972,9 +895,9 @@ class Blueprint:
         pass
 
     def find_by_resource(self, resource_type):
-        '''
+        """
         Filters the graph for the given resource_type
-        '''
+        """
         resources = []
 
         for input in self._graph:
@@ -983,7 +906,7 @@ class Blueprint:
                 if mapped == resource_type:
                     resource = resource_type()
                     root_node.node.resource.data.Unpack(resource)
-                    
+
                     resource_metadata = ResourceMetadata(
                         resource_id=input.meta_info.resource_id,
                         resource_name=input.meta_info.resource_name,
@@ -993,7 +916,7 @@ class Blueprint:
                     resources.append((resource, resource_metadata))
 
         return resources
-    
+
 
 @dataclass
 class Configuration:
@@ -1004,7 +927,8 @@ class Configuration:
     data_endpoint: str = None
     mode: str = None
 
-    def __init__(self, api_key: str, org_id: str, project_id: str, blueprint_package_path: str, data_endpoint: str = None, mode: str = None, **kwargs):
+    def __init__(self, api_key: str, org_id: str, project_id: str, blueprint_package_path: str,
+                 data_endpoint: str = None, mode: str = None, **kwargs):
         self.api_key = api_key
         self.org_id = org_id
         self.project_id = project_id
@@ -1019,4 +943,3 @@ class Configuration:
 class RunnerReport:
     blueprint_problems: List[str]
     findings: List[Finding]
-
