@@ -98,6 +98,7 @@ def is_blueprint_class(cls) -> bool:
 
 from contextlib import contextmanager
 
+
 @contextmanager
 def add_to_path(p):
     import sys
@@ -112,10 +113,11 @@ def add_to_path(p):
         sys.path = old_path
         sys.modules = old_modules
 
+
 def path_import(absolute_path):
-   '''implementation taken from https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly'''
-   with add_to_path(os.path.dirname(absolute_path)):
-       spec = importlib.util.spec_from_file_location(absolute_path, absolute_path)
-       module = importlib.util.module_from_spec(spec)
-       spec.loader.exec_module(module)
-       return module
+    """implementation taken from https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly"""
+    with add_to_path(os.path.dirname(absolute_path)):
+        spec = importlib.util.spec_from_file_location(absolute_path, absolute_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module

@@ -1,10 +1,12 @@
-import os, ast
+import ast
+import os
 from typing import Iterator, AnyStr, List
+
 from core.bp_metadata_utils.blueprint_docstring import BlueprintDocstring
 from core.bp_metadata_utils.blueprint_meta_data import BlueprintMetaData
 from core.bp_metadata_utils.multiple_policies_per_file_repo import MultiplePoliciesPerFileRepo
-from core.bp_metadata_utils.policy_implementation_docstring import PolicyImplementationDocstring
 from core.bp_metadata_utils.policy import Policy, Validation
+from core.bp_metadata_utils.policy_implementation_docstring import PolicyImplementationDocstring
 from core.bp_metadata_utils.python_source_file_utils import is_customer_blueprint
 
 

@@ -50,7 +50,7 @@ class TestPolicyImplementation(unittest.TestCase):
                 [
 
 
-                     Policy(
+                    Policy(
                         name='',
                         description='',
                         provider=PolicyProvider.AZURE_POLICY,

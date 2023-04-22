@@ -42,7 +42,6 @@ class PolicyRepo(ABC):
         """
         pass
 
-
     @abstractmethod
     def filter(self, policy: Policy) -> bool:
         """
@@ -66,8 +65,9 @@ class PolicyRepo(ABC):
     @property
     def policy_file_paths(self) -> Iterator[AnyStr]:
         expanded_paths = []
-        # for p in braceexpand(self.glob_pattern): # This was preventing the blueprint execution, is there a reason for this library?
-            # expanded_paths.extend(glob(p, recursive=True))
+        # for p in braceexpand(self.glob_pattern):
+        # This was preventing the blueprint execution, is there a reason for this library?
+        # expanded_paths.extend(glob(p, recursive=True))
         expanded_paths.extend(glob(self.glob_pattern, recursive=True))
 
         return expanded_paths
@@ -77,7 +77,3 @@ class PolicyRepo(ABC):
                f' local_path: {self._local_path}, ' \
                f'glob_pattern: {self.glob_pattern}, ' \
                f'policy_file_paths: {list(self.policy_file_paths)}'
-
-
-
-

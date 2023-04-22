@@ -4,6 +4,7 @@ from typing import Iterator, Dict
 from core.bp_metadata_utils.policy import Policy
 from core.bp_metadata_utils.policy_repo import PolicyRepo
 
+
 class MultiplePoliciesPerFileRepo(PolicyRepo):
 
     def __init__(self, url: str, local_path='', skip_sync=False) -> None:
