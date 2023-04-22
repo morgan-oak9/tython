@@ -659,7 +659,7 @@ class Finding:
         self._additional_guidance = value
 
     @property
-    def severity(self) -> Union[Severity]:
+    def severity(self) -> Severity:
         return self._rating
 
     @severity.setter
