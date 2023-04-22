@@ -9,6 +9,7 @@ from core.bp_metadata_utils.python_source_file_utils import get_blueprint_classe
 from core.types import Finding, Configuration
 import core.utilities as Utilities
 
+
 @runtime_checkable
 class SupportsValidation(Protocol):
     def validate(self) -> Set[Finding]:
@@ -38,7 +39,7 @@ def main(argv):
         else:
             sys.stderr.write("Configuration path was not provided.")
             sys.exit(1)
-        
+
         config = None
         try:
             args_file = open(args_path)
@@ -48,7 +49,7 @@ def main(argv):
             config = Configuration(**args_obj)
         except:
             raise Exception("Runner arguments not found or could not be understood.")
-                
+
         runner = Runner()
 
         blueprint_repo = CustomerBlueprintRepo(config.blueprint_package_path)
@@ -71,10 +72,10 @@ def main(argv):
             customer_blueprint = blueprint[1](graph=runner_inputs)
             # TODO: check usage guidelines to see if findings should be reported
             findings = runner.run(customer_blueprint)
-            
+
         if config.mode == "apply" and findings:
-            TythonApiService.apply_findings(config, findings, environment_id, request_id)
-        
+            TythonApiService.apply_findings(config, list(findings), environment_id, request_id)
+
         sys.exit(0)
 
     except Exception as e:
@@ -82,7 +83,7 @@ def main(argv):
         sys.exit(1)
 
     finally:
-        Utilities.persist_runner_output(args_path, runner_stdout, findings)
+        Utilities.persist_runner_output(args_path, runner_stdout, list(findings))
         sys.stdout = stdout
 
 
@@ -93,4 +94,5 @@ if __package__ == "":
 
 if __name__ == "__main__":
     import sys
+
     main(sys.argv[1:])
