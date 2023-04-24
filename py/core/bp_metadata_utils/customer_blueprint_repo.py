@@ -133,25 +133,3 @@ class CustomerBlueprintRepo(MultiplePoliciesPerFileRepo):
 
         return result
 
-    def print_blueprint_summary(self):
-        """
-        Iterate over the blueprints and provide a summary of the blueprints
-        return: A list of policies
-        """
-
-        blueprints = self.blueprints
-        print(f"Found {len(blueprints)} blueprints")
-        i = 0
-        for blueprint in blueprints:
-            i += 1
-            print(f"Blueprint #{i}:")
-            print(f"Name: {blueprint.name}")
-            print(f"Description: {blueprint.desc}")
-            print(f"Author: {blueprint.author}")
-            print(f"Found {len(blueprint.validations)} validation checks")
-            j = 0
-            for validation in blueprint.validations:
-                j += 1
-                print(f"{j}: {validation.description}")
-
-            print(f"")

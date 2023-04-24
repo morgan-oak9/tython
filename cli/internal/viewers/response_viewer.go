@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"oak9.io/tython/internal/models/runner"
-	"oak9.io/tython/internal/visuals"
 )
 
 type ResponseViewer struct {
@@ -31,8 +30,16 @@ func (viewer *ResponseViewer) View(writers ...io.Writer) error {
 		return err
 	}
 
+	blueprintMetadataSection := BlueprintMetadataViewer{
+		MetadataList: viewer.response.BlueprintMetadata,
+	}
+
 	blueprintProblemsSection := BlueprintProblemsViewer{
 		Problems: viewer.response.BlueprintProblems,
+	}
+
+	blueprintOutputSection := BlueprintOutputViewer{
+		OutputLines: viewer.response.BlueprintOutput,
 	}
 
 	findingsSection := FindingsViewer{
@@ -40,12 +47,13 @@ func (viewer *ResponseViewer) View(writers ...io.Writer) error {
 	}
 
 	sections := []Viewer{
+		blueprintMetadataSection,
 		blueprintProblemsSection,
+		blueprintOutputSection,
 		findingsSection,
 	}
 
 	for _, section := range sections {
-		visuals.DrawSectionSeparator()
 		if err := section.View(writers...); err != nil {
 			return err
 		}

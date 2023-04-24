@@ -12,8 +12,12 @@ type BlueprintProblemsViewer struct {
 }
 
 func (viewer BlueprintProblemsViewer) View(writers ...io.Writer) error {
+	if err := visuals.DrawSectionSeparator(writers...); err != nil {
+		return err
+	}
+
 	if len(viewer.Problems) == 0 {
-		visuals.WriteTitle("All blueprints ran successfully.", writers...)
+		visuals.WriteTitle("All blueprints ran successfully!", writers...)
 		return nil
 	}
 

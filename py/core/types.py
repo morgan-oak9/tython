@@ -9,6 +9,8 @@ from enum import Enum, unique
 from typing import List, Tuple, ClassVar, Callable, Dict, Union, Set, Any
 from colorama import Fore, Style
 
+from core.bp_metadata_utils.blueprint_meta_data import BlueprintMetaData
+
 ValidationFunction = Callable[[any], any]
 
 
@@ -941,5 +943,7 @@ class Configuration:
 
 @dataclass
 class RunnerReport:
+    blueprint_metadata: List[BlueprintMetaData]
+    blueprint_output: List[str]
     blueprint_problems: List[str]
     findings: List[Finding]

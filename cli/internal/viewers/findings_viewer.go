@@ -25,6 +25,15 @@ type FindingsViewer struct {
 }
 
 func (viewer FindingsViewer) View(writers ...io.Writer) error {
+	err := visuals.SkipNLines(1, writers...)
+	if err != nil {
+		return err
+	}
+
+	if err := visuals.DrawSectionSeparatorWithTitle("Findings", writers...); err != nil {
+		return err
+	}
+
 	if len(viewer.Findings) == 0 {
 		return visuals.WriteLine("No findings were reported!", writers...)
 	}
@@ -53,7 +62,7 @@ func (viewer FindingsViewer) View(writers ...io.Writer) error {
 				fmt.Sprintf("%s%s%s", finding.Rating, strings.Repeat(" ", visuals.IndentLength), finding.Desc),
 				writers...,
 			)
-			visuals.SkipNLines(1)
+			visuals.SkipNLines(1, writers...)
 
 			countSeverity(finding, counts)
 			countKudos(finding, counts)
@@ -76,7 +85,7 @@ func (viewer FindingsViewer) View(writers ...io.Writer) error {
 		return err
 	}
 
-	visuals.SkipNLines(2)
+	visuals.SkipNLines(2, writers...)
 
 	return nil
 }

@@ -8,6 +8,7 @@ from core.bp_metadata_utils.customer_blueprint_repo import CustomerBlueprintRepo
 from core.bp_metadata_utils.python_source_file_utils import get_blueprint_classes
 from core.types import Finding, Configuration
 import core.utilities as Utilities
+from core.bp_metadata_utils.blueprint_meta_data import BlueprintMetaData
 
 
 @runtime_checkable
@@ -31,6 +32,8 @@ def main(argv):
 
     args_path = None
     findings = set()
+    blueprint_metadata_list = []
+    blueprint_problems = []
 
     try:
 
@@ -53,9 +56,7 @@ def main(argv):
         runner = Runner()
 
         blueprint_repo = CustomerBlueprintRepo(config.blueprint_package_path)
-
-        # TODO: make this conditional on a CLI command
-        # blueprint_repo.print_blueprint_summary()
+        blueprint_metadata_list = blueprint_repo.blueprints
 
         environment_id = TythonApiService.get_default_environment(config)
         request_id = TythonApiService.build_app(config, environment_id)
@@ -71,8 +72,11 @@ def main(argv):
         for blueprint in blueprint_classes:
             customer_blueprint = blueprint[1](graph=runner_inputs)
             # TODO: check usage guidelines to see if findings should be reported
-            findings = runner.run(customer_blueprint)
-
+            try:
+                findings = runner.run(customer_blueprint)
+            except Exception as e:
+                blueprint_problems.append(str(e))
+            
         if config.mode == "apply" and findings:
             TythonApiService.apply_findings(config, list(findings), environment_id, request_id)
 
@@ -80,10 +84,11 @@ def main(argv):
 
     except Exception as e:
         sys.stderr.write(str(e))
+        sys.stderr.flush()
         sys.exit(1)
 
     finally:
-        Utilities.persist_runner_output(args_path, runner_stdout, list(findings))
+        Utilities.persist_runner_output(args_path, runner_stdout, blueprint_problems, blueprint_metadata_list, list(findings))
         sys.stdout = stdout
 
 
