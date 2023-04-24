@@ -23,6 +23,5 @@ var applyCmd = &cobra.Command{
 }
 
 func init() {
-	blueprints.SetupBlueprintRunFlags(applyCmd)
 	rootCmd.AddCommand(applyCmd)
 }

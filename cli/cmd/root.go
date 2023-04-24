@@ -6,11 +6,13 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"oak9.io/tython/internal/constants/keys"
 )
 
 const (
 	DefaultConfigJson string = "config.json"
-	version           string = "0.0.3"
+	version           string = "0.0.4"
 )
 
 var rootCmd = &cobra.Command{
@@ -38,4 +40,9 @@ func Execute() {
 
 func init() {
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
+
+	rootCmd.PersistentFlags().String(keys.EndpointConfigKey, "", "Send results to this endpoint for persistance instead")
+	rootCmd.PersistentFlags().MarkHidden(keys.EndpointConfigKey)
+	viper.BindPFlags(rootCmd.PersistentFlags())
+
 }

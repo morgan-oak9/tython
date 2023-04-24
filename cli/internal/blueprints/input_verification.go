@@ -25,12 +25,6 @@ func BuildRunnerArgs(cmdType enums.CmdType) (*runner.RunnerArgs, error) {
 	}, nil
 }
 
-func SetupBlueprintRunFlags(cmd *cobra.Command) {
-	cmd.Flags().String(keys.EndpointConfigKey, "", "Send results to this endpoint for persistance instead")
-	cmd.Flags().MarkHidden(keys.EndpointConfigKey)
-	viper.BindPFlags(cmd.Flags())
-}
-
 func UseBlueprintRunFlags(cmd *cobra.Command, args []string) error {
 	if _, err := os.Stat(args[0]); err != nil {
 		fmt.Println("Must provide a path to the blueprints you wish to run.")

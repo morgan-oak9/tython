@@ -25,6 +25,5 @@ The results will still be displayed in the terminal for evaluation.
 }
 
 func init() {
-	blueprints.SetupBlueprintRunFlags(testCmd)
 	rootCmd.AddCommand(testCmd)
 }

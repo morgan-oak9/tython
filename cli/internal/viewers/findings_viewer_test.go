@@ -30,9 +30,9 @@ func TestViewDisplaysAllFindings(t *testing.T) {
 	writer := io.Writer(&buf)
 	viewer.View(os.Stdout, writer)
 
-	assert.Contains(t, buf.String(), "Low  Pass A test")
+	assert.Contains(t, buf.String(), "Low    Pass A test")
 	assert.Contains(t, buf.String(), "TestRequirementNameA")
 
-	assert.Contains(t, buf.String(), "Critical  Pass B test")
+	assert.Contains(t, buf.String(), "Critical    Pass B test")
 	assert.Contains(t, buf.String(), "TestRequirementNameB")
 }
