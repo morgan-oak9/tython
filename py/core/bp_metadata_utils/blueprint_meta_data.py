@@ -8,9 +8,9 @@ class BlueprintMetaData:
     """
     Class to represent blueprint metadata
     """
-    name: str
-    desc: str
-    author: str
+    # name: str
+    # desc: str
+    # author: str
     validations: List[Validation]
     
     def __json__(self):
@@ -21,8 +21,8 @@ class BlueprintMetaData:
               validations_json_list.append(validation.__json__())
 
         return {
-            'name': self.name,
-            'desc': self.desc,
-            'author': self.author,
+            # 'name': self.name,
+            # 'desc': self.desc,
+            # 'author': self.author,
             'validations': validations_json_list,
         }

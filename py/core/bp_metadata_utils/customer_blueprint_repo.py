@@ -93,7 +93,7 @@ class CustomerBlueprintRepo(MultiplePoliciesPerFileRepo):
                 if not docstring:
                     continue
 
-                blueprint_docstring = BlueprintDocstring(docstring_raw=docstring)
+                # blueprint_docstring = BlueprintDocstring(docstring_raw=docstring)
                 validations_result = []
 
                 validations = self.parse_blueprint_file(blueprint_path)
@@ -101,9 +101,9 @@ class CustomerBlueprintRepo(MultiplePoliciesPerFileRepo):
                     validations_result.append(validation)
 
                 blueprint_meta_data = BlueprintMetaData(
-                    name=blueprint_docstring.name,
-                    desc=blueprint_docstring.desc,
-                    author=blueprint_docstring.author,
+                    # name=blueprint_docstring.name,
+                    # desc=blueprint_docstring.desc,
+                    # author=blueprint_docstring.author,
                     validations=validations_result
                 )
 
