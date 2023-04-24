@@ -9,6 +9,7 @@ from core.bp_metadata_utils.policy import Policy
 this_dir = os.path.dirname(os.path.abspath(__file__))
 test_data_path = os.path.join(this_dir, 'testdata', 'oak9')
 
+
 class TestCustomerBlueprintRepo(unittest.TestCase):
 
     @parameterized.expand([

@@ -3,7 +3,6 @@ from enum import Enum
 from typing import Union, List
 
 
-
 class PolicyProvider(Enum):
     AZURE_POLICY = 1
     AWS_CONFIG_POLICY = 2
@@ -39,4 +38,3 @@ class Validation:
     implements: List[Policy]
     references: List[Policy]
     coverage: str
-

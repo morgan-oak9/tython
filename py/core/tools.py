@@ -9,11 +9,13 @@ from google.protobuf.message import Message
 
 log = _logger()
 
+
 def module_from_file(module_name, file_path):
     spec = importlib.util.spec_from_file_location(module_name, file_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
 
 def validation_results(results: List[Tuple[Resource, List[Violation], List[RunnerException]]]):
     grpc_design_gaps: list = []
@@ -163,10 +165,12 @@ def get_config_id_list_simplified(
         resource_name: str,
         config_name: str,
         sub_resource_id: Optional[int] = None) -> list[str]:
-    
     name_list = []
 
-    def print_message_fields(message, prefix="", name_list=[]):
+    def print_message_fields(message, prefix="", name_list=None):
+        if name_list is None:
+            name_list = []
+
         for field_descriptor, value in message.ListFields():
             field_name = field_descriptor.name
             field_path = prefix + "." + field_name if prefix else field_name
@@ -182,10 +186,10 @@ def get_config_id_list_simplified(
             # found the config name of object we want
             if config_name in field_name and sub_resource_id is None:
                 name_list.append(field_name)
-            
+
             elif config_name in field_name and id(resource) == sub_resource_id:
                 name_list.append(field_name)
-                
+
             elif config_name in str(field_path) and id(resource) == sub_resource_id:
                 if type(field_path) is str:
                     name_list.append(field_name + "." + field_path)
