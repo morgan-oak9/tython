@@ -8,9 +8,8 @@
 # Imports
 # ---------------------------------------------------------------------
 from typing import Set
-from oak9.tython.core.sdk.graph_helper import GraphHelper
 from oak9.tython.models.aws.aws_kms_pb2 import Key
-from oak9.tython.core.types import Blueprint, Finding, FindingType, DesignGap, Severity, WellDoneRating
+from oak9.tython.core.types import Blueprint, Finding, FindingType, DesignGap, Severity, WellDoneRating, ResourceMetadata
 
 # ---------------------------------------------------------------------
 # Class Definition
@@ -26,7 +25,7 @@ class KeyInspector(Blueprint):
     # ---------------------------------------------------------------------
     # Function Definitions
     # ---------------------------------------------------------------------
-    def validate_key_tagging(self, kms: Key):
+    def validate_key_tagging(self, kms: Key, resource_metadata: ResourceMetadata):
         """
         A simple example validation to see if proper tagging
         practices are being followed for KMS keys. This validation
@@ -52,7 +51,8 @@ class KeyInspector(Blueprint):
 
         if not tags or ('environment' not in tags.keys()):
             NoKeyTags = Finding(FindingType.DesignGap)
-            NoKeyTags.severity = Severity.Moderate
+            NoKeyTags.resource_metadata=resource_metadata
+            NoKeyTags.severity = Severity.Critical
             NoKeyTags.config_id = (tags)
             NoKeyTags.desc = (f"Define [configId] to maintain a proper asset inventory. "
                               "Organizational conventions require that each resource contains "
@@ -66,7 +66,7 @@ class KeyInspector(Blueprint):
 
         return findings
 
-    def validate_deletion_window(self, kms: Key):
+    def validate_deletion_window(self, kms: Key, resource_metadata: ResourceMetadata):
         """
         Validate key deletion window is less than 10 days
 
@@ -89,13 +89,14 @@ class KeyInspector(Blueprint):
         max_retention_days = 10
 
         DecreaseDeletionWindow = Finding(
+            resource_metadata=resource_metadata,
             finding_type=FindingType.DesignGap,
             config_id=deletion_window,
             preferred_value=max_retention_days,
             desc=(f"Define [configId] to a value less than [preferredValues] to "
                    "ensure deleted keys are not retained for longer than "
                    "absolutely necessary."),
-            severity=Severity.Moderate
+            severity=Severity.Critical
         )
 
         if deletion_window > max_retention_days:
@@ -103,4 +104,17 @@ class KeyInspector(Blueprint):
 
         return findings
 
+    # ---------------------------------------------------------------------
+    # Validation Caller
+    # ---------------------------------------------------------------------
+    def validate(self) -> Set[Finding]:
 
+        resources = self.find_by_resource(Key)
+
+        findings = set()
+
+        for resource, resource_metadata in resources:
+            findings.add(self.validate_key_tagging(resource, resource_metadata))
+            findings.add(self.validate_deletion_window(resource, resource_metadata))
+
+        return findings

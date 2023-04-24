@@ -17,11 +17,13 @@
 # of objects that assist in blueprint logic and validation development. You will
 # need to import any of these objects you wish to implement in your blueprint by
 # referencing the oak9.tython package
-
+from typing import Set
 # ---- Cloud Resource Models (Protos) --------------------------------
-from oak9.tython.models import *
+from oak9.tython.models.aws.aws_kms_pb2 import Key
 # ---- Core Types ----------------------------------------------------
-from oak9.tython.core.types import *
+from oak9.tython.core.types import Blueprint, Severity, Finding, FindingType, DesignGap, ResourceMetadata
+# ---- Graph Helper --------------------------------------------------
+from oak9.tython.core.sdk.graph_helper import GraphHelper
 
 # ---------------------------------------------------------------------
 # Class Definition
@@ -45,7 +47,7 @@ class MyFirstBlueprint(Blueprint):
     """
 
     # ---------------------------------------------------------------------
-    # Function Definition
+    # Validation Function Definition
     # ---------------------------------------------------------------------
 
     # Define validation functions to check specific resource configuration 
@@ -53,7 +55,7 @@ class MyFirstBlueprint(Blueprint):
     # We recommend constructing these validations in accordance with best coding 
     # practices, which can be found in the Python documentation
 
-    def my_first_validation(self, resource: Resource):
+    def my_first_validation(self, resource: Key, resource_metadata: ResourceMetadata):
         """
         A reader-friendly description for your first validation function
 
@@ -90,7 +92,7 @@ class MyFirstBlueprint(Blueprint):
         # Grab the relevant proto config - be aware of types as they will
         # effect how you can access and iterate through these attributes
         # ---------------------------------------------------------------------
-        config_to_validate = resource.sub_config.config_you_care_about
+        config_to_validate = resource.description
 
         secure_value = "some_secure_value_to_check_for"
 
@@ -104,7 +106,7 @@ class MyFirstBlueprint(Blueprint):
             # report relevant feedback and information back to your development teams.
             # See tython/core/types for all supported configurations on this object
             # ---------------------------------------------------------------------
-            your_new_finding = Finding(FindingType.<DesignGap, Kudos, Warning, Task, ResourceGap>)
+            your_new_finding = Finding(FindingType.DesignGap)
             # ---------------------------------------------------------------------
             # Specify a config_id relating to the resource config this function
             # was created to validate. Defining this value allows us to perform
@@ -129,11 +131,32 @@ class MyFirstBlueprint(Blueprint):
             # Specify a Finding severity to assist teams in classifying
             # and prioritizing validation results
             # ---------------------------------------------------------------------
-            your_new_finding.severity = Severity.<Low, Moderate, High, Critical>
+            your_new_finding.severity = Severity.Critical
 
         # ---------------------------------------------------------------------
         # And it's that easy! You've just built your first Tython blueprint.
         # Go celebrate by checking out your findings in oak9 console and
         # patching up all the security flaws in your code!
         # ---------------------------------------------------------------------
+        return findings
+    
+
+    # ---------------------------------------------------------------------
+    # Validation Function Caller
+    # ---------------------------------------------------------------------
+    def validate(self) -> Set[Finding]:
+
+        # ---------------------------------------------------------------------
+        # After building out your Tython blueprint, the final step is defining 
+        # a caller method that will run all specified validation functions.
+        # This step uses the find_resources method from our SDK to populate the
+        # relevant proto models with data from your cloud infrastructure
+        # ---------------------------------------------------------------------
+        resources = self.find_by_resources(Key)
+
+        findings = set()
+
+        for resource, resource_metadata in resources:
+            findings.add(self.my_first_validation(resource, resource_metadata))
+
         return findings
