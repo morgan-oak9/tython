@@ -1,6 +1,6 @@
 package config
 
-type PublishConfig struct {
+type ModuleConfig struct {
 	Company string `yaml:"company"`
 	Author  string `yaml:"author"`
 	Runtime string `yaml:"runtime"`

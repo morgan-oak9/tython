@@ -101,18 +101,18 @@ func cleanupRunnerArgs(tempDirPath string) error {
 }
 
 func getRunTimeFromPackage(blueprintPackagePath string) (string, error) {
-	invalidPublishFileErr := errors.New("[Error] Could not read module.yml. Cannot determine runtime for blueprints")
+	invalidModuleFileErr := errors.New("[Error] Could not read module.yml. Cannot determine runtime for blueprints")
 
 	yamlFile, err := os.ReadFile(filepath.FromSlash(filepath.Join(blueprintPackagePath + "/module.yml")))
 	if err != nil {
-		return "", invalidPublishFileErr
+		return "", invalidModuleFileErr
 	}
 
-	data := config.PublishConfig{}
+	data := config.ModuleConfig{}
 
 	err = yaml.Unmarshal(yamlFile, &data)
 	if err != nil {
-		return "", invalidPublishFileErr
+		return "", invalidModuleFileErr
 	}
 
 	return data.Runtime, nil
