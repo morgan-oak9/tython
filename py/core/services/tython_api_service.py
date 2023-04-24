@@ -5,11 +5,13 @@ from core.types import Finding, Configuration
 from models.shared.shared_pb2 import RunnerInput
 
 
+
 class TythonApiService:
     """
     Provides access to the tython api
     """
 
+    @staticmethod
     def get_default_environment(config: Configuration):
         """
         Gets the default environment_id
@@ -28,6 +30,8 @@ class TythonApiService:
 
         return environment_id
 
+
+    @staticmethod
     def build_app(config: Configuration, environment_id: str):
         """
         Triggers build app endpoint
@@ -43,6 +47,8 @@ class TythonApiService:
 
         return request_id
 
+
+    @staticmethod
     def fetch_graph_data(config: Configuration, environment_id: str, request_id: str):
         """
         Fetch projects graph data
@@ -72,6 +78,8 @@ class TythonApiService:
 
         return runner_inputs
 
+
+    @staticmethod
     def apply_findings(config: Configuration, findings: list[Finding], environment_id: str, request_id: str):
         """
         Apply a findings list to the oak9 project
