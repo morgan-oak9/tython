@@ -43,7 +43,7 @@ tython init python
 To install all of Tython dependencies, we can use pip:
 
 ```
-python.exe -m pip install --upgrade pip
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
