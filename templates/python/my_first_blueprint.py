@@ -21,7 +21,7 @@ from typing import Set
 # ---- Cloud Resource Models (Protos) --------------------------------
 from oak9.tython.models.aws.aws_kms_pb2 import Key
 # ---- Core Types ----------------------------------------------------
-from oak9.tython.core.types import Blueprint, Severity, Finding, FindingType, DesignGap
+from oak9.tython.core.types import Blueprint, Severity, Finding, FindingType, DesignGap, ResourceMetadata
 # ---- Graph Helper --------------------------------------------------
 from oak9.tython.core.sdk.graph_helper import GraphHelper
 
@@ -55,7 +55,7 @@ class MyFirstBlueprint(Blueprint):
     # We recommend constructing these validations in accordance with best coding 
     # practices, which can be found in the Python documentation
 
-    def my_first_validation(self, resource: Key):
+    def my_first_validation(self, resource: Key, resource_metadata: ResourceMetadata):
         """
         A reader-friendly description for your first validation function
 
@@ -152,11 +152,11 @@ class MyFirstBlueprint(Blueprint):
         # This step uses the find_resources method from our SDK to populate the
         # relevant proto models with data from your cloud infrastructure
         # ---------------------------------------------------------------------
-        resources = self.find_resources(Key)
+        resources = self.find_by_resources(Key)
 
         findings = set()
 
-        for resource in resources:
-            findings.add(self.my_first_validation(resource))
+        for resource, resource_metadata in resources:
+            findings.add(self.my_first_validation(resource, resource_metadata))
 
         return findings
