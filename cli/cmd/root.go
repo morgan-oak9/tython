@@ -10,7 +10,7 @@ import (
 
 const (
 	DefaultConfigJson string = "config.json"
-	version           string = "0.0.1"
+	version           string = "0.0.3"
 )
 
 var rootCmd = &cobra.Command{
