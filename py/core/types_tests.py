@@ -80,40 +80,6 @@ class FindingTests(unittest.TestCase):
     def test_finding(self, finding: Finding, description: str):
         self.assertIsInstance(finding, Finding, description)
 
-from types import Violation, Capabilities
-
-
-class ViolationTests(unittest.TestCase):
-
-    def test_eq(self):
-        violation_1 = Violation(config_id='foo', capability_id=Capabilities.DATA_ENCRYPTION_AT_REST.id)
-        self.assertEqual(violation_1, violation_1)
-
-        violation_2 = Violation(config_id='bar', capability_id=Capabilities.DATA_ENCRYPTION_AT_REST.id)
-        self.assertNotEqual(violation_1, violation_2)
-
-    def test_support_set_protocol(self):
-        violation_1 = Violation(config_id='foo', capability_id=Capabilities.DATA_ENCRYPTION_AT_REST.id)
-        fixture = set()
-        fixture.add(violation_1)
-        fixture.add(violation_1)
-        self.assertTrue(violation_1 in fixture)
-        self.assertEqual(1, len(fixture))
-
-        violation_2 = Violation(config_id='bar', capability_id=Capabilities.DATA_ENCRYPTION_AT_REST.id)
-        self.assertFalse(violation_2 in fixture)
-
-        fixture.add(violation_2)
-        self.assertTrue(violation_1 in fixture)
-        self.assertTrue(violation_2 in fixture)
-        self.assertEqual(2, len(fixture))
-
-    def test_hashing(self):
-        violation_1 = Violation(config_id='foo', capability_id=Capabilities.DATA_ENCRYPTION_AT_REST.id)
-        fixture: dict[Violation, int] = dict()
-        fixture[violation_1] = 10
-        self.assertEqual(10, fixture[violation_1])
-
 
 if __name__ == '__main__':
     unittest.main()

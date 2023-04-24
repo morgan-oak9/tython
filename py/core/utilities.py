@@ -9,19 +9,19 @@ def verify_config_arguments(args_obj):
     """
     Verifies if the obligatory attributes are available
     """
-    
+
     if "org_id" not in args_obj or args_obj["org_id"] == "":
         raise Exception("Missing org_id configuration")
-    
+
     if "project_id" not in args_obj or args_obj["project_id"] == "":
         raise Exception("Missing project_id configuration")
-    
+
     if "api_key" not in args_obj or args_obj["api_key"] == "":
         raise Exception("Missing api_key configuration")
-    
+
     if "blueprint_package_path" not in args_obj or args_obj["blueprint_package_path"] == "":
         raise Exception("Missing blueprint_package_path configuration")
-    
+
 
 def persist_runner_output(args_path: str, runner_stdout: StringIO, findings: List[Finding]) -> None:
     """

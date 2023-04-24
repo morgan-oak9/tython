@@ -1,7 +1,9 @@
-import requests, time
 import core.sdk.helper as Helper
-from models.shared.shared_pb2 import RunnerInput
+import requests
+import time
 from core.types import Finding, Configuration
+from models.shared.shared_pb2 import RunnerInput
+
 
 
 class TythonApiService:
@@ -28,6 +30,7 @@ class TythonApiService:
 
         return environment_id
 
+
     @staticmethod
     def build_app(config: Configuration, environment_id: str):
         """
@@ -43,6 +46,7 @@ class TythonApiService:
         request_id = "" if "requestId" not in build_app_result else build_app_result["requestId"]
 
         return request_id
+
 
     @staticmethod
     def fetch_graph_data(config: Configuration, environment_id: str, request_id: str):
@@ -73,6 +77,7 @@ class TythonApiService:
             runner_inputs.append(RunnerInput(**item))
 
         return runner_inputs
+
 
     @staticmethod
     def apply_findings(config: Configuration, findings: list[Finding], environment_id: str, request_id: str):

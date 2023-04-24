@@ -7,8 +7,9 @@ from core.bp_metadata_utils.policy_repo import PolicyRepo
 this_dir = os.path.dirname(os.path.abspath(__file__))
 test_data_path = os.path.join(this_dir, 'testdata', 'oak9')
 
+
 class TestRepo(PolicyRepo):
-    def __init__(self, url: str, local_path:str, skip_sync: bool, glob_pattern:str):
+    def __init__(self, url: str, local_path: str, skip_sync: bool, glob_pattern: str):
         super().__init__(url=url, local_path=local_path, skip_sync=skip_sync)
         self._glob_pattern = glob_pattern
 
@@ -30,8 +31,6 @@ class PolicyRepoTest(unittest.TestCase):
             os.path.join(test_data_path, 'azure/well_formed_implements_field_multiple_values.py'),
             os.path.join(test_data_path, 'aws/well_formed_aws_config_implementation.py'),
         ]
-        fixture = TestRepo(url='foo', local_path=test_data_path,  skip_sync=True, glob_pattern=glob_pattern)
+        fixture = TestRepo(url='foo', local_path=test_data_path, skip_sync=True, glob_pattern=glob_pattern)
         got = fixture.policy_file_paths
         self.assertEqual(got, want)
-
-

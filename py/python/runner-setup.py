@@ -8,17 +8,17 @@ for package in find_packages():
 
 version = os.environ.get('PYPIVERSION')
 setup_args = dict(
-    name = "oak9_tython",
+    name="oak9_tython",
     version=version,
     packages=find_packages(),
     package_data=package_data,
-    author=["Claudio Balbin <cbalbin@oak9.io>","Brandon Nicoll <bnicoll@oak9.io>" ],
-    description = "",
-    readme = "README.md",
-    classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Apache Software License",
-    "Operating System :: OS Independent",
+    author=["Claudio Balbin <cbalbin@oak9.io>", "Brandon Nicoll <bnicoll@oak9.io>"],
+    description="",
+    readme="README.md",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
     ],
     project_urls={
         "Homepage": "https://github.com/oak9io/tython",
