@@ -10,26 +10,22 @@ If you're interested in trying your hand at writing some security blueprints of 
 To get started writing your own security blueprints with the Tython framework, head to the [releases page](https://github.com/oak9io/tython/releases) to download and install the CLI. Platform-specific instructions can be found below.
 
 ### MacOS\Homebrew
-[Homebrew](https://brew.sh/) users can easily install the Tython CLI by adding the tython tap repository:
+[Homebrew](https://brew.sh/) users can easily install the Tython CLI by adding the Tython tap repository:
 
 ```
 brew tap oak9io/tap
 brew install tython
 ```
-When a new version of the CLI is released, tython can be updated with the following Homebrew command
+When a new version of the CLI is released, the Tython CLI can be updated with the following Homebrew command
 
 ```
 brew update
-brew reinstall tython
+brew upgrade tython
 ```
 
-### Windows
+### Windows and Linux
 
-Windows users can download the binary from the releases page and add a folder to their path with the Powershell command below. This assumes the directory the binary has been copied to is "C:\TythonCLI".
-
-```
-[Environment]::SetEnvironmentVariable("PATH", $Env:PATH + ";C:\TythonCLI", [EnvironmentVariableTarget]::Machine)
-```
+Windows and Linux users can download the binary from the [releases page](https://github.com/oak9io/tython/releases). It is recommended to add the CLI binary to your PATH so Tython commands can be executed from any directory.
 
 ## Step 2: Initialize a Tython project utilizing the Python SDK
 With the Tython CLI in tow, we're ready to write security rules for our cloud infrastructure. The below example initializes a new Tython module in a blank directory that utilizes the Python SDK.
