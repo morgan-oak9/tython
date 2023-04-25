@@ -795,6 +795,11 @@ class Finding:
         viol = Violation()
         if self.finding_type not in [FindingType.DesignGap, FindingType.ResourceGap]:
             return None
+        
+        resource_type = self.resource_metadata.resource_type
+        if len(self.config_id.split(".")) > 2:
+            resource_sufix = self.config_id.split(".")[1]
+            resource_type += "::" + ''.join(word.title() for word in resource_sufix.split('_'))
 
         viol.config_gap = self.desc
         viol.severity = self.rating
@@ -810,7 +815,7 @@ class Finding:
         viol.capability_name = self.req_name
         viol.priority = self.priority
         viol.resource_id = self.resource_metadata.resource_id
-        viol.resource_type = self.resource_metadata.resource_type
+        viol.resource_type = resource_type
 
         return viol
 
