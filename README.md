@@ -83,19 +83,31 @@ Now that we've written some security rules, we can test them against cloud infra
     * https://docs.oak9.io/oak9/guides/creating-your-first-project
     * https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github 
 
-Feel free to use your own Infrastructure as Code, but to get started with some example resources, oak9 provides several "insecure-by-design" Terraform repositories called "Terraoak" that we recommend. Please note that the Tython Beta is limited to 200 cloud resources if you do decide to use your own IaC. Additionally, oak9 only supports AWS, Azure, and GCP [Terraform](https://www.terraform.io/) as well as [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
+Feel free to use your own Infrastructure as Code, but to get started with some example resources, oak9 provides several "insecure by design" Terraform repositories called "Terraoak" that we recommend forking. Please note that the Tython Beta is limited to 200 cloud resources if you do decide to use your own IaC. Additionally, oak9 only supports AWS, Azure, and GCP [Terraform](https://www.terraform.io/) as well as [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
 
 ## Step 4a(optional): Fork one of the Terraoak repositories
-Try out one of our Terraoak IaC repositories for some sample cloud resources for your blueprints:
+Try forking one of our Terraoak IaC repositories for some sample cloud resources for your blueprints:
 
     * https://github.com/oak9io/terraoak.aws
     * https://github.com/oak9io/terraoak.azure
 
 ## Step 5: Obtain an oak9 Tython API Key
+At this point we can configure the Tython CLI to reach out to the oak9 API and pull in the cloud resources associated with our new project. These fetched resources can be run against the blueprint we've just created for feedback, but first we need to authorize the CLI for communication with oak9. Start by adding a new oak9 Integration:
 
-`tython config`
+![alt text](/templates/screenshots/oak9-add-integration.png "Add oak9 Tython Integration")
+
+![alt text](/templates/screenshots/tython-key-gen.png "Generate Tython API Key")
+
+We can configure the Tython CLI using the command shown on-screen. In this example we can pass the following command to the CLI to get set up with using our project's cloud resources:
+
+```
+tython config set -o tythonisprettycool -p proj-tythonisprettycool-1 -k MyTythonKeyThatIWillKeepSecret
+```
 
 ## Step 6: Execute your blueprint against your IaC
+TODO Explain test and apply and the differences between them
+`tython test ./`
+`tython apply ./`
 
 ## Step 7: Results in the oak9 console and remediation steps
 
