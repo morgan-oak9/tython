@@ -64,15 +64,15 @@ This is our templated blueprint file and where the power of Tython will really b
 ## Step 3: Write a validation rule
 
 TODO: Define and describe each major concept to writing blueprints:
-    * validate() method
-    * traversing models & namespace imports
-    * capability id? \ requirement id? (Seems to be required for remediation today. This should be part of a larger discussion)
-    * resource_metadata
-    * preferred_values
-    * config_id
-    * severity
-    * findings and returning them
-    * what else?
+* validate() method
+* traversing models & namespace imports
+* capability id? \ requirement id? (Seems to be required for remediation today. This should be part of a larger discussion)
+* resource_metadata
+* preferred_values
+* config_id
+* severity
+* findings and returning them
+* what else?
 
 Note: Understanding how to write blueprints is a Domain Specific Language on its own and deserves a dedicated tutorial from the oak9 Security Team. Additional info about the Hello World example blueprint should go here as well ./templates/python/hello_world.py
 
@@ -80,16 +80,16 @@ Note: Understanding how to write blueprints is a Domain Specific Language on its
 
 Now that we've written some security rules, we can test them against cloud infrastructure. Behind the scenes, Tython uses oak9's backend to scan cloud resources and prepare them for analysis. Before we can supply our fresh security blueprint with cloud infrastructure data, we need to sign up for a free Community Edition license of oak9 at [oak9.io](https://oak9.io). After finishing the sign-up process, you can create an oak9 project with a code repository integration. oak9 has many other project types, but the Tython Beta support is limited to projects with code repository integrations. Other types may work, they may not; we'd love your feedback if you try other project types! For help getting started with oak9 and projects, visit these documentation resources:
 
-    * https://docs.oak9.io/oak9/guides/creating-your-first-project
-    * https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github 
+* [https://docs.oak9.io/oak9/guides/creating-your-first-project](https://docs.oak9.io/oak9/guides/creating-your-first-project)
+* [https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github](https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github)
 
 Feel free to use your own Infrastructure as Code, but to get started with some example resources, oak9 provides several "insecure by design" Terraform repositories called "Terraoak" that we recommend forking. Please note that the Tython Beta is limited to 200 cloud resources if you do decide to use your own IaC. Additionally, oak9 only supports AWS, Azure, and GCP [Terraform](https://www.terraform.io/) as well as [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
 
 ## Step 4a(optional): Fork one of the Terraoak repositories
 Try forking one of our Terraoak IaC repositories for some sample cloud resources for your blueprints:
 
-    * https://github.com/oak9io/terraoak.aws
-    * https://github.com/oak9io/terraoak.azure
+* [https://github.com/oak9io/terraoak.aws](https://github.com/oak9io/terraoak.aws)
+* [https://github.com/oak9io/terraoak.azure](https://github.com/oak9io/terraoak.azure)
 
 ## Step 5: Obtain an oak9 Tython API Key
 At this point we can configure the Tython CLI to reach out to the oak9 API and pull in the cloud resources associated with our new project. These fetched resources can be run against the blueprint we've just created for feedback, but first we need to authorize the CLI for communication with oak9. Start by adding a new oak9 Integration:
