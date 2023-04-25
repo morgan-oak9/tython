@@ -63,7 +63,7 @@ func resolveConfigFile(v *viper.Viper) error {
 
 	if _, err := os.Stat(configFolder); err != nil {
 		if os.IsNotExist(err) {
-			os.Mkdir(configFolder, 0644)
+			os.Mkdir(configFolder, 0755)
 		} else {
 			return nil
 		}

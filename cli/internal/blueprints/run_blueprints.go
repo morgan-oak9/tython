@@ -71,7 +71,7 @@ func saveRunnerArgs(runnerArgs runner.RunnerArgs) (tempDir string, tempFilePath 
 
 	tempDir = filepath.Join(os.TempDir(), tempDirectoryName)
 
-	if err = os.Mkdir(tempDir, os.ModeDir); err != nil {
+	if err = os.Mkdir(tempDir, 0755); err != nil {
 		if !os.IsExist(err) {
 			return "", "", err
 		}
