@@ -12,7 +12,8 @@ setup_args = dict(
     version=version,
     packages=find_packages(),
     package_data=package_data,
-    author=["Claudio Balbin <cbalbin@oak9.io>", "Brandon Nicoll <bnicoll@oak9.io>"],
+    author="Claudio Balbin, Brandon Nicoll",
+    author_email="cbalbin@oak9.io, bnicoll@oak9.io>"
     description="",
     readme="README.md",
     classifiers=[
@@ -24,6 +25,10 @@ setup_args = dict(
         "Homepage": "https://github.com/oak9io/tython",
         "Bug Tracker": "https://github.com/oak9io/tython/issues",
     },
+    install_requires=[
+        'protobuf~=4.21.9',
+        'structlog~=21.5.0'
+    ]
     python_requires=">=3.11",
     long_description="oak9 Tython Python framework",
     long_description_content_type="text/markdown",

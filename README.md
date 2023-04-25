@@ -40,7 +40,7 @@ cd my-blueprints
 tython init python
 ```
 
-To install all of Tython dependencies, we can use pip:
+To install all Tython dependencies, we can use pip:
 
 ```
 python -m pip install --upgrade pip
@@ -49,10 +49,14 @@ pip install -r requirements.txt
 
 ## Step 3: Write a validation rule
 
+Info about Hello World example from template goes here ./templates/python/hello_world.py
 
 ## Step 4: Sign up for oak9 and create a project 
 
+Now that we've written some security rules, we can test them against cloud infrastructure. Behind the scenes, Tython uses oak9's backend to scan cloud resources and prepare them for analysis. To get started with some example resources, oak9 provides several "insecure-by-design" Terraform 
+
 ## Step 4a(optional): Fork one of the Terraoak repositories
+
 
 ## Step 5: Obtain an oak9 Tython API Key
 
