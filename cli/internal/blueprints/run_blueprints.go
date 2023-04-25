@@ -46,6 +46,9 @@ func callRunner(runnerArgs runner.RunnerArgs) error {
 	}
 
 	tempDirName, tempFilePath, err := saveRunnerArgs(runnerArgs)
+	if err != nil {
+		return err
+	}
 	defer cleanupRunnerArgs(tempDirName)
 
 	responseViewer := viewers.ResponseViewer{}
@@ -61,9 +64,7 @@ func callRunner(runnerArgs runner.RunnerArgs) error {
 }
 
 func saveRunnerArgs(runnerArgs runner.RunnerArgs) (tempDir string, tempFilePath string, err error) {
-	argsFile := make([]byte, 0)
-
-	argsFile, err = json.Marshal(runnerArgs)
+	argsFile, err := json.Marshal(runnerArgs)
 	if err != nil {
 		return "", "", err
 	}

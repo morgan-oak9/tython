@@ -3,7 +3,6 @@ package config
 import (
 	"fmt"
 
-	"oak9.io/tython/internal/util"
 	"oak9.io/tython/internal/visuals"
 )
 
@@ -24,9 +23,9 @@ func (config *CliConfig) String() string {
 func (config *CliConfig) View() error {
 	errs := []error{
 		visuals.DrawSectionSeparatorWithTitle("Configuration"),
-		visuals.WriteKeyValue("Org Id", config.OrgId),
-		visuals.WriteKeyValue("Project Id", config.ProjectId),
-		visuals.WriteKeyValue("Api Key", showLastN(config.ApiKey, 4)),
+		visuals.WriteKeyValue("Org Id", valueOrDefault(config.OrgId)),
+		visuals.WriteKeyValue("Project Id", valueOrDefault(config.ProjectId)),
+		visuals.WriteKeyValue("Api Key", valueOrDefault(showLastN(config.ApiKey, 4))),
 		visuals.DrawSectionSeparator(),
 	}
 
@@ -34,28 +33,6 @@ func (config *CliConfig) View() error {
 		if err != nil {
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (config *CliConfig) AssertAllRequired() error {
-	invalidConfig := make([]string, 0, 3)
-
-	if config.OrgId == "" {
-		invalidConfig = append(invalidConfig, "orgId")
-	}
-
-	if config.ProjectId == "" {
-		invalidConfig = append(invalidConfig, "projectId")
-	}
-
-	if config.ApiKey == "" {
-		invalidConfig = append(invalidConfig, "apiKey")
-	}
-
-	if len(invalidConfig) > 0 {
-		return fmt.Errorf("%s missing, but required. Please run 'tython config set [flags]' to set these values", util.FormatListWithTense(invalidConfig, util.PresentTense))
 	}
 
 	return nil

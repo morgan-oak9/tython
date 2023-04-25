@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 	"oak9.io/tython/internal/models/config"
 	"oak9.io/tython/internal/util"
+	"oak9.io/tython/internal/visuals"
 )
 
 func SetConfig(flags *pflag.FlagSet) error {
@@ -18,11 +19,7 @@ func SetConfig(flags *pflag.FlagSet) error {
 		return err
 	}
 
-	if err := resolveFlagOverrides(flags); err != nil {
-		return err
-	}
-
-	return ViewConfig()
+	return resolveFlagOverrides(flags)
 }
 
 func resolveFlagOverrides(flags *pflag.FlagSet) error {
@@ -35,31 +32,103 @@ func resolveFlagOverrides(flags *pflag.FlagSet) error {
 		}
 	})
 
-	if err := cleanConfig(); err != nil {
-		return err
-	}
-
-	if len(setFlags) == 0 {
-		fmt.Println("No flags were set - no config values were changed.")
-	} else {
-		fmt.Printf("%s updated successfully.\n", util.FormatListWithTense(setFlags, util.PastTense))
-	}
-
-	return viper.WriteConfig()
-}
-
-// Restrict values saved in config file to only expected values
-func cleanConfig() error {
-	persistentConfig := config.CliConfig{}
-	err := viper.Unmarshal(&persistentConfig)
+	config, cleanViper, err := cleanConfig()
 	if err != nil {
 		return err
 	}
 
-	persistentConfigJson := new(bytes.Buffer)
-	if err := json.NewEncoder(persistentConfigJson).Encode(persistentConfig); err != nil {
-		return err
+	if len(setFlags) == 0 {
+		if filledFields, err := fillMissingRequiredValues(config); len(filledFields) == 0 || err != nil {
+			if err != nil {
+				return err
+			}
+
+			if err = ViewConfig(); err != nil {
+				return err
+			}
+
+			err = visuals.WriteLine("No flags were set - no config values were changed.")
+			if err != nil {
+				return err
+			}
+
+			err = visuals.DrawSectionSeparator()
+			if err != nil {
+				return err
+			}
+		}
+	} else {
+		if err := ViewConfig(); err != nil {
+			return err
+		}
+
+		if err = visuals.WriteTitle(fmt.Sprintf("%s updated successfully.", util.FormatListWithTense(setFlags, util.PastTense))); err != nil {
+			return err
+		}
+
+		err = visuals.DrawSectionSeparator()
+		if err != nil {
+			return err
+		}
+
+		if filledFields, err := fillMissingRequiredValues(config); len(filledFields) > 0 || err != nil {
+			if err != nil {
+				return err
+			}
+
+			err = visuals.DrawSectionSeparator()
+			if err != nil {
+				return err
+			}
+		} else {
+			if err = cleanViper.WriteConfig(); err != nil {
+				return err
+			}
+		}
 	}
 
-	return viper.ReadConfig(persistentConfigJson)
+	return nil
+}
+
+func fillMissingRequiredValues(config config.CliConfig) (updateableFields []string, err error) {
+	updateableFields, err = AssertAllRequired(&config)
+
+	if err != nil {
+		return
+	}
+
+	if len(updateableFields) > 0 {
+		if err = ViewConfig(); err != nil {
+			return
+		}
+
+		if err = visuals.WriteTitle("Configuration updated successfully."); err != nil {
+			return
+		}
+	}
+
+	return
+}
+
+// Restrict values saved in config file to only expected values
+func cleanConfig() (persistentConfig config.CliConfig, cleanViper *viper.Viper, err error) {
+	persistentConfig = config.CliConfig{}
+	err = viper.Unmarshal(&persistentConfig)
+	if err != nil {
+		return
+	}
+
+	json, err := json.Marshal(persistentConfig)
+	if err != nil {
+		return
+	}
+
+	cleanViper = viper.New()
+	resolveConfigFile(cleanViper)
+
+	if err = cleanViper.ReadConfig(bytes.NewBuffer(json)); err != nil {
+		return
+	}
+
+	return
 }

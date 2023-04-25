@@ -15,7 +15,11 @@ const (
 )
 
 func LoadConfiguration() (*config.CliConfig, error) {
-	if err := resolveConfigFile(); err != nil {
+	if err := resolveConfigFile(viper.GetViper()); err != nil {
+		return nil, err
+	}
+
+	if err := viper.ReadInConfig(); err != nil {
 		return nil, err
 	}
 
@@ -25,7 +29,29 @@ func LoadConfiguration() (*config.CliConfig, error) {
 	return config, nil
 }
 
-func resolveConfigFile() error {
+func AssertAllRequired(config *config.CliConfig) ([]string, error) {
+	invalidConfig := make([]string, 0, 3)
+
+	if config.OrgId == "" {
+		invalidConfig = append(invalidConfig, "orgId")
+	}
+
+	if config.ProjectId == "" {
+		invalidConfig = append(invalidConfig, "projectId")
+	}
+
+	if config.ApiKey == "" {
+		invalidConfig = append(invalidConfig, "apiKey")
+	}
+
+	if len(invalidConfig) > 0 {
+		return invalidConfig, runWizard()
+	}
+
+	return invalidConfig, nil
+}
+
+func resolveConfigFile(v *viper.Viper) error {
 	home := ""
 	var err error
 
@@ -68,8 +94,8 @@ func resolveConfigFile() error {
 		}
 	}
 
-	viper.SetConfigFile(configFilePath)
-	viper.SetConfigType("json")
+	v.SetConfigFile(configFilePath)
+	v.SetConfigType("json")
 
-	return viper.ReadInConfig()
+	return nil
 }

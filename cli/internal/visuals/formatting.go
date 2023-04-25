@@ -45,7 +45,7 @@ func SkipNLines(n int, writers ...io.Writer) error {
 	writers = defaultToStdOut(writers...)
 
 	skipLine := func(writer io.Writer) error {
-		_, err := fmt.Fprintf(writer, strings.Repeat("\n", n))
+		_, err := fmt.Fprint(writer, strings.Repeat("\n", n))
 		return err
 	}
 
@@ -107,7 +107,7 @@ func WriteLine(txt string, writers ...io.Writer) (err error) {
 
 func outputFToAllStreams(txt string, writers ...io.Writer) (err error) {
 	for _, writer := range writers {
-		_, err = fmt.Fprintf(writer, txt)
+		_, err = fmt.Fprint(writer, txt)
 		if err != nil {
 			return
 		}
@@ -128,7 +128,7 @@ func outputToAllStreams(write func(io.Writer) error, writers ...io.Writer) (err 
 }
 
 func defaultToStdOut(writers ...io.Writer) []io.Writer {
-	if writers == nil || len(writers) == 0 {
+	if len(writers) == 0 {
 		return []io.Writer{os.Stdout}
 	}
 

@@ -47,5 +47,6 @@ func AssertRequiredConfig() error {
 	cliConfig := &config.CliConfig{}
 	viper.Unmarshal(&cliConfig)
 
-	return cliConfig.AssertAllRequired()
+	_, err := configurator.AssertAllRequired(cliConfig)
+	return err
 }
