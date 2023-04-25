@@ -39,9 +39,18 @@ func Run(runnerArgs runner.RunnerArgs, tempFilePath string) viewers.ResponseView
 	}
 
 	cmd := exec.Command("python", cmdArgs...)
-	stdOut, stdErr := cmd.CombinedOutput()
 
-	return viewers.ViewerFromRunnerOutput(tempFilePath, string(stdOut), stdErr)
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	cmd.Run()
+
+	errStd := errors.New(stderr.String())
+
+	return viewers.ViewerFromRunnerOutput(tempFilePath, stdout.String(), errStd)
 }
 
 func GetPythonRunnerPackagePath() (string, error) {
