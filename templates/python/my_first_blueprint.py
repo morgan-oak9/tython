@@ -17,13 +17,13 @@
 # of objects that assist in blueprint logic and validation development. You will
 # need to import any of these objects you wish to implement in your blueprint by
 # referencing the oak9.tython package
+
 from typing import Set
+import oak9.tython.core.tools as Tools
 # ---- Cloud Resource Models (Protos) --------------------------------
-from oak9.tython.models.aws.aws_kms_pb2 import Key
+from oak9.tython.models.aws.aws_kms_pb2 import KMS
 # ---- Core Types ----------------------------------------------------
-from oak9.tython.core.types import Blueprint, Severity, Finding, FindingType, DesignGap, ResourceMetadata
-# ---- Graph Helper --------------------------------------------------
-from oak9.tython.core.sdk.graph_helper import GraphHelper
+from oak9.tython.core.types import Blueprint, Finding, FindingType, DesignGap, Severity, WellDoneRating, ResourceMetadata
 
 # ---------------------------------------------------------------------
 # Class Definition
@@ -55,15 +55,12 @@ class MyFirstBlueprint(Blueprint):
     # We recommend constructing these validations in accordance with best coding 
     # practices, which can be found in the Python documentation
 
-    def my_first_validation(self, resource: Key, resource_metadata: ResourceMetadata):
+    def my_first_validation(self, resource: KMS, resource_metadata: ResourceMetadata):
         """
         A reader-friendly description for your first validation function
 
         SecurityReq:
             Industry/Organizational requirement this validation applies to
-
-        Implements:
-            Link: www.link-to-external/internal-security-framework.com
 
         Author:
             your-name@your-org-email.io
@@ -77,7 +74,7 @@ class MyFirstBlueprint(Blueprint):
         # ---------------------------------------------------------------------
 
         # Initialize a list of findings to return after this function is executed
-        findings : list = []
+        your_new_finding = None
 
         # This is where the oak9.tython resource models and objects we imported earlier 
         # start to come into play. To validate specific properties and configurations for
@@ -90,9 +87,16 @@ class MyFirstBlueprint(Blueprint):
 
         # ---------------------------------------------------------------------
         # Grab the relevant proto config - be aware of types as they will
-        # effect how you can access and iterate through these attributes
+        # effect how you can access and iterate through these attributes.
+        # 
+        # First attempt to validate if the object you are attempting to 
+        # validate is populated to prevent false positives in your
+        # validation results
         # ---------------------------------------------------------------------
-        config_to_validate = resource.description
+        if not resource.HasField("key"):
+            return None
+        
+        config_to_validate = resource.key.description
 
         secure_value = "some_secure_value_to_check_for"
 
@@ -106,53 +110,68 @@ class MyFirstBlueprint(Blueprint):
             # report relevant feedback and information back to your development teams.
             # See tython/core/types for all supported configurations on this object
             # ---------------------------------------------------------------------
-            your_new_finding = Finding(FindingType.DesignGap)
-            # ---------------------------------------------------------------------
-            # Specify a config_id relating to the resource config this function
-            # was created to validate. Defining this value allows us to perform
-            # remediation and provide more detailed DesignGap feedback in console
-            # ---------------------------------------------------------------------
-            your_new_finding.config_id = (config_to_validate)
-            # ---------------------------------------------------------------------
-            # Use preferred_values to provide the recommended or required value(s) for
-            # your organizational use-case. oak9 will use these values for 
-            # code remediation when you specify a repository integration
-            # ---------------------------------------------------------------------
-            your_new_finding.preferred_value = secure_value
-            # ---------------------------------------------------------------------
-            # Add a description to your Finding, try embedding [configId] and
-            # [preferredValues] here to provide more context to this output 
-            # ---------------------------------------------------------------------
-            your_new_finding.desc = (f"Verbal output you want to be displayed for this "
-                                      "finding on oak9 console. Include useful information here "
-                                      "to help your team troubleshoot and resolve issues if "
-                                      "automatic oak9 remediation is not possible")
-            # ---------------------------------------------------------------------
-            # Specify a Finding severity to assist teams in classifying
-            # and prioritizing validation results
-            # ---------------------------------------------------------------------
-            your_new_finding.severity = Severity.Critical
-
+            your_new_finding = Finding(
+                finding_type=FindingType.DesignGap,
+                # ---------------------------------------------------------------------
+                # Specify a config_id relating to the resource config this function
+                # was created to validate. Defining this value allows us to perform
+                # remediation and provide more detailed DesignGap feedback in console
+                # ---------------------------------------------------------------------
+                config_id = Tools.get_config_id(resource, "description", resource.key),
+                # ---------------------------------------------------------------------
+                # Use preferred_values to provide the recommended or required value(s) for
+                # your organizational use-case. oak9 will use these values for 
+                # code remediation when you specify a repository integration
+                # ---------------------------------------------------------------------
+                preferred_value = secure_value,
+                # ---------------------------------------------------------------------
+                # Add a description to your Finding, try embedding [configId] and
+                # [preferredValues] here to provide more context to this output 
+                # ---------------------------------------------------------------------
+                desc = (f"Verbal output you want to be displayed for this "
+                        "finding on oak9 console. Include useful information here "
+                        "to help your team troubleshoot and resolve issues if "
+                        "automatic oak9 remediation is not possible"),
+                # ---------------------------------------------------------------------
+                # Specify a Finding severity to assist teams in classifying
+                # and prioritizing validation results
+                # ---------------------------------------------------------------------
+                rating = Severity.Critical,
+                # ---------------------------------------------------------------------
+                # Define a requirementID to assist in categorizing like validation 
+                # results baed on organizational security requirements
+                # ---------------------------------------------------------------------
+                req_id="requirementID",
+                # ---------------------------------------------------------------------
+                # Track the current value of your configuration to assist in giving
+                # more context for Finding results and remediation
+                # ---------------------------------------------------------------------
+                current_value=config_to_validate,
+                # ---------------------------------------------------------------------
+                # Pass resource metadata to the Findings object
+                # ---------------------------------------------------------------------
+                resource_metadata=resource_metadata,
+            )
         # ---------------------------------------------------------------------
         # And it's that easy! You've just built your first Tython blueprint.
         # Go celebrate by checking out your findings in oak9 console and
         # patching up all the security flaws in your code!
         # ---------------------------------------------------------------------
-        return findings
+        return your_new_finding
     
 
     # ---------------------------------------------------------------------
     # Validation Function Caller
     # ---------------------------------------------------------------------
     def validate(self) -> Set[Finding]:
-
+        
         # ---------------------------------------------------------------------
         # After building out your Tython blueprint, the final step is defining 
         # a caller method that will run all specified validation functions.
-        # This step uses the find_resources method from our SDK to populate the
-        # relevant proto models with data from your cloud infrastructure
-        # ---------------------------------------------------------------------
-        resources = self.find_by_resources(Key)
+        # This step uses the find_by_resource method from our SDK to populate the
+        # relevant proto model with data from your cloud infrastructure
+        # ---------------------------------------------------------------------  
+        resources = self.find_by_resource(KMS)
 
         findings = set()
 

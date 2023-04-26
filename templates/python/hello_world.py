@@ -8,8 +8,11 @@
 # Imports
 # ---------------------------------------------------------------------
 from typing import Set
-from oak9.tython.models.aws.aws_kms_pb2 import Key
+import functools
+import oak9.tython.core.tools as Tools
+from oak9.tython.models.aws.aws_kms_pb2 import KMS
 from oak9.tython.core.types import Blueprint, Finding, FindingType, DesignGap, Severity, WellDoneRating, ResourceMetadata
+
 
 # ---------------------------------------------------------------------
 # Class Definition
@@ -25,7 +28,7 @@ class KeyInspector(Blueprint):
     # ---------------------------------------------------------------------
     # Function Definitions
     # ---------------------------------------------------------------------
-    def validate_key_tagging(self, kms: Key, resource_metadata: ResourceMetadata):
+    def validate_key_tagging(self, kms: KMS, resource_metadata: ResourceMetadata):
         """
         A simple example validation to see if proper tagging
         practices are being followed for KMS keys. This validation
@@ -34,10 +37,7 @@ class KeyInspector(Blueprint):
 
         CustomerReq:
             AssetInventory
-
-        Implements:
-            AWS: https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html
-
+        
         Author:
             squirrel@acorncorp.io
 
@@ -45,36 +45,43 @@ class KeyInspector(Blueprint):
             Finding: DesignGap, Kudos
         """
 
-        findings : list = []
+        finding = None
 
-        tags = kms.tags
+        if not kms.HasField("key"):
+            return None
+        
+        tags = kms.key.tags
 
         if not tags or ('environment' not in tags.keys()):
-            NoKeyTags = Finding(FindingType.DesignGap)
-            NoKeyTags.resource_metadata=resource_metadata
-            NoKeyTags.severity = Severity.Critical
-            NoKeyTags.config_id = (tags)
-            NoKeyTags.desc = (f"Define [configId] to maintain a proper asset inventory. "
-                              "Organizational conventions require that each resource contains "
-                              "at least an environment tag, to ensure that the assets are easily "
-                              "identifiable and accounted for.")
+            finding = Finding(
+                finding_type=FindingType.DesignGap,
+                resource_metadata=resource_metadata,
+                req_id="test",
+                rating = Severity.Critical,
+                config_id =Tools.get_config_id(kms, "tags", kms.key),
+                current_value= tags,
+                desc = (f"Define tags to maintain a proper asset inventory. "
+                            "Organizational conventions require that each resource contains "
+                            "at least an environment tag to ensure that the assets are easily "
+                            "identifiable and accounted for.")
+            )
 
         else:
-            KeyTags = Finding(FindingType.Kudos)
-            KeyTags = "By adding this tag you have made it easier to maintain a proper asset inventory"
-            KeyTags.rating = WellDoneRating.Good
 
-        return findings
+            finding = Finding(
+                finding_type=FindingType.Kudos,
+                desc = "By adding this tag you have made it easier to maintain a proper asset inventory",
+                rating = WellDoneRating.Good
+            )
 
-    def validate_deletion_window(self, kms: Key, resource_metadata: ResourceMetadata):
+        return finding
+
+    def validate_deletion_window(self, kms: KMS, resource_metadata: ResourceMetadata):
         """
         Validate key deletion window is less than 10 days
 
         CustomerReq:
             KeyManagement
-
-        Implements:
-            AWS: https://docs.aws.amazon.com/kms/latest/developerguide/deleting-keys.html
 
         Author:
             squirrel@acorncorp.io
@@ -83,33 +90,33 @@ class KeyInspector(Blueprint):
             Finding: DesignGap
         """
 
-        findings : list = []
+        finding = None
 
-        deletion_window = kms.pending_window_in_days
+        deletion_window = kms.key.pending_window_in_days
         max_retention_days = 10
 
-        DecreaseDeletionWindow = Finding(
-            resource_metadata=resource_metadata,
-            finding_type=FindingType.DesignGap,
-            config_id=deletion_window,
-            preferred_value=max_retention_days,
-            desc=(f"Define [configId] to a value less than [preferredValues] to "
-                   "ensure deleted keys are not retained for longer than "
-                   "absolutely necessary."),
-            severity=Severity.Critical
-        )
-
         if deletion_window > max_retention_days:
-            findings.append(DecreaseDeletionWindow)
+            finding = Finding(
+                resource_metadata=resource_metadata,
+                finding_type=FindingType.DesignGap,
+                config_id=Tools.get_config_id(kms, "pending_window_in_days", kms.key),
+                current_value=deletion_window,
+                req_id="test",
+                preferred_value=max_retention_days,
+                desc=(f"Define [configId] to a value less than [preferredValues] to "
+                    "ensure deleted keys are not retained for longer than "
+                    "absolutely necessary."),
+                rating=Severity.Critical
+            )
 
-        return findings
+        return finding
 
     # ---------------------------------------------------------------------
     # Validation Caller
     # ---------------------------------------------------------------------
     def validate(self) -> Set[Finding]:
 
-        resources = self.find_by_resource(Key)
+        resources = self.find_by_resource(KMS)
 
         findings = set()
 
