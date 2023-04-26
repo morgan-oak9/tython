@@ -27,7 +27,11 @@ setup_args = dict(
     },
     install_requires=[
         'protobuf~=4.21.9',
-        'structlog~=21.5.0'
+        'structlog~=21.5.0',
+        'GitPython~=3.1.27',
+        'requests~=2.28.2',
+        'colorama~=0.4.6',
+        'braceexpand~=0.1.7',
     ],
     python_requires=">=3.11",
     long_description="oak9 Tython Python framework",

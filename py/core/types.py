@@ -940,7 +940,7 @@ class Configuration:
         self.org_id = org_id
         self.project_id = project_id
         self.blueprint_package_path = blueprint_package_path
-        self.data_endpoint = "https://api.oak9.io/" if not data_endpoint else data_endpoint
+        self.data_endpoint = "https://api.oak9.io/console/" if not data_endpoint else data_endpoint
         self.mode = "test" if not mode else mode
         for key, value in kwargs.items():
             setattr(self, key, value)
