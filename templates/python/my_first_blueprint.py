@@ -151,6 +151,10 @@ class MyFirstBlueprint(Blueprint):
                 # Pass resource metadata to the Findings object
                 # ---------------------------------------------------------------------
                 resource_metadata=resource_metadata,
+                # ---------------------------------------------------------------------
+                # Pass target resource to the Findings object
+                # ---------------------------------------------------------------------
+                resource=resource.key,
             )
         # ---------------------------------------------------------------------
         # And it's that easy! You've just built your first Tython blueprint.
