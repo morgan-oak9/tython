@@ -55,7 +55,7 @@ class MyFirstBlueprint(Blueprint):
     # We recommend constructing these validations in accordance with best coding 
     # practices, which can be found in the Python documentation
 
-    def my_first_validation(self, resource: KMS, resource_metadata: ResourceMetadata):
+    def my_first_validation(self, target_resource: KMS, resource_metadata: ResourceMetadata):
         """
         A reader-friendly description for your first validation function
 
@@ -93,10 +93,10 @@ class MyFirstBlueprint(Blueprint):
         # validate is populated to prevent false positives in your
         # validation results
         # ---------------------------------------------------------------------
-        if not resource.HasField("key"):
+        if not target_resource.HasField("key"):
             return None
         
-        config_to_validate = resource.key.description
+        config_to_validate = target_resource.key.description
 
         secure_value = "some_secure_value_to_check_for"
 
@@ -117,7 +117,7 @@ class MyFirstBlueprint(Blueprint):
                 # was created to validate. Defining this value allows us to perform
                 # remediation and provide more detailed DesignGap feedback in console
                 # ---------------------------------------------------------------------
-                config_id = Tools.get_config_id(resource, "description", resource.key),
+                config_id = Tools.get_config_id(target_resource, "description", target_resource.key),
                 # ---------------------------------------------------------------------
                 # Use preferred_values to provide the recommended or required value(s) for
                 # your organizational use-case. oak9 will use these values for 
@@ -153,8 +153,12 @@ class MyFirstBlueprint(Blueprint):
                 resource_metadata=resource_metadata,
                 # ---------------------------------------------------------------------
                 # Pass target resource to the Findings object
+                #
+                # This is the specific CSP resource you are attempting to validate.
+                # In this example we import the KMS model AWS::KMS and check properties
+                # of our Key configuration AWS::KMS::Key
                 # ---------------------------------------------------------------------
-                resource=resource.key,
+                resource=target_resource.key
             )
         # ---------------------------------------------------------------------
         # And it's that easy! You've just built your first Tython blueprint.
@@ -174,7 +178,7 @@ class MyFirstBlueprint(Blueprint):
         # a caller method that will run all specified validation functions.
         # This step uses the find_by_resource method from our SDK to populate the
         # relevant proto model with data from your cloud infrastructure
-        # ---------------------------------------------------------------------  
+        # --------------------------------------------------------------------- 
         resources = self.find_by_resource(KMS)
 
         findings = set()
