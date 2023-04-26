@@ -59,9 +59,11 @@ pip install -r requirements.txt
 ```
 
 ### my_first_blueprint.py
-This is our templated blueprint file and where the power of Tython will really begin to shine! Continue on to Step 3 to get started writing your first Tython blueprint. 
+This is our templated blueprint file and where the power of Tython will really begin to shine! Continue on to Step 3 to get started writing your first Tython blueprint. Be sure to read through the comments and examples listed in the file for some blueprint-writing hints.
 
 ## Step 3: Write a validation rule
+
+For a real-world example of a security blueprint, check out our fully functional [hello_world.py](https://github.com/oak9io/tython/blob/main/templates/python/hello_world.py)!
 
 TODO: Define and describe each major concept to writing blueprints:
 * validate() method
@@ -74,7 +76,7 @@ TODO: Define and describe each major concept to writing blueprints:
 * findings and returning them
 * what else?
 
-Note: Understanding how to write blueprints is a Domain Specific Language on its own and deserves a dedicated tutorial from the oak9 Security Team. Additional info about the Hello World example blueprint should go here as well ./templates/python/hello_world.py
+Note: Understanding how to write blueprints is a Domain Specific Language on its own and deserves a dedicated tutorial from the oak9 Security Team. Additional info about the Hello World example blueprint should go here as well 
 
 ## Step 4: Sign up for oak9 and create a project 
 
@@ -105,9 +107,21 @@ tython config set -o tythonisprettycool -p proj-tythonisprettycool-1 -k MyTython
 ```
 
 ## Step 6: Execute your blueprint against your IaC
-TODO Explain test and apply and the differences between them
+This is where the magic begins! Tython offer two ways to check your IaC against your defined security blueprints:
+
 `tython test ./`
+
+and
+
 `tython apply ./`
+
+### Test
+
+The `test` command will pull in the cloud resources defined in your specified oak9 project and check them against any blueprints in the directory. After completion, Tython reports on what it found in your terminal.
+
+### Apply
+
+The `apply` command acts very similarly to `test`, but also checks your IaC against oak9's blueprint library. The findings from both your own blueprint and oak9's can be viewed in the oak9 console when using the `apply` command.
 
 ## Step 7: Results in the oak9 console and remediation steps
 
