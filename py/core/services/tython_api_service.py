@@ -89,6 +89,7 @@ class TythonApiService:
 
         for finding in findings:
             if finding:
+                violation = finding.to_violation()
                 design_gaps.append(
                     {
                         "capabilityId": f"{config.org_id}.{capability_number}",
@@ -99,7 +100,7 @@ class TythonApiService:
                         "resourceType": finding.resource_metadata.resource_type,
                         "resourceGap": "",
                         "resourceImpact": "",
-                        "violations": [finding.to_violation().__json__()],
+                        "violations": [violation.__json__()],
                         "oak9Guidance": "",
                         "mappedIndustryFrameworks": []
                     }

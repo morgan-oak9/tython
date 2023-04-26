@@ -249,6 +249,7 @@ class Violation:
             capability_name: str = "",
             resource_id: str = "",
             resource_type: str = "",
+            resource_name: str = "",
             priority: int = 0
     ):
 
@@ -309,6 +310,9 @@ class Violation:
         # Type of resource
         self._resource_type = resource_type
 
+        # resource name
+        self._resource_name = resource_name
+
         # Priority of finding (1-100)
         # This helps relatively prioritize across qualitative ratings
         self._priority = priority
@@ -326,7 +330,8 @@ class Violation:
             'configFix': self.config_fix,
             'configImpact': self.config_impact,
             'resourceId': self.resource_id,
-            'resourceType': self.resource_type
+            'resourceType': self.resource_type,
+            'resourceName': self.resource_name
         }
 
     @property
@@ -393,6 +398,13 @@ class Violation:
     def resource_type(self, value):
         self._resource_type = value
 
+    @property
+    def resource_name(self):
+        return self._resource_name
+    
+    @resource_name.setter
+    def resource_name(self, value):
+        self._resource_name = value
 
 @dataclass
 class DesignGap:
@@ -438,6 +450,7 @@ class Finding:
 
     def __init__(
             self,
+            resource: Any,
             resource_metadata: ResourceMetadata,
             finding_type: FindingType,
             desc: str,
@@ -466,6 +479,8 @@ class Finding:
         """
         Metadata of the resource that this finding relates to
         """
+        self._resource: Any = resource
+
         self._resource_metadata: ResourceMetadata = resource_metadata
 
         """
@@ -586,6 +601,10 @@ class Finding:
     @property
     def id(self):
         return self._id
+
+    @property
+    def resource(self):
+        return self._resource
 
     @property
     def resource_metadata(self):
@@ -795,11 +814,6 @@ class Finding:
         viol = Violation()
         if self.finding_type not in [FindingType.DesignGap, FindingType.ResourceGap]:
             return None
-        
-        resource_type = self.resource_metadata.resource_type
-        if len(self.config_id.split(".")) > 2:
-            resource_sufix = self.config_id.split(".")[1]
-            resource_type += "::" + ''.join(word.title() for word in resource_sufix.split('_'))
 
         viol.config_gap = self.desc
         viol.severity = self.rating
@@ -814,9 +828,10 @@ class Finding:
         viol.capability_id = self.req_id
         viol.capability_name = self.req_name
         viol.priority = self.priority
-        viol.resource_id = self.resource_metadata.resource_id
-        viol.resource_type = resource_type
-
+        viol.resource_id = "" if not self.resource else self.resource.resource_info.id
+        viol.resource_type = "" if not self.resource else self.resource.resource_info.resource_type
+        viol.resource_name = "" if not self.resource else self.resource.resource_info.name
+        
         return viol
 
     def __json__(self):
@@ -940,7 +955,7 @@ class Configuration:
         self.org_id = org_id
         self.project_id = project_id
         self.blueprint_package_path = blueprint_package_path
-        self.data_endpoint = "https://api.oak9.io/" if not data_endpoint else data_endpoint
+        self.data_endpoint = "https://api.oak9.io/console/" if not data_endpoint else data_endpoint
         self.mode = "test" if not mode else mode
         for key, value in kwargs.items():
             setattr(self, key, value)
