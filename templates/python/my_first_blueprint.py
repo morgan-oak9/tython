@@ -139,7 +139,7 @@ class MyFirstBlueprint(Blueprint):
                 rating = Severity.Critical,
                 # ---------------------------------------------------------------------
                 # Define a requirementID to assist in categorizing like validation 
-                # results baed on organizational security requirements
+                # results based on organizational security requirements
                 # ---------------------------------------------------------------------
                 req_id="requirementID",
                 # ---------------------------------------------------------------------
