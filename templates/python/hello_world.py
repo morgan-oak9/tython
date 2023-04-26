@@ -54,8 +54,9 @@ class KeyInspector(Blueprint):
 
         if not tags or ('environment' not in tags.keys()):
             finding = Finding(
-                finding_type=FindingType.DesignGap,
+                resource=tags,
                 resource_metadata=resource_metadata,
+                finding_type=FindingType.DesignGap,
                 req_id="test",
                 rating = Severity.Critical,
                 config_id =Tools.get_config_id(kms, "tags", kms.key),
@@ -69,6 +70,8 @@ class KeyInspector(Blueprint):
         else:
 
             finding = Finding(
+                resource=tags,
+                resource_metadata=resource_metadata,
                 finding_type=FindingType.Kudos,
                 desc = "By adding this tag you have made it easier to maintain a proper asset inventory",
                 rating = WellDoneRating.Good
@@ -97,6 +100,7 @@ class KeyInspector(Blueprint):
 
         if deletion_window > max_retention_days:
             finding = Finding(
+                resource=kms.key,
                 resource_metadata=resource_metadata,
                 finding_type=FindingType.DesignGap,
                 config_id=Tools.get_config_id(kms, "pending_window_in_days", kms.key),
