@@ -1,1 +1,1 @@
-oak9-tython==1.0.6b9
+oak9-tython==1.0.6
