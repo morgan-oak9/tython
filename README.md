@@ -61,31 +61,19 @@ pip install -r requirements.txt
 ### my_first_blueprint.py
 This is our templated blueprint file and where the power of Tython will really begin to shine! Continue on to Step 3 to get started writing your first Tython blueprint. Be sure to read through the comments and examples listed in the file for some blueprint-writing hints.
 
-## Step 3: Write a validation rule
-
+## Step 3: Write a validation rule for your architecture
 For a real-world example of a security blueprint, check out our fully functional [hello_world.py](https://github.com/oak9io/tython/blob/main/templates/python/hello_world.py)!
 
-TODO: Define and describe each major concept to writing blueprints:
-* validate() method
-* traversing models & namespace imports
-* capability id? \ requirement id? (Seems to be required for remediation today. This should be part of a larger discussion)
-* resource_metadata
-* preferred_values
-* config_id
-* severity
-* findings and returning them
-* what else?
-
-Note: Understanding how to write blueprints is a Domain Specific Language on its own and deserves a dedicated tutorial from the oak9 Security Team. Additional info about the Hello World example blueprint should go here as well 
+Follow the example to build a validation rule for an architecture or technology of your choice.
 
 ## Step 4: Sign up for oak9 and create a project 
 
-Now that we've written some security rules, we can test them against cloud infrastructure. Behind the scenes, Tython uses oak9's backend to scan cloud resources and prepare them for analysis. Before we can supply our fresh security blueprint with cloud infrastructure data, we need to sign up for a free Community Edition license of oak9 at [oak9.io](https://oak9.io). After finishing the sign-up process, you can create an oak9 project with a code repository integration. oak9 has many other project types, but the Tython Beta support is limited to projects with code repository integrations. Other types may work, they may not; we'd love your feedback if you try other project types! For help getting started with oak9 and projects, visit these documentation resources:
+Now that we've defined the blueprint that will validate specific architectural properties, we can test them against cloud architectures that are defined in IaC languages or deployed in the major cloud service providers.  To use this beta version tython requires a free Community Edition account for the oak9 platform at [oak9.io](https://oak9.io). After finishing the sign-up process, you can create an oak9 project with a code repository integration. oak9 has many other project types, but the Tython Beta support is limited to projects with code repository integrations. For help getting started with oak9 and projects, visit these documentation resources:
 
 * [https://docs.oak9.io/oak9/guides/creating-your-first-project](https://docs.oak9.io/oak9/guides/creating-your-first-project)
 * [https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github](https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github)
 
-Feel free to use your own Infrastructure as Code, but to get started with some example resources, oak9 provides several "insecure by design" Terraform repositories called "Terraoak" that we recommend forking. Please note that the Tython Beta is limited to 200 cloud resources if you do decide to use your own IaC. Additionally, oak9 only supports AWS, Azure, and GCP [Terraform](https://www.terraform.io/) as well as [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
+Feel free to use your own Infrastructure as Code, but to get started with some example resources, oak9 provides several "insecure by design" Terraform repositories called "Terraoak" that we recommend forking. Please note that the Tython Beta is limited to 200 cloud resources if you do decide to use your own IaC. Additionally, oak9 only supports AWS, Azure, and GCP [Terraform](https://www.terraform.io/), [AWS CloudFormation](https://aws.amazon.com/cloudformation/) and Kubernetes Manifests.
 
 ## Step 4a(optional): Fork one of the Terraoak repositories
 Try forking one of our Terraoak IaC repositories for some sample cloud resources for your blueprints:
