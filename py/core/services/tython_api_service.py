@@ -92,13 +92,13 @@ class TythonApiService:
                 violation = finding.to_violation()
                 design_gaps.append(
                     {
-                        "capabilityId": f"{config.org_id}.{capability_number}",
-                        "capabilityName": finding.desc,
+                        "capabilityId": finding.req_id if finding.req_id else f"{config.org_id}.{capability_number}",
+                        "capabilityName": finding.req_name if finding.req_name else finding.desc,
                         "source": "",
                         "resourceName": finding.resource_metadata.resource_name,
                         "resourceId": finding.resource_metadata.resource_id,
                         "resourceType": finding.resource_metadata.resource_type,
-                        "resourceGap": "",
+                        "resourceGap": finding.desc,
                         "resourceImpact": "",
                         "violations": [violation.__json__()],
                         "oak9Guidance": "",
