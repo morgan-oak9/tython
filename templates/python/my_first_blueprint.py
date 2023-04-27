@@ -178,12 +178,17 @@ class MyFirstBlueprint(Blueprint):
         # a caller method that will run all specified validation functions.
         # This step uses the find_by_resource method from our SDK to populate the
         # relevant proto model with data from your cloud infrastructure
-        # --------------------------------------------------------------------- 
-        resources = self.find_by_resource(KMS)
+        # ---------------------------------------------------------------------  
+        try:
 
-        findings = set()
+            resources = self.find_by_resource(KMS)
 
-        for resource, resource_metadata in resources:
-            findings.add(self.my_first_validation(resource, resource_metadata))
+            findings = set()
+
+            for resource, resource_metadata in resources:
+                findings.add(self.my_first_validation(resource, resource_metadata))
+
+        except Exception as e:
+            print(f"Error executing validation: {e}")
 
         return findings

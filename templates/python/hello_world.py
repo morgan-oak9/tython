@@ -119,13 +119,16 @@ class KeyInspector(Blueprint):
     # Validation Caller
     # ---------------------------------------------------------------------
     def validate(self) -> Set[Finding]:
+        try:
+            resources = self.find_by_resource(KMS)
 
-        resources = self.find_by_resource(KMS)
+            findings = set()
 
-        findings = set()
-
-        for resource, resource_metadata in resources:
-            findings.add(self.validate_key_tagging(resource, resource_metadata))
-            findings.add(self.validate_deletion_window(resource, resource_metadata))
-
+            for resource, resource_metadata in resources:
+                findings.add(self.validate_key_tagging(resource, resource_metadata))
+                findings.add(self.validate_deletion_window(resource, resource_metadata))
+        
+        except Exception as e:
+            print(f"Error executing validation: {e}")
+        
         return findings
