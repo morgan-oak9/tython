@@ -3,6 +3,9 @@ Security as Code Framework
 
 Tython is an open source security as code framework from [oak9](https://www.oak9.io) that lets you define security reference architectures as code (blueprints) in the language of your choice. Internally, oak9 uses this same framework to codify security blueprints that adhere to industry standard guidance from NIST, Cloud Security Alliance (CSA), AWS, Azure, GCP and others. This open source project enables developers and security professionals to build their own blueprints and contribute them back to the community.
 
+## Feedback
+If you are interested in participating feel free to create a GitHub issue or open a pull request. For support, questions, or to simply say "Hi!", join us on Discord: https://discord.gg/YHjfEfYYjz or reach out to tython@oak9.io.
+
 # Getting Started
 If you're interested in trying your hand at writing some security blueprints of your own and testing out the Tython framework, follow along with our Python example below. 
 
@@ -68,7 +71,7 @@ Follow the example to build a validation rule for an architecture or technology 
 
 ## Step 4: Sign up for oak9 and create a project 
 
-Now that we've defined the blueprint that will validate specific architectural properties, we can test them against cloud architectures that are defined in IaC languages or deployed in the major cloud service providers.  To use this beta version tython requires a free Community Edition account for the oak9 platform at [oak9.io](https://oak9.io). After finishing the sign-up process, you can create an oak9 project with a code repository integration. oak9 has many other project types, but the Tython Beta support is limited to projects with code repository integrations. For help getting started with oak9 and projects, visit these documentation resources:
+Now that we've defined the blueprint that will validate specific architectural properties, we can test them against cloud architectures that are defined in IaC languages or deployed in the major cloud service providers. To use this beta version, Tython requires a free Community Edition account for the oak9 platform at [oak9.io](https://oak9.io). After finishing the sign-up process, you can create an oak9 project with a code repository integration. oak9 has many other project types, but the Tython Beta support is limited to projects with code repository integrations. For help getting started with oak9 and projects, visit these documentation resources:
 
 * [https://docs.oak9.io/oak9/guides/creating-your-first-project](https://docs.oak9.io/oak9/guides/creating-your-first-project)
 * [https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github](https://docs.oak9.io/oak9/fundamentals/integrations/code-repositories/set-up-github)
@@ -111,7 +114,16 @@ The `test` command will pull in the cloud resources defined in your specified oa
 
 The `apply` command acts very similarly to `test`, but also checks your IaC against oak9's blueprint library. The findings from both your own blueprint and oak9's can be viewed in the oak9 console when using the `apply` command.
 
+![alt text](/templates/screenshots/terminal_output.png "Terminal output from apply command")
+
 ## Step 7: Results in the oak9 console and remediation steps
+
+To view your blueprint's validation results side-by-side with the oak9 blueprints, sign in to the oak9 console. You should also check your code repository for Pull Requests opened by oak9 to remediate your IaC.
+
+![alt text](/templates/screenshots/console_output.png "View from oak9 console")
+
+![alt text](/templates/screenshots/remediation.png "Remediation Pull Requests")
+
 
 ## Guiding Principles
 
@@ -128,6 +140,3 @@ The `apply` command acts very similarly to `test`, but also checks your IaC agai
 ## Background
 
 Tython not only happens to be the birthplace of the Je'Daii Order (a precursor to the Jedi), it also is a portmanteau for the first two programming languages that we have built support for - Typescript and Python.
-
-## Feedback
-We welcome contributions! If you are interested in participating feel free to create a GitHub issue or open a pull request. For support, questions, or to simply say "Hi!", join us on Discord: https://discord.gg/YHjfEfYYjz or reach out to tython@oak9.io.
